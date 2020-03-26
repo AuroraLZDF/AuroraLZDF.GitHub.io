@@ -1,0 +1,1951 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <title>【转】shell-文本处理利器 awk | Aurora-龙振巅峰的博客</title>
+  <meta name="keywords" content=" Linux , Shell ">
+  <meta name="description" content="【转】shell-文本处理利器 awk | Aurora-龙振巅峰的博客">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="keywords" content="后端，PHP，Golang, Vuejs, JS，JQUERY，开发者，程序猿，编程，代码，开源，IT网站，Developer，Programmer，Coder，Geek，Html，Css，用户体验">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Aurora-龙振巅峰的博客">
+<meta property="og:url" content="https://auroralzdf.gitee.io/404.html">
+<meta property="og:site_name" content="Aurora-龙振巅峰的博客">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-03-26T02:29:38.795Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Aurora-龙振巅峰的博客">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1"></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+<script src="/js/iconfont.js?v=1.0.1"></script>
+
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value>
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg">
+</a>
+<div class="author">
+    <span>Aurora-龙振巅峰</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="rss" href="/atom.xml" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-rss"/>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="github" href="https://github.com/AuroraLZDF" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"/>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+    
+        
+        <a title="email" href="mailto:786532832@qq.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"/>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="qq" href="http://wpa.qq.com/msgrd?v=3&uin=786532832&site=qq&menu=yes" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-qq"/>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="kugou" href="https://www.kugou.com/" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-kugou"/>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(87)</small></div></li>
+    
+        
+            
+            <li><div data-rel="Deepin">Deepin<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Vue.js">Vue.js<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Python">Python<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Hexo">Hexo<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="JS">JS<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Linux">Linux<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Docker">Docker<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="数据结构">数据结构<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="git">git<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Golang">Golang<small>(18)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Laravel">Laravel<small>(7)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="MySQL">MySQL<small>(5)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Nginx">Nginx<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="PHP">PHP<small>(23)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="PHP、PHP标准规范">PHP、PHP标准规范<small>(7)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="PHP、笔记">PHP、笔记<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="PHP，笔记">PHP，笔记<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Shell">Shell<small>(8)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div><a class="about  hasFriend  site_url" href="/about">关于</a><a style="width: 50%" class="friends">友链</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="87">
+<input type="hidden" id="yelog_site_word_count" value="193.2k">
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode === 13){return false;}">
+        <input id="local-search-input" class="search" type="text" placeholder="Search...">
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none">
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <li class="article-tag-list-item">
+        <a class="color1">Linux</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">系统</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">Vue.js</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">前端框架</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">Python</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">Hexo</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">Ajax、笔记</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">js</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">Docker</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">数据结构</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">数学</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">git</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">Golang</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">PHP</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">Laravel</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">MySQL</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">Nginx</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">运维</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">负载均衡</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">PHP、笔记</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">Session</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">webuploader</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">运算符</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">面试总结</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">HTTP</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">PHP，面试汇总</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">Shell</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        <a class="Deepin " href="/2018/11/01/Chrome插件开发全攻略/" data-tag="Linux,系统" data-author>
+            <span class="post-title" title="【转】Chrome插件开发全攻略">【转】Chrome插件开发全攻略</span>
+            <span class="post-date" title="2018-11-01 09:44:31">2018/11/01</span>
+        </a>
+        
+        <a class="Deepin " href="/2017/09/22/Deepin磁盘空间不足/" data-tag="Linux,系统" data-author>
+            <span class="post-title" title="Deepin磁盘空间不足">Deepin磁盘空间不足</span>
+            <span class="post-date" title="2017-09-22 22:52:52">2017/09/22</span>
+        </a>
+        
+        <a class="Vue.js " href="/2017/04/11/Vue.js——60分钟快速入门/" data-tag="Vue.js,前端框架" data-author>
+            <span class="post-title" title="【转】Vue.js——60分钟快速入门">【转】Vue.js——60分钟快速入门</span>
+            <span class="post-date" title="2017-04-11 15:33:11">2017/04/11</span>
+        </a>
+        
+        <a class="Python " href="/2018/01/04/Python数据结构/" data-tag="Python" data-author>
+            <span class="post-title" title="数据结构">数据结构</span>
+            <span class="post-date" title="2018-01-04 00:00:00">2018/01/04</span>
+        </a>
+        
+        <a class="Hexo " href="/2017/04/02/hello-world/" data-tag="Hexo" data-author>
+            <span class="post-title" title="Hello World">Hello World</span>
+            <span class="post-date" title="2017-04-02 11:56:43">2017/04/02</span>
+        </a>
+        
+        <a class="JS " href="/2019/02/21/jQuery-ajax-serialize-方法/" data-tag="Ajax、笔记" data-author>
+            <span class="post-title" title="jQuery-ajax-serialize()方法">jQuery-ajax-serialize()方法</span>
+            <span class="post-date" title="2019-02-21 15:44:07">2019/02/21</span>
+        </a>
+        
+        <a class="Linux " href="/2017/05/22/ubuntu16.04下解决Adobe Flash不是最新版问题/" data-tag="Linux" data-author>
+            <span class="post-title" title="ubuntu16.04下解决Adobe Flash不是最新版问题">ubuntu16.04下解决Adobe Flash不是最新版问题</span>
+            <span class="post-date" title="2017-05-22 16:02:11">2017/05/22</span>
+        </a>
+        
+        <a class="Hexo " href="/2017/03/02/使用Hexo + Github Pages搭建个人独立博客/" data-tag="Hexo" data-author>
+            <span class="post-title" title="使用Hexo + Github Pages搭建个人独立博客">使用Hexo + Github Pages搭建个人独立博客</span>
+            <span class="post-date" title="2017-03-02 16:40:41">2017/03/02</span>
+        </a>
+        
+        <a class="Vue.js " href="/2017/05/02/入门Webpack，看这篇就够了/" data-tag="Vue.js,js" data-author>
+            <span class="post-title" title="【转】入门Webpack，看这篇就够了">【转】入门Webpack，看这篇就够了</span>
+            <span class="post-date" title="2017-05-02 10:19:03">2017/05/02</span>
+        </a>
+        
+        <a class="Docker " href="/2018/03/01/学习笔记：Docker简介和安装/" data-tag="Docker" data-author>
+            <span class="post-title" title="【转】学习笔记：Docker简介和安装">【转】学习笔记：Docker简介和安装</span>
+            <span class="post-date" title="2018-03-01 09:54:31">2018/03/01</span>
+        </a>
+        
+        <a class="数据结构 " href="/2019/06/06/数据结构-数学知识复习/" data-tag="数据结构,数学" data-author>
+            <span class="post-title" title="数据结构-数学知识复习">数据结构-数学知识复习</span>
+            <span class="post-date" title="2019-06-06 11:19:08">2019/06/06</span>
+        </a>
+        
+        <a class="git " href="/2017/09/23/线上服务器搭建GIT服务器，实现本地代码上传并同步到服务器/" data-tag="Linux,git" data-author>
+            <span class="post-title" title="线上服务器搭建GIT服务器，实现本地代码上传并同步到服务器">线上服务器搭建GIT服务器，实现本地代码上传并同步到服务器</span>
+            <span class="post-date" title="2017-09-23 00:00:00">2017/09/23</span>
+        </a>
+        
+        <a class="Golang " href="/2019/03/01/golang/Gin文档中文翻译/" data-tag="Golang" data-author>
+            <span class="post-title" title="【转】Gin文档中文翻译">【转】Gin文档中文翻译</span>
+            <span class="post-date" title="2019-03-01 16:02:42">2019/03/01</span>
+        </a>
+        
+        <a class="Golang " href="/2019/01/14/golang/Golang-flag包实现命令行参数的解析/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-flag包实现命令行参数的解析">Golang-flag包实现命令行参数的解析</span>
+            <span class="post-date" title="2019-01-14 16:25:58">2019/01/14</span>
+        </a>
+        
+        <a class="Golang " href="/2019/01/02/golang/Golang-fmt格式化I-O/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-fmt格式化I/O">Golang-fmt格式化I/O</span>
+            <span class="post-date" title="2019-01-02 14:53:51">2019/01/02</span>
+        </a>
+        
+        <a class="Golang " href="/2019/01/16/golang/Golang-bufio实现有缓冲的I-O/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-bufio实现有缓冲的I/O">Golang-bufio实现有缓冲的I/O</span>
+            <span class="post-date" title="2019-01-16 14:09:06">2019/01/16</span>
+        </a>
+        
+        <a class="Golang " href="/2019/01/18/golang/Golang-json、xml、gob数据编码解码（格式化）/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-json、xml、gob数据编码解码">Golang-json、xml、gob数据编码解码</span>
+            <span class="post-date" title="2019-01-18 10:27:34">2019/01/18</span>
+        </a>
+        
+        <a class="Golang " href="/2019/01/18/golang/Golang-json包实现了json对象的编-解码/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-json包实现了json对象的编/解码">Golang-json包实现了json对象的编/解码</span>
+            <span class="post-date" title="2019-01-18 10:34:55">2019/01/18</span>
+        </a>
+        
+        <a class="Golang " href="/2018/12/03/golang/Golang-regexp包实现了正则表达式搜索/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-regexp包实现了正则表达式搜索">Golang-regexp包实现了正则表达式搜索</span>
+            <span class="post-date" title="2018-12-03 13:55:44">2018/12/03</span>
+        </a>
+        
+        <a class="Golang " href="/2018/11/23/golang/Golang-sort排序/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-sort排序">Golang-sort排序</span>
+            <span class="post-date" title="2018-11-23 14:17:31">2018/11/23</span>
+        </a>
+        
+        <a class="Golang " href="/2018/11/14/golang/Golang-strconv基本数据类型和其字符串表示的相互转换/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-strconv基本数据类型和其字符串表示的相互转换">Golang-strconv基本数据类型和其字符串表示的相互转换</span>
+            <span class="post-date" title="2018-11-14 14:37:37">2018/11/14</span>
+        </a>
+        
+        <a class="Golang " href="/2018/11/20/golang/Golang-switch结构/" data-tag="Golang" data-author>
+            <span class="post-title" title="【转】Golang-switch结构">【转】Golang-switch结构</span>
+            <span class="post-date" title="2018-11-20 14:04:30">2018/11/20</span>
+        </a>
+        
+        <a class="Golang " href="/2018/11/09/golang/Golang-位左移的应用/" data-tag="Golang" data-author>
+            <span class="post-title" title="『记』Golang-位左移的应用">『记』Golang-位左移的应用</span>
+            <span class="post-date" title="2018-11-09 15:31:25">2018/11/09</span>
+        </a>
+        
+        <a class="Golang " href="/2018/11/12/golang/Golang-strings操作字符的简单函数/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-strings操作字符的简单函数">Golang-strings操作字符的简单函数</span>
+            <span class="post-date" title="2018-11-12 14:40:23">2018/11/12</span>
+        </a>
+        
+        <a class="Golang " href="/2018/11/15/golang/Golang-时间和日期time/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-时间和日期time">Golang-时间和日期time</span>
+            <span class="post-date" title="2018-11-15 10:33:06">2018/11/15</span>
+        </a>
+        
+        <a class="Golang " href="/2019/01/02/golang/Golang-读写数据一/" data-tag="Golang" data-author>
+            <span class="post-title" title="【转】Golang-读写数据一">【转】Golang-读写数据一</span>
+            <span class="post-date" title="2019-01-02 14:44:10">2019/01/02</span>
+        </a>
+        
+        <a class="Golang " href="/2019/01/14/golang/Golang-读写数据二/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-读写数据二">Golang-读写数据二</span>
+            <span class="post-date" title="2019-01-14 15:08:34">2019/01/14</span>
+        </a>
+        
+        <a class="Golang " href="/2018/11/21/golang/Golang-通过内存缓存来提升性能/" data-tag="Golang" data-author>
+            <span class="post-title" title="【转】Golang-通过内存缓存来提升性能">【转】Golang-通过内存缓存来提升性能</span>
+            <span class="post-date" title="2018-11-21 15:45:11">2018/11/21</span>
+        </a>
+        
+        <a class="Golang " href="/2019/01/23/golang/Golang-错误处理与测试/" data-tag="Golang" data-author>
+            <span class="post-title" title="【转】Golang-错误处理与测试">【转】Golang-错误处理与测试</span>
+            <span class="post-date" title="2019-01-23 14:16:22">2019/01/23</span>
+        </a>
+        
+        <a class="Golang " href="/2018/11/12/golang/Golang的单引号、双引号与反引号/" data-tag="Golang" data-author>
+            <span class="post-title" title="【转】Golang的单引号、双引号与反引号">【转】Golang的单引号、双引号与反引号</span>
+            <span class="post-date" title="2018-11-12 16:10:36">2018/11/12</span>
+        </a>
+        
+        <a class="Laravel " href="/2017/04/02/laravel/Laravel学习之旅——Blade 模板引擎/" data-tag="PHP,Laravel" data-author>
+            <span class="post-title" title="【转】Laravel学子之旅——Blade 模板引擎">【转】Laravel学子之旅——Blade 模板引擎</span>
+            <span class="post-date" title="2017-04-02 11:56:43">2017/04/02</span>
+        </a>
+        
+        <a class="Laravel " href="/2017/04/02/laravel/Laravel学习之旅——HTTP 中间件/" data-tag="PHP,Laravel" data-author>
+            <span class="post-title" title="【转】Laravel学习之旅——HTTP 中间件">【转】Laravel学习之旅——HTTP 中间件</span>
+            <span class="post-date" title="2017-04-02 09:45:46">2017/04/02</span>
+        </a>
+        
+        <a class="Laravel " href="/2017/04/01/laravel/Laravel学习之旅——HTTP 响应/" data-tag="PHP,Laravel" data-author>
+            <span class="post-title" title="【转】Laravel学习之旅——HTTP 响应">【转】Laravel学习之旅——HTTP 响应</span>
+            <span class="post-date" title="2017-04-01 16:45:15">2017/04/01</span>
+        </a>
+        
+        <a class="Laravel " href="/2017/04/01/laravel/Laravel学习之旅——HTTP 控制器/" data-tag="PHP,Laravel" data-author>
+            <span class="post-title" title="【转】Laravel学习之旅——HTTP 控制器">【转】Laravel学习之旅——HTTP 控制器</span>
+            <span class="post-date" title="2017-04-01 20:11:25">2017/04/01</span>
+        </a>
+        
+        <a class="Laravel " href="/2017/04/01/laravel/Laravel学习之旅——HTTP 请求/" data-tag="PHP,Laravel" data-author>
+            <span class="post-title" title="【转】Laravel学习之旅——HTTP 请求">【转】Laravel学习之旅——HTTP 请求</span>
+            <span class="post-date" title="2017-04-01 13:48:00">2017/04/01</span>
+        </a>
+        
+        <a class="Laravel " href="/2017/04/01/laravel/Laravel学习之旅——基础篇/" data-tag="PHP,Laravel" data-author>
+            <span class="post-title" title="【转】Laravel学习之旅——基础篇（安装、路由、CSRF、404）">【转】Laravel学习之旅——基础篇（安装、路由、CSRF、404）</span>
+            <span class="post-date" title="2017-04-01 09:31:25">2017/04/01</span>
+        </a>
+        
+        <a class="MySQL " href="/2017/10/18/mysql/linux mysql自动备份数据库/" data-tag="Linux,MySQL" data-author>
+            <span class="post-title" title="linux(deepin) 下mysql自动备份">linux(deepin) 下mysql自动备份</span>
+            <span class="post-date" title="2017-10-18 16:02:11">2017/10/18</span>
+        </a>
+        
+        <a class="Laravel " href="/2017/04/01/laravel/Laravel学习之旅——视图/" data-tag="PHP,Laravel" data-author>
+            <span class="post-title" title="【转】Laravel学习之旅——视图">【转】Laravel学习之旅——视图</span>
+            <span class="post-date" title="2017-04-01 21:00:12">2017/04/01</span>
+        </a>
+        
+        <a class="MySQL " href="/2017/11/13/mysql/mysql联合索引/" data-tag="MySQL" data-author>
+            <span class="post-title" title="mysql联合索引">mysql联合索引</span>
+            <span class="post-date" title="2017-11-13 10:25:12">2017/11/13</span>
+        </a>
+        
+        <a class="MySQL " href="/2017/11/13/mysql/数据库长连接与短连接的区别/" data-tag="MySQL" data-author>
+            <span class="post-title" title="【转】数据库长连接与短连接的区别">【转】数据库长连接与短连接的区别</span>
+            <span class="post-date" title="2017-11-13 08:59:12">2017/11/13</span>
+        </a>
+        
+        <a class="MySQL " href="/2017/04/02/mysql/配置phpMyAdmin连接多台mysql服务器/" data-tag="MySQL" data-author>
+            <span class="post-title" title="配置phpmyadmin使登录时可填写IP管理多台MySQL 连接多个数据库 自动登录">配置phpmyadmin使登录时可填写IP管理多台MySQL 连接多个数据库 自动登录</span>
+            <span class="post-date" title="2017-04-02 13:24:12">2017/04/02</span>
+        </a>
+        
+        <a class="MySQL " href="/2017/03/23/mysql/详解MySQL大表优化方案/" data-tag="MySQL" data-author>
+            <span class="post-title" title="【转】详解MySQL大表优化方案">【转】详解MySQL大表优化方案</span>
+            <span class="post-date" title="2017-03-23 19:00:22">2017/03/23</span>
+        </a>
+        
+        <a class="Nginx " href="/2018/10/30/nginx/NGINX宏观手记/" data-tag="Nginx,运维" data-author>
+            <span class="post-title" title="【转】NGINX宏观手记">【转】NGINX宏观手记</span>
+            <span class="post-date" title="2018-10-30 13:46:01">2018/10/30</span>
+        </a>
+        
+        <a class="Nginx " href="/2019/04/24/nginx/正向代理与反向代理/" data-tag="Nginx,负载均衡" data-author>
+            <span class="post-title" title="【转】正向代理与反向代理">【转】正向代理与反向代理</span>
+            <span class="post-date" title="2019-04-24 17:26:54">2019/04/24</span>
+        </a>
+        
+        <a class="PHP " href="/2017/11/15/php/CGI、FastCgi与PHP-fpm之间是个什么样的关系/" data-tag="Linux,PHP" data-author>
+            <span class="post-title" title="【转】CGI、FastCgi与PHP-fpm之间是个什么样的关系">【转】CGI、FastCgi与PHP-fpm之间是个什么样的关系</span>
+            <span class="post-date" title="2017-11-15 15:09:30">2017/11/15</span>
+        </a>
+        
+        <a class="PHP " href="/2017/02/22/php/PHP header() 函数/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP header() 函数">PHP header() 函数</span>
+            <span class="post-date" title="2017-02-22 16:05:11">2017/02/22</span>
+        </a>
+        
+        <a class="PHP、PHP标准规范 " href="/2019/02/18/php/PHP-PSR-1基础编码规范/" data-tag="PHP" data-author>
+            <span class="post-title" title="【转】PHP-PSR-1基础编码规范">【转】PHP-PSR-1基础编码规范</span>
+            <span class="post-date" title="2019-02-18 14:36:56">2019/02/18</span>
+        </a>
+        
+        <a class="PHP、PHP标准规范 " href="/2019/02/18/php/PHP-PSR-2编码风格规范/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP-PSR-2编码风格规范">PHP-PSR-2编码风格规范</span>
+            <span class="post-date" title="2019-02-18 15:03:50">2019/02/18</span>
+        </a>
+        
+        <a class="PHP、PHP标准规范 " href="/2019/02/19/php/PHP-PSR-3日志接口规范/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP-PSR-3日志接口规范">PHP-PSR-3日志接口规范</span>
+            <span class="post-date" title="2019-02-19 16:50:46">2019/02/19</span>
+        </a>
+        
+        <a class="PHP、PHP标准规范 " href="/2019/02/20/php/PHP-PSR-4自动加载规范/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP-PSR-4自动加载规范">PHP-PSR-4自动加载规范</span>
+            <span class="post-date" title="2019-02-20 10:24:40">2019/02/20</span>
+        </a>
+        
+        <a class="PHP、PHP标准规范 " href="/2019/02/20/php/PHP-PSR-6缓存接口规范/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP-PSR-6缓存接口规范">PHP-PSR-6缓存接口规范</span>
+            <span class="post-date" title="2019-02-20 11:04:19">2019/02/20</span>
+        </a>
+        
+        <a class="PHP、笔记 " href="/2019/02/21/php/PHP-header-生成文件/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP-header()生成文件">PHP-header()生成文件</span>
+            <span class="post-date" title="2019-02-21 15:12:04">2019/02/21</span>
+        </a>
+        
+        <a class="PHP，笔记 " href="/2019/04/15/php/PHP-to-xml/" data-tag="Linux,PHP" data-author>
+            <span class="post-title" title="PHP-to-xml">PHP-to-xml</span>
+            <span class="post-date" title="2019-04-15 17:43:02">2019/04/15</span>
+        </a>
+        
+        <a class="PHP、PHP标准规范 " href="/2019/02/20/php/PHP-PSR-7HTTP消息接口规范/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP-PSR-7HTTP消息接口规范">PHP-PSR-7HTTP消息接口规范</span>
+            <span class="post-date" title="2019-02-20 11:39:31">2019/02/20</span>
+        </a>
+        
+        <a class="PHP、笔记 " href="/2019/02/21/php/PHP-取整函数ceil，floor，round，intval函数的区别/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP-取整函数ceil，floor，round，intval函数的区别">PHP-取整函数ceil，floor，round，intval函数的区别</span>
+            <span class="post-date" title="2019-02-21 14:44:29">2019/02/21</span>
+        </a>
+        
+        <a class="PHP，笔记 " href="/2019/04/15/php/PHP-子类重写父类属性问题/" data-tag="Linux,PHP" data-author>
+            <span class="post-title" title="PHP-子类重写父类属性问题">PHP-子类重写父类属性问题</span>
+            <span class="post-date" title="2019-04-15 17:26:07">2019/04/15</span>
+        </a>
+        
+        <a class="PHP " href="/2019/02/21/php/PHP-数组根据某键值，把相同键值的合并最终生成一个新的二维数组/" data-tag="PHP、笔记" data-author>
+            <span class="post-title" title="PHP-数组根据某键值，把相同键值的合并最终生成一个新的二维数组.md">PHP-数组根据某键值，把相同键值的合并最终生成一个新的二维数组.md</span>
+            <span class="post-date" title="2019-02-21 15:28:07">2019/02/21</span>
+        </a>
+        
+        <a class="PHP、PHP标准规范 " href="/2019/02/12/php/PHP-自动加载规范/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP-自动加载规范">PHP-自动加载规范</span>
+            <span class="post-date" title="2019-02-12 15:45:33">2019/02/12</span>
+        </a>
+        
+        <a class="PHP " href="/2019/02/21/php/PHP-设计模式/" data-tag="PHP、笔记" data-author>
+            <span class="post-title" title="PHP-设计模式（一）">PHP-设计模式（一）</span>
+            <span class="post-date" title="2019-02-21 16:38:06">2019/02/21</span>
+        </a>
+        
+        <a class="PHP " href="/2018/10/25/php/PHP中被忽略的性能优化利器：生成器-md/" data-tag="PHP" data-author>
+            <span class="post-title" title="【转】PHP中被忽略的性能优化利器：生成器.md">【转】PHP中被忽略的性能优化利器：生成器.md</span>
+            <span class="post-date" title="2018-10-25 15:32:51">2018/10/25</span>
+        </a>
+        
+        <a class="PHP " href="/2017/11/28/php/PHP匿名函数、闭包函数/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP匿名函数、闭包函数">PHP匿名函数、闭包函数</span>
+            <span class="post-date" title="2017-11-28 00:00:00">2017/11/28</span>
+        </a>
+        
+        <a class="PHP " href="/2018/10/23/php/PHP实现异步调用方法/" data-tag="PHP" data-author>
+            <span class="post-title" title="【转】PHP实现异步调用方法">【转】PHP实现异步调用方法</span>
+            <span class="post-date" title="2018-10-23 17:49:19">2018/10/23</span>
+        </a>
+        
+        <a class="PHP " href="/2018/11/01/php/PHP手册-上下文（Context）选项和参数/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP手册-上下文（Context）选项和参数">PHP手册-上下文（Context）选项和参数</span>
+            <span class="post-date" title="2018-11-01 14:46:10">2018/11/01</span>
+        </a>
+        
+        <a class="PHP " href="/2018/11/04/php/PHP手册-支持的协议和封装协议/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP手册-支持的协议和封装协议">PHP手册-支持的协议和封装协议</span>
+            <span class="post-date" title="2018-11-04 14:43:48">2018/11/04</span>
+        </a>
+        
+        <a class="PHP " href="/2018/10/26/php/PHP手册-预定义变量/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP手册-预定义变量">PHP手册-预定义变量</span>
+            <span class="post-date" title="2018-10-26 14:40:26">2018/10/26</span>
+        </a>
+        
+        <a class="PHP " href="/2018/10/31/php/PHP手册-预定义异常/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP手册-预定义异常">PHP手册-预定义异常</span>
+            <span class="post-date" title="2018-10-31 11:10:41">2018/10/31</span>
+        </a>
+        
+        <a class="PHP " href="/2018/10/31/php/PHP手册-预定义接口/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP手册-预定义接口">PHP手册-预定义接口</span>
+            <span class="post-date" title="2018-10-31 14:17:59">2018/10/31</span>
+        </a>
+        
+        <a class="数据结构 " href="/2017/03/14/php/PHP的冒泡算法/" data-tag="数据结构,PHP" data-author>
+            <span class="post-title" title="PHP的冒泡算法">PHP的冒泡算法</span>
+            <span class="post-date" title="2017-03-14 14:28:30">2017/03/14</span>
+        </a>
+        
+        <a class="PHP " href="/2017/11/28/php/PHP类的自动加载 /" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP类的自动加载">PHP类的自动加载</span>
+            <span class="post-date" title="2017-11-28 00:00:00">2017/11/28</span>
+        </a>
+        
+        <a class="PHP " href="/2018/10/23/php/PHP递归删除数组中值为空的元素/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP递归删除数组中值为空的元素.md">PHP递归删除数组中值为空的元素.md</span>
+            <span class="post-date" title="2018-10-23 17:47:06">2018/10/23</span>
+        </a>
+        
+        <a class="PHP " href="/2017/03/14/php/PHP遍历某个文件夹下子目录和文件/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP遍历文件夹下子目录和文件">PHP遍历文件夹下子目录和文件</span>
+            <span class="post-date" title="2017-03-14 10:58:04">2017/03/14</span>
+        </a>
+        
+        <a class="PHP " href="/2017/11/28/php/PHP魔术常量/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP魔术常量">PHP魔术常量</span>
+            <span class="post-date" title="2017-11-28 00:00:00">2017/11/28</span>
+        </a>
+        
+        <a class="PHP " href="/2017/11/28/php/Trait /" data-tag="PHP" data-author>
+            <span class="post-title" title="Trait">Trait</span>
+            <span class="post-date" title="2017-11-28 00:00:00">2017/11/28</span>
+        </a>
+        
+        <a class="PHP " href="/2017/11/13/php/session原理，如何修改session生命周期/" data-tag="PHP,Session" data-author>
+            <span class="post-title" title="【转】session原理，如何修改session生命周期">【转】session原理，如何修改session生命周期</span>
+            <span class="post-date" title="2017-11-13 14:50:39">2017/11/13</span>
+        </a>
+        
+        <a class="PHP " href="/2017/05/08/php/webuploder+PHP实现大文件断点（切片）续传/" data-tag="js,PHP,webuploader" data-author>
+            <span class="post-title" title="webuploder+PHP实现大文件断点（切片）续传">webuploder+PHP实现大文件断点（切片）续传</span>
+            <span class="post-date" title="2017-05-08 11:18:07">2017/05/08</span>
+        </a>
+        
+        <a class="PHP " href="/2018/10/29/php/一道看似简单的面试题/" data-tag="PHP,运算符" data-author>
+            <span class="post-title" title="【转】一道看似简单的面试题">【转】一道看似简单的面试题</span>
+            <span class="post-date" title="2018-10-29 15:07:31">2018/10/29</span>
+        </a>
+        
+        <a class="PHP " href="/2017/11/13/php/从用户浏览器输入url到用户看到页面结果的过程，发生了什么事情？/" data-tag="面试总结" data-author>
+            <span class="post-title" title="【转】从用户浏览器输入url到用户看到页面结果的过程，发生了什么事情？">【转】从用户浏览器输入url到用户看到页面结果的过程，发生了什么事情？</span>
+            <span class="post-date" title="2017-11-13 14:50:39">2017/11/13</span>
+        </a>
+        
+        <a class="PHP " href="/2017/11/15/php/各类 HTTP 返回状态代码详解/" data-tag="PHP,HTTP" data-author>
+            <span class="post-title" title="【转】各类 HTTP 返回状态代码详解">【转】各类 HTTP 返回状态代码详解</span>
+            <span class="post-date" title="2017-11-15 16:30:30">2017/11/15</span>
+        </a>
+        
+        <a class="PHP " href="/2017/05/22/php/驼峰命名法和下划线风格的互转/" data-tag="PHP，面试汇总" data-author>
+            <span class="post-title" title="【转】驼峰命名法和下划线风格的互转">【转】驼峰命名法和下划线风格的互转</span>
+            <span class="post-date" title="2017-05-22 16:05:11">2017/05/22</span>
+        </a>
+        
+        <a class="Shell " href="/2019/04/01/shell/shell-shell编程基础/" data-tag="Linux,Shell" data-author>
+            <span class="post-title" title="shell-shell编程基础">shell-shell编程基础</span>
+            <span class="post-date" title="2019-04-01 11:26:01">2019/04/01</span>
+        </a>
+        
+        <a class="Shell " href="/2019/03/29/shell/shell-初识Shell/" data-tag="Linux,Shell" data-author>
+            <span class="post-title" title="shell-初识Shell">shell-初识Shell</span>
+            <span class="post-date" title="2019-03-29 14:58:08">2019/03/29</span>
+        </a>
+        
+        <a class="Shell " href="/2019/04/16/shell/shell-基本文本处理/" data-tag="Linux,Shell" data-author>
+            <span class="post-title" title="shell-基本文本处理">shell-基本文本处理</span>
+            <span class="post-date" title="2019-04-16 10:01:05">2019/04/16</span>
+        </a>
+        
+        <a class="Shell " href="/2019/05/21/shell/shell-文件和文件系统/" data-tag="Linux,Shell" data-author>
+            <span class="post-title" title="shell-文件和文件系统">shell-文件和文件系统</span>
+            <span class="post-date" title="2019-05-21 12:22:01">2019/05/21</span>
+        </a>
+        
+        <a class="Shell " href="/2019/05/29/shell/shell-文本处理利器 awk/" data-tag="Linux,Shell" data-author>
+            <span class="post-title" title="【转】shell-文本处理利器 awk">【转】shell-文本处理利器 awk</span>
+            <span class="post-date" title="2019-05-29 13:26:35">2019/05/29</span>
+        </a>
+        
+        <a class="Shell " href="/2019/04/15/shell/shell-正则表达式/" data-tag="Linux,Shell" data-author>
+            <span class="post-title" title="shell-正则表达式">shell-正则表达式</span>
+            <span class="post-date" title="2019-04-15 11:08:05">2019/04/15</span>
+        </a>
+        
+        <a class="Shell " href="/2019/05/28/shell/shell-流编辑sed/" data-tag="Linux,Shell" data-author>
+            <span class="post-title" title="shell-流编辑sed">shell-流编辑sed</span>
+            <span class="post-date" title="2019-05-28 13:33:35">2019/05/28</span>
+        </a>
+        
+        <a class="Shell " href="/2019/04/01/shell/shell-编程的基本元素/" data-tag="Linux,Shell" data-author>
+            <span class="post-title" title="shell-编程的基本元素">shell-编程的基本元素</span>
+            <span class="post-date" title="2019-04-01 15:42:03">2019/04/01</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-shell/shell-文本处理利器 awk" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">【转】shell-文本处理利器 awk</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+                <a data-rel="Shell">Shell</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a class="color1">Linux</a>
+            
+            <a class="color1">Shell</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title="更新时间: 2020-03-26 10:29:38">2019-05-29 13:26</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>字数:6.6k</span>
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+        <span class="top-comment" title="跳转至评论区">
+            <a href="#comments">
+                评论:<span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </a>
+        </span>
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#简介"><span class="toc-text">简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#使用方法"><span class="toc-text">使用方法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#调用-awk"><span class="toc-text">调用 awk</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实例"><span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#awk内置变量"><span class="toc-text">awk内置变量</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#print和printf"><span class="toc-text">print和printf</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#awk编程"><span class="toc-text">awk编程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#变量和赋值"><span class="toc-text">变量和赋值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#条件语句"><span class="toc-text">条件语句</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#循环语句"><span class="toc-text">循环语句</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数组"><span class="toc-text">数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#重定向和管道"><span class="toc-text">重定向和管道</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#awk脚本"><span class="toc-text">awk脚本</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#模式"><span class="toc-text">模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#操作"><span class="toc-text">操作</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#awk的环境变量"><span class="toc-text">awk的环境变量</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#awk运算符"><span class="toc-text">awk运算符</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#记录和域"><span class="toc-text">记录和域</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#记录"><span class="toc-text">记录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#域"><span class="toc-text">域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#域分隔符"><span class="toc-text">域分隔符</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#gawk专用正则表达式元字符"><span class="toc-text">gawk专用正则表达式元字符</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#awk的内建函数"><span class="toc-text">awk的内建函数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串内建函数"><span class="toc-text">字符串内建函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#时间函数"><span class="toc-text">时间函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#内建数学函数"><span class="toc-text">内建数学函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#自定义函数"><span class="toc-text">自定义函数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#实例-1"><span class="toc-text">实例</span></a></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p><code>awk</code> 是一个强大的文本分析工具，相对于 <code>grep</code> 的查找，<code>sed</code> 的编辑，<code>awk</code> 在其对数据分析并生成报告时，显得尤为强大。简单来说 <code>awk</code> 就是把文件逐行的读入，以空格为默认分隔符将每行切片，切开的部分再进行各种分析处理。</p>
+<h1 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h1><pre><code class="bash">awk &#39;{pattern + action}&#39; {filenames}</code></pre>
+<p>其中 <code>pattern</code> 表示 <strong>awk</strong> 在数据中查找的内容，而 <code>action</code> 是在找到匹配内容时所执行的一系列命令。花括号（{}）不需要在程序中始终出现，但它们用于根据特定的模式对一系列指令进行分组。<code>pattern</code> 就是要表示的正则表达式，用斜杠括起来。</p>
+<p><strong>awk</strong> 语言的最基本功能是在文件或者字符串中基于指定规则浏览和抽取信息，<strong>awk</strong>抽取信息后，才能进行其他文本操作。完整的<strong>awk</strong>脚本通常用来格式化文本文件中的信息。</p>
+<p>通常，<strong>awk</strong>是以文件的一行为处理单位的。<strong>awk</strong>每接收文件的一行，然后执行相应的命令，来处理文本。</p>
+<h2 id="调用-awk"><a href="#调用-awk" class="headerlink" title="调用 awk"></a>调用 awk</h2><p>有三种方式调用 <code>awk</code></p>
+<ul>
+<li>命令行方式</li>
+</ul>
+<pre><code class="bash">awk [-F  field-separator]  &#39;commands&#39;  input-file(s)
+其中，commands 是真正awk命令，[-F域分隔符]是可选的。 input-file(s) 是待处理的文件。
+在awk中，文件的每一行中，由域分隔符分开的每一项称为一个域。通常，在不指名-F域分隔符的情况下，默认的域分隔符是空格。</code></pre>
+<ul>
+<li>shell 脚本方式</li>
+</ul>
+<pre><code class="bash">将所有的awk命令插入一个文件，并使awk程序可执行，然后awk命令解释器作为脚本的首行，一遍通过键入脚本名称来调用。
+相当于shell脚本首行的：#!/bin/sh
+可以换成：#!/bin/awk</code></pre>
+<ul>
+<li>将所有 awk 命令插入一个单独文件，然后调用</li>
+</ul>
+<pre><code class="bash">awk -f awk-script-file input-file(s)
+其中，-f选项加载awk-script-file中的awk脚本，input-file(s)跟上面的是一样的。</code></pre>
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p><strong>显示登录账户信息</strong></p>
+<pre><code class="bash">$ last -n 5    # 列出最近 5 条目前与过去登入系统的用户相关信息
+aurora   tty1         :0               Mon May 27 08:44   still logged in
+reboot   system boot  4.15.0-29deepin- Mon May 27 08:29   still running
+aurora   tty1         :0               Tue May 21 08:40 - down  (3+09:23)
+reboot   system boot  4.15.0-29deepin- Tue May 21 08:40 - 18:03 (3+09:23)
+aurora   tty1         :0               Mon May 20 08:52 - crash  (23:47)
+$ last -n 5 | awk &#39;{print $1}&#39; # 只显示最近登录的 5 个账号
+aurora
+reboot
+aurora
+reboot
+aurora</code></pre>
+<p><code>awk</code> 工作流程是这样的：读入有 ‘\n’ 换行符分割的一条记录，然后将记录按指定的域分隔符划分域，填充域，<code>$0</code> 则表示所有域， <code>$1</code>表示第一个域，<code>$n</code>表示第n个域。默认域分隔符是”空白键” 或 “[tab]键”,所以 <code>$1</code> 表示登录用户，<code>$3</code> 表示登录用户ip，以此类推。</p>
+<p><strong>显示‘/etc/passwd’账户</strong></p>
+<pre><code class="bash">$ cat /etc/passwd | awk -F &#39;:&#39; &#39;{print $1}&#39;
+root
+daemon
+bin
+sys
+sync
+......</code></pre>
+<p>这种是 <code>awk+action</code> 的示例，每行都执行 <code>action{print $1}</code>。<code>-F</code> 指定域分隔符为’:’。</p>
+<p><strong>只显示’/etc/passwd‘的账户和对应的shell</strong></p>
+<pre><code class="bash">$ cat /etc/passwd | awk -F &#39;:&#39; &#39;{print $1&quot;\t&quot;$7}&#39;
+root    /bin/bash
+daemon    /usr/sbin/nologin
+bin    /usr/sbin/nologin
+sys    /usr/sbin/nologin
+sync    /bin/sync
+......
+$ cat /etc/passwd | awk -F &#39;:&#39; &#39;BEGIN {print &quot;name,shell&quot;} {print $1&quot;,&quot;$7} END {print &quot;blue,/bin/nosh&quot;}&#39;
+name,shell
+root,/bin/bash
+daemon,/usr/sbin/nologin
+bin,/usr/sbin/nologin
+sys,/usr/sbin/nologin
+sync,/bin/sync
+......
+blue,/bin/nosh</code></pre>
+<p>第二条命令的作用是：只是显示 <code>/etc/passwd</code> 的账户和账户对应的 shell，而账户与 shell 之间以逗号分割，而且在所有行添加列名 name、shell，在最后一行添加 “blue,/bin/nosh”。</p>
+<p><strong>awk</strong> 工作流程是这样的：先执行 <strong>BEGIN</strong>，然后读取文件，读入有 <code>/n</code> 换行符分割的一条记录，然后将记录按指定的域分隔符划分域，填充域，<em>$0 则表示所有域</em>, <em>$1 表示第一个域，*</em>$n表示第n个域*，随后开始执行模式所对应的动作 action。接着开始读入第二条记录······直到所有的记录都读完，最后执行END操作。</p>
+<p><strong>搜索‘/etc/passwd’有 root 关键字的所有行</strong></p>
+<pre><code class="bash">$ awk -F &#39;:&#39; &#39;/root/&#39; /etc/passwd # 打印匹配正则的所有行
+root:x:0:0:root:/root:/bin/bash
+......
+$ awk -F &#39;:&#39; &#39;/root/{print $7}&#39; /etc/passwd # 打印匹配正则的 $7 参数
+/bin/bash
+......</code></pre>
+<p>1）这种是 <strong>pattern</strong> 的使用示例，匹配了 <strong>pattern</strong> (这里是root)的行才会执行 <strong>action</strong> (没有指定action，默认输出每行的内容)。</p>
+<p>搜索支持正则，例如找 ’root‘ 开头的：<code>awk -F: &#39;/^root/&#39; /etc/passwd</code> </p>
+<p>2）这里指定了 <strong>action</strong> ：<code>{print $7}</code></p>
+<h1 id="awk内置变量"><a href="#awk内置变量" class="headerlink" title="awk内置变量"></a>awk内置变量</h1><p>awk有许多内置变量用来设置环境信息，这些变量可以被改变，下面给出了最常用的一些变量。</p>
+<pre><code class="bash">ARGC               命令行参数个数
+ARGV               命令行参数排列
+ENVIRON            支持队列中系统环境变量的使用
+FILENAME           awk浏览的文件名
+FNR                浏览文件的记录数
+FS                 设置输入域分隔符，等价于命令行 -F选项
+NF                 浏览记录的域的个数
+NR                 已读的记录数
+OFS                输出域分隔符
+ORS                输出记录分隔符
+RS                 控制记录分隔符</code></pre>
+<p> 此外,$0变量是指整条记录。$1表示当前行的第一个域，$2表示当前行的第二个域，……以此类推。</p>
+<p><strong>统计‘/etc/passwd’：文件名，每行的行号，每行的列数，对应的完整行内容</strong>:</p>
+<pre><code class="bash">$ awk  -F &#39;:&#39;  &#39;{print &quot;filename:&quot; FILENAME &quot;,linenumber:&quot; NR &quot;,columns:&quot; NF &quot;,linecontent:&quot;$0}&#39; /etc/passwd
+filename:/etc/passwd,linenumber:1,columns:7,linecontent:root:x:0:0:root:/root:/bin/bash
+filename:/etc/passwd,linenumber:2,columns:7,linecontent:daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+filename:/etc/passwd,linenumber:3,columns:7,linecontent:bin:x:2:2:bin:/bin:/usr/sbin/nologin
+filename:/etc/passwd,linenumber:4,columns:7,linecontent:sys:x:3:3:sys:/dev:/usr/sbin/nologin
+filename:/etc/passwd,linenumber:5,columns:7,linecontent:sync:x:4:65534:sync:/bin:/bin/sync
+......
+$  awk  -F &#39;:&#39;      &#39;{printf(&quot;filename:%10s,linenumber:%s,columns:%s,linecontent:%s\n&quot;,FILENAME,NR,NF,$0)}&#39; /etc/passwd
+filename:/etc/passwd,linenumber:1,columns:7,linecontent:root:x:0:0:root:/root:/bin/bash
+filename:/etc/passwd,linenumber:2,columns:7,linecontent:daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+filename:/etc/passwd,linenumber:3,columns:7,linecontent:bin:x:2:2:bin:/bin:/usr/sbin/nologin
+filename:/etc/passwd,linenumber:4,columns:7,linecontent:sys:x:3:3:sys:/dev:/usr/sbin/nologin
+filename:/etc/passwd,linenumber:5,columns:7,linecontent:sync:x:4:65534:sync:/bin:/bin/sync
+......
+$ awk -F &#39;:&#39; &#39;BEGIN{print &quot;fileName, lineNumber, columns, content&quot;}{print FILENAME &quot;, &quot; NR &quot;, &quot; NF &quot;, &quot; $0}&#39; /etc/passwd
+fileName, lineNumber, columns, content
+/etc/passwd, 1, 7, root:x:0:0:root:/root:/bin/bash
+/etc/passwd, 2, 7, daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+/etc/passwd, 3, 7, bin:x:2:2:bin:/bin:/usr/sbin/nologin
+/etc/passwd, 4, 7, sys:x:3:3:sys:/dev:/usr/sbin/nologin
+/etc/passwd, 5, 7, sync:x:4:65534:sync:/bin:/bin/sync
+......</code></pre>
+<p>使用 <code>printf</code> 替代 <code>print，</code>可以让代码更加简洁，易读（当然，使用 BEGIN 修饰的话，显示效果更好）。</p>
+<h2 id="print和printf"><a href="#print和printf" class="headerlink" title="print和printf"></a><strong>print和printf</strong></h2><p><strong>awk</strong> 中同时提供了 <code>print</code> 和 <code>printf</code> 两种打印输出的函数。</p>
+<p>其中 <code>print</code> 函数的参数可以是变量、数值或者字符串。<strong>字符串必须用双引号引用</strong>，<strong>参数用逗号分隔</strong>。如果没有逗号，参数就串联在一起而无法区分。这里，逗号的作用与输出文件的分隔符的作用是一样的，只是后者是空格而已。</p>
+<p><code>printf</code> 函数，其用法和 c 语言中 printf 基本相似,可以格式化字符串,输出复杂时，<code>printf</code> 更加好用，代码更易懂。</p>
+<h1 id="awk编程"><a href="#awk编程" class="headerlink" title="awk编程"></a>awk编程</h1><h2 id="变量和赋值"><a href="#变量和赋值" class="headerlink" title="变量和赋值"></a>变量和赋值</h2><p>除了 <strong>awk</strong> 的内置变量，<strong>awk</strong> 还可以自定义变量。</p>
+<p>示例：统计 ‘/etc/passwd’ 的账户人数</p>
+<pre><code class="bash">$ awk &#39;{count++;print $0;} END{print &quot;user count is &quot;, count}&#39; /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+......
+user count is  44</code></pre>
+<p><code>count</code> 是自定义变量。之前的 <code>action{}</code> 里都是只有一个 <code>print,</code>其实 <code>print</code> 只是一个语句，而<strong>action{}可以有多个语句，以<code>;</code>号隔开</strong>。</p>
+<p>这里没有初始化 <code>count</code>，虽然默认是0，但是妥当的做法还是初始化为0。</p>
+<pre><code class="bash">$ awk &#39;BEGIN {count=0;print &quot;[start]user count is &quot;, count} {count=count+1;print $0;} END{print &quot;[end]user count is &quot;, count}&#39; /etc/passwd
+[start]user count is  0
+root:x:0:0:root:/root:/bin/bash
+......
+[end]user count is  44</code></pre>
+<p><strong>统计某个文件夹下的文件占用的字节数</strong></p>
+<pre><code class="bash">$ pwd 
+/tmp
+$ ls -l | awk &#39;BEGIN {size=0;} {size=size+$5;} END{print &quot;[end]size is &quot;, size}&#39; # 以 byte 为单位
+[end]size is  340835
+$ ls -l |awk &#39;BEGIN {size=0;} {size=size+$5;} END{print &quot;[end]size is &quot;, size/1024/1024,&quot;M&quot;}&#39;  # 以 M 为单位
+[end]size is  0.325046 M</code></pre>
+<p><em>注意，统计不包括文件夹的子目录。</em></p>
+<h2 id="条件语句"><a href="#条件语句" class="headerlink" title="条件语句"></a>条件语句</h2><p><strong>awk</strong> 中的条件语句是从 C 语言中借鉴来的，见如下声明方式：</p>
+<pre><code class="bash">if (expression) {
+    statement;
+    statement;
+    ... ...
+}
+
+if (expression) {
+    statement;
+} else {
+    statement2;
+}
+
+if (expression) {
+    statement1;
+} else if (expression1) {
+    statement2;
+} else {
+    statement3;
+}</code></pre>
+<p><strong>统计某个文件夹下的文件占用的字节数,过滤4096大小的文件(一般都是文件夹)</strong>:</p>
+<pre><code class="bash">$ pwd
+/tmp
+$ ls -l | awk &#39;BEGIN {size=0;print &quot;[start]size is &quot;, size} {if($5!=4096){size=size+$5}} END{print &quot;[end size is ]&quot;, size/1024/1024, &quot;M&quot;}&#39;
+[start]size is  0
+[end size is ] 0.286259 M</code></pre>
+<h2 id="循环语句"><a href="#循环语句" class="headerlink" title="循环语句"></a>循环语句</h2><p><strong>awk</strong>中的循环语句同样借鉴于 C 语言，支持 <code>while</code>、<code>do/while</code>、<code>for</code>、<code>break</code>、<code>continue</code>，这些关键字的语义和 C 语言中的语义完全相同。</p>
+<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><p>因为<strong>awk</strong>中数组的下标可以是数字和字母，数组的下标通常被称为关键字(key)。值和关键字都存储在内部的一张针对 <code>key/value</code> 应用<strong>hash</strong>的表格里。由于<strong>hash</strong>不是顺序存储，因此在显示数组内容时会发现，它们并不是按照你预料的顺序显示出来的。数组和变量一样，都是在使用时自动创建的，<strong>awk</strong>也同样会自动判断其存储的是数字还是字符串。一般而言，<strong>awk</strong>中的数组用来从记录中收集信息，可以用于计算总和、统计单词以及跟踪模板被匹配的次数等等。</p>
+<p><strong>显示/etc/passwd的账户</strong></p>
+<pre><code class="bash">$ awk -F &#39;:&#39; &#39;BEGIN {count=0;} {name[count] = $1;count++;}; END{for (i = 0; i &lt; NR; i++) print i, name[i]}&#39; /etc/passwd
+0 root
+1 daemon
+2 bin
+3 sys
+4 sync
+......</code></pre>
+<p><em>这里使用for循环遍历数组</em></p>
+<p>awk编程的内容极多，这里只罗列简单常用的用法，更多请参考 <a href="http://www.gnu.org/software/gawk/manual/gawk.html" target="_blank" rel="noopener">http://www.gnu.org/software/gawk/manual/gawk.html</a></p>
+<h2 id="重定向和管道"><a href="#重定向和管道" class="headerlink" title="重定向和管道"></a>重定向和管道</h2><ul>
+<li><p>awk 可使用 shell 的重定向符进行重定向输出，如：<code>$ awk &#39;$1 = 100 {print $1 &gt; &quot;output_file&quot; }&#39; test</code>。上式表示如果第一个域的值等于100，则把它输出到output_file中。也可以用 <code>&gt;&gt;</code> 来重定向输出，但<strong>不清空文件，只做追加操作</strong>。</p>
+</li>
+<li><p>输出重定向需用到 <strong>getline</strong> 函数。<strong>getline</strong> 从标准输入、管道或者当前正在处理的文件之外的其他输入文件获得输入。它负责从输入获得下一行的内容，并给NF,NR和FNR等内建变量赋值。如果得到一条记录，<strong>getline</strong> 函数返回1，如果到达文件的末尾就返回0，如果出现错误，例如打开文件失败，就返回-1。如：</p>
+<p><code>$ awk &#39;BEGIN{ &quot;date&quot; | getline d; print d}&#39; test</code>。执行linux的date命令，并通过管道输出给 <strong>getline</strong>，然后再把输出赋值给自定义变量d，并打印它。</p>
+<p><code>$ awk &#39;BEGIN{&quot;date&quot; | getline d; split(d,mon); print mon[2]}&#39; test</code>。执行shell的date命令，并通过管道输出给 <strong>getline</strong>，然后getline从管道中读取并将输入赋值给d，split函数把变量d转化成数组mon，然后打印数组mon的第二个元素。</p>
+<p><code>$ awk &#39;BEGIN{while( &quot;ls&quot; | getline) print}&#39;</code>，命令 <code>ls</code> 的输出传递给 geline 作为输入，循环使getline从ls的输出中读取一行，并把它打印到屏幕。这里没有输入文件，因为 <strong>BEGIN</strong> 块在打开输入文件前执行，所以可以忽略输入文件。</p>
+<p><code>$ awk &#39;BEGIN{printf &quot;What is your name?&quot;; getline name &lt; &quot;/dev/tty&quot; } $1 ~name {print &quot;Found&quot; name on line &quot;, NR &quot;.&quot;} END{print &quot;See you,&quot; name &quot;.&quot;} test</code>。在屏幕上打印”What is your name?”,并等待用户应答。当一行输入完毕后，getline函数从终端接收该行输入，并把它储存在自定义变量name中。如果第一个域匹配变量name的值，print函数就被执行，<strong>END</strong> 块打印See you和name的值。</p>
+<p><code>$ awk &#39;BEGIN{while (getline &lt; &quot;/etc/passwd&quot; &gt; 0) lc++; print lc}&#39;</code>。awk将逐行读取文件/etc/passwd的内容，在到达文件末尾前，计数器lc一直增加，当到末尾时，打印lc的值。注意，如果文件不存在，getline返回-1，如果到达文件的末尾就返回0，如果读到一行，就返回1，所以命令 <code>while (getline &lt; &quot;/etc/passwd&quot;)</code>在文件不存在的情况下将陷入无限循环，因为返回-1表示逻辑真。</p>
+</li>
+<li><p>可以在awk中打开一个管道，且同一时刻只能有一个管道存在。通过close()可关闭管道。如：<code>$ awk &#39;{print $1, $2 | &quot;sort&quot; }&#39; test END {close(&quot;sort&quot;)}</code>。awd把print语句的输出通过管道作为linux命令sort的输入,END块执行关闭管道操作。</p>
+</li>
+<li><p><strong>system</strong>函数可以在awk中执行linux的命令。如：<code>$ awk &#39;BEGIN{system(&quot;clear&quot;)&#39;</code>。</p>
+</li>
+<li><p><strong>fflush</strong>函数用以刷新输出缓冲区，如果没有参数，就刷新标准输出的缓冲区，如果以空字符串为参数，如<code>fflush(&quot;&quot;)</code>,则刷新所有文件和管道的输出缓冲区。</p>
+</li>
+</ul>
+<h1 id="awk脚本"><a href="#awk脚本" class="headerlink" title="awk脚本"></a>awk脚本</h1><p>awk脚本是由<strong>模式</strong>和<strong>操作</strong>组成的：</p>
+<pre><code class="bash">pattern {action} 如$ awk &#39;/root/&#39; test，或$ awk &#39;$3 &lt; 100&#39; test。</code></pre>
+<p>两者是可选的，如果<strong>没有模式，则action应用到全部记录</strong>，如果<strong>没有action，则输出匹配全部记录</strong>。默认情况下，每一个输入行都是一条记录，但用户可通过<strong>RS</strong>变量指定不同的分隔符进行分隔。</p>
+<h2 id="模式"><a href="#模式" class="headerlink" title="模式"></a>模式</h2><p>模式可以是以下任意一个：</p>
+<ul>
+<li>/正则表达式/：使用通配符的扩展集。</li>
+<li>关系表达式：可以用下面运算符表中的关系运算符进行操作，可以是字符串或数字的比较，如$2&gt;%1选择第二个字段比第一个字段长的行。</li>
+<li>模式匹配表达式：用运算符<del>(匹配)和</del>!(不匹配)。</li>
+<li>模式，模式：<strong>指定一个行的范围</strong>。该语法不能包括BEGIN和END模式。</li>
+<li>BEGIN：让用户指定<strong>在第一条输入记录被处理之前所发生的动作</strong>，通常可在这里设置全局变量。</li>
+<li>END：让用户在最后一条输入记录被<strong>读取之后发生</strong>的动作。</li>
+</ul>
+<h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><p>操作由一人或多个命令、函数、表达式组成，之间由换行符或分号隔开，并<strong>位于大括号内</strong>。主要有四部份：</p>
+<ul>
+<li>变量或数组赋值</li>
+<li>输出命令</li>
+<li>内置函数</li>
+<li>控制流命令</li>
+</ul>
+<h1 id="awk的环境变量"><a href="#awk的环境变量" class="headerlink" title="awk的环境变量"></a>awk的环境变量</h1><table>
+<thead>
+<tr>
+<th align="left">变量</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">$n</td>
+<td>当前记录的第n个字段，字段间由FS分隔。</td>
+</tr>
+<tr>
+<td align="left">$0</td>
+<td>完整的输入记录。</td>
+</tr>
+<tr>
+<td align="left">ARGC</td>
+<td>命令行参数的数目。</td>
+</tr>
+<tr>
+<td align="left">ARGIND</td>
+<td>命令行中当前文件的位置(从0开始算)。</td>
+</tr>
+<tr>
+<td align="left">ARGV</td>
+<td>包含命令行参数的数组。</td>
+</tr>
+<tr>
+<td align="left">CONVFMT</td>
+<td>数字转换格式(默认值为%.6g)</td>
+</tr>
+<tr>
+<td align="left">ENVIRON</td>
+<td>环境变量关联数组。</td>
+</tr>
+<tr>
+<td align="left">ERRNO</td>
+<td>最后一个系统错误的描述。</td>
+</tr>
+<tr>
+<td align="left">FIELDWIDTHS</td>
+<td>字段宽度列表(用空格键分隔)。</td>
+</tr>
+<tr>
+<td align="left">FILENAME</td>
+<td>当前文件名。</td>
+</tr>
+<tr>
+<td align="left">FNR</td>
+<td>同NR，但相对于当前文件。</td>
+</tr>
+<tr>
+<td align="left">FS</td>
+<td>字段分隔符(默认是任何空格)。</td>
+</tr>
+<tr>
+<td align="left">IGNORECASE</td>
+<td>如果为真，则进行忽略大小写的匹配。</td>
+</tr>
+<tr>
+<td align="left">NF</td>
+<td>当前记录中的字段数。</td>
+</tr>
+<tr>
+<td align="left">NR</td>
+<td>当前记录数。</td>
+</tr>
+<tr>
+<td align="left">OFMT</td>
+<td>数字的输出格式(默认值是%.6g)。</td>
+</tr>
+<tr>
+<td align="left">OFS</td>
+<td>输出字段分隔符(默认值是一个空格)。</td>
+</tr>
+<tr>
+<td align="left">ORS</td>
+<td>输出记录分隔符(默认值是一个换行符)。</td>
+</tr>
+<tr>
+<td align="left">RLENGTH</td>
+<td>由match函数所匹配的字符串的长度。</td>
+</tr>
+<tr>
+<td align="left">RS</td>
+<td>记录分隔符(默认是一个换行符)。</td>
+</tr>
+<tr>
+<td align="left">RSTART</td>
+<td>由match函数所匹配的字符串的第一个位置。</td>
+</tr>
+<tr>
+<td align="left">SUBSEP</td>
+<td>数组下标分隔符(默认值是\034)。</td>
+</tr>
+</tbody></table>
+<h1 id="awk运算符"><a href="#awk运算符" class="headerlink" title="awk运算符"></a>awk运算符</h1><table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>= += -= <em>= /= %= ^= *</em>=</td>
+<td>赋值</td>
+</tr>
+<tr>
+<td>?:</td>
+<td>C条件表达式</td>
+</tr>
+<tr>
+<td>||</td>
+<td>逻辑或</td>
+</tr>
+<tr>
+<td>&amp;&amp;</td>
+<td>逻辑与</td>
+</tr>
+<tr>
+<td>~ ~!</td>
+<td>匹配正则表达式和不匹配正则表达式</td>
+</tr>
+<tr>
+<td>&lt; &lt;= &gt; &gt;= != ==</td>
+<td>关系运算符</td>
+</tr>
+<tr>
+<td>空格</td>
+<td>连接</td>
+</tr>
+<tr>
+<td>+ -</td>
+<td>加，减</td>
+</tr>
+<tr>
+<td>* / &amp;</td>
+<td>乘，除与求余</td>
+</tr>
+<tr>
+<td>+ - !</td>
+<td>一元加，减和逻辑非</td>
+</tr>
+<tr>
+<td>^ ***</td>
+<td>求幂</td>
+</tr>
+<tr>
+<td>++ –</td>
+<td>增加或减少，作为前缀或后缀</td>
+</tr>
+<tr>
+<td>$</td>
+<td>字段引用</td>
+</tr>
+<tr>
+<td>in</td>
+<td>数组成员</td>
+</tr>
+</tbody></table>
+<h1 id="记录和域"><a href="#记录和域" class="headerlink" title="记录和域"></a>记录和域</h1><h2 id="记录"><a href="#记录" class="headerlink" title="记录"></a>记录</h2><p>awk把<strong>每一个以换行符结束的行称为一个记录</strong>。</p>
+<p>记录分隔符：默认的输入和输出的分隔符都是<strong>回车</strong>，保存在内建变量<code>ORS</code>和<code>RS</code>中。</p>
+<h2 id="域"><a href="#域" class="headerlink" title="域"></a>域</h2><p><strong>记录中每个单词称做“域”</strong>，默认情况下以空格或tab分隔。awk可跟踪域的个数，并在内建变量<code>NF</code>中保存该值。如$ awk ‘{print $1,$3}’ test将打印test文件中第一和第三个以空格分开的列(域)。</p>
+<h2 id="域分隔符"><a href="#域分隔符" class="headerlink" title="域分隔符"></a>域分隔符</h2><p>内建变量<code>FS</code>保存输入域分隔符的值，默认是<em>空格 或 tab</em>。我们可以通过<code>-F</code>命令行选项修改<code>FS</code>的值。如<code>$ awk -F: &#39;{print $1,$5}&#39; test</code>将打印以冒号为分隔符的第一，第五列的内容。</p>
+<p>可以同时使用多个域分隔符，这时应该把分隔符写成放到方括号中，如<code>$awk -F&#39;[:\t]&#39; &#39;{print $1,$3}&#39; test</code>，表示以空格、冒号和tab作为分隔符。</p>
+<p>输出域的分隔符默认是一个空格，保存在<code>OFS</code>中。如<code>$ awk -F: &#39;{print $1,$5}&#39; test</code>，$1和$5间的逗号就是OFS的值。</p>
+<h1 id="gawk专用正则表达式元字符"><a href="#gawk专用正则表达式元字符" class="headerlink" title="gawk专用正则表达式元字符"></a>gawk专用正则表达式元字符</h1><p>以下几个是gawk专用的，不适合unix版本的awk。</p>
+<p>\Y    匹配一个单词开头或者末尾的空字符串。</p>
+<p>\B    匹配单词内的空字符串。</p>
+<p>\&lt;    匹配一个单词的开头的空字符串，锚定开始。</p>
+<p>\&gt;    匹配一个单词的末尾的空字符串，锚定末尾。</p>
+<p>\w    匹配一个字母数字组成的单词。</p>
+<p>\W    匹配一个非字母数字组成的单词。</p>
+<p>\‘    匹配字符串开头的一个空字符串。</p>
+<p>\‘    匹配字符串末尾的一个空字符串。</p>
+<h1 id="awk的内建函数"><a href="#awk的内建函数" class="headerlink" title="awk的内建函数"></a>awk的内建函数</h1><h2 id="字符串内建函数"><a href="#字符串内建函数" class="headerlink" title="字符串内建函数"></a>字符串内建函数</h2><ul>
+<li><strong>sub</strong> 函数匹配记录中最大、最靠左边的子字符串正则表达式，并用替换字符串替换这些字符串。如果没有指定目标字符串就默认使用整个记录。替换只发生在第一次匹配的时候。格式如下：</li>
+</ul>
+<pre><code class="bash">sub （regular expression, substitution string）:
+sub (regular expression, substitution string, target string)</code></pre>
+<p><strong>示例：</strong></p>
+<pre><code class="bash">$ awk &#39;{sub(/test/, &quot;mytest&quot;); print}&#39; testfile
+$ awk &#39;{sub(/test/, &quot;mytest&quot;, $1); print}&#39; testfile</code></pre>
+<p>第一个例子在整个记录中匹配，替换只发生在第一次匹配发生的时候。如要在整个文件中进行匹配需要用到 <strong>gsub</strong></p>
+<p>第二个例子在整个记录的第一个域中进行匹配，替换只发生在第一次匹配发生的时候。</p>
+<ul>
+<li><p><strong>gsub</strong> 函数作用如 <strong>sub</strong>，但它在整个文档中进行匹配。格式如下：</p>
+<pre><code class="bash">gsub (regular expression, substitution string)
+gsub (regular expression, substitution string, target string)</code></pre>
+<p><strong>实例：</strong></p>
+<pre><code class="bash">$ awk &#39;{ gsub(/test/, &quot;mytest&quot;); print }&#39; testfile
+$ awk &#39;{ gsub(/test/, &quot;mytest&quot; , $1) }; print }&#39; testfile</code></pre>
+<p>第一个例子在整个文档中匹配 test，匹配的都被替换成 mytest。</p>
+<p>第二个例子在整个文档的第一个域中匹配，所有匹配的都被替换成mytest。</p>
+</li>
+<li><p><strong>index</strong> 函数返回子字符串第一次被匹配的位置，偏移量从位置1开始。格式如下：</p>
+<pre><code class="bash">index(string, substring)</code></pre>
+<p>实例：</p>
+<pre><code class="bash">$ awk &#39;{ print index(&quot;test&quot;, &quot;mytest&quot;) }&#39; testfile</code></pre>
+<p>实例返回 test 在 mytest 的位置。</p>
+</li>
+<li><p><strong>length</strong> 函数返回记录的字符数。格式如下：</p>
+<pre><code class="bash">length( string )
+length</code></pre>
+<p>实例：</p>
+<pre><code class="bash">$ awk &#39;{ print length( &quot;test&quot; ) }&#39; 
+$ awk &#39;{ print length }&#39; testfile</code></pre>
+<p>第一个实例返回 test 字符串的长度。</p>
+<p>第二个实例返回 testfile 文件中<strong>第条记录</strong>的字符数。</p>
+</li>
+<li><p><strong>substr</strong> 函数返回从位置1开始的子字符串，如果指定长度超过实际长度，就返回整个字符串。格式如下：</p>
+<pre><code class="bash">substr( string, starting position )
+substr( string, starting position, length of string )</code></pre>
+<p>实例：</p>
+<pre><code class="bash">$ awk &#39;{ print substr( &quot;hello world&quot;, 7,11 ) }&#39; </code></pre>
+<p>上例截取了 world 子字符串。</p>
+</li>
+<li><p><strong>match</strong> 函数返回在字符串中正则表达式位置的<strong>索引</strong>，如果找不到指定的正则表达式则返回0。match函数会设置内建变量 <strong>RSTART</strong> 为字符串中子字符串的开始位置，<strong>RLENGTH</strong> 为到子字符串末尾的字符个数。<strong>substr</strong> 可利于这些变量来截取字符串。函数格式如下：</p>
+<pre><code class="bash">match( string, regular expression )</code></pre>
+<p>实例：</p>
+<pre><code class="bash">$ awk &#39;{start=match(&quot;this is a test&quot;,/[a-z]+$/); print start}&#39;
+$ awk &#39;{start=match(&quot;this is a test&quot;,/[a-z]+$/); print start, RSTART, RLENGTH }&#39;</code></pre>
+<p>第一个实例打印以连续小写字符结尾的开始位置，这里是11。</p>
+<p>第二个实例还打印 <strong>RSTART</strong> 和 <strong>RLENGTH</strong> 变量，这里是11(start)，11(RSTART)，4(RLENGTH)。</p>
+</li>
+<li><p><strong>toupper</strong> 和<strong>tolower</strong> 函数可用于字符串大小间的转换，该功能只在 <strong>gawk</strong> 中有效。格式如下：</p>
+<pre><code class="bash">toupper( string )
+tolower( string )</code></pre>
+<p>实例：</p>
+<pre><code class="bash">$ awk &#39;{ print toupper(&quot;test&quot;), tolower(&quot;TEST&quot;) }&#39;</code></pre>
+</li>
+<li><p><strong>split</strong> 函数可按给定的分隔符把字符串分割为一个数组。如果分隔符没提供，则按当前 <strong>FS</strong> 值进行分割。格式如下：</p>
+<pre><code class="bash">split( string, array, field separator )
+split( string, array )</code></pre>
+<p>实例：</p>
+<pre><code class="bash">$ awk &#39;{ split( &quot;20:18:00&quot;, time, &quot;:&quot; ); print time[2] }&#39;</code></pre>
+<p>上例把时间按冒号分割到time数组内，并显示第二个数组元素18。</p>
+</li>
+</ul>
+<h2 id="时间函数"><a href="#时间函数" class="headerlink" title="时间函数"></a>时间函数</h2><ul>
+<li><p><strong>systime</strong> 函数返回从1970年1月1日开始到当前时间(不计闰年)的整秒数。格式如下：</p>
+<pre><code class="bash">systime()</code></pre>
+<p>实例：</p>
+<pre><code class="bash">$ awk &#39;{ now = systime(); print now }&#39;</code></pre>
+</li>
+<li><p><strong>strftime</strong> 函数使用C库中的strftime函数格式化时间。格式如下：</p>
+<pre><code class="bash">systime( [format specification][,timestamp] )</code></pre>
+</li>
+</ul>
+<p>​                                            <strong>日期和时间格式说明符</strong></p>
+<table>
+<thead>
+<tr>
+<th>格式</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>%a</td>
+<td>星期几的缩写(Sun)</td>
+</tr>
+<tr>
+<td>%A</td>
+<td>星期几的完整写法(Sunday)</td>
+</tr>
+<tr>
+<td>%b</td>
+<td>月名的缩写(Oct)</td>
+</tr>
+<tr>
+<td>%B</td>
+<td>月名的完整写法(October)</td>
+</tr>
+<tr>
+<td>%c</td>
+<td>本地日期和时间</td>
+</tr>
+<tr>
+<td>%d</td>
+<td>十进制日期</td>
+</tr>
+<tr>
+<td>%D</td>
+<td>日期 08/20/99</td>
+</tr>
+<tr>
+<td>%e</td>
+<td>日期，如果只有一位会补上一个空格</td>
+</tr>
+<tr>
+<td>%H</td>
+<td>用十进制表示24小时格式的小时</td>
+</tr>
+<tr>
+<td>%I</td>
+<td>用十进制表示12小时格式的小时</td>
+</tr>
+<tr>
+<td>%j</td>
+<td>从1月1日起一年中的第几天</td>
+</tr>
+<tr>
+<td>%m</td>
+<td>十进制表示的月份</td>
+</tr>
+<tr>
+<td>%M</td>
+<td>十进制表示的分钟</td>
+</tr>
+<tr>
+<td>%p</td>
+<td>12小时表示法(AM/PM)</td>
+</tr>
+<tr>
+<td>%S</td>
+<td>十进制表示的秒</td>
+</tr>
+<tr>
+<td>%U</td>
+<td>十进制表示的一年中的第几个星期(星期天作为一个星期的开始)</td>
+</tr>
+<tr>
+<td>%w</td>
+<td>十进制表示的星期几(星期天是0)</td>
+</tr>
+<tr>
+<td>%W</td>
+<td>十进制表示的一年中的第几个星期(星期一作为一个星期的开始)</td>
+</tr>
+<tr>
+<td>%x</td>
+<td>重新设置本地日期(08/20/99)</td>
+</tr>
+<tr>
+<td>%X</td>
+<td>重新设置本地时间(12：00：00)</td>
+</tr>
+<tr>
+<td>%y</td>
+<td>两位数字表示的年(99)</td>
+</tr>
+<tr>
+<td>%Y</td>
+<td>当前月份</td>
+</tr>
+<tr>
+<td>%Z</td>
+<td>时区(PDT)</td>
+</tr>
+<tr>
+<td>%%</td>
+<td>百分号(%)</td>
+</tr>
+</tbody></table>
+<p><strong>实例：</strong></p>
+<pre><code class="bash">$ awk &#39;{ now=strftime( &quot;%D&quot;, systime() ); print now }&#39;
+$ awk &#39;{ now=strftime(&quot;%m/%d/%y&quot;); print now }&#39;</code></pre>
+<h2 id="内建数学函数"><a href="#内建数学函数" class="headerlink" title="内建数学函数"></a>内建数学函数</h2><table>
+<thead>
+<tr>
+<th>函数名称</th>
+<th>返回值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>atan2(x,y)</td>
+<td>y,x范围内的余切</td>
+</tr>
+<tr>
+<td>cos(x)</td>
+<td>余弦函数</td>
+</tr>
+<tr>
+<td>exp(x)</td>
+<td>求幂</td>
+</tr>
+<tr>
+<td>int(x)</td>
+<td>取整</td>
+</tr>
+<tr>
+<td>log(x)</td>
+<td>自然对数</td>
+</tr>
+<tr>
+<td>rand()</td>
+<td>随机数</td>
+</tr>
+<tr>
+<td>sin(x)</td>
+<td>正弦</td>
+</tr>
+<tr>
+<td>sqrt(x)</td>
+<td>平方根</td>
+</tr>
+<tr>
+<td>srand(x)</td>
+<td>x是rand()函数的种子</td>
+</tr>
+<tr>
+<td>int(x)</td>
+<td>取整，过程没有舍入</td>
+</tr>
+<tr>
+<td>rand()</td>
+<td>产生一个大于等于0而小于1的随机数</td>
+</tr>
+</tbody></table>
+<h2 id="自定义函数"><a href="#自定义函数" class="headerlink" title="自定义函数"></a>自定义函数</h2><p>在 <strong>awk</strong> 中还可自定义函数，格式如下：</p>
+<pre><code class="bash">function name ( parameter, parameter, parameter, ... ) {
+    statements
+    return expression    # the return statement and expression are optional
+}</code></pre>
+<h1 id="实例-1"><a href="#实例-1" class="headerlink" title="实例"></a>实例</h1><ul>
+<li><strong>统计nginx 日志单 ip 访问请求数排名钱5名</strong></li>
+</ul>
+<pre><code class="bash"># awk 循环计算，相同IP数量++，最后打印；sort `-n`按照数字排序，`-r`倒序，`-k2` 以第二个域的排序；head -n 5 打印前5条
+$ awk &#39;{S[$1]++} END {for(a in S) print a, S[a]}&#39; log/access.log |sort -rn -k 2 |head -n5
+192.168.15.66 51
+192.168.15.77 10
+192.168.22.65 5
+192.168.12.48 2
+192.168.22.36 1</code></pre>
+<ul>
+<li><strong>统计服务器当前单IP连接数最大的IP地址前十</strong></li>
+</ul>
+<pre><code class="bash"># `netstat -an` 直接显示所有连线中的网络IP地址；`awk -F &#39;[ :]+&#39; &#39;{++S[$6]} END {for (key in S) print &quot;ip:&quot;key&quot;-----&gt;&quot;,S[key]}&#39;` 循环输出第六个域（Foreign Address）和出现次数；`sort -rn -k2` 对第二个域倒序排序（即对IP出现次数倒序排序）；`head` 默认打印 10 行
+$ netstat -an |grep EST |awk -F &#39;[ :]+&#39; &#39;{++S[$6]} END {for (key in S) print &quot;ip:&quot;key&quot;-----&gt;&quot;,S[key]}&#39; |sort -rn -k2 |head
+ip:192.168.13.235-----&gt; 69
+ip:192.168.13.204-----&gt; 66
+ip:192.168.13.229-----&gt; 21
+ip:192.168.15.63-----&gt; 5
+ip:192.168.15.37-----&gt; 5
+ip:192.168.15.36-----&gt; 4
+ip:192.168.15.77-----&gt; 2</code></pre>
+<ul>
+<li><strong>处理以下文件内容,将域名取出并根据域名进行计数排序处理</strong></li>
+</ul>
+<pre><code class="bash">$ cat test.log 
+http://www.etiantian.org/index.html
+http://www.etiantian.org/1.html
+http://post.etiantian.org/index.html
+http://mp3.etiantian.org/index.html
+http://www.etiantian.org/3.html
+http://post.etiantian.org/2.html
+# ①`awk -F &quot;/&quot; &#39;{print $3}&#39; test.log`：以‘/’分隔每一行，输出第三个域；`sort` 默认排序；`uniq -c`：报告或忽略文件中的重复行，在每列旁边显示该行重复出现的次数；
+$ awk -F &quot;/&quot; &#39;{print $3}&#39; test.log |sort |uniq -c 
+1 mp3.etiantian.org
+2 post.etiantian.org
+3 www.etiantian.org
+# ②`sed &#39;s#^http://##g&#39; test.log`：编辑缓冲区，将‘http://’替换为空字符；`sed &#39;s#/.*##g&#39;`：将‘/’之后的内容变为空字符；`sort` 默认排序；`uniq -c`：报告或忽略文件中的重复行，在每列旁边显示该行重复出现的次数；
+$ sed &#39;s#^http://##g&#39; test.log|sed &#39;s#/.*##g&#39;|sort |uniq -c
+    1 mp3.etiantian.org
+    2 post.etiantian.org
+    3 www.etiantian.org
+# ③以‘/’分隔每行；以第三个域作为数组键值，相同键值++；循环输出数组内容
+$ awk -F &quot;/&quot; &#39;{++S[$3]} END {for(key in S) print S[key],key}&#39; test.log
+1 mp3.etiantian.org
+3 www.etiantian.org
+2 post.etiantian.org
+# ④ 这行命令与方法①类似，关键在于 `-F &#39;[:/]+&#39;` 这里的正则所表达的含义
+$ awk -F &#39;[:/]+&#39; &#39;{print $2}&#39; test.log |sort |uniq -c
+      1 mp3.etiantian.org
+      2 post.etiantian.org
+      3 www.etiantian.org</code></pre>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 786532832@qq.com </span>
+    </div>
+</article>
+
+
+<p>
+    <a class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>【转】shell-文本处理利器 awk</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">6.6k</span></p>
+    <p><span class="copy-title">本文作者:</span><a title="Aurora-龙振巅峰">Aurora-龙振巅峰</a></p>
+    <p><span class="copy-title">发布时间:</span>2019-05-29, 13:26:35</p>
+    <p><span class="copy-title">最后更新:</span>2020-03-26, 10:29:38</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/05/29/shell/shell-文本处理利器 awk/" title="【转】shell-文本处理利器 awk">https://auroralzdf.gitee.io/2019/05/29/shell/shell-文本处理利器 awk/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target="_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+    <div id="comments"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+<script type="text/javascript">
+    $.getScript('/js/gitalk.js', function () {
+        var gitalk = new Gitalk({
+            clientID: 'b9203c40539965c52855',
+            clientSecret: '80f3357a6572570797a5b3f84643c9dc33841d85',
+            repo: 'AuroraLZDF.GitHub.io',
+            owner: 'AuroraLZDF',
+            admin: ['AuroraLZDF'],
+            id: decodeURI(location.pathname),
+            distractionFreeMode: 'true',
+            language: 'zh-CN',
+            perPage: parseInt('10',10)
+        })
+        gitalk.render('comments')
+    })
+</script>
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2017-2020 Aurora</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class id="rocket"></a>
+
+    </div>
+</div>
+<div class="acParent"></div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close" onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>喜欢就点赞,疼爱就打赏</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">支付宝</label></span><span><label><input type="radio" name="pay" value="weixin">微信</label></span>
+    </div>
+</div>
+
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.0.1"></script>
+
+<script src="/js/script.js?v=1.0.1"></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['#Linux','#系统','#Vue.js','#前端框架','#Python','#Hexo','#Ajax、笔记','#js','#Docker','#数据结构','#数学','#git','#Golang','#PHP','#Laravel','#MySQL','#Nginx','#运维','#负载均衡','#PHP、笔记','#Session','#webuploader','#运算符','#面试总结','#HTTP','#PHP，面试汇总','#Shell',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().trim().split('\n').length, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+        .nav .hide-list.fullscreen {
+            left: 492px
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://i.loli.net/2019/07/22/5d3521411f3f169375.png");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>

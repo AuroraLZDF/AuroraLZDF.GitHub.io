@@ -1,0 +1,2114 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <title>【转】入门Webpack，看这篇就够了 | Aurora-龙振巅峰的博客</title>
+  <meta name="keywords" content=" Vue.js , js ">
+  <meta name="description" content="【转】入门Webpack，看这篇就够了 | Aurora-龙振巅峰的博客">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="keywords" content="后端，PHP，Golang, Vuejs, JS，JQUERY，开发者，程序猿，编程，代码，开源，IT网站，Developer，Programmer，Coder，Geek，Html，Css，用户体验">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Aurora-龙振巅峰的博客">
+<meta property="og:url" content="https://auroralzdf.gitee.io/404.html">
+<meta property="og:site_name" content="Aurora-龙振巅峰的博客">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-03-26T02:29:38.795Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Aurora-龙振巅峰的博客">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1"></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+<script src="/js/iconfont.js?v=1.0.1"></script>
+
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value>
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg">
+</a>
+<div class="author">
+    <span>Aurora-龙振巅峰</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="rss" href="/atom.xml" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-rss"/>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="github" href="https://github.com/AuroraLZDF" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"/>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+    
+        
+        <a title="email" href="mailto:786532832@qq.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"/>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="qq" href="http://wpa.qq.com/msgrd?v=3&uin=786532832&site=qq&menu=yes" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-qq"/>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="kugou" href="https://www.kugou.com/" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-kugou"/>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(87)</small></div></li>
+    
+        
+            
+            <li><div data-rel="Deepin">Deepin<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Vue.js">Vue.js<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Python">Python<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Hexo">Hexo<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="JS">JS<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Linux">Linux<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Docker">Docker<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="数据结构">数据结构<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="git">git<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Golang">Golang<small>(18)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Laravel">Laravel<small>(7)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="MySQL">MySQL<small>(5)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Nginx">Nginx<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="PHP">PHP<small>(23)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="PHP、PHP标准规范">PHP、PHP标准规范<small>(7)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="PHP、笔记">PHP、笔记<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="PHP，笔记">PHP，笔记<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Shell">Shell<small>(8)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div><a class="about  hasFriend  site_url" href="/about">关于</a><a style="width: 50%" class="friends">友链</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="87">
+<input type="hidden" id="yelog_site_word_count" value="193.2k">
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode === 13){return false;}">
+        <input id="local-search-input" class="search" type="text" placeholder="Search...">
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none">
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <li class="article-tag-list-item">
+        <a class="color1">Linux</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">系统</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">Vue.js</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">前端框架</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">Python</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">Hexo</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">Ajax、笔记</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">js</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">Docker</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">数据结构</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">数学</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">git</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">Golang</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">PHP</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">Laravel</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">MySQL</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">Nginx</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">运维</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">负载均衡</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">PHP、笔记</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">Session</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">webuploader</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">运算符</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">面试总结</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">HTTP</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">PHP，面试汇总</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">Shell</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        <a class="Deepin " href="/2018/11/01/Chrome插件开发全攻略/" data-tag="Linux,系统" data-author>
+            <span class="post-title" title="【转】Chrome插件开发全攻略">【转】Chrome插件开发全攻略</span>
+            <span class="post-date" title="2018-11-01 09:44:31">2018/11/01</span>
+        </a>
+        
+        <a class="Deepin " href="/2017/09/22/Deepin磁盘空间不足/" data-tag="Linux,系统" data-author>
+            <span class="post-title" title="Deepin磁盘空间不足">Deepin磁盘空间不足</span>
+            <span class="post-date" title="2017-09-22 22:52:52">2017/09/22</span>
+        </a>
+        
+        <a class="Vue.js " href="/2017/04/11/Vue.js——60分钟快速入门/" data-tag="Vue.js,前端框架" data-author>
+            <span class="post-title" title="【转】Vue.js——60分钟快速入门">【转】Vue.js——60分钟快速入门</span>
+            <span class="post-date" title="2017-04-11 15:33:11">2017/04/11</span>
+        </a>
+        
+        <a class="Python " href="/2018/01/04/Python数据结构/" data-tag="Python" data-author>
+            <span class="post-title" title="数据结构">数据结构</span>
+            <span class="post-date" title="2018-01-04 00:00:00">2018/01/04</span>
+        </a>
+        
+        <a class="Hexo " href="/2017/04/02/hello-world/" data-tag="Hexo" data-author>
+            <span class="post-title" title="Hello World">Hello World</span>
+            <span class="post-date" title="2017-04-02 11:56:43">2017/04/02</span>
+        </a>
+        
+        <a class="JS " href="/2019/02/21/jQuery-ajax-serialize-方法/" data-tag="Ajax、笔记" data-author>
+            <span class="post-title" title="jQuery-ajax-serialize()方法">jQuery-ajax-serialize()方法</span>
+            <span class="post-date" title="2019-02-21 15:44:07">2019/02/21</span>
+        </a>
+        
+        <a class="Linux " href="/2017/05/22/ubuntu16.04下解决Adobe Flash不是最新版问题/" data-tag="Linux" data-author>
+            <span class="post-title" title="ubuntu16.04下解决Adobe Flash不是最新版问题">ubuntu16.04下解决Adobe Flash不是最新版问题</span>
+            <span class="post-date" title="2017-05-22 16:02:11">2017/05/22</span>
+        </a>
+        
+        <a class="Hexo " href="/2017/03/02/使用Hexo + Github Pages搭建个人独立博客/" data-tag="Hexo" data-author>
+            <span class="post-title" title="使用Hexo + Github Pages搭建个人独立博客">使用Hexo + Github Pages搭建个人独立博客</span>
+            <span class="post-date" title="2017-03-02 16:40:41">2017/03/02</span>
+        </a>
+        
+        <a class="Vue.js " href="/2017/05/02/入门Webpack，看这篇就够了/" data-tag="Vue.js,js" data-author>
+            <span class="post-title" title="【转】入门Webpack，看这篇就够了">【转】入门Webpack，看这篇就够了</span>
+            <span class="post-date" title="2017-05-02 10:19:03">2017/05/02</span>
+        </a>
+        
+        <a class="Docker " href="/2018/03/01/学习笔记：Docker简介和安装/" data-tag="Docker" data-author>
+            <span class="post-title" title="【转】学习笔记：Docker简介和安装">【转】学习笔记：Docker简介和安装</span>
+            <span class="post-date" title="2018-03-01 09:54:31">2018/03/01</span>
+        </a>
+        
+        <a class="数据结构 " href="/2019/06/06/数据结构-数学知识复习/" data-tag="数据结构,数学" data-author>
+            <span class="post-title" title="数据结构-数学知识复习">数据结构-数学知识复习</span>
+            <span class="post-date" title="2019-06-06 11:19:08">2019/06/06</span>
+        </a>
+        
+        <a class="git " href="/2017/09/23/线上服务器搭建GIT服务器，实现本地代码上传并同步到服务器/" data-tag="Linux,git" data-author>
+            <span class="post-title" title="线上服务器搭建GIT服务器，实现本地代码上传并同步到服务器">线上服务器搭建GIT服务器，实现本地代码上传并同步到服务器</span>
+            <span class="post-date" title="2017-09-23 00:00:00">2017/09/23</span>
+        </a>
+        
+        <a class="Golang " href="/2019/03/01/golang/Gin文档中文翻译/" data-tag="Golang" data-author>
+            <span class="post-title" title="【转】Gin文档中文翻译">【转】Gin文档中文翻译</span>
+            <span class="post-date" title="2019-03-01 16:02:42">2019/03/01</span>
+        </a>
+        
+        <a class="Golang " href="/2019/01/14/golang/Golang-flag包实现命令行参数的解析/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-flag包实现命令行参数的解析">Golang-flag包实现命令行参数的解析</span>
+            <span class="post-date" title="2019-01-14 16:25:58">2019/01/14</span>
+        </a>
+        
+        <a class="Golang " href="/2019/01/02/golang/Golang-fmt格式化I-O/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-fmt格式化I/O">Golang-fmt格式化I/O</span>
+            <span class="post-date" title="2019-01-02 14:53:51">2019/01/02</span>
+        </a>
+        
+        <a class="Golang " href="/2019/01/16/golang/Golang-bufio实现有缓冲的I-O/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-bufio实现有缓冲的I/O">Golang-bufio实现有缓冲的I/O</span>
+            <span class="post-date" title="2019-01-16 14:09:06">2019/01/16</span>
+        </a>
+        
+        <a class="Golang " href="/2019/01/18/golang/Golang-json、xml、gob数据编码解码（格式化）/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-json、xml、gob数据编码解码">Golang-json、xml、gob数据编码解码</span>
+            <span class="post-date" title="2019-01-18 10:27:34">2019/01/18</span>
+        </a>
+        
+        <a class="Golang " href="/2019/01/18/golang/Golang-json包实现了json对象的编-解码/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-json包实现了json对象的编/解码">Golang-json包实现了json对象的编/解码</span>
+            <span class="post-date" title="2019-01-18 10:34:55">2019/01/18</span>
+        </a>
+        
+        <a class="Golang " href="/2018/12/03/golang/Golang-regexp包实现了正则表达式搜索/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-regexp包实现了正则表达式搜索">Golang-regexp包实现了正则表达式搜索</span>
+            <span class="post-date" title="2018-12-03 13:55:44">2018/12/03</span>
+        </a>
+        
+        <a class="Golang " href="/2018/11/23/golang/Golang-sort排序/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-sort排序">Golang-sort排序</span>
+            <span class="post-date" title="2018-11-23 14:17:31">2018/11/23</span>
+        </a>
+        
+        <a class="Golang " href="/2018/11/14/golang/Golang-strconv基本数据类型和其字符串表示的相互转换/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-strconv基本数据类型和其字符串表示的相互转换">Golang-strconv基本数据类型和其字符串表示的相互转换</span>
+            <span class="post-date" title="2018-11-14 14:37:37">2018/11/14</span>
+        </a>
+        
+        <a class="Golang " href="/2018/11/20/golang/Golang-switch结构/" data-tag="Golang" data-author>
+            <span class="post-title" title="【转】Golang-switch结构">【转】Golang-switch结构</span>
+            <span class="post-date" title="2018-11-20 14:04:30">2018/11/20</span>
+        </a>
+        
+        <a class="Golang " href="/2018/11/09/golang/Golang-位左移的应用/" data-tag="Golang" data-author>
+            <span class="post-title" title="『记』Golang-位左移的应用">『记』Golang-位左移的应用</span>
+            <span class="post-date" title="2018-11-09 15:31:25">2018/11/09</span>
+        </a>
+        
+        <a class="Golang " href="/2018/11/12/golang/Golang-strings操作字符的简单函数/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-strings操作字符的简单函数">Golang-strings操作字符的简单函数</span>
+            <span class="post-date" title="2018-11-12 14:40:23">2018/11/12</span>
+        </a>
+        
+        <a class="Golang " href="/2018/11/15/golang/Golang-时间和日期time/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-时间和日期time">Golang-时间和日期time</span>
+            <span class="post-date" title="2018-11-15 10:33:06">2018/11/15</span>
+        </a>
+        
+        <a class="Golang " href="/2019/01/02/golang/Golang-读写数据一/" data-tag="Golang" data-author>
+            <span class="post-title" title="【转】Golang-读写数据一">【转】Golang-读写数据一</span>
+            <span class="post-date" title="2019-01-02 14:44:10">2019/01/02</span>
+        </a>
+        
+        <a class="Golang " href="/2019/01/14/golang/Golang-读写数据二/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-读写数据二">Golang-读写数据二</span>
+            <span class="post-date" title="2019-01-14 15:08:34">2019/01/14</span>
+        </a>
+        
+        <a class="Golang " href="/2018/11/21/golang/Golang-通过内存缓存来提升性能/" data-tag="Golang" data-author>
+            <span class="post-title" title="【转】Golang-通过内存缓存来提升性能">【转】Golang-通过内存缓存来提升性能</span>
+            <span class="post-date" title="2018-11-21 15:45:11">2018/11/21</span>
+        </a>
+        
+        <a class="Golang " href="/2019/01/23/golang/Golang-错误处理与测试/" data-tag="Golang" data-author>
+            <span class="post-title" title="【转】Golang-错误处理与测试">【转】Golang-错误处理与测试</span>
+            <span class="post-date" title="2019-01-23 14:16:22">2019/01/23</span>
+        </a>
+        
+        <a class="Golang " href="/2018/11/12/golang/Golang的单引号、双引号与反引号/" data-tag="Golang" data-author>
+            <span class="post-title" title="【转】Golang的单引号、双引号与反引号">【转】Golang的单引号、双引号与反引号</span>
+            <span class="post-date" title="2018-11-12 16:10:36">2018/11/12</span>
+        </a>
+        
+        <a class="Laravel " href="/2017/04/02/laravel/Laravel学习之旅——Blade 模板引擎/" data-tag="PHP,Laravel" data-author>
+            <span class="post-title" title="【转】Laravel学子之旅——Blade 模板引擎">【转】Laravel学子之旅——Blade 模板引擎</span>
+            <span class="post-date" title="2017-04-02 11:56:43">2017/04/02</span>
+        </a>
+        
+        <a class="Laravel " href="/2017/04/02/laravel/Laravel学习之旅——HTTP 中间件/" data-tag="PHP,Laravel" data-author>
+            <span class="post-title" title="【转】Laravel学习之旅——HTTP 中间件">【转】Laravel学习之旅——HTTP 中间件</span>
+            <span class="post-date" title="2017-04-02 09:45:46">2017/04/02</span>
+        </a>
+        
+        <a class="Laravel " href="/2017/04/01/laravel/Laravel学习之旅——HTTP 响应/" data-tag="PHP,Laravel" data-author>
+            <span class="post-title" title="【转】Laravel学习之旅——HTTP 响应">【转】Laravel学习之旅——HTTP 响应</span>
+            <span class="post-date" title="2017-04-01 16:45:15">2017/04/01</span>
+        </a>
+        
+        <a class="Laravel " href="/2017/04/01/laravel/Laravel学习之旅——HTTP 控制器/" data-tag="PHP,Laravel" data-author>
+            <span class="post-title" title="【转】Laravel学习之旅——HTTP 控制器">【转】Laravel学习之旅——HTTP 控制器</span>
+            <span class="post-date" title="2017-04-01 20:11:25">2017/04/01</span>
+        </a>
+        
+        <a class="Laravel " href="/2017/04/01/laravel/Laravel学习之旅——HTTP 请求/" data-tag="PHP,Laravel" data-author>
+            <span class="post-title" title="【转】Laravel学习之旅——HTTP 请求">【转】Laravel学习之旅——HTTP 请求</span>
+            <span class="post-date" title="2017-04-01 13:48:00">2017/04/01</span>
+        </a>
+        
+        <a class="Laravel " href="/2017/04/01/laravel/Laravel学习之旅——基础篇/" data-tag="PHP,Laravel" data-author>
+            <span class="post-title" title="【转】Laravel学习之旅——基础篇（安装、路由、CSRF、404）">【转】Laravel学习之旅——基础篇（安装、路由、CSRF、404）</span>
+            <span class="post-date" title="2017-04-01 09:31:25">2017/04/01</span>
+        </a>
+        
+        <a class="MySQL " href="/2017/10/18/mysql/linux mysql自动备份数据库/" data-tag="Linux,MySQL" data-author>
+            <span class="post-title" title="linux(deepin) 下mysql自动备份">linux(deepin) 下mysql自动备份</span>
+            <span class="post-date" title="2017-10-18 16:02:11">2017/10/18</span>
+        </a>
+        
+        <a class="Laravel " href="/2017/04/01/laravel/Laravel学习之旅——视图/" data-tag="PHP,Laravel" data-author>
+            <span class="post-title" title="【转】Laravel学习之旅——视图">【转】Laravel学习之旅——视图</span>
+            <span class="post-date" title="2017-04-01 21:00:12">2017/04/01</span>
+        </a>
+        
+        <a class="MySQL " href="/2017/11/13/mysql/mysql联合索引/" data-tag="MySQL" data-author>
+            <span class="post-title" title="mysql联合索引">mysql联合索引</span>
+            <span class="post-date" title="2017-11-13 10:25:12">2017/11/13</span>
+        </a>
+        
+        <a class="MySQL " href="/2017/11/13/mysql/数据库长连接与短连接的区别/" data-tag="MySQL" data-author>
+            <span class="post-title" title="【转】数据库长连接与短连接的区别">【转】数据库长连接与短连接的区别</span>
+            <span class="post-date" title="2017-11-13 08:59:12">2017/11/13</span>
+        </a>
+        
+        <a class="MySQL " href="/2017/04/02/mysql/配置phpMyAdmin连接多台mysql服务器/" data-tag="MySQL" data-author>
+            <span class="post-title" title="配置phpmyadmin使登录时可填写IP管理多台MySQL 连接多个数据库 自动登录">配置phpmyadmin使登录时可填写IP管理多台MySQL 连接多个数据库 自动登录</span>
+            <span class="post-date" title="2017-04-02 13:24:12">2017/04/02</span>
+        </a>
+        
+        <a class="MySQL " href="/2017/03/23/mysql/详解MySQL大表优化方案/" data-tag="MySQL" data-author>
+            <span class="post-title" title="【转】详解MySQL大表优化方案">【转】详解MySQL大表优化方案</span>
+            <span class="post-date" title="2017-03-23 19:00:22">2017/03/23</span>
+        </a>
+        
+        <a class="Nginx " href="/2018/10/30/nginx/NGINX宏观手记/" data-tag="Nginx,运维" data-author>
+            <span class="post-title" title="【转】NGINX宏观手记">【转】NGINX宏观手记</span>
+            <span class="post-date" title="2018-10-30 13:46:01">2018/10/30</span>
+        </a>
+        
+        <a class="Nginx " href="/2019/04/24/nginx/正向代理与反向代理/" data-tag="Nginx,负载均衡" data-author>
+            <span class="post-title" title="【转】正向代理与反向代理">【转】正向代理与反向代理</span>
+            <span class="post-date" title="2019-04-24 17:26:54">2019/04/24</span>
+        </a>
+        
+        <a class="PHP " href="/2017/11/15/php/CGI、FastCgi与PHP-fpm之间是个什么样的关系/" data-tag="Linux,PHP" data-author>
+            <span class="post-title" title="【转】CGI、FastCgi与PHP-fpm之间是个什么样的关系">【转】CGI、FastCgi与PHP-fpm之间是个什么样的关系</span>
+            <span class="post-date" title="2017-11-15 15:09:30">2017/11/15</span>
+        </a>
+        
+        <a class="PHP " href="/2017/02/22/php/PHP header() 函数/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP header() 函数">PHP header() 函数</span>
+            <span class="post-date" title="2017-02-22 16:05:11">2017/02/22</span>
+        </a>
+        
+        <a class="PHP、PHP标准规范 " href="/2019/02/18/php/PHP-PSR-1基础编码规范/" data-tag="PHP" data-author>
+            <span class="post-title" title="【转】PHP-PSR-1基础编码规范">【转】PHP-PSR-1基础编码规范</span>
+            <span class="post-date" title="2019-02-18 14:36:56">2019/02/18</span>
+        </a>
+        
+        <a class="PHP、PHP标准规范 " href="/2019/02/18/php/PHP-PSR-2编码风格规范/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP-PSR-2编码风格规范">PHP-PSR-2编码风格规范</span>
+            <span class="post-date" title="2019-02-18 15:03:50">2019/02/18</span>
+        </a>
+        
+        <a class="PHP、PHP标准规范 " href="/2019/02/19/php/PHP-PSR-3日志接口规范/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP-PSR-3日志接口规范">PHP-PSR-3日志接口规范</span>
+            <span class="post-date" title="2019-02-19 16:50:46">2019/02/19</span>
+        </a>
+        
+        <a class="PHP、PHP标准规范 " href="/2019/02/20/php/PHP-PSR-4自动加载规范/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP-PSR-4自动加载规范">PHP-PSR-4自动加载规范</span>
+            <span class="post-date" title="2019-02-20 10:24:40">2019/02/20</span>
+        </a>
+        
+        <a class="PHP、PHP标准规范 " href="/2019/02/20/php/PHP-PSR-6缓存接口规范/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP-PSR-6缓存接口规范">PHP-PSR-6缓存接口规范</span>
+            <span class="post-date" title="2019-02-20 11:04:19">2019/02/20</span>
+        </a>
+        
+        <a class="PHP、笔记 " href="/2019/02/21/php/PHP-header-生成文件/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP-header()生成文件">PHP-header()生成文件</span>
+            <span class="post-date" title="2019-02-21 15:12:04">2019/02/21</span>
+        </a>
+        
+        <a class="PHP，笔记 " href="/2019/04/15/php/PHP-to-xml/" data-tag="Linux,PHP" data-author>
+            <span class="post-title" title="PHP-to-xml">PHP-to-xml</span>
+            <span class="post-date" title="2019-04-15 17:43:02">2019/04/15</span>
+        </a>
+        
+        <a class="PHP、PHP标准规范 " href="/2019/02/20/php/PHP-PSR-7HTTP消息接口规范/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP-PSR-7HTTP消息接口规范">PHP-PSR-7HTTP消息接口规范</span>
+            <span class="post-date" title="2019-02-20 11:39:31">2019/02/20</span>
+        </a>
+        
+        <a class="PHP、笔记 " href="/2019/02/21/php/PHP-取整函数ceil，floor，round，intval函数的区别/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP-取整函数ceil，floor，round，intval函数的区别">PHP-取整函数ceil，floor，round，intval函数的区别</span>
+            <span class="post-date" title="2019-02-21 14:44:29">2019/02/21</span>
+        </a>
+        
+        <a class="PHP，笔记 " href="/2019/04/15/php/PHP-子类重写父类属性问题/" data-tag="Linux,PHP" data-author>
+            <span class="post-title" title="PHP-子类重写父类属性问题">PHP-子类重写父类属性问题</span>
+            <span class="post-date" title="2019-04-15 17:26:07">2019/04/15</span>
+        </a>
+        
+        <a class="PHP " href="/2019/02/21/php/PHP-数组根据某键值，把相同键值的合并最终生成一个新的二维数组/" data-tag="PHP、笔记" data-author>
+            <span class="post-title" title="PHP-数组根据某键值，把相同键值的合并最终生成一个新的二维数组.md">PHP-数组根据某键值，把相同键值的合并最终生成一个新的二维数组.md</span>
+            <span class="post-date" title="2019-02-21 15:28:07">2019/02/21</span>
+        </a>
+        
+        <a class="PHP、PHP标准规范 " href="/2019/02/12/php/PHP-自动加载规范/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP-自动加载规范">PHP-自动加载规范</span>
+            <span class="post-date" title="2019-02-12 15:45:33">2019/02/12</span>
+        </a>
+        
+        <a class="PHP " href="/2019/02/21/php/PHP-设计模式/" data-tag="PHP、笔记" data-author>
+            <span class="post-title" title="PHP-设计模式（一）">PHP-设计模式（一）</span>
+            <span class="post-date" title="2019-02-21 16:38:06">2019/02/21</span>
+        </a>
+        
+        <a class="PHP " href="/2018/10/25/php/PHP中被忽略的性能优化利器：生成器-md/" data-tag="PHP" data-author>
+            <span class="post-title" title="【转】PHP中被忽略的性能优化利器：生成器.md">【转】PHP中被忽略的性能优化利器：生成器.md</span>
+            <span class="post-date" title="2018-10-25 15:32:51">2018/10/25</span>
+        </a>
+        
+        <a class="PHP " href="/2017/11/28/php/PHP匿名函数、闭包函数/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP匿名函数、闭包函数">PHP匿名函数、闭包函数</span>
+            <span class="post-date" title="2017-11-28 00:00:00">2017/11/28</span>
+        </a>
+        
+        <a class="PHP " href="/2018/10/23/php/PHP实现异步调用方法/" data-tag="PHP" data-author>
+            <span class="post-title" title="【转】PHP实现异步调用方法">【转】PHP实现异步调用方法</span>
+            <span class="post-date" title="2018-10-23 17:49:19">2018/10/23</span>
+        </a>
+        
+        <a class="PHP " href="/2018/11/01/php/PHP手册-上下文（Context）选项和参数/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP手册-上下文（Context）选项和参数">PHP手册-上下文（Context）选项和参数</span>
+            <span class="post-date" title="2018-11-01 14:46:10">2018/11/01</span>
+        </a>
+        
+        <a class="PHP " href="/2018/11/04/php/PHP手册-支持的协议和封装协议/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP手册-支持的协议和封装协议">PHP手册-支持的协议和封装协议</span>
+            <span class="post-date" title="2018-11-04 14:43:48">2018/11/04</span>
+        </a>
+        
+        <a class="PHP " href="/2018/10/26/php/PHP手册-预定义变量/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP手册-预定义变量">PHP手册-预定义变量</span>
+            <span class="post-date" title="2018-10-26 14:40:26">2018/10/26</span>
+        </a>
+        
+        <a class="PHP " href="/2018/10/31/php/PHP手册-预定义异常/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP手册-预定义异常">PHP手册-预定义异常</span>
+            <span class="post-date" title="2018-10-31 11:10:41">2018/10/31</span>
+        </a>
+        
+        <a class="PHP " href="/2018/10/31/php/PHP手册-预定义接口/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP手册-预定义接口">PHP手册-预定义接口</span>
+            <span class="post-date" title="2018-10-31 14:17:59">2018/10/31</span>
+        </a>
+        
+        <a class="数据结构 " href="/2017/03/14/php/PHP的冒泡算法/" data-tag="数据结构,PHP" data-author>
+            <span class="post-title" title="PHP的冒泡算法">PHP的冒泡算法</span>
+            <span class="post-date" title="2017-03-14 14:28:30">2017/03/14</span>
+        </a>
+        
+        <a class="PHP " href="/2017/11/28/php/PHP类的自动加载 /" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP类的自动加载">PHP类的自动加载</span>
+            <span class="post-date" title="2017-11-28 00:00:00">2017/11/28</span>
+        </a>
+        
+        <a class="PHP " href="/2018/10/23/php/PHP递归删除数组中值为空的元素/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP递归删除数组中值为空的元素.md">PHP递归删除数组中值为空的元素.md</span>
+            <span class="post-date" title="2018-10-23 17:47:06">2018/10/23</span>
+        </a>
+        
+        <a class="PHP " href="/2017/03/14/php/PHP遍历某个文件夹下子目录和文件/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP遍历文件夹下子目录和文件">PHP遍历文件夹下子目录和文件</span>
+            <span class="post-date" title="2017-03-14 10:58:04">2017/03/14</span>
+        </a>
+        
+        <a class="PHP " href="/2017/11/28/php/PHP魔术常量/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP魔术常量">PHP魔术常量</span>
+            <span class="post-date" title="2017-11-28 00:00:00">2017/11/28</span>
+        </a>
+        
+        <a class="PHP " href="/2017/11/28/php/Trait /" data-tag="PHP" data-author>
+            <span class="post-title" title="Trait">Trait</span>
+            <span class="post-date" title="2017-11-28 00:00:00">2017/11/28</span>
+        </a>
+        
+        <a class="PHP " href="/2017/11/13/php/session原理，如何修改session生命周期/" data-tag="PHP,Session" data-author>
+            <span class="post-title" title="【转】session原理，如何修改session生命周期">【转】session原理，如何修改session生命周期</span>
+            <span class="post-date" title="2017-11-13 14:50:39">2017/11/13</span>
+        </a>
+        
+        <a class="PHP " href="/2017/05/08/php/webuploder+PHP实现大文件断点（切片）续传/" data-tag="js,PHP,webuploader" data-author>
+            <span class="post-title" title="webuploder+PHP实现大文件断点（切片）续传">webuploder+PHP实现大文件断点（切片）续传</span>
+            <span class="post-date" title="2017-05-08 11:18:07">2017/05/08</span>
+        </a>
+        
+        <a class="PHP " href="/2018/10/29/php/一道看似简单的面试题/" data-tag="PHP,运算符" data-author>
+            <span class="post-title" title="【转】一道看似简单的面试题">【转】一道看似简单的面试题</span>
+            <span class="post-date" title="2018-10-29 15:07:31">2018/10/29</span>
+        </a>
+        
+        <a class="PHP " href="/2017/11/13/php/从用户浏览器输入url到用户看到页面结果的过程，发生了什么事情？/" data-tag="面试总结" data-author>
+            <span class="post-title" title="【转】从用户浏览器输入url到用户看到页面结果的过程，发生了什么事情？">【转】从用户浏览器输入url到用户看到页面结果的过程，发生了什么事情？</span>
+            <span class="post-date" title="2017-11-13 14:50:39">2017/11/13</span>
+        </a>
+        
+        <a class="PHP " href="/2017/11/15/php/各类 HTTP 返回状态代码详解/" data-tag="PHP,HTTP" data-author>
+            <span class="post-title" title="【转】各类 HTTP 返回状态代码详解">【转】各类 HTTP 返回状态代码详解</span>
+            <span class="post-date" title="2017-11-15 16:30:30">2017/11/15</span>
+        </a>
+        
+        <a class="PHP " href="/2017/05/22/php/驼峰命名法和下划线风格的互转/" data-tag="PHP，面试汇总" data-author>
+            <span class="post-title" title="【转】驼峰命名法和下划线风格的互转">【转】驼峰命名法和下划线风格的互转</span>
+            <span class="post-date" title="2017-05-22 16:05:11">2017/05/22</span>
+        </a>
+        
+        <a class="Shell " href="/2019/04/01/shell/shell-shell编程基础/" data-tag="Linux,Shell" data-author>
+            <span class="post-title" title="shell-shell编程基础">shell-shell编程基础</span>
+            <span class="post-date" title="2019-04-01 11:26:01">2019/04/01</span>
+        </a>
+        
+        <a class="Shell " href="/2019/03/29/shell/shell-初识Shell/" data-tag="Linux,Shell" data-author>
+            <span class="post-title" title="shell-初识Shell">shell-初识Shell</span>
+            <span class="post-date" title="2019-03-29 14:58:08">2019/03/29</span>
+        </a>
+        
+        <a class="Shell " href="/2019/04/16/shell/shell-基本文本处理/" data-tag="Linux,Shell" data-author>
+            <span class="post-title" title="shell-基本文本处理">shell-基本文本处理</span>
+            <span class="post-date" title="2019-04-16 10:01:05">2019/04/16</span>
+        </a>
+        
+        <a class="Shell " href="/2019/05/21/shell/shell-文件和文件系统/" data-tag="Linux,Shell" data-author>
+            <span class="post-title" title="shell-文件和文件系统">shell-文件和文件系统</span>
+            <span class="post-date" title="2019-05-21 12:22:01">2019/05/21</span>
+        </a>
+        
+        <a class="Shell " href="/2019/05/29/shell/shell-文本处理利器 awk/" data-tag="Linux,Shell" data-author>
+            <span class="post-title" title="【转】shell-文本处理利器 awk">【转】shell-文本处理利器 awk</span>
+            <span class="post-date" title="2019-05-29 13:26:35">2019/05/29</span>
+        </a>
+        
+        <a class="Shell " href="/2019/04/15/shell/shell-正则表达式/" data-tag="Linux,Shell" data-author>
+            <span class="post-title" title="shell-正则表达式">shell-正则表达式</span>
+            <span class="post-date" title="2019-04-15 11:08:05">2019/04/15</span>
+        </a>
+        
+        <a class="Shell " href="/2019/05/28/shell/shell-流编辑sed/" data-tag="Linux,Shell" data-author>
+            <span class="post-title" title="shell-流编辑sed">shell-流编辑sed</span>
+            <span class="post-date" title="2019-05-28 13:33:35">2019/05/28</span>
+        </a>
+        
+        <a class="Shell " href="/2019/04/01/shell/shell-编程的基本元素/" data-tag="Linux,Shell" data-author>
+            <span class="post-title" title="shell-编程的基本元素">shell-编程的基本元素</span>
+            <span class="post-date" title="2019-04-01 15:42:03">2019/04/01</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-入门Webpack，看这篇就够了" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">【转】入门Webpack，看这篇就够了</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+                <a data-rel="Vue.js">Vue.js</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a class="color2">Vue.js</a>
+            
+            <a class="color3">js</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title="更新时间: 2020-03-26 10:29:38">2017-05-02 10:19</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>字数:8.5k</span>
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+        <span class="top-comment" title="跳转至评论区">
+            <a href="#comments">
+                评论:<span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </a>
+        </span>
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#写在前面的话"><span class="toc-text">写在前面的话</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#什么是WebPack，为什么要使用它？"><span class="toc-text">什么是WebPack，为什么要使用它？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#为什要使用WebPack"><span class="toc-text">为什要使用WebPack</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是Webpack"><span class="toc-text">什么是Webpack</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#WebPack和Grunt以及Gulp相比有什么特性"><span class="toc-text">WebPack和Grunt以及Gulp相比有什么特性</span></a></li></ol></li></ol><li class="toc-item toc-level-1"><a class="toc-link" href="#开始使用Webpack"><span class="toc-text">开始使用Webpack</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装"><span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#正式使用Webpack前的准备"><span class="toc-text">正式使用Webpack前的准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#正式使用Webpack"><span class="toc-text">正式使用Webpack</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#通过配置文件来使用Webpack"><span class="toc-text">通过配置文件来使用Webpack</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#更快捷的执行打包任务"><span class="toc-text">更快捷的执行打包任务</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Webpack的强大功能"><span class="toc-text">Webpack的强大功能</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#生成Source-Maps（使调试更容易）"><span class="toc-text">生成Source Maps（使调试更容易）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用webpack构建本地服务器"><span class="toc-text">使用webpack构建本地服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Loaders"><span class="toc-text">Loaders</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#鼎鼎大名的Loaders登场了！"><span class="toc-text">鼎鼎大名的Loaders登场了！</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Babel的安装与配置"><span class="toc-text">Babel的安装与配置</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Babel的配置选项"><span class="toc-text">Babel的配置选项</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS"><span class="toc-text">CSS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS-module"><span class="toc-text">CSS module</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#插件（Plugins）"><span class="toc-text">插件（Plugins）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#使用插件的方法"><span class="toc-text">使用插件的方法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Hot-Module-Replacement"><span class="toc-text">Hot Module Replacement</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#产品阶段的构建"><span class="toc-text">产品阶段的构建</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#优化插件"><span class="toc-text">优化插件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#缓存"><span class="toc-text">缓存</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="写在前面的话"><a href="#写在前面的话" class="headerlink" title="写在前面的话"></a>写在前面的话</h1><div class="bs-callout bs-callout-info">
+    阅读本文之前，先看下面这个webpack的配置文件，如果每一项你都懂，那本文能带给你的收获也许就比较有限，你可以快速浏览或直接跳过；如果你和十天前的我一样，对很多选项存在着疑惑，那花一段时间慢慢阅读本文，你的疑惑一定一个一个都会消失；如果你以前没怎么接触过Webpack，而你又你对webpack感兴趣，那么动手跟着本文中那个贯穿始终的例子写一次，写完以后你会发现你已明明白白的走进了Webpack的大门。
+</div>
+
+<pre><code class="js">//一个常见的Webpack配置文件
+var webpack = require(&#39;webpack&#39;);
+var HtmlWebpackPlugin = require(&#39;html-webpack-plugin&#39;);
+var ExtractTextPlugin = require(&#39;extract-text-webpack-plugin&#39;);
+
+module.exports = {
+  entry: __dirname + &quot;/app/main.js&quot;,
+  output: {
+    path: __dirname + &quot;/build&quot;,
+    filename: &quot;[name]-[hash].js&quot;
+  },
+
+  module: {
+    loaders: [
+      {
+        test: /\.json$/,
+        loader: &quot;json&quot;
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: &#39;babel&#39;
+      },
+      {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract(&#39;style&#39;, &#39;css?modules!postcss&#39;)
+      }
+    ]
+  },
+  postcss: [
+    require(&#39;autoprefixer&#39;)
+  ],
+
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: __dirname + &quot;/app/index.tmpl.html&quot;
+    }),
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.UglifyJsPlugin(),
+    new ExtractTextPlugin(&quot;[name]-[hash].css&quot;)
+  ]
+}</code></pre>
+<h1 id="什么是WebPack，为什么要使用它？"><a href="#什么是WebPack，为什么要使用它？" class="headerlink" title="什么是WebPack，为什么要使用它？"></a>什么是WebPack，为什么要使用它？</h1><h3 id="为什要使用WebPack"><a href="#为什要使用WebPack" class="headerlink" title="为什要使用WebPack"></a>为什要使用WebPack</h3><p>现今的很多网页其实可以看做是功能丰富的应用，它们拥有着复杂的JavaScript代码和一大堆依赖包。为了简化开发的复杂度，前端社区涌现出了很多好的实践方法</p>
+<ul>
+<li><strong>模块化</strong>，让我们可以把复杂的程序细化为小的文件;</li>
+<li>类似于TypeScript这种在JavaScript基础上拓展的开发语言：使我们能够实现目前版本的JavaScript不能直接使用的特性，并且之后还能能装换为JavaScript文件使浏览器可以识别；</li>
+<li>Scss，less等CSS预处理器</li>
+<li>...</li>
+</ul>
+
+<p>这些改进确实大大的提高了我们的开发效率，但是利用它们开发的文件往往需要进行额外的处理才能让浏览器识别,而手动处理又是非常繁琐的，这就为WebPack类的工具的出现提供了需求。</p>
+<h3 id="什么是Webpack"><a href="#什么是Webpack" class="headerlink" title="什么是Webpack"></a>什么是Webpack</h3><p>WebPack可以看做是<strong>模块打包机</strong>：它做的事情是，分析你的项目结构，找到JavaScript模块以及其它的一些浏览器不能直接运行的拓展语言（Scss，TypeScript等），并将其打包为合适的格式以供浏览器使用。</p>
+<h3 id="WebPack和Grunt以及Gulp相比有什么特性"><a href="#WebPack和Grunt以及Gulp相比有什么特性" class="headerlink" title="WebPack和Grunt以及Gulp相比有什么特性"></a>WebPack和Grunt以及Gulp相比有什么特性</h3><p>其实Webpack和另外两个并没有太多的可比性，Gulp/Grunt是一种能够优化前端的开发流程的工具，而WebPack是一种模块化的解决方案，不过Webpack的优点使得Webpack可以替代Gulp/Grunt类的工具。</p>
+<p>Grunt和Gulp的工作方式是：在一个配置文件中，指明对某些文件进行类似编译，组合，压缩等任务的具体步骤，这个工具之后可以自动替你完成这些任务。</p>
+<p>Grunt和Gulp的工作流程:<br><img src="/images/grungulp.png"></p>
+<p>Webpack的工作方式是：把你的项目当做一个整体，通过一个给定的主文件（如：index.js），Webpack将从这个文件开始找到你的项目的所有依赖文件，使用loaders处理它们，最后打包为一个浏览器可识别的JavaScript文件。</p>
+<p>Webpack工作方式:<br><img src="/images/webpack.png"></p>
+<p>如果实在要把二者进行比较，Webpack的处理速度更快更直接，能打包更多不同类型的文件。</p>
+<h1 id="开始使用Webpack"><a href="#开始使用Webpack" class="headerlink" title="开始使用Webpack"></a>开始使用Webpack</h1><p>初步了解了Webpack工作方式后，我们一步步的开始学习使用Webpack。</p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>Webpack可以使用npm安装，新建一个空的练习文件夹（此处命名为webpack sample progect），在终端中转到该文件夹后执行下述指令就可以完成安装。</p>
+<pre><code>//全局安装
+npm install -g webpack
+//安装到你的项目目录
+npm install --save-dev webpack</code></pre><h2 id="正式使用Webpack前的准备"><a href="#正式使用Webpack前的准备" class="headerlink" title="正式使用Webpack前的准备"></a>正式使用Webpack前的准备</h2><p>在上述练习文件夹中创建一个package.json文件，这是一个标准的npm说明文件，里面蕴含了丰富的信息，包括当前项目的依赖模块，自定义的脚本任务等等。在终端中使用<code>npm init</code>命令可以自动创建这个package.json文件</p>
+<pre><code>npm init</code></pre><p>输入这个命令后，终端会问你一系列诸如项目名称，项目描述，作者等信息，不过不用担心，如果你不准备在npm中发布你的模块，这些问题的答案都不重要，回车默认即可。</p>
+<p>package.json文件已经就绪，我们在本项目中安装Webpack作为依赖包</p>
+<pre><code>// 安装Webpack
+npm install --save-dev webpack</code></pre><p>回到之前的空文件夹，并在里面创建两个文件夹,app文件夹和public文件夹，app文件夹用来存放原始数据和我们将写的JavaScript模块，public文件夹用来存放准备给浏览器读取的数据（包括使用webpack生成的打包后的js文件以及一个index.html文件）。在这里还需要创建三个文件，index.html 文件放在public文件夹中，两个js文件（Greeter.js和main.js）放在app文件夹中，此时项目结构如下图所示:<br><img src="/images/webpack_demo.png"></p>
+<p><strong>index.html</strong>文件只有最基础的html代码，它唯一的目的就是加载打包后的js文件（bundle.js）</p>
+<pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;title&gt;Webpack Sample Project&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div id=&#39;root&#39;&gt;
+    &lt;/div&gt;
+    &lt;script src=&quot;bundle.js&quot;&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p><strong>Greeter.js</strong>只包括一个用来返回包含问候信息的html元素的函数。</p>
+<pre><code class="js">// Greeter.js
+module.exports = function() {
+  var greet = document.createElement(&#39;div&#39;);
+  greet.textContent = &quot;Hi there and greetings!&quot;;
+  return greet;
+};</code></pre>
+<p><strong>main.js</strong>用来把Greeter模块返回的节点插入页面。</p>
+<pre><code class="js">//main.js 
+var greeter = require(&#39;./Greeter.js&#39;);
+document.getElementById(&#39;root&#39;).appendChild(greeter());</code></pre>
+<h2 id="正式使用Webpack"><a href="#正式使用Webpack" class="headerlink" title="正式使用Webpack"></a>正式使用Webpack</h2><p>webpack可以在终端中使用，其最基础的命令是</p>
+<pre><code>//webpack {entry file/入口文件} {destination for bundled file/存放bundle.js的地方}
+webpack app/main.js public/bundle.js</code></pre><p>只需要指定一个入口文件，webpack将自动识别项目所依赖的其它文件，不过需要注意的是如果你的webpack没有进行全局安装，那么当你在终端中使用此命令时，需要额外指定其在node_modules中的地址，继续上面的例子，在终端中属于如下命令</p>
+<pre><code>//webpack非全局安装的情况
+node_modules/.bin/webpack app/main.js public/bundle.js</code></pre><p>结果如下</p>
+<p>可以看出webpack同时编译了main.js 和Greeter,js,现在打开index.html,可以看到如下结果<br><img src="/images/webpack_result1.png"></p>
+<p>有没有很激动，已经成功的使用Webpack打包了一个文件了。不过如果在终端中进行复杂的操作，还是不太方便且容易出错的，接下来看看Webpack的另一种使用方法。</p>
+<h2 id="通过配置文件来使用Webpack"><a href="#通过配置文件来使用Webpack" class="headerlink" title="通过配置文件来使用Webpack"></a>通过配置文件来使用Webpack</h2><p>Webpack拥有很多其它的比较高级的功能（比如说本文后面会介绍的loaders和plugins），这些功能其实都可以通过命令行模式实现，但是正如已经提到的，这样不太方便且容易出错的，一个更好的办法是定义一个配置文件，这个配置文件其实也是一个简单的JavaScript模块，可以把所有的与构建相关的信息放在里面。</p>
+<p>还是继续上面的例子来说明如何写这个配置文件，在当前练习文件夹的根目录下新建一个名为webpack.config.js的文件，并在其中进行最最简单的配置，如下所示，它包含入口文件路径和存放打包后文件的地方的路径。</p>
+<pre><code class="js">module.exports = {
+  entry:  __dirname + &quot;/app/main.js&quot;,//已多次提及的唯一入口文件
+  output: {
+    path: __dirname + &quot;/public&quot;,//打包后的文件存放的地方
+    filename: &quot;bundle.js&quot;//打包后输出文件的文件名
+  }
+}</code></pre>
+<div class="bs-callout bs-callout-info">
+注：“__dirname”是node.js中的一个全局变量，它指向当前执行脚本所在的目录。
+</div>    
+
+<p>现在如果你需要打包文件只需要在终端里你运行<code>webpack(非全局安装需使用node_modules/.bin/webpack)</code>命令就可以了，这条命令会自动参考webpack.config.js文件中的配置选项打包你的项目，输出结果如下<br><img src="/images/webpack_bash.png"></p>
+<p>又学会了一种使用Webpack的方法，而且不用管那烦人的命令行参数了，有没有感觉很爽。有没有想过如果可以连webpack(非全局安装需使用node_modules/.bin/webpack)这条命令都可以不用，那种感觉会不会更爽~，继续看下文。</p>
+<h2 id="更快捷的执行打包任务"><a href="#更快捷的执行打包任务" class="headerlink" title="更快捷的执行打包任务"></a>更快捷的执行打包任务</h2><p>执行类似于<code>node_modules/.bin/webpack</code>这样的命令其实是比较烦人且容易出错的，不过值得庆幸的是npm可以引导任务执行，对其进行配置后可以使用简单的<code>npm start</code>命令来代替这些繁琐的命令。在package.json中对npm的脚本部分进行相关设置即可，设置方法如下。</p>
+<pre><code class="json">{
+  &quot;name&quot;: &quot;webpack-sample-project&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;Sample webpack project&quot;,
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;webpack&quot; //配置的地方就是这里啦，相当于把npm的start命令指向webpack命令
+  },
+  &quot;author&quot;: &quot;zhang&quot;,
+  &quot;license&quot;: &quot;ISC&quot;,
+  &quot;devDependencies&quot;: {
+    &quot;webpack&quot;: &quot;^1.12.9&quot;
+  }
+}</code></pre>
+<div class="bs-callout bs-callout-info">
+注：package.json中的脚本部分已经默认在命令前添加了node_modules/.bin路径，所以无论是全局还是局部安装的Webpack，你都不需要写前面那指明详细的路径了。
+</div>
+
+<p>npm的<code>start</code>是一个特殊的脚本名称，它的特殊性表现在，在命令行中使用<code>npm start</code>就可以执行相关命令，如果对应的此脚本名称不是start，想要在命令行中运行时，需要这样用<code>npm run {script name}</code>如<code>npm run build</code>。</p>
+<p>现在只需要使用<code>npm start</code>就可以打包文件了，有没有觉得webpack也不过如此嘛，不过不要太小瞧Webpack，其强大的功能包含在其一系列可供配置的选项中，我们一项项来看。</p>
+<h1 id="Webpack的强大功能"><a href="#Webpack的强大功能" class="headerlink" title="Webpack的强大功能"></a>Webpack的强大功能</h1><h2 id="生成Source-Maps（使调试更容易）"><a href="#生成Source-Maps（使调试更容易）" class="headerlink" title="生成Source Maps（使调试更容易）"></a>生成Source Maps（使调试更容易）</h2><p>开发总是离不开调试，如果可以更加方便的调试当然就能提高开发效率，不过打包后的文件有时候你是不容易找到出错了的地方对应的源代码的位置的，Source Maps就是来帮我们解决这个问题的。<br>通过简单的配置后，Webpack在打包时可以为我们生成的source maps，这为我们提供了一种对应编译文件和源文件的方法，使得编译后的代码可读性更高，也更容易调试。</p>
+<p>在webpack的配置文件中配置source maps，需要配置<code>devtool</code>，它有以下四种不同的配置选项，各具优缺点，描述如下：</p>
+<table>
+<thead>
+<tr>
+<th>devtool选项</th>
+<th>配置结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>source-map</td>
+<td>在一个单独的文件中产生一个完整且功能完全的文件。这个文件具有最好的source map，但是它会减慢打包文件的构建速度；</td>
+</tr>
+<tr>
+<td>cheap-module-source-map</td>
+<td>在一个单独的文件中生成一个不带列映射的map，不带列映射提高项目构建速度，但是也使得浏览器开发者工具只能对应到具体的行，不能对应到具体的列（符号），会对调试造成不便；</td>
+</tr>
+<tr>
+<td>eval-source-map</td>
+<td>使用eval打包源文件模块，在同一个文件中生成干净的完整的source map。这个选项可以在不影响构建速度的前提下生成完整的sourcemap，但是对打包后输出的JS文件的执行具有性能和安全的隐患。不过在开发阶段这是一个非常好的选项，但是在生产阶段一定不要用这个选项；</td>
+</tr>
+<tr>
+<td>cheap-module-eval-source-map</td>
+<td>这是在打包文件时最快的生成source map的方法，生成的Source Map 会和打包后的JavaScript文件同行显示，没有列映射，和eval-source-map选项具有相似的缺点；</td>
+</tr>
+</tbody></table>
+<p>正如上表所述，上述选项由上到下打包速度越来越快，不过同时也具有越来越多的负面作用，较快的构建速度的后果就是对打包后的文件的的执行有一定影响。</p>
+<p>在学习阶段以及在小到中性的项目上，<code>eval-source-map</code>是一个很好的选项，不过记得只在开发阶段使用它，继续上面的例子，进行如下配置</p>
+<pre><code class="js">module.exports = {
+  devtool: &#39;eval-source-map&#39;,//配置生成Source Maps，选择合适的选项
+  entry:  __dirname + &quot;/app/main.js&quot;,
+  output: {
+    path: __dirname + &quot;/public&quot;,
+    filename: &quot;bundle.js&quot;
+  }
+}</code></pre>
+<div class="bs-callout bs-callout-info">
+`cheap-module-eval-source-map`方法构建速度更快，但是不利于调试，推荐在大型项目考虑da时间成本是使用。
+</div>
+
+<h2 id="使用webpack构建本地服务器"><a href="#使用webpack构建本地服务器" class="headerlink" title="使用webpack构建本地服务器"></a>使用webpack构建本地服务器</h2><p>想不想让你的浏览器监测你的代码的修改，并自动刷新修改后的结果，其实Webpack提供一个可选的本地开发服务器，这个本地服务器基于node.js构建，可以实现你想要的这些功能，不过它是一个单独的组件，在webpack中进行配置之前需要单独安装它作为项目依赖</p>
+<pre><code>npm install --save-dev webpack-dev-server</code></pre><p>devserver作为webpack配置选项中的一项，具有以下配置选项</p>
+<table>
+<thead>
+<tr>
+<th>devserver配置选项</th>
+<th>功能描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>contentBase</td>
+<td>默认webpack-dev-server会为根文件夹提供本地服务器，如果想为另外一个目录下的文件提供本地服务器，应该在这里设置其所在目录（本例设置到“public”目录）</td>
+</tr>
+<tr>
+<td>port</td>
+<td>设置默认监听端口，如果省略，默认为”8080“</td>
+</tr>
+<tr>
+<td>inline</td>
+<td>设置为true，当源文件改变时会自动刷新页面</td>
+</tr>
+<tr>
+<td>colors</td>
+<td>设置为true，使终端输出的文件为彩色的</td>
+</tr>
+<tr>
+<td>historyApiFallback</td>
+<td>在开发单页应用时非常有用，它依赖于HTML5 history API，如果设置为true，所有的跳转将指向index.html</td>
+</tr>
+</tbody></table>
+<p>继续把这些命令加到webpack的配置文件中，现在的配置文件如下所示</p>
+<pre><code class="js">module.exports = {
+  devtool: &#39;eval-source-map&#39;,
+
+  entry:  __dirname + &quot;/app/main.js&quot;,
+  output: {
+    path: __dirname + &quot;/public&quot;,
+    filename: &quot;bundle.js&quot;
+  },
+
+  devServer: {
+    contentBase: &quot;./public&quot;,//本地服务器所加载的页面所在的目录
+    colors: true,//终端中输出结果为彩色
+    historyApiFallback: true,//不跳转
+    inline: true//实时刷新
+  } 
+}</code></pre>
+<h2 id="Loaders"><a href="#Loaders" class="headerlink" title="Loaders"></a>Loaders</h2><h3 id="鼎鼎大名的Loaders登场了！"><a href="#鼎鼎大名的Loaders登场了！" class="headerlink" title="鼎鼎大名的Loaders登场了！"></a>鼎鼎大名的Loaders登场了！</h3><p>Loaders是webpack中最让人激动人心的功能之一了。通过使用不同的loader，webpack通过调用外部的脚本或工具可以对各种各样的格式的文件进行处理，比如说分析JSON文件并把它转换为JavaScript文件，或者说把下一代的JS文件（ES6，ES7)转换为现代浏览器可以识别的JS文件。或者说对React的开发而言，合适的Loaders可以把React的JSX文件转换为JS文件。</p>
+<p>Loaders需要单独安装并且需要在webpack.config.js下的<code>modules</code>关键字下进行配置，Loaders的配置选项包括以下几方面：</p>
+<ul>
+<li>`test`：一个匹配loaders所处理的文件的拓展名的正则表达式（必须）</li>
+<li>`loader`：loader的名称（必须）</li>
+<li>`include/exclude`:手动添加必须处理的文件（文件夹）或屏蔽不需要处理的文件（文件夹）（可选）；</li>
+<li>`query`：为loaders提供额外的设置选项（可选）</li>
+</ul>   
+
+<p>继续上面的例子，我们把Greeter.js里的问候消息放在一个单独的JSON文件里,并通过合适的配置使Greeter.js可以读取该JSON文件的值，配置方法如下</p>
+<pre><code>//安装可以装换JSON的loader
+npm install --save-dev json-loader</code></pre><pre><code class="js">module.exports = {
+  devtool: &#39;eval-source-map&#39;,
+
+  entry:  __dirname + &quot;/app/main.js&quot;,
+  output: {
+    path: __dirname + &quot;/public&quot;,
+    filename: &quot;bundle.js&quot;
+  },
+
+  module: {//在配置文件里添加JSON loader
+    loaders: [
+      {
+        test: /\.json$/,
+        loader: &quot;json&quot;
+      }
+    ]
+  },
+
+  devServer: {
+    contentBase: &quot;./public&quot;,
+    colors: true,
+    historyApiFallback: true,
+    inline: true
+  }
+}</code></pre>
+<p>创建带有问候信息的JSON文件(命名为config.json)</p>
+<pre><code class="json">{
+  &quot;greetText&quot;: &quot;Hi there and greetings from JSON!&quot;
+}</code></pre>
+<p>更新后的Greeter.js</p>
+<pre><code class="js">var config = require(&#39;./config.json&#39;);
+
+module.exports = function() {
+  var greet = document.createElement(&#39;div&#39;);
+  greet.textContent = config.greetText;
+  return greet;
+};</code></pre>
+<p>Loaders很好，不过有的Loaders使用起来比较复杂，比如说Babel。<br>Babel</p>
+<p>Babel其实是一个编译JavaScript的平台，它的强大之处表现在可以通过编译帮你达到以下目的：</p>
+<ul>
+<li>下一代的JavaScript标准（ES6，ES7），这些标准目前并未被当前的浏览器完全的支持；</li>
+<li>使用基于JavaScript进行了拓展的语言，比如React的JSX</li>
+</ul>
+
+<h2 id="Babel的安装与配置"><a href="#Babel的安装与配置" class="headerlink" title="Babel的安装与配置"></a>Babel的安装与配置</h2><p>Babel其实是几个模块化的包，其核心功能位于称为babel-core的npm包中，不过webpack把它们整合在一起使用，但是对于每一个你需要的功能或拓展，你都需要安装单独的包（用得最多的是解析Es6的babel-preset-es2015包和解析JSX的babel-preset-react包）。</p>
+<p>我们先来一次性安装这些依赖包</p>
+<pre><code>// npm一次性安装多个依赖模块，模块之间用空格隔开
+npm install --save-dev babel-core babel-loader babel-preset-es2015 babel-preset-react</code></pre><p>在webpack中配置Babel的方法如下</p>
+<pre><code class="js">module.exports = {
+  devtool: &#39;eval-source-map&#39;,
+
+  entry:  __dirname + &quot;/app/main.js&quot;,
+  output: {
+    path: __dirname + &quot;/public&quot;,
+    filename: &quot;bundle.js&quot;
+  },
+
+  module: {
+    loaders: [
+      {
+        test: /\.json$/,
+        loader: &quot;json&quot;
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: &#39;babel&#39;,//在webpack的module部分的loaders里进行配置即可
+        query: {
+          presets: [&#39;es2015&#39;,&#39;react&#39;]
+        }
+      }
+    ]
+  },
+
+  devServer: {
+    contentBase: &quot;./public&quot;,
+    colors: true,
+    historyApiFallback: true,
+    inline: true
+  }
+}</code></pre>
+<p>现在你的webpack的配置已经允许你使用ES6以及JSX的语法了。继续用上面的例子进行测试，不过这次我们会使用React，记得先安装 React 和 React-DOM</p>
+<pre><code>npm install --save react react-dom</code></pre><p>使用ES6的语法，更新Greeter.js并返回一个React组件</p>
+<pre><code class="js">//Greeter,js
+import React, {Component} from &#39;react&#39;
+import config from &#39;./config.json&#39;;
+
+class Greeter extends Component{
+  render() {
+    return (
+      &lt;div&gt;
+        {config.greetText}
+      &lt;/div&gt;
+    );
+  }
+}
+
+export default Greeter</code></pre>
+<p>使用ES6的模块定义和渲染Greeter模块</p>
+<pre><code class="js">import React from &#39;react&#39;;
+import {render} from &#39;react-dom&#39;;
+import Greeter from &#39;./Greeter&#39;;
+
+render(&lt;Greeter /&gt;, document.getElementById(&#39;root&#39;));</code></pre>
+<h1 id="Babel的配置选项"><a href="#Babel的配置选项" class="headerlink" title="Babel的配置选项"></a>Babel的配置选项</h1><p>Babel其实可以完全在webpack.config.js中进行配置，但是考虑到babel具有非常多的配置选项，在单一的webpack.config.js文件中进行配置往往使得这个文件显得太复杂，因此一些开发者支持把babel的配置选项放在一个单独的名为 “.babelrc” 的配置文件中。我们现在的babel的配置并不算复杂，不过之后我们会再加一些东西，因此现在我们就提取出相关部分，分两个配置文件进行配置（webpack会自动调用.babelrc里的babel配置选项），如下：</p>
+<pre><code class="js">// webpack.config.js
+module.exports = {
+  devtool: &#39;eval-source-map&#39;,
+
+  entry:  __dirname + &quot;/app/main.js&quot;,
+  output: {
+    path: __dirname + &quot;/public&quot;,
+    filename: &quot;bundle.js&quot;
+  },
+
+  module: {
+    loaders: [
+      {
+        test: /\.json$/,
+        loader: &quot;json&quot;
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: &#39;babel&#39;
+      }
+    ]
+  },
+
+  devServer: {...} // Omitted for brevity
+}</code></pre>
+<pre><code class="js">//.babelrc
+{
+  &quot;presets&quot;: [&quot;react&quot;, &quot;es2015&quot;]
+}</code></pre>
+<p>到目前为止，我们已经知道了，对于模块，Webpack能提供非常强大的处理功能，那那些是模块呢。</p>
+<p>#一切皆模块</p>
+<p>Webpack有一个不可不说的优点，它把所有的文件都可以当做模块处理，包括你的JavaScript代码，也包括CSS和fonts以及图片等等等，只有通过合适的loaders，它们都可以被当做模块被处理。</p>
+<h2 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h2><p>webpack提供两个工具处理样式表，<code>css-loader</code> 和 <code>style-loader</code>，二者处理的任务不同，<code>css-loader</code>使你能够使用类似<code>@import</code> 和 <code>url(...)</code>的方法实现 <code>require()</code>的功能,<code>style-loader</code>将所有的计算后的样式加入页面中，二者组合在一起使你能够把样式表嵌入webpack打包后的JS文件中。</p>
+<p>继续上面的例子</p>
+<pre><code>//安装
+npm install --save-dev style-loader css-loader</code></pre><pre><code class="js">//使用
+module.exports = {
+  devtool: &#39;eval-source-map&#39;,
+
+  entry:  __dirname + &quot;/app/main.js&quot;,
+  output: {
+    path: __dirname + &quot;/build&quot;,
+    filename: &quot;bundle.js&quot;
+  },
+
+  module: {
+    loaders: [
+      {
+        test: /\.json$/,
+        loader: &quot;json&quot;
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: &#39;babel&#39;
+      },
+      {
+        test: /\.css$/,
+        loader: &#39;style!css&#39;//添加对样式表的处理
+      }
+    ]
+  },
+
+  devServer: {...}
+}</code></pre>
+<div class="bs-callout bs-callout-info">
+注：感叹号的作用在于使同一文件能够使用不同类型的loader
+</div>
+
+<p>接下来，在app文件夹里创建一个名字为”main.css”的文件，对一些元素设置样式</p>
+<pre><code class="css">html {
+  box-sizing: border-box;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  font-family: &#39;Helvetica Neue&#39;, Helvetica, Arial, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6, p, ul {
+  margin: 0;
+  padding: 0;
+}</code></pre>
+<p>你还记得吗？webpack只有单一的入口，其它的模块需要通过 import, require, url等导入相关位置，为了让webpack能找到”main.css“文件，我们把它导入”main.js “中，如下</p>
+<pre><code class="js">//main.js
+import React from &#39;react&#39;;
+import {render} from &#39;react-dom&#39;;
+import Greeter from &#39;./Greeter&#39;;
+
+import &#39;./main.css&#39;;//使用require导入css文件
+
+render(&lt;Greeter /&gt;, document.getElementById(&#39;root&#39;));</code></pre>
+<div class="bs-callout bs-callout-info">
+通常情况下，css会和js打包到同一个文件中，并不会打包为一个单独的css文件，不过通过合适的配置webpack也可以把css打包为单独的文件的。
+不过这也只是webpack把css当做模块而已，咱们继续看看一个真的CSS模块的实践。
+</div>
+
+<h2 id="CSS-module"><a href="#CSS-module" class="headerlink" title="CSS module"></a>CSS module</h2><p>在过去的一些年里，JavaScript通过一些新的语言特性，更好的工具以及更好的实践方法（比如说模块化）发展得非常迅速。模块使得开发者把复杂的代码转化为小的，干净的，依赖声明明确的单元，且基于优化工具，依赖管理和加载管理可以自动完成。<br>不过前端的另外一部分，CSS发展就相对慢一些，大多的样式表却依旧是巨大且充满了全局类名，这使得维护和修改都非常困难和复杂。</p>
+<p>最近有一个叫做 CSS modules 的技术就意在把JS的模块化思想带入CSS中来，通过CSS模块，所有的类名，动画名默认都只作用于当前模块。Webpack从一开始就对CSS模块化提供了支持，在CSS loader中进行配置后，你所需要做的一切就是把”modules“传递都所需要的地方，然后就可以直接把CSS的类名传递到组件的代码中，且这样做只对当前组件有效，不必担心在不同的模块中具有相同的类名可能会造成的问题。具体的代码如下</p>
+<pre><code class="js">module.exports = {
+  devtool: &#39;eval-source-map&#39;,
+
+  entry:  __dirname + &quot;/app/main.js&quot;,
+  output: {...},
+
+  module: {
+    loaders: [
+      {
+        test: /\.json$/,
+        loader: &quot;json&quot;
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: &#39;babel&#39;
+      },
+      {
+        test: /\.css$/,
+        loader: &#39;style!css?modules&#39;//跟前面相比就在后面加上了?modules
+      }
+    ]
+  },
+
+  devServer: {...}
+}</code></pre>
+<p>创建一个Greeter.css文件</p>
+<pre><code class="css">.root {
+  background-color: #eee;
+  padding: 10px;
+  border: 3px solid #ccc;
+}</code></pre>
+<p>导入.root到Greeter.js中</p>
+<pre><code class="js">import React, {Component} from &#39;react&#39;;
+import config from &#39;./config.json&#39;;
+import styles from &#39;./Greeter.css&#39;;//导入
+
+class Greeter extends Component{
+  render() {
+    return (
+      &lt;div className={styles.root}&gt;//添加类名
+        {config.greetText}
+      &lt;/div&gt;
+    );
+  }
+}
+
+export default Greeter</code></pre>
+<p>放心使用把，相同的类名也不会造成不同组件之间的污染。<br>CSS modules 也是一个很大的主题，有兴趣的话可以去<a href="https://github.com/css-modules/css-modules" target="_blank" rel="noopener">官方文档</a>查看更多消息<br>CSS预处理器</p>
+<p>Sass 和 Less之类的预处理器是对原生CSS的拓展，它们允许你使用类似于variables, nesting, mixins, inheritance等不存在于CSS中的特性来写CSS，CSS预处理器可以这些特殊类型的语句转化为浏览器可识别的CSS语句，<br>你现在可能都已经熟悉了，在webpack里使用相关loaders进行配置就可以使用了，以下是常用的CSS 处理loaders</p>
+<ul>
+<li>Less Loader</li>
+<li>Sass Loader</li>
+<li>Stylus Loader</li>    
+</ul>
+
+<p>不过其实也存在一个CSS的处理平台-PostCSS，它可以帮助你的CSS实现更多的功能，在其<a href="https://github.com/postcss/postcss" target="_blank" rel="noopener">CSS官方文档</a>可了解更多相关知识。</p>
+<p>举例来说如何使用PostCSS，我们使用PostCSS来为CSS代码自动添加适应不同浏览器的CSS前缀。</p>
+<p>首先安装postcss-loader 和 autoprefixer（自动添加前缀的插件）</p>
+<pre><code>npm install --save-dev postcss-loader autoprefixer</code></pre><p>接下来，在webpack配置文件中进行设置，只需要新建一个postcss关键字，并在里面申明依赖的插件，如下，现在你写的css会自动根据Can i use里的数据添加不同前缀了。</p>
+<pre><code class="js">//webpack配置文件
+module.exports = {
+  devtool: &#39;eval-source-map&#39;,
+  entry: __dirname + &quot;/app/main.js&quot;,
+  output: {...},
+
+  module: {
+    loaders: [
+      {
+        test: /\.json$/,
+        loader: &quot;json&quot;
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: &#39;babel&#39;
+      },
+      {
+        test: /\.css$/,
+        loader: &#39;style!css?modules!postcss&#39;
+      }
+    ]
+  },
+
+  postcss: [
+    require(&#39;autoprefixer&#39;)//调用autoprefixer插件
+  ],
+
+  devServer: {...}
+}</code></pre>
+<p>到现在，本文已经涉及到处理JS的Babel和处理CSS的PostCSS，它们其实也是两个单独的平台，配合Webpack可以很好的发挥它们的作用。接下来介绍Webpack中另一个非常重要的功能-Plugins</p>
+<h1 id="插件（Plugins）"><a href="#插件（Plugins）" class="headerlink" title="插件（Plugins）"></a>插件（Plugins）</h1><p>插件（Plugins）是用来拓展Webpack功能的，它们会在整个构建过程中生效，执行相关的任务。<br>Loaders和Plugins常常被弄混，但是他们其实是完全不同的东西，可以这么来说，loaders是在打包构建过程中用来处理源文件的（JSX，Scss，Less..），一次处理一个，插件并不直接操作单个文件，它直接对整个构建过程其作用。</p>
+<p>Webpack有很多内置插件，同时也有很多第三方插件，可以让我们完成更加丰富的功能。</p>
+<h2 id="使用插件的方法"><a href="#使用插件的方法" class="headerlink" title="使用插件的方法"></a>使用插件的方法</h2><p>要使用某个插件，我们需要通过npm安装它，然后要做的就是在webpack配置中的plugins关键字部分添加该插件的一个实例（plugins是一个数组）继续看例子，我们添加了一个实现版权声明的插件。</p>
+<pre><code class="js">//webpack.config.js
+var webpack = require(&#39;webpack&#39;);
+
+module.exports = {
+  devtool: &#39;eval-source-map&#39;,
+  entry:  __dirname + &quot;/app/main.js&quot;,
+  output: {...},
+
+  module: {
+    loaders: [
+      { test: /\.json$/, loader: &quot;json&quot; },
+      { test: /\.js$/, exclude: /node_modules/, loader: &#39;babel&#39; },
+      { test: /\.css$/, loader: &#39;style!css?modules!postcss&#39; }//这里添加PostCSS
+    ]
+  },
+  postcss: [
+    require(&#39;autoprefixer&#39;)
+  ],
+
+  plugins: [
+    new webpack.BannerPlugin(&quot;Copyright Flying Unicorns inc.&quot;)//在这个数组中new一个就可以了
+  ],
+
+  devServer: {...}
+}</code></pre>
+<p><em>测试没有成功</em></p>
+<p>知道Webpack中的插件如何使用了，下面给大家推荐几个常用的插件<br>HtmlWebpackPlugin</p>
+<p>这个插件的作用是依据一个简单的模板，帮你生成最终的Html5文件，这个文件中自动引用了你打包后的JS文件。每次编译都在文件名中插入一个不同的哈希值。</p>
+<p>安装</p>
+<pre><code>npm install --save-dev html-webpack-plugin</code></pre><p>这个插件自动完成了我们之前手动做的一些事情，在正式使用之前需要对一直以来的项目结构做一些改变：</p>
+<p>1、移除public文件夹，利用此插件，HTML5文件会自动生成，此外CSS已经通过前面的操作打包到JS中了，public文件夹里。<br>2、在app目录下，创建一个Html文件模板，这个模板包含title等其它你需要的元素，在编译过程中，本插件会依据此模板生成最终的html页面，会自动添加所依赖的 css, js，favicon等文件，在本例中我们命名模板文件名称为index.tmpl.html，模板源代码如下</p>
+<pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;title&gt;Webpack Sample Project&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div id=&#39;root&#39;&gt;
+    &lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>3.更新webpack的配置文件，方法同上,新建一个build文件夹用来存放最终的输出文件</p>
+<pre><code class="js">var webpack = require(&#39;webpack&#39;);
+var HtmlWebpackPlugin = require(&#39;html-webpack-plugin&#39;);
+
+module.exports = {
+  devtool: &#39;eval-source-map&#39;,
+
+  entry:  __dirname + &quot;/app/main.js&quot;,
+  output: {
+    path: __dirname + &quot;/build&quot;,
+    filename: &quot;bundle.js&quot;
+  },
+
+  module: {
+    loaders: [
+      { test: /\.json$/, loader: &quot;json&quot; },
+      { test: /\.js$/, exclude: /node_modules/, loader: &#39;babel&#39; },
+      { test: /\.css$/, loader: &#39;style!css?modules!postcss&#39; }
+    ]
+  },
+  postcss: [
+    require(&#39;autoprefixer&#39;)
+  ],
+
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: __dirname + &quot;/app/index.tmpl.html&quot;//new 一个这个插件的实例，并传入相关的参数
+    })
+  ],
+
+  devServer: {
+    colors: true,
+    historyApiFallback: true,
+    inline: true
+  }
+}</code></pre>
+<h1 id="Hot-Module-Replacement"><a href="#Hot-Module-Replacement" class="headerlink" title="Hot Module Replacement"></a>Hot Module Replacement</h1><p>Hot Module Replacement（HMR）也是webpack里很有用的一个插件，它允许你在修改组件代码后，自动刷新实时预览修改后的效果。<br>在webpack中实现HMR也很简单，只需要做两项配置</p>
+<p>1、在webpack配置文件中添加HMR插件；<br>2、在Webpack Dev Server中添加“hot”参数；</p>
+<p>不过配置完这些后，JS模块其实还是不能自动热加载的，还需要在你的JS模块中执行一个Webpack提供的API才能实现热加载，虽然这个API不难使用，但是如果是React模块，使用我们已经熟悉的Babel可以更方便的实现功能热加载。</p>
+<p>整理下我们的思路，具体实现方法如下</p>
+<ul>
+<li>Babel和webpack是独立的工具</li>
+<li>二者可以一起工作</li>
+<li>二者都可以通过插件拓展功能</li>
+<li>HMR是一个webpack插件，它让你能浏览器中实时观察模块修改后的效果，但是如果你想让它工作，需要对模块进行额外的配额；</li>
+<li>Babel有一个叫做react-transform-hrm的插件，可以在不对React模块进行额外的配置的前提下让HMR正常工作；</li>
+</ul> 
+
+<p>更新我们的例子来实际看看如何配置</p>
+<pre><code class="js">//webpack中的配置
+var webpack = require(&#39;webpack&#39;);
+var HtmlWebpackPlugin = require(&#39;html-webpack-plugin&#39;);
+
+module.exports = {
+  devtool: &#39;eval-source-map&#39;,
+  entry: __dirname + &quot;/app/main.js&quot;,
+  output: {
+    path: __dirname + &quot;/build&quot;,
+    filename: &quot;bundle.js&quot;
+  },
+
+  module: {
+    loaders: [
+      { test: /\.json$/, loader: &quot;json&quot; },
+      { test: /\.js$/, exclude: /node_modules/, loader: &#39;babel&#39; },
+      { test: /\.css$/, loader: &#39;style!css?modules!postcss&#39; }
+    ]
+  },
+  postcss: [
+    require(&#39;autoprefixer&#39;)
+  ],
+
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: __dirname + &quot;/app/index.tmpl.html&quot;
+    }),
+    new webpack.HotModuleReplacementPlugin()//热加载插件
+  ],
+
+  devServer: {
+    colors: true,
+    historyApiFallback: true,
+    inline: true,
+    hot: true
+  }
+}</code></pre>
+<p>安装react-transform-hmr</p>
+<pre><code>npm install --save-dev babel-plugin-react-transform react-transform-hmr</code></pre><p>配置Babel</p>
+<pre><code class="js">{
+  &quot;presets&quot;: [&quot;react&quot;, &quot;es2015&quot;],
+  &quot;env&quot;: {
+    &quot;development&quot;: {
+    &quot;plugins&quot;: [[&quot;react-transform&quot;, {
+       &quot;transforms&quot;: [{
+         &quot;transform&quot;: &quot;react-transform-hmr&quot;,
+
+         &quot;imports&quot;: [&quot;react&quot;],
+
+         &quot;locals&quot;: [&quot;module&quot;]
+       }]
+     }]]
+    }
+  }
+}</code></pre>
+<p>现在当你使用React时，可以热加载模块了</p>
+<h1 id="产品阶段的构建"><a href="#产品阶段的构建" class="headerlink" title="产品阶段的构建"></a>产品阶段的构建</h1><p>目前为止，我们已经使用webpack构建了一个完整的开发环境。但是在产品阶段，可能还需要对打包的文件进行额外的处理，比如说优化，压缩，缓存以及分离CSS和JS。</p>
+<p>对于复杂的项目来说，需要复杂的配置，这时候分解配置文件为多个小的文件可以使得事情井井有条，以上面的例子来说，我们创建一个“webpack.production.config.js”的文件，在里面加上基本的配置,它和原始的webpack.config.js很像，如下</p>
+<pre><code class="js">var webpack = require(&#39;webpack&#39;);
+var HtmlWebpackPlugin = require(&#39;html-webpack-plugin&#39;);
+
+module.exports = {
+  entry: __dirname + &quot;/app/main.js&quot;,
+  output: {
+    path: __dirname + &quot;/build&quot;,
+    filename: &quot;bundle.js&quot;
+  },
+
+  module: {
+    loaders: [
+      {
+        test: /\.json$/,
+        loader: &quot;json&quot;
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: &#39;babel&#39;
+      },
+      {
+        test: /\.css$/,
+        loader: &#39;style!css?modules!postcss&#39;
+      }
+    ]
+  },
+  postcss: [
+    require(&#39;autoprefixer&#39;)
+  ],
+
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: __dirname + &quot;/app/index.tmpl.html&quot;
+    }),
+  ],
+
+}
+
+//package.json
+{
+  &quot;name&quot;: &quot;webpack-sample-project&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;Sample webpack project&quot;,
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;webpack-dev-server --progress&quot;,
+    &quot;build&quot;: &quot;NODE_ENV=production webpack --config ./webpack.production.config.js --progress&quot;
+  },
+  &quot;author&quot;: &quot;Cássio Zen&quot;,
+  &quot;license&quot;: &quot;ISC&quot;,
+  &quot;devDependencies&quot;: {...},
+  &quot;dependencies&quot;: {...}
+}</code></pre>
+<h1 id="优化插件"><a href="#优化插件" class="headerlink" title="优化插件"></a>优化插件</h1><p>webpack提供了一些在发布阶段非常有用的优化插件，它们大多来自于webpack社区，可以通过npm安装，通过以下插件可以完成产品发布阶段所需的功能</p>
+<ul>
+<li>OccurenceOrderPlugin :为组件分配ID，通过这个插件webpack可以分析和优先考虑使用最多的模块，并为它们分配最小的ID</li>
+<li>UglifyJsPlugin：压缩JS代码；</li>
+<li>ExtractTextPlugin：分离CSS和JS文件</li>
+</ul>
+
+<p>我们继续用例子来看看如何添加它们，OccurenceOrder 和 UglifyJS plugins 都是内置插件，你需要做的只是安装它们</p>
+<pre><code>npm install --save-dev extract-text-webpack-plugin</code></pre><p>在配置文件的plugins后引用它们</p>
+<pre><code class="js">var webpack = require(&#39;webpack&#39;);
+var HtmlWebpackPlugin = require(&#39;html-webpack-plugin&#39;);
+var ExtractTextPlugin = require(&#39;extract-text-webpack-plugin&#39;);
+
+module.exports = {
+  entry: __dirname + &quot;/app/main.js&quot;,
+  output: {
+    path: __dirname + &quot;/build&quot;,
+    filename: &quot;bundle.js&quot;
+  },
+
+  module: {
+    loaders: [
+      {
+        test: /\.json$/,
+        loader: &quot;json&quot;
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: &#39;babel&#39;
+      },
+      {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract(&#39;style&#39;, &#39;css?modules!postcss&#39;)
+      }
+    ]
+  },
+  postcss: [
+    require(&#39;autoprefixer&#39;)
+  ],
+
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: __dirname + &quot;/app/index.tmpl.html&quot;
+    }),
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.UglifyJsPlugin(),
+    new ExtractTextPlugin(&quot;style.css&quot;)
+  ]
+}</code></pre>
+<h1 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h1><p>缓存无处不在，使用缓存的最好方法是保证你的文件名和文件内容是匹配的（内容改变，名称相应改变）</p>
+<p>webpack可以把一个哈希值添加到打包的文件名中，使用方法如下,添加特殊的字符串混合体（[name], [id] and [hash]）到输出文件名前</p>
+<pre><code class="js">var webpack = require(&#39;webpack&#39;);
+var HtmlWebpackPlugin = require(&#39;html-webpack-plugin&#39;);
+var ExtractTextPlugin = require(&#39;extract-text-webpack-plugin&#39;);
+
+module.exports = {
+  entry: __dirname + &quot;/app/main.js&quot;,
+  output: {
+    path: __dirname + &quot;/build&quot;,
+    filename: &quot;[name]-[hash].js&quot;
+  },
+
+  module: {
+    loaders: [
+      {
+        test: /\.json$/,
+        loader: &quot;json&quot;
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: &#39;babel&#39;
+      },
+      {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract(&#39;style&#39;, &#39;css?modules!postcss&#39;)
+      }
+    ]
+  },
+  postcss: [
+    require(&#39;autoprefixer&#39;)
+  ],
+
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: __dirname + &quot;/app/index.tmpl.html&quot;
+    }),
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.UglifyJsPlugin(),
+    new ExtractTextPlugin(&quot;[name]-[hash].css&quot;)
+  ]
+}</code></pre>
+<p>现在用户会有合理的缓存了。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>这是一篇好长的文章，谢谢你的耐心，能仔细看到了这里，大概半个月前我第一次自己一步步配置项目所需的Webpack后就一直想写一篇笔记做总结，几次动笔都不能让自己满意，总觉得写不清楚。直到看到本文的英文版Webpack for React，真的有多次豁然开朗的感觉，喜欢看原文的点链接就可以看了。其实关于Webpack本文讲述得仍不完全，不过相信你看完后已经进入Webpack的大门，能够更好的探索其它的关于Webpack的知识了。</p>
+<p>文章出处：<a href="http://www.jianshu.com/p/42e11515c10f" target="_blank" rel="noopener">zhangwang：入门Webpack，看这篇就够了</a>，感谢分享！</p>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 786532832@qq.com </span>
+    </div>
+</article>
+
+
+<p>
+    <a class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>【转】入门Webpack，看这篇就够了</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">8.5k</span></p>
+    <p><span class="copy-title">本文作者:</span><a title="Aurora-龙振巅峰">Aurora-龙振巅峰</a></p>
+    <p><span class="copy-title">发布时间:</span>2017-05-02, 10:19:03</p>
+    <p><span class="copy-title">最后更新:</span>2020-03-26, 10:29:38</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2017/05/02/入门Webpack，看这篇就够了/" title="【转】入门Webpack，看这篇就够了">https://auroralzdf.gitee.io/2017/05/02/入门Webpack，看这篇就够了/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target="_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+    <div id="comments"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+<script type="text/javascript">
+    $.getScript('/js/gitalk.js', function () {
+        var gitalk = new Gitalk({
+            clientID: 'b9203c40539965c52855',
+            clientSecret: '80f3357a6572570797a5b3f84643c9dc33841d85',
+            repo: 'AuroraLZDF.GitHub.io',
+            owner: 'AuroraLZDF',
+            admin: ['AuroraLZDF'],
+            id: decodeURI(location.pathname),
+            distractionFreeMode: 'true',
+            language: 'zh-CN',
+            perPage: parseInt('10',10)
+        })
+        gitalk.render('comments')
+    })
+</script>
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2017-2020 Aurora</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class id="rocket"></a>
+
+    </div>
+</div>
+<div class="acParent"></div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close" onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>喜欢就点赞,疼爱就打赏</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">支付宝</label></span><span><label><input type="radio" name="pay" value="weixin">微信</label></span>
+    </div>
+</div>
+
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.0.1"></script>
+
+<script src="/js/script.js?v=1.0.1"></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['#Linux','#系统','#Vue.js','#前端框架','#Python','#Hexo','#Ajax、笔记','#js','#Docker','#数据结构','#数学','#git','#Golang','#PHP','#Laravel','#MySQL','#Nginx','#运维','#负载均衡','#PHP、笔记','#Session','#webuploader','#运算符','#面试总结','#HTTP','#PHP，面试汇总','#Shell',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().trim().split('\n').length, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+        .nav .hide-list.fullscreen {
+            left: 492px
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://i.loli.net/2019/07/22/5d3521411f3f169375.png");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>

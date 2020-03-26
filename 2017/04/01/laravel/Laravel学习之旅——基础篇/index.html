@@ -1,0 +1,1486 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <title>【转】Laravel学习之旅——基础篇（安装、路由、CSRF、404） | Aurora-龙振巅峰的博客</title>
+  <meta name="keywords" content=" PHP , Laravel ">
+  <meta name="description" content="【转】Laravel学习之旅——基础篇（安装、路由、CSRF、404） | Aurora-龙振巅峰的博客">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="keywords" content="后端，PHP，Golang, Vuejs, JS，JQUERY，开发者，程序猿，编程，代码，开源，IT网站，Developer，Programmer，Coder，Geek，Html，Css，用户体验">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Aurora-龙振巅峰的博客">
+<meta property="og:url" content="https://auroralzdf.gitee.io/404.html">
+<meta property="og:site_name" content="Aurora-龙振巅峰的博客">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-03-26T02:29:38.795Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Aurora-龙振巅峰的博客">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1"></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+<script src="/js/iconfont.js?v=1.0.1"></script>
+
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value>
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg">
+</a>
+<div class="author">
+    <span>Aurora-龙振巅峰</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="rss" href="/atom.xml" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-rss"/>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="github" href="https://github.com/AuroraLZDF" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"/>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+    
+        
+        <a title="email" href="mailto:786532832@qq.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"/>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="qq" href="http://wpa.qq.com/msgrd?v=3&uin=786532832&site=qq&menu=yes" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-qq"/>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="kugou" href="https://www.kugou.com/" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-kugou"/>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(87)</small></div></li>
+    
+        
+            
+            <li><div data-rel="Deepin">Deepin<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Vue.js">Vue.js<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Python">Python<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Hexo">Hexo<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="JS">JS<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Linux">Linux<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Docker">Docker<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="数据结构">数据结构<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="git">git<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Golang">Golang<small>(18)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Laravel">Laravel<small>(7)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="MySQL">MySQL<small>(5)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Nginx">Nginx<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="PHP">PHP<small>(23)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="PHP、PHP标准规范">PHP、PHP标准规范<small>(7)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="PHP、笔记">PHP、笔记<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="PHP，笔记">PHP，笔记<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Shell">Shell<small>(8)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div><a class="about  hasFriend  site_url" href="/about">关于</a><a style="width: 50%" class="friends">友链</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="87">
+<input type="hidden" id="yelog_site_word_count" value="193.2k">
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode === 13){return false;}">
+        <input id="local-search-input" class="search" type="text" placeholder="Search...">
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none">
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <li class="article-tag-list-item">
+        <a class="color1">Linux</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">系统</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">Vue.js</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">前端框架</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">Python</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">Hexo</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">Ajax、笔记</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">js</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">Docker</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">数据结构</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">数学</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">git</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">Golang</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">PHP</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">Laravel</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">MySQL</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">Nginx</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">运维</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">负载均衡</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">PHP、笔记</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">Session</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">webuploader</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">运算符</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">面试总结</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">HTTP</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">PHP，面试汇总</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">Shell</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        <a class="Deepin " href="/2018/11/01/Chrome插件开发全攻略/" data-tag="Linux,系统" data-author>
+            <span class="post-title" title="【转】Chrome插件开发全攻略">【转】Chrome插件开发全攻略</span>
+            <span class="post-date" title="2018-11-01 09:44:31">2018/11/01</span>
+        </a>
+        
+        <a class="Deepin " href="/2017/09/22/Deepin磁盘空间不足/" data-tag="Linux,系统" data-author>
+            <span class="post-title" title="Deepin磁盘空间不足">Deepin磁盘空间不足</span>
+            <span class="post-date" title="2017-09-22 22:52:52">2017/09/22</span>
+        </a>
+        
+        <a class="Vue.js " href="/2017/04/11/Vue.js——60分钟快速入门/" data-tag="Vue.js,前端框架" data-author>
+            <span class="post-title" title="【转】Vue.js——60分钟快速入门">【转】Vue.js——60分钟快速入门</span>
+            <span class="post-date" title="2017-04-11 15:33:11">2017/04/11</span>
+        </a>
+        
+        <a class="Python " href="/2018/01/04/Python数据结构/" data-tag="Python" data-author>
+            <span class="post-title" title="数据结构">数据结构</span>
+            <span class="post-date" title="2018-01-04 00:00:00">2018/01/04</span>
+        </a>
+        
+        <a class="Hexo " href="/2017/04/02/hello-world/" data-tag="Hexo" data-author>
+            <span class="post-title" title="Hello World">Hello World</span>
+            <span class="post-date" title="2017-04-02 11:56:43">2017/04/02</span>
+        </a>
+        
+        <a class="JS " href="/2019/02/21/jQuery-ajax-serialize-方法/" data-tag="Ajax、笔记" data-author>
+            <span class="post-title" title="jQuery-ajax-serialize()方法">jQuery-ajax-serialize()方法</span>
+            <span class="post-date" title="2019-02-21 15:44:07">2019/02/21</span>
+        </a>
+        
+        <a class="Linux " href="/2017/05/22/ubuntu16.04下解决Adobe Flash不是最新版问题/" data-tag="Linux" data-author>
+            <span class="post-title" title="ubuntu16.04下解决Adobe Flash不是最新版问题">ubuntu16.04下解决Adobe Flash不是最新版问题</span>
+            <span class="post-date" title="2017-05-22 16:02:11">2017/05/22</span>
+        </a>
+        
+        <a class="Hexo " href="/2017/03/02/使用Hexo + Github Pages搭建个人独立博客/" data-tag="Hexo" data-author>
+            <span class="post-title" title="使用Hexo + Github Pages搭建个人独立博客">使用Hexo + Github Pages搭建个人独立博客</span>
+            <span class="post-date" title="2017-03-02 16:40:41">2017/03/02</span>
+        </a>
+        
+        <a class="Vue.js " href="/2017/05/02/入门Webpack，看这篇就够了/" data-tag="Vue.js,js" data-author>
+            <span class="post-title" title="【转】入门Webpack，看这篇就够了">【转】入门Webpack，看这篇就够了</span>
+            <span class="post-date" title="2017-05-02 10:19:03">2017/05/02</span>
+        </a>
+        
+        <a class="Docker " href="/2018/03/01/学习笔记：Docker简介和安装/" data-tag="Docker" data-author>
+            <span class="post-title" title="【转】学习笔记：Docker简介和安装">【转】学习笔记：Docker简介和安装</span>
+            <span class="post-date" title="2018-03-01 09:54:31">2018/03/01</span>
+        </a>
+        
+        <a class="数据结构 " href="/2019/06/06/数据结构-数学知识复习/" data-tag="数据结构,数学" data-author>
+            <span class="post-title" title="数据结构-数学知识复习">数据结构-数学知识复习</span>
+            <span class="post-date" title="2019-06-06 11:19:08">2019/06/06</span>
+        </a>
+        
+        <a class="git " href="/2017/09/23/线上服务器搭建GIT服务器，实现本地代码上传并同步到服务器/" data-tag="Linux,git" data-author>
+            <span class="post-title" title="线上服务器搭建GIT服务器，实现本地代码上传并同步到服务器">线上服务器搭建GIT服务器，实现本地代码上传并同步到服务器</span>
+            <span class="post-date" title="2017-09-23 00:00:00">2017/09/23</span>
+        </a>
+        
+        <a class="Golang " href="/2019/03/01/golang/Gin文档中文翻译/" data-tag="Golang" data-author>
+            <span class="post-title" title="【转】Gin文档中文翻译">【转】Gin文档中文翻译</span>
+            <span class="post-date" title="2019-03-01 16:02:42">2019/03/01</span>
+        </a>
+        
+        <a class="Golang " href="/2019/01/14/golang/Golang-flag包实现命令行参数的解析/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-flag包实现命令行参数的解析">Golang-flag包实现命令行参数的解析</span>
+            <span class="post-date" title="2019-01-14 16:25:58">2019/01/14</span>
+        </a>
+        
+        <a class="Golang " href="/2019/01/02/golang/Golang-fmt格式化I-O/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-fmt格式化I/O">Golang-fmt格式化I/O</span>
+            <span class="post-date" title="2019-01-02 14:53:51">2019/01/02</span>
+        </a>
+        
+        <a class="Golang " href="/2019/01/16/golang/Golang-bufio实现有缓冲的I-O/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-bufio实现有缓冲的I/O">Golang-bufio实现有缓冲的I/O</span>
+            <span class="post-date" title="2019-01-16 14:09:06">2019/01/16</span>
+        </a>
+        
+        <a class="Golang " href="/2019/01/18/golang/Golang-json、xml、gob数据编码解码（格式化）/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-json、xml、gob数据编码解码">Golang-json、xml、gob数据编码解码</span>
+            <span class="post-date" title="2019-01-18 10:27:34">2019/01/18</span>
+        </a>
+        
+        <a class="Golang " href="/2019/01/18/golang/Golang-json包实现了json对象的编-解码/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-json包实现了json对象的编/解码">Golang-json包实现了json对象的编/解码</span>
+            <span class="post-date" title="2019-01-18 10:34:55">2019/01/18</span>
+        </a>
+        
+        <a class="Golang " href="/2018/12/03/golang/Golang-regexp包实现了正则表达式搜索/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-regexp包实现了正则表达式搜索">Golang-regexp包实现了正则表达式搜索</span>
+            <span class="post-date" title="2018-12-03 13:55:44">2018/12/03</span>
+        </a>
+        
+        <a class="Golang " href="/2018/11/23/golang/Golang-sort排序/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-sort排序">Golang-sort排序</span>
+            <span class="post-date" title="2018-11-23 14:17:31">2018/11/23</span>
+        </a>
+        
+        <a class="Golang " href="/2018/11/14/golang/Golang-strconv基本数据类型和其字符串表示的相互转换/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-strconv基本数据类型和其字符串表示的相互转换">Golang-strconv基本数据类型和其字符串表示的相互转换</span>
+            <span class="post-date" title="2018-11-14 14:37:37">2018/11/14</span>
+        </a>
+        
+        <a class="Golang " href="/2018/11/20/golang/Golang-switch结构/" data-tag="Golang" data-author>
+            <span class="post-title" title="【转】Golang-switch结构">【转】Golang-switch结构</span>
+            <span class="post-date" title="2018-11-20 14:04:30">2018/11/20</span>
+        </a>
+        
+        <a class="Golang " href="/2018/11/09/golang/Golang-位左移的应用/" data-tag="Golang" data-author>
+            <span class="post-title" title="『记』Golang-位左移的应用">『记』Golang-位左移的应用</span>
+            <span class="post-date" title="2018-11-09 15:31:25">2018/11/09</span>
+        </a>
+        
+        <a class="Golang " href="/2018/11/12/golang/Golang-strings操作字符的简单函数/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-strings操作字符的简单函数">Golang-strings操作字符的简单函数</span>
+            <span class="post-date" title="2018-11-12 14:40:23">2018/11/12</span>
+        </a>
+        
+        <a class="Golang " href="/2018/11/15/golang/Golang-时间和日期time/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-时间和日期time">Golang-时间和日期time</span>
+            <span class="post-date" title="2018-11-15 10:33:06">2018/11/15</span>
+        </a>
+        
+        <a class="Golang " href="/2019/01/02/golang/Golang-读写数据一/" data-tag="Golang" data-author>
+            <span class="post-title" title="【转】Golang-读写数据一">【转】Golang-读写数据一</span>
+            <span class="post-date" title="2019-01-02 14:44:10">2019/01/02</span>
+        </a>
+        
+        <a class="Golang " href="/2019/01/14/golang/Golang-读写数据二/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-读写数据二">Golang-读写数据二</span>
+            <span class="post-date" title="2019-01-14 15:08:34">2019/01/14</span>
+        </a>
+        
+        <a class="Golang " href="/2018/11/21/golang/Golang-通过内存缓存来提升性能/" data-tag="Golang" data-author>
+            <span class="post-title" title="【转】Golang-通过内存缓存来提升性能">【转】Golang-通过内存缓存来提升性能</span>
+            <span class="post-date" title="2018-11-21 15:45:11">2018/11/21</span>
+        </a>
+        
+        <a class="Golang " href="/2019/01/23/golang/Golang-错误处理与测试/" data-tag="Golang" data-author>
+            <span class="post-title" title="【转】Golang-错误处理与测试">【转】Golang-错误处理与测试</span>
+            <span class="post-date" title="2019-01-23 14:16:22">2019/01/23</span>
+        </a>
+        
+        <a class="Golang " href="/2018/11/12/golang/Golang的单引号、双引号与反引号/" data-tag="Golang" data-author>
+            <span class="post-title" title="【转】Golang的单引号、双引号与反引号">【转】Golang的单引号、双引号与反引号</span>
+            <span class="post-date" title="2018-11-12 16:10:36">2018/11/12</span>
+        </a>
+        
+        <a class="Laravel " href="/2017/04/02/laravel/Laravel学习之旅——Blade 模板引擎/" data-tag="PHP,Laravel" data-author>
+            <span class="post-title" title="【转】Laravel学子之旅——Blade 模板引擎">【转】Laravel学子之旅——Blade 模板引擎</span>
+            <span class="post-date" title="2017-04-02 11:56:43">2017/04/02</span>
+        </a>
+        
+        <a class="Laravel " href="/2017/04/02/laravel/Laravel学习之旅——HTTP 中间件/" data-tag="PHP,Laravel" data-author>
+            <span class="post-title" title="【转】Laravel学习之旅——HTTP 中间件">【转】Laravel学习之旅——HTTP 中间件</span>
+            <span class="post-date" title="2017-04-02 09:45:46">2017/04/02</span>
+        </a>
+        
+        <a class="Laravel " href="/2017/04/01/laravel/Laravel学习之旅——HTTP 响应/" data-tag="PHP,Laravel" data-author>
+            <span class="post-title" title="【转】Laravel学习之旅——HTTP 响应">【转】Laravel学习之旅——HTTP 响应</span>
+            <span class="post-date" title="2017-04-01 16:45:15">2017/04/01</span>
+        </a>
+        
+        <a class="Laravel " href="/2017/04/01/laravel/Laravel学习之旅——HTTP 控制器/" data-tag="PHP,Laravel" data-author>
+            <span class="post-title" title="【转】Laravel学习之旅——HTTP 控制器">【转】Laravel学习之旅——HTTP 控制器</span>
+            <span class="post-date" title="2017-04-01 20:11:25">2017/04/01</span>
+        </a>
+        
+        <a class="Laravel " href="/2017/04/01/laravel/Laravel学习之旅——HTTP 请求/" data-tag="PHP,Laravel" data-author>
+            <span class="post-title" title="【转】Laravel学习之旅——HTTP 请求">【转】Laravel学习之旅——HTTP 请求</span>
+            <span class="post-date" title="2017-04-01 13:48:00">2017/04/01</span>
+        </a>
+        
+        <a class="Laravel " href="/2017/04/01/laravel/Laravel学习之旅——基础篇/" data-tag="PHP,Laravel" data-author>
+            <span class="post-title" title="【转】Laravel学习之旅——基础篇（安装、路由、CSRF、404）">【转】Laravel学习之旅——基础篇（安装、路由、CSRF、404）</span>
+            <span class="post-date" title="2017-04-01 09:31:25">2017/04/01</span>
+        </a>
+        
+        <a class="MySQL " href="/2017/10/18/mysql/linux mysql自动备份数据库/" data-tag="Linux,MySQL" data-author>
+            <span class="post-title" title="linux(deepin) 下mysql自动备份">linux(deepin) 下mysql自动备份</span>
+            <span class="post-date" title="2017-10-18 16:02:11">2017/10/18</span>
+        </a>
+        
+        <a class="Laravel " href="/2017/04/01/laravel/Laravel学习之旅——视图/" data-tag="PHP,Laravel" data-author>
+            <span class="post-title" title="【转】Laravel学习之旅——视图">【转】Laravel学习之旅——视图</span>
+            <span class="post-date" title="2017-04-01 21:00:12">2017/04/01</span>
+        </a>
+        
+        <a class="MySQL " href="/2017/11/13/mysql/mysql联合索引/" data-tag="MySQL" data-author>
+            <span class="post-title" title="mysql联合索引">mysql联合索引</span>
+            <span class="post-date" title="2017-11-13 10:25:12">2017/11/13</span>
+        </a>
+        
+        <a class="MySQL " href="/2017/11/13/mysql/数据库长连接与短连接的区别/" data-tag="MySQL" data-author>
+            <span class="post-title" title="【转】数据库长连接与短连接的区别">【转】数据库长连接与短连接的区别</span>
+            <span class="post-date" title="2017-11-13 08:59:12">2017/11/13</span>
+        </a>
+        
+        <a class="MySQL " href="/2017/04/02/mysql/配置phpMyAdmin连接多台mysql服务器/" data-tag="MySQL" data-author>
+            <span class="post-title" title="配置phpmyadmin使登录时可填写IP管理多台MySQL 连接多个数据库 自动登录">配置phpmyadmin使登录时可填写IP管理多台MySQL 连接多个数据库 自动登录</span>
+            <span class="post-date" title="2017-04-02 13:24:12">2017/04/02</span>
+        </a>
+        
+        <a class="MySQL " href="/2017/03/23/mysql/详解MySQL大表优化方案/" data-tag="MySQL" data-author>
+            <span class="post-title" title="【转】详解MySQL大表优化方案">【转】详解MySQL大表优化方案</span>
+            <span class="post-date" title="2017-03-23 19:00:22">2017/03/23</span>
+        </a>
+        
+        <a class="Nginx " href="/2018/10/30/nginx/NGINX宏观手记/" data-tag="Nginx,运维" data-author>
+            <span class="post-title" title="【转】NGINX宏观手记">【转】NGINX宏观手记</span>
+            <span class="post-date" title="2018-10-30 13:46:01">2018/10/30</span>
+        </a>
+        
+        <a class="Nginx " href="/2019/04/24/nginx/正向代理与反向代理/" data-tag="Nginx,负载均衡" data-author>
+            <span class="post-title" title="【转】正向代理与反向代理">【转】正向代理与反向代理</span>
+            <span class="post-date" title="2019-04-24 17:26:54">2019/04/24</span>
+        </a>
+        
+        <a class="PHP " href="/2017/11/15/php/CGI、FastCgi与PHP-fpm之间是个什么样的关系/" data-tag="Linux,PHP" data-author>
+            <span class="post-title" title="【转】CGI、FastCgi与PHP-fpm之间是个什么样的关系">【转】CGI、FastCgi与PHP-fpm之间是个什么样的关系</span>
+            <span class="post-date" title="2017-11-15 15:09:30">2017/11/15</span>
+        </a>
+        
+        <a class="PHP " href="/2017/02/22/php/PHP header() 函数/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP header() 函数">PHP header() 函数</span>
+            <span class="post-date" title="2017-02-22 16:05:11">2017/02/22</span>
+        </a>
+        
+        <a class="PHP、PHP标准规范 " href="/2019/02/18/php/PHP-PSR-1基础编码规范/" data-tag="PHP" data-author>
+            <span class="post-title" title="【转】PHP-PSR-1基础编码规范">【转】PHP-PSR-1基础编码规范</span>
+            <span class="post-date" title="2019-02-18 14:36:56">2019/02/18</span>
+        </a>
+        
+        <a class="PHP、PHP标准规范 " href="/2019/02/18/php/PHP-PSR-2编码风格规范/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP-PSR-2编码风格规范">PHP-PSR-2编码风格规范</span>
+            <span class="post-date" title="2019-02-18 15:03:50">2019/02/18</span>
+        </a>
+        
+        <a class="PHP、PHP标准规范 " href="/2019/02/19/php/PHP-PSR-3日志接口规范/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP-PSR-3日志接口规范">PHP-PSR-3日志接口规范</span>
+            <span class="post-date" title="2019-02-19 16:50:46">2019/02/19</span>
+        </a>
+        
+        <a class="PHP、PHP标准规范 " href="/2019/02/20/php/PHP-PSR-4自动加载规范/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP-PSR-4自动加载规范">PHP-PSR-4自动加载规范</span>
+            <span class="post-date" title="2019-02-20 10:24:40">2019/02/20</span>
+        </a>
+        
+        <a class="PHP、PHP标准规范 " href="/2019/02/20/php/PHP-PSR-6缓存接口规范/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP-PSR-6缓存接口规范">PHP-PSR-6缓存接口规范</span>
+            <span class="post-date" title="2019-02-20 11:04:19">2019/02/20</span>
+        </a>
+        
+        <a class="PHP、笔记 " href="/2019/02/21/php/PHP-header-生成文件/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP-header()生成文件">PHP-header()生成文件</span>
+            <span class="post-date" title="2019-02-21 15:12:04">2019/02/21</span>
+        </a>
+        
+        <a class="PHP，笔记 " href="/2019/04/15/php/PHP-to-xml/" data-tag="Linux,PHP" data-author>
+            <span class="post-title" title="PHP-to-xml">PHP-to-xml</span>
+            <span class="post-date" title="2019-04-15 17:43:02">2019/04/15</span>
+        </a>
+        
+        <a class="PHP、PHP标准规范 " href="/2019/02/20/php/PHP-PSR-7HTTP消息接口规范/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP-PSR-7HTTP消息接口规范">PHP-PSR-7HTTP消息接口规范</span>
+            <span class="post-date" title="2019-02-20 11:39:31">2019/02/20</span>
+        </a>
+        
+        <a class="PHP、笔记 " href="/2019/02/21/php/PHP-取整函数ceil，floor，round，intval函数的区别/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP-取整函数ceil，floor，round，intval函数的区别">PHP-取整函数ceil，floor，round，intval函数的区别</span>
+            <span class="post-date" title="2019-02-21 14:44:29">2019/02/21</span>
+        </a>
+        
+        <a class="PHP，笔记 " href="/2019/04/15/php/PHP-子类重写父类属性问题/" data-tag="Linux,PHP" data-author>
+            <span class="post-title" title="PHP-子类重写父类属性问题">PHP-子类重写父类属性问题</span>
+            <span class="post-date" title="2019-04-15 17:26:07">2019/04/15</span>
+        </a>
+        
+        <a class="PHP " href="/2019/02/21/php/PHP-数组根据某键值，把相同键值的合并最终生成一个新的二维数组/" data-tag="PHP、笔记" data-author>
+            <span class="post-title" title="PHP-数组根据某键值，把相同键值的合并最终生成一个新的二维数组.md">PHP-数组根据某键值，把相同键值的合并最终生成一个新的二维数组.md</span>
+            <span class="post-date" title="2019-02-21 15:28:07">2019/02/21</span>
+        </a>
+        
+        <a class="PHP、PHP标准规范 " href="/2019/02/12/php/PHP-自动加载规范/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP-自动加载规范">PHP-自动加载规范</span>
+            <span class="post-date" title="2019-02-12 15:45:33">2019/02/12</span>
+        </a>
+        
+        <a class="PHP " href="/2019/02/21/php/PHP-设计模式/" data-tag="PHP、笔记" data-author>
+            <span class="post-title" title="PHP-设计模式（一）">PHP-设计模式（一）</span>
+            <span class="post-date" title="2019-02-21 16:38:06">2019/02/21</span>
+        </a>
+        
+        <a class="PHP " href="/2018/10/25/php/PHP中被忽略的性能优化利器：生成器-md/" data-tag="PHP" data-author>
+            <span class="post-title" title="【转】PHP中被忽略的性能优化利器：生成器.md">【转】PHP中被忽略的性能优化利器：生成器.md</span>
+            <span class="post-date" title="2018-10-25 15:32:51">2018/10/25</span>
+        </a>
+        
+        <a class="PHP " href="/2017/11/28/php/PHP匿名函数、闭包函数/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP匿名函数、闭包函数">PHP匿名函数、闭包函数</span>
+            <span class="post-date" title="2017-11-28 00:00:00">2017/11/28</span>
+        </a>
+        
+        <a class="PHP " href="/2018/10/23/php/PHP实现异步调用方法/" data-tag="PHP" data-author>
+            <span class="post-title" title="【转】PHP实现异步调用方法">【转】PHP实现异步调用方法</span>
+            <span class="post-date" title="2018-10-23 17:49:19">2018/10/23</span>
+        </a>
+        
+        <a class="PHP " href="/2018/11/01/php/PHP手册-上下文（Context）选项和参数/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP手册-上下文（Context）选项和参数">PHP手册-上下文（Context）选项和参数</span>
+            <span class="post-date" title="2018-11-01 14:46:10">2018/11/01</span>
+        </a>
+        
+        <a class="PHP " href="/2018/11/04/php/PHP手册-支持的协议和封装协议/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP手册-支持的协议和封装协议">PHP手册-支持的协议和封装协议</span>
+            <span class="post-date" title="2018-11-04 14:43:48">2018/11/04</span>
+        </a>
+        
+        <a class="PHP " href="/2018/10/26/php/PHP手册-预定义变量/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP手册-预定义变量">PHP手册-预定义变量</span>
+            <span class="post-date" title="2018-10-26 14:40:26">2018/10/26</span>
+        </a>
+        
+        <a class="PHP " href="/2018/10/31/php/PHP手册-预定义异常/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP手册-预定义异常">PHP手册-预定义异常</span>
+            <span class="post-date" title="2018-10-31 11:10:41">2018/10/31</span>
+        </a>
+        
+        <a class="PHP " href="/2018/10/31/php/PHP手册-预定义接口/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP手册-预定义接口">PHP手册-预定义接口</span>
+            <span class="post-date" title="2018-10-31 14:17:59">2018/10/31</span>
+        </a>
+        
+        <a class="数据结构 " href="/2017/03/14/php/PHP的冒泡算法/" data-tag="数据结构,PHP" data-author>
+            <span class="post-title" title="PHP的冒泡算法">PHP的冒泡算法</span>
+            <span class="post-date" title="2017-03-14 14:28:30">2017/03/14</span>
+        </a>
+        
+        <a class="PHP " href="/2017/11/28/php/PHP类的自动加载 /" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP类的自动加载">PHP类的自动加载</span>
+            <span class="post-date" title="2017-11-28 00:00:00">2017/11/28</span>
+        </a>
+        
+        <a class="PHP " href="/2018/10/23/php/PHP递归删除数组中值为空的元素/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP递归删除数组中值为空的元素.md">PHP递归删除数组中值为空的元素.md</span>
+            <span class="post-date" title="2018-10-23 17:47:06">2018/10/23</span>
+        </a>
+        
+        <a class="PHP " href="/2017/03/14/php/PHP遍历某个文件夹下子目录和文件/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP遍历文件夹下子目录和文件">PHP遍历文件夹下子目录和文件</span>
+            <span class="post-date" title="2017-03-14 10:58:04">2017/03/14</span>
+        </a>
+        
+        <a class="PHP " href="/2017/11/28/php/PHP魔术常量/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP魔术常量">PHP魔术常量</span>
+            <span class="post-date" title="2017-11-28 00:00:00">2017/11/28</span>
+        </a>
+        
+        <a class="PHP " href="/2017/11/28/php/Trait /" data-tag="PHP" data-author>
+            <span class="post-title" title="Trait">Trait</span>
+            <span class="post-date" title="2017-11-28 00:00:00">2017/11/28</span>
+        </a>
+        
+        <a class="PHP " href="/2017/11/13/php/session原理，如何修改session生命周期/" data-tag="PHP,Session" data-author>
+            <span class="post-title" title="【转】session原理，如何修改session生命周期">【转】session原理，如何修改session生命周期</span>
+            <span class="post-date" title="2017-11-13 14:50:39">2017/11/13</span>
+        </a>
+        
+        <a class="PHP " href="/2017/05/08/php/webuploder+PHP实现大文件断点（切片）续传/" data-tag="js,PHP,webuploader" data-author>
+            <span class="post-title" title="webuploder+PHP实现大文件断点（切片）续传">webuploder+PHP实现大文件断点（切片）续传</span>
+            <span class="post-date" title="2017-05-08 11:18:07">2017/05/08</span>
+        </a>
+        
+        <a class="PHP " href="/2018/10/29/php/一道看似简单的面试题/" data-tag="PHP,运算符" data-author>
+            <span class="post-title" title="【转】一道看似简单的面试题">【转】一道看似简单的面试题</span>
+            <span class="post-date" title="2018-10-29 15:07:31">2018/10/29</span>
+        </a>
+        
+        <a class="PHP " href="/2017/11/13/php/从用户浏览器输入url到用户看到页面结果的过程，发生了什么事情？/" data-tag="面试总结" data-author>
+            <span class="post-title" title="【转】从用户浏览器输入url到用户看到页面结果的过程，发生了什么事情？">【转】从用户浏览器输入url到用户看到页面结果的过程，发生了什么事情？</span>
+            <span class="post-date" title="2017-11-13 14:50:39">2017/11/13</span>
+        </a>
+        
+        <a class="PHP " href="/2017/11/15/php/各类 HTTP 返回状态代码详解/" data-tag="PHP,HTTP" data-author>
+            <span class="post-title" title="【转】各类 HTTP 返回状态代码详解">【转】各类 HTTP 返回状态代码详解</span>
+            <span class="post-date" title="2017-11-15 16:30:30">2017/11/15</span>
+        </a>
+        
+        <a class="PHP " href="/2017/05/22/php/驼峰命名法和下划线风格的互转/" data-tag="PHP，面试汇总" data-author>
+            <span class="post-title" title="【转】驼峰命名法和下划线风格的互转">【转】驼峰命名法和下划线风格的互转</span>
+            <span class="post-date" title="2017-05-22 16:05:11">2017/05/22</span>
+        </a>
+        
+        <a class="Shell " href="/2019/04/01/shell/shell-shell编程基础/" data-tag="Linux,Shell" data-author>
+            <span class="post-title" title="shell-shell编程基础">shell-shell编程基础</span>
+            <span class="post-date" title="2019-04-01 11:26:01">2019/04/01</span>
+        </a>
+        
+        <a class="Shell " href="/2019/03/29/shell/shell-初识Shell/" data-tag="Linux,Shell" data-author>
+            <span class="post-title" title="shell-初识Shell">shell-初识Shell</span>
+            <span class="post-date" title="2019-03-29 14:58:08">2019/03/29</span>
+        </a>
+        
+        <a class="Shell " href="/2019/04/16/shell/shell-基本文本处理/" data-tag="Linux,Shell" data-author>
+            <span class="post-title" title="shell-基本文本处理">shell-基本文本处理</span>
+            <span class="post-date" title="2019-04-16 10:01:05">2019/04/16</span>
+        </a>
+        
+        <a class="Shell " href="/2019/05/21/shell/shell-文件和文件系统/" data-tag="Linux,Shell" data-author>
+            <span class="post-title" title="shell-文件和文件系统">shell-文件和文件系统</span>
+            <span class="post-date" title="2019-05-21 12:22:01">2019/05/21</span>
+        </a>
+        
+        <a class="Shell " href="/2019/05/29/shell/shell-文本处理利器 awk/" data-tag="Linux,Shell" data-author>
+            <span class="post-title" title="【转】shell-文本处理利器 awk">【转】shell-文本处理利器 awk</span>
+            <span class="post-date" title="2019-05-29 13:26:35">2019/05/29</span>
+        </a>
+        
+        <a class="Shell " href="/2019/04/15/shell/shell-正则表达式/" data-tag="Linux,Shell" data-author>
+            <span class="post-title" title="shell-正则表达式">shell-正则表达式</span>
+            <span class="post-date" title="2019-04-15 11:08:05">2019/04/15</span>
+        </a>
+        
+        <a class="Shell " href="/2019/05/28/shell/shell-流编辑sed/" data-tag="Linux,Shell" data-author>
+            <span class="post-title" title="shell-流编辑sed">shell-流编辑sed</span>
+            <span class="post-date" title="2019-05-28 13:33:35">2019/05/28</span>
+        </a>
+        
+        <a class="Shell " href="/2019/04/01/shell/shell-编程的基本元素/" data-tag="Linux,Shell" data-author>
+            <span class="post-title" title="shell-编程的基本元素">shell-编程的基本元素</span>
+            <span class="post-date" title="2019-04-01 15:42:03">2019/04/01</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-laravel/Laravel学习之旅——基础篇" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">【转】Laravel学习之旅——基础篇（安装、路由、CSRF、404）</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+                <a data-rel="Laravel">Laravel</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a class="color4">PHP</a>
+            
+            <a class="color3">Laravel</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title="更新时间: 2020-03-26 10:29:38">2017-04-01 09:31</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>字数:2.7k</span>
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+        <span class="top-comment" title="跳转至评论区">
+            <a href="#comments">
+                评论:<span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </a>
+        </span>
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#安装"><span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#对运行环境要求"><span class="toc-text">对运行环境要求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装-Laravel"><span class="toc-text">安装 Laravel</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#下载-Laravel-一键安装包"><span class="toc-text">下载 Laravel 一键安装包</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#路由"><span class="toc-text">路由</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#我们将在app-Http-routes-php文件中定义应用程序的大多数路由，该文件由App-Providers-RouteServiceProvider类加载。-最基本的Laravel路由只接受一个URI和一个Closure："><span class="toc-text">我们将在app\Http\routes.php文件中定义应用程序的大多数路由，该文件由App\Providers\RouteServiceProvider类加载。 最基本的Laravel路由只接受一个URI和一个Closure：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#有时我们可能需要注册一个响应多个HTTP响应的路由。-可以使用-match-路由匹配方法："><span class="toc-text">有时我们可能需要注册一个响应多个HTTP响应的路由。 可以使用 match 路由匹配方法：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#或者我们也可以注册一个可以响应所有HTTP请求的-any-路由方法："><span class="toc-text">或者我们也可以注册一个可以响应所有HTTP请求的 any 路由方法：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#带参数路由请求："><span class="toc-text">带参数路由请求：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#带多个参数路由请求："><span class="toc-text">带多个参数路由请求：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#有时，我们可能需要指定路由参数，但使该路由参数的存在是可选的。-我们可以通过放置一个？-标记在参数名称后面："><span class="toc-text">有时，我们可能需要指定路由参数，但使该路由参数的存在是可选的。 我们可以通过放置一个？ 标记在参数名称后面：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#正则表达式路由匹配"><span class="toc-text">正则表达式路由匹配</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#全局约束"><span class="toc-text">全局约束</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#命名路由"><span class="toc-text">命名路由</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#路由组-和-命名路由"><span class="toc-text">路由组 和 命名路由</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#生成URL到命名路由"><span class="toc-text">生成URL到命名路由</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#路由组"><span class="toc-text">路由组</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#中间件"><span class="toc-text">中间件</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#命名空间"><span class="toc-text">命名空间</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#子域路由"><span class="toc-text">子域路由</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#路由前缀"><span class="toc-text">路由前缀</span></a></li></ol></li></ol><li class="toc-item toc-level-1"><a class="toc-link" href="#CSRF保护"><span class="toc-text">CSRF保护</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#从CSRF保护中排除指定URI"><span class="toc-text">从CSRF保护中排除指定URI</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#X-CSRF-TOKEN"><span class="toc-text">X-CSRF-TOKEN</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#X-XSRF-TOKEN"><span class="toc-text">X-XSRF-TOKEN</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#路由模型绑定"><span class="toc-text">#路由模型绑定</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Binding-A-Parameter-To-A-Model"><span class="toc-text">Binding A Parameter To A Model</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Form-Method-Spoofing"><span class="toc-text">#Form Method Spoofing</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Throwing-404-Errors"><span class="toc-text">#Throwing 404 Errors</span></a></li>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><h2 id="对运行环境要求"><a href="#对运行环境要求" class="headerlink" title="对运行环境要求"></a>对运行环境要求</h2><p>Laravel 框架对系统环境有一些要求。当然，所有这些要求在 Laravel Homestead 虚拟机中都是预装好的：</p>
+<ul>
+<li>PHP &gt;= 5.5.9 - OpenSSL PHP 扩展 - PDO PHP 扩展 - Mbstring PHP 扩展 - Tokenizer PHP 扩展</li>
+</ul>
+<h2 id="安装-Laravel"><a href="#安装-Laravel" class="headerlink" title="安装 Laravel"></a>安装 Laravel</h2><h3 id="下载-Laravel-一键安装包"><a href="#下载-Laravel-一键安装包" class="headerlink" title="下载 Laravel 一键安装包"></a>下载 Laravel 一键安装包</h3><p>下载地址：<a href="http://www.golaravel.com/download/" target="_blank" rel="noopener">http://www.golaravel.com/download/</a><br><br><br>如图，我下载的是laravel5.1 LTS版本:<br><img src="/images/laravel版本.png"></p>
+<h1 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h1><h4 id="我们将在app-Http-routes-php文件中定义应用程序的大多数路由，该文件由App-Providers-RouteServiceProvider类加载。-最基本的Laravel路由只接受一个URI和一个Closure："><a href="#我们将在app-Http-routes-php文件中定义应用程序的大多数路由，该文件由App-Providers-RouteServiceProvider类加载。-最基本的Laravel路由只接受一个URI和一个Closure：" class="headerlink" title="我们将在app\Http\routes.php文件中定义应用程序的大多数路由，该文件由App\Providers\RouteServiceProvider类加载。 最基本的Laravel路由只接受一个URI和一个Closure："></a>我们将在<code>app\Http\routes.php</code>文件中定义应用程序的大多数路由，该文件由<code>App\Providers\RouteServiceProvider</code>类加载。 最基本的Laravel路由只接受一个URI和一个Closure：</h4><pre><code class="php">Route::get(&#39;/&#39;, function () {
+    return &#39;Hello World&#39;;
+});
+
+Route::post(&#39;foo/bar&#39;, function () {
+    return &#39;Hello World&#39;;
+});
+
+Route::put(&#39;foo/bar&#39;, function () {
+    //
+});
+
+Route::delete(&#39;foo/bar&#39;, function () {
+    //
+});</code></pre>
+<h4 id="有时我们可能需要注册一个响应多个HTTP响应的路由。-可以使用-match-路由匹配方法："><a href="#有时我们可能需要注册一个响应多个HTTP响应的路由。-可以使用-match-路由匹配方法：" class="headerlink" title="有时我们可能需要注册一个响应多个HTTP响应的路由。 可以使用 match 路由匹配方法："></a>有时我们可能需要注册一个响应多个HTTP响应的路由。 可以使用 <code>match</code> 路由匹配方法：</h4><pre><code class="php">Route::match([&#39;get&#39;, &#39;post&#39;], &#39;/&#39;, function () {
+    return &#39;Hello World&#39;;
+});
+//这样，对于‘/’的get和post请求都会使用这个路由，并返回hello World。</code></pre>
+<h4 id="或者我们也可以注册一个可以响应所有HTTP请求的-any-路由方法："><a href="#或者我们也可以注册一个可以响应所有HTTP请求的-any-路由方法：" class="headerlink" title="或者我们也可以注册一个可以响应所有HTTP请求的 any 路由方法："></a>或者我们也可以注册一个可以响应所有HTTP请求的 <code>any</code> 路由方法：</h4><pre><code class="php">Route::any(&#39;foo&#39;, function () {
+    return &#39;Hello World&#39;;
+});
+//这样无论是get、post或其他的请求方式，/foo路由都返回Hello world。</code></pre>
+<h4 id="带参数路由请求："><a href="#带参数路由请求：" class="headerlink" title="带参数路由请求："></a>带参数路由请求：</h4><pre><code class="php">//带一个参数
+Route::get(&#39;user/{id}&#39;, function ($id) {
+    return &#39;User &#39;.$id;
+});</code></pre>
+<h4 id="带多个参数路由请求："><a href="#带多个参数路由请求：" class="headerlink" title="带多个参数路由请求："></a>带多个参数路由请求：</h4><pre><code class="php">//带多个参数
+Route::get(&#39;posts/{post}/comments/{comment}&#39;, function ($postId, $commentId) {
+    //
+});</code></pre>
+<h4 id="有时，我们可能需要指定路由参数，但使该路由参数的存在是可选的。-我们可以通过放置一个？-标记在参数名称后面："><a href="#有时，我们可能需要指定路由参数，但使该路由参数的存在是可选的。-我们可以通过放置一个？-标记在参数名称后面：" class="headerlink" title="有时，我们可能需要指定路由参数，但使该路由参数的存在是可选的。 我们可以通过放置一个？ 标记在参数名称后面："></a>有时，我们可能需要指定路由参数，但使该路由参数的存在是可选的。 我们可以通过放置一个<code>？</code> 标记在参数名称后面：</h4><pre><code class="php">Route::get(&#39;user/{name?}&#39;, function ($name = null) {
+    return $name;
+});
+
+Route::get(&#39;user/{name?}&#39;, function ($name = &#39;John&#39;) {
+    return $name;
+});</code></pre>
+<h4 id="正则表达式路由匹配"><a href="#正则表达式路由匹配" class="headerlink" title="正则表达式路由匹配"></a>正则表达式路由匹配</h4><pre><code class="php">//name字段只能是大小写字母
+Route::get(&#39;user/{name}&#39;, function ($name) {
+    //
+})
+-&gt;where(&#39;name&#39;, &#39;[A-Za-z]+&#39;);
+
+//id必须为数字
+Route::get(&#39;user/{id}&#39;, function ($id) {
+    //
+})
+-&gt;where(&#39;id&#39;, &#39;[0-9]+&#39;);
+
+//id必须为数字，name为小写字母
+Route::get(&#39;user/{id}/{name}&#39;, function ($id, $name) {
+    //
+})
+-&gt;where([&#39;id&#39; =&gt; &#39;[0-9]+&#39;, &#39;name&#39; =&gt; &#39;[a-z]+&#39;]);</code></pre>
+<h4 id="全局约束"><a href="#全局约束" class="headerlink" title="全局约束"></a>全局约束</h4><p>如果希望路由参数始终受到给定正则表达式的约束，则可以使用pattern方法。 您应该在<code>App\Providers\RouteServiceProvider.php</code>的<code>boot</code>方法中定义这些模式：</p>
+<pre><code class="php">/**
+ * Define your route model bindings, pattern filters, etc.
+ *
+ * @param  \Illuminate\Routing\Router  $router
+ * @return void
+ */
+public function boot(Router $router)
+{
+    $router-&gt;pattern(&#39;id&#39;, &#39;[0-9]+&#39;);
+
+    parent::boot($router);
+}</code></pre>
+<p>一旦定义了模式，它将自动应用于使用该参数名的所有路由：</p>
+<pre><code class="php">//id自动回匹配RouteServiceProvider里面定义的正则规则
+Route::get(&#39;user/{id}&#39;, function ($id) {
+   // Only called if {id} is numeric.
+});</code></pre>
+<h4 id="命名路由"><a href="#命名路由" class="headerlink" title="命名路由"></a>命名路由</h4><p>通过命名路由，我们可以方便地为特定路由生成URL或重定向。 可以在定义路由时使用<code>as</code>数组键为路由指定名称：</p>
+<pre><code class="php">Route::get(&#39;user/profile&#39;, [&#39;as&#39; =&gt; &#39;profile&#39;, function () {
+    //
+}]);</code></pre>
+<p>还可以为控制器操作指定路由名称:</p>
+<pre><code class="php">Route::get(&#39;user/profile&#39;, [
+    &#39;as&#39; =&gt; &#39;profile&#39;, &#39;uses&#39; =&gt; &#39;UserController@showProfile&#39;
+]);</code></pre>
+<p>代替在路由数组定义中指定路由名称，我们可以将名称方法链接到路由定义的末尾：</p>
+<pre><code class="php">Route::get(&#39;user/profile&#39;, &#39;UserController@showProfile&#39;)-&gt;name(&#39;profile&#39;);</code></pre>
+<h4 id="路由组-和-命名路由"><a href="#路由组-和-命名路由" class="headerlink" title="路由组 和 命名路由"></a>路由组 和 命名路由</h4><p>如果我们使用路由组，我们可以在路由组属性数组中指定<code>as</code>关键字，允许为组内的所有路由设置公共路由名前缀：</p>
+<pre><code class="php">Route::group([&#39;as&#39; =&gt; &#39;admin::&#39;], function () {
+    Route::get(&#39;dashboard&#39;, [&#39;as&#39; =&gt; &#39;dashboard&#39;, function () {
+        // Route named &quot;admin::dashboard&quot;
+    }]);
+});</code></pre>
+<h4 id="生成URL到命名路由"><a href="#生成URL到命名路由" class="headerlink" title="生成URL到命名路由"></a>生成URL到命名路由</h4><p>为指定路线指定名称后，我们可以在通过路线功能生成网址或重定向时使用路线名称：</p>
+<pre><code class="php">$url = route(&#39;profile&#39;);
+$redirect = redirect()-&gt;route(&#39;profile&#39;);</code></pre>
+<p>如果路由定义参数，我们可以将参数作为第二个参数传递给route方法。 给定的参数将自动插入到URL中：</p>
+<pre><code class="php">Route::get(&#39;user/{id}/profile&#39;, [&#39;as&#39; =&gt; &#39;profile&#39;, function ($id) {
+    //
+}]);
+$url = route(&#39;profile&#39;, [&#39;id&#39; =&gt; 1]);</code></pre>
+<h4 id="路由组"><a href="#路由组" class="headerlink" title="路由组"></a>路由组</h4><p>路由组允许跨大量路由共享路由属性（例如中间件或命名空间），而无需在每个单独路由上定义这些属性。 共享属性以数组格式指定为<code>Route :: group</code>方法的第一个参数。</p>
+<h5 id="中间件"><a href="#中间件" class="headerlink" title="中间件"></a>中间件</h5><p>要将中间件分配给组中的所有路由，我们可以使用组属性数组中的中间件键。 中间件将按照我们定义此数组的顺序执行：</p>
+<pre><code class="php">Route::group([&#39;middleware&#39; =&gt; &#39;auth&#39;], function () {
+    Route::get(&#39;/&#39;, function ()    {
+        // Uses Auth Middleware
+    });
+
+    Route::get(&#39;user/profile&#39;, function () {
+        // Uses Auth Middleware
+    });
+});</code></pre>
+<h4 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h4><p>路由组的另一个常见用例是将同一个PHP命名空间分配给一组控制器。 您可以在组属性数组中使用<code>namespace</code>参数来为组中的所有控制器指定命名空间：</p>
+<pre><code class="php">Route::group([&#39;namespace&#39; =&gt; &#39;Admin&#39;], function()
+{
+    // Controllers Within The &quot;App\Http\Controllers\Admin&quot; Namespace
+
+    Route::group([&#39;namespace&#39; =&gt; &#39;User&#39;], function()
+    {
+        // Controllers Within The &quot;App\Http\Controllers\Admin\User&quot; Namespace
+    });
+});</code></pre>
+<p>记住，默认情况下，<code>RouteServiceProvider</code>在命名空间组中包含您的<code>routes.php</code>文件，允许您注册控制器路由，而不指定完整的<code>App\Http\Controllers</code>命名空间前缀。 因此，我们只需要指定在<code>App\Http\Controllers</code>命名空间根目录之后的命名空间部分。</p>
+<h5 id="子域路由"><a href="#子域路由" class="headerlink" title="子域路由"></a>子域路由</h5><p>路由组也可以用于路由通配符子域。 子域可以像路由URI一样被分配路由参数，允许我们捕获子域的一部分以在路由或控制器中使用。 可以使用组属性数组上的域密钥指定子域：</p>
+<pre><code class="php">Route::group([&#39;domain&#39; =&gt; &#39;{account}.myapp.com&#39;], function () {
+    Route::get(&#39;user/{id}&#39;, function ($account, $id) {
+        //
+    });
+});</code></pre>
+<h4 id="路由前缀"><a href="#路由前缀" class="headerlink" title="路由前缀"></a>路由前缀</h4><p>   前缀组数组属性可以用于使用给定的URI为组中的每个路由加前缀。 例如，您可能希望在组内用<code>admin</code>路由URI作为前缀： </p>
+<pre><code class="php">Route::group([&#39;prefix&#39; =&gt; &#39;admin&#39;], function () {
+     Route::get(&#39;users&#39;, function ()    {
+         // Matches The &quot;/admin/users&quot; URL
+     });
+});   </code></pre>
+<p>您还可以使用prefix参数为您的分组路由指定通用参数：    </p>
+<pre><code class="php">Route::group([&#39;prefix&#39; =&gt; &#39;accounts/{account_id}&#39;], function () {
+    Route::get(&#39;detail&#39;, function ($account_id)    {
+        // Matches The accounts/{account_id}/detail URL
+    });
+});</code></pre>
+<h1 id="CSRF保护"><a href="#CSRF保护" class="headerlink" title="CSRF保护"></a>CSRF保护</h1><p>Laravel可以轻松保护您的应用程序免受跨站点请求伪造。 跨站点请求伪造是一种恶意利用，其中代表已验证用户执行未授权命令。<br><br><br>Laravel为应用程序管理的每个活动用户会话自动生成CSRF“令牌”。 此令牌用于验证已认证的用户是实际向应用程序发出请求的用户。 要生成包含CSRF令牌的隐藏输入字段_token，可以使用csrf_field帮助函数：</p>
+<pre><code class="php">&lt;?php echo csrf_field(); ?&gt;</code></pre>
+<p><code>csrf_field</code>函数主要放在下面的html中</p>
+<pre><code class="html">&lt;input type=&quot;hidden&quot; name=&quot;_token&quot; value=&quot;&lt;?php echo csrf_token(); ?&gt;&quot;&gt;</code></pre>
+<p>当然，也可以使用Blade模板引擎：</p>
+<pre><code class="php">{{ csrf_field() }}</code></pre>
+<p>您不需要在<code>POST</code>，<code>PUT</code>或<code>DELETE</code>请求中手动验证CSRF令牌。 <code>VerifyCsrfToken</code> HTTP中间件将验证请求输入中的令牌是否与会话中存储的令牌匹配。</p>
+<h2 id="从CSRF保护中排除指定URI"><a href="#从CSRF保护中排除指定URI" class="headerlink" title="从CSRF保护中排除指定URI"></a>从CSRF保护中排除指定URI</h2><p>有时您可能希望从 CSRF 保护中排除一组 URI。 例如，如果您使用<code>Stripe</code>处理付款并使用其 Webhook 系统，则需要从 Laravel 的 CSRF 保护中排除您的 Webhook 处理程序路径。</p>
+<p>您可以通过将 URI 添加到<code>VerifyCsrfToken</code>中间件的 <code>$ except</code> 属性中来排除URI：</p>
+<pre><code class="php">&lt;?php
+
+namespace App\Http\Middleware;
+
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as BaseVerifier;
+
+class VerifyCsrfToken extends BaseVerifier
+{
+    /**
+     * The URIs that should be excluded from CSRF verification.
+     *
+     * @var array
+     */
+    protected $except = [
+        &#39;stripe/*&#39;,
+    ];
+}</code></pre>
+<h1 id="X-CSRF-TOKEN"><a href="#X-CSRF-TOKEN" class="headerlink" title="X-CSRF-TOKEN"></a>X-CSRF-TOKEN</h1><p>除了检查CSRF令牌作为POST参数之外，Laravel VerifyCsrfToken中间件还将检查<code>X-CSRF-TOKEN</code>请求头。 例如，您可以将令牌存储在“<code>meta</code>”标记中：</p>
+<pre><code class="html">&lt;meta name=&quot;csrf-token&quot; content=&quot;{{ csrf_token() }}&quot;&gt;</code></pre>
+<p>创建元标记后，您可以指示像jQuery这样的库将令牌添加到所有请求标头。 这为您的基于AJAX的应用程序提供了简单，方便的CSRF保护：</p>
+<pre><code class="js">$.ajaxSetup({
+        headers: {
+            &#39;X-CSRF-TOKEN&#39;: $(&#39;meta[name=&quot;csrf-token&quot;]&#39;).attr(&#39;content&#39;)
+        }
+});</code></pre>
+<h1 id="X-XSRF-TOKEN"><a href="#X-XSRF-TOKEN" class="headerlink" title="X-XSRF-TOKEN"></a>X-XSRF-TOKEN</h1><p>Laravel还将CSRF令牌存储在XSRF-TOKEN cookie中。 您可以使用cookie值设置X-XSRF-TOKEN请求标头。 一些JavaScript框架，如Angular，会自动为您执行此操作。 您不太可能需要手动使用此值。</p>
+<h1 id="路由模型绑定"><a href="#路由模型绑定" class="headerlink" title="#路由模型绑定"></a>#路由模型绑定</h1><p>Laravel路由模型绑定提供了一种方便的方法来将类实例注入到路由中。 例如，您可以注入与给定<code>ID</code>匹配的整个<code>User</code>类实例，而不是注入用户的<code>ID</code>。</p>
+<p>首先，使用路由器的模型方法指定给定参数的类。 您应该在<code>RouteServiceProvider :: boot</code>方法中定义模型绑定：</p>
+<h4 id="Binding-A-Parameter-To-A-Model"><a href="#Binding-A-Parameter-To-A-Model" class="headerlink" title="Binding A Parameter To A Model"></a>Binding A Parameter To A Model</h4><pre><code class="php">public function boot(Router $router)
+{
+    parent::boot($router);
+
+    $router-&gt;model(&#39;user&#39;, &#39;App\User&#39;);
+}</code></pre>
+<p>接下来，定义包含<code>{user}</code>参数的路由：</p>
+<pre><code class="php">$router-&gt;get(&#39;profile/{user}&#39;, function(App\User $user) {
+    //
+});</code></pre>
+<p>因为我们已经将<code>{user}</code>参数绑定到<code>App\User</code>模型，所以一个User实例将被注入到路由中。 因此，例如，对<code>profile/1</code>的请求将注入具有ID为1的User实例。  </p>
+<p>注意：如果在数据库中找不到匹配的模型实例，则会自动抛出404异常。</p>
+<p>如果你想指定你自己的“未找到”行为，传递一个Closure作为模型方法的第三个参数：</p>
+<pre><code class="php">$router-&gt;model(&#39;user&#39;, &#39;App\User&#39;, function() {
+    throw new NotFoundHttpException;
+});  </code></pre>
+<p>如果你想使用自己的解析逻辑，你应该使用<code>Route :: bind</code>方法。 传递给<code>bind</code>方法的<code>Closure</code>将接收 URI 段的值，并且应该返回要注入到路由中的类的实例：    </p>
+<pre><code class="php">$router-&gt;bind(&#39;user&#39;, function($value) {
+    return App\User::where(&#39;name&#39;, $value)-&gt;first();
+});  </code></pre>
+<h1 id="Form-Method-Spoofing"><a href="#Form-Method-Spoofing" class="headerlink" title="#Form Method Spoofing"></a>#Form Method Spoofing</h1><p>HTML表单不支持<code>PUT</code>，<code>PATCH</code>或<code>DELETE</code>操作。 因此，当定义从 HTML 表单调用的<code>PUT</code>，<code>PATCH</code>或<code>DELETE</code>路由时，您将需要向表单添加隐藏的<code>_method</code>字段。 与<code>_method</code>字段一起发送的值将用作 HTTP 请求方法：    </p>
+<pre><code class="html"> &lt;form action=&quot;/foo/bar&quot; method=&quot;POST&quot;&gt;
+     &lt;input type=&quot;hidden&quot; name=&quot;_method&quot; value=&quot;PUT&quot;&gt;
+     &lt;input type=&quot;hidden&quot; name=&quot;_token&quot; value=&quot;{{ csrf_token() }}&quot;&gt;
+ &lt;/form&gt; </code></pre>
+<p>要生成隐藏的输入字段_method，您还可以使用method_field帮助函数：</p>
+<pre><code class="php">&lt;?php echo method_field(&#39;PUT&#39;); ?&gt;   </code></pre>
+<p>当然，也可以使用Blade模板引擎：   </p>
+<pre><code class="php">{{ method_field('PUT') }}    </code></pre>
+<h1 id="Throwing-404-Errors"><a href="#Throwing-404-Errors" class="headerlink" title="#Throwing 404 Errors"></a>#Throwing 404 Errors</h1><p>有两种方法可以从路由中手动触发404错误。 首先，您可以使用中止帮助程序。 中止帮助器只是抛出一个带有指定状态码的<code>Symfony\Component\HttpFoundation\Exception\HttpException</code>：</p>
+<pre><code class="php">abort(404);</code></pre>
+<p>其次，您可以手动抛出<code>Symfony\Component\HttpKernel\Exception\NotFoundHttpException</code>的实例。</p>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 786532832@qq.com </span>
+    </div>
+</article>
+
+
+<p>
+    <a class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>【转】Laravel学习之旅——基础篇（安装、路由、CSRF、404）</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">2.7k</span></p>
+    <p><span class="copy-title">本文作者:</span><a title="Aurora-龙振巅峰">Aurora-龙振巅峰</a></p>
+    <p><span class="copy-title">发布时间:</span>2017-04-01, 09:31:25</p>
+    <p><span class="copy-title">最后更新:</span>2020-03-26, 10:29:38</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2017/04/01/laravel/Laravel学习之旅——基础篇/" title="【转】Laravel学习之旅——基础篇（安装、路由、CSRF、404）">https://auroralzdf.gitee.io/2017/04/01/laravel/Laravel学习之旅——基础篇/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target="_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+    <div id="comments"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+<script type="text/javascript">
+    $.getScript('/js/gitalk.js', function () {
+        var gitalk = new Gitalk({
+            clientID: 'b9203c40539965c52855',
+            clientSecret: '80f3357a6572570797a5b3f84643c9dc33841d85',
+            repo: 'AuroraLZDF.GitHub.io',
+            owner: 'AuroraLZDF',
+            admin: ['AuroraLZDF'],
+            id: decodeURI(location.pathname),
+            distractionFreeMode: 'true',
+            language: 'zh-CN',
+            perPage: parseInt('10',10)
+        })
+        gitalk.render('comments')
+    })
+</script>
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2017-2020 Aurora</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class id="rocket"></a>
+
+    </div>
+</div>
+<div class="acParent"></div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close" onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>喜欢就点赞,疼爱就打赏</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">支付宝</label></span><span><label><input type="radio" name="pay" value="weixin">微信</label></span>
+    </div>
+</div>
+
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.0.1"></script>
+
+<script src="/js/script.js?v=1.0.1"></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['#Linux','#系统','#Vue.js','#前端框架','#Python','#Hexo','#Ajax、笔记','#js','#Docker','#数据结构','#数学','#git','#Golang','#PHP','#Laravel','#MySQL','#Nginx','#运维','#负载均衡','#PHP、笔记','#Session','#webuploader','#运算符','#面试总结','#HTTP','#PHP，面试汇总','#Shell',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().trim().split('\n').length, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+        .nav .hide-list.fullscreen {
+            left: 492px
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://i.loli.net/2019/07/22/5d3521411f3f169375.png");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>

@@ -1,0 +1,2779 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <title>【转】Gin文档中文翻译 | Aurora-龙振巅峰的博客</title>
+  <meta name="keywords" content=" Golang ">
+  <meta name="description" content="【转】Gin文档中文翻译 | Aurora-龙振巅峰的博客">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="keywords" content="后端，PHP，Golang, Vuejs, JS，JQUERY，开发者，程序猿，编程，代码，开源，IT网站，Developer，Programmer，Coder，Geek，Html，Css，用户体验">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Aurora-龙振巅峰的博客">
+<meta property="og:url" content="https://auroralzdf.gitee.io/404.html">
+<meta property="og:site_name" content="Aurora-龙振巅峰的博客">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-03-26T02:29:38.795Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Aurora-龙振巅峰的博客">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1"></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+<script src="/js/iconfont.js?v=1.0.1"></script>
+
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value>
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg">
+</a>
+<div class="author">
+    <span>Aurora-龙振巅峰</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="rss" href="/atom.xml" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-rss"/>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="github" href="https://github.com/AuroraLZDF" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"/>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+    
+        
+        <a title="email" href="mailto:786532832@qq.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"/>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="qq" href="http://wpa.qq.com/msgrd?v=3&uin=786532832&site=qq&menu=yes" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-qq"/>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="kugou" href="https://www.kugou.com/" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-kugou"/>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(87)</small></div></li>
+    
+        
+            
+            <li><div data-rel="Deepin">Deepin<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Vue.js">Vue.js<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Python">Python<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Hexo">Hexo<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="JS">JS<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Linux">Linux<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Docker">Docker<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="数据结构">数据结构<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="git">git<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Golang">Golang<small>(18)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Laravel">Laravel<small>(7)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="MySQL">MySQL<small>(5)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Nginx">Nginx<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="PHP">PHP<small>(23)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="PHP、PHP标准规范">PHP、PHP标准规范<small>(7)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="PHP、笔记">PHP、笔记<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="PHP，笔记">PHP，笔记<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Shell">Shell<small>(8)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div><a class="about  hasFriend  site_url" href="/about">关于</a><a style="width: 50%" class="friends">友链</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="87">
+<input type="hidden" id="yelog_site_word_count" value="193.2k">
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode === 13){return false;}">
+        <input id="local-search-input" class="search" type="text" placeholder="Search...">
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none">
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <li class="article-tag-list-item">
+        <a class="color1">Linux</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">系统</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">Vue.js</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">前端框架</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">Python</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">Hexo</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">Ajax、笔记</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">js</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">Docker</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">数据结构</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">数学</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">git</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">Golang</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">PHP</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">Laravel</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">MySQL</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">Nginx</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">运维</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">负载均衡</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">PHP、笔记</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">Session</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">webuploader</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">运算符</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">面试总结</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">HTTP</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">PHP，面试汇总</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">Shell</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        <a class="Deepin " href="/2018/11/01/Chrome插件开发全攻略/" data-tag="Linux,系统" data-author>
+            <span class="post-title" title="【转】Chrome插件开发全攻略">【转】Chrome插件开发全攻略</span>
+            <span class="post-date" title="2018-11-01 09:44:31">2018/11/01</span>
+        </a>
+        
+        <a class="Deepin " href="/2017/09/22/Deepin磁盘空间不足/" data-tag="Linux,系统" data-author>
+            <span class="post-title" title="Deepin磁盘空间不足">Deepin磁盘空间不足</span>
+            <span class="post-date" title="2017-09-22 22:52:52">2017/09/22</span>
+        </a>
+        
+        <a class="Vue.js " href="/2017/04/11/Vue.js——60分钟快速入门/" data-tag="Vue.js,前端框架" data-author>
+            <span class="post-title" title="【转】Vue.js——60分钟快速入门">【转】Vue.js——60分钟快速入门</span>
+            <span class="post-date" title="2017-04-11 15:33:11">2017/04/11</span>
+        </a>
+        
+        <a class="Python " href="/2018/01/04/Python数据结构/" data-tag="Python" data-author>
+            <span class="post-title" title="数据结构">数据结构</span>
+            <span class="post-date" title="2018-01-04 00:00:00">2018/01/04</span>
+        </a>
+        
+        <a class="Hexo " href="/2017/04/02/hello-world/" data-tag="Hexo" data-author>
+            <span class="post-title" title="Hello World">Hello World</span>
+            <span class="post-date" title="2017-04-02 11:56:43">2017/04/02</span>
+        </a>
+        
+        <a class="JS " href="/2019/02/21/jQuery-ajax-serialize-方法/" data-tag="Ajax、笔记" data-author>
+            <span class="post-title" title="jQuery-ajax-serialize()方法">jQuery-ajax-serialize()方法</span>
+            <span class="post-date" title="2019-02-21 15:44:07">2019/02/21</span>
+        </a>
+        
+        <a class="Linux " href="/2017/05/22/ubuntu16.04下解决Adobe Flash不是最新版问题/" data-tag="Linux" data-author>
+            <span class="post-title" title="ubuntu16.04下解决Adobe Flash不是最新版问题">ubuntu16.04下解决Adobe Flash不是最新版问题</span>
+            <span class="post-date" title="2017-05-22 16:02:11">2017/05/22</span>
+        </a>
+        
+        <a class="Hexo " href="/2017/03/02/使用Hexo + Github Pages搭建个人独立博客/" data-tag="Hexo" data-author>
+            <span class="post-title" title="使用Hexo + Github Pages搭建个人独立博客">使用Hexo + Github Pages搭建个人独立博客</span>
+            <span class="post-date" title="2017-03-02 16:40:41">2017/03/02</span>
+        </a>
+        
+        <a class="Vue.js " href="/2017/05/02/入门Webpack，看这篇就够了/" data-tag="Vue.js,js" data-author>
+            <span class="post-title" title="【转】入门Webpack，看这篇就够了">【转】入门Webpack，看这篇就够了</span>
+            <span class="post-date" title="2017-05-02 10:19:03">2017/05/02</span>
+        </a>
+        
+        <a class="Docker " href="/2018/03/01/学习笔记：Docker简介和安装/" data-tag="Docker" data-author>
+            <span class="post-title" title="【转】学习笔记：Docker简介和安装">【转】学习笔记：Docker简介和安装</span>
+            <span class="post-date" title="2018-03-01 09:54:31">2018/03/01</span>
+        </a>
+        
+        <a class="数据结构 " href="/2019/06/06/数据结构-数学知识复习/" data-tag="数据结构,数学" data-author>
+            <span class="post-title" title="数据结构-数学知识复习">数据结构-数学知识复习</span>
+            <span class="post-date" title="2019-06-06 11:19:08">2019/06/06</span>
+        </a>
+        
+        <a class="git " href="/2017/09/23/线上服务器搭建GIT服务器，实现本地代码上传并同步到服务器/" data-tag="Linux,git" data-author>
+            <span class="post-title" title="线上服务器搭建GIT服务器，实现本地代码上传并同步到服务器">线上服务器搭建GIT服务器，实现本地代码上传并同步到服务器</span>
+            <span class="post-date" title="2017-09-23 00:00:00">2017/09/23</span>
+        </a>
+        
+        <a class="Golang " href="/2019/03/01/golang/Gin文档中文翻译/" data-tag="Golang" data-author>
+            <span class="post-title" title="【转】Gin文档中文翻译">【转】Gin文档中文翻译</span>
+            <span class="post-date" title="2019-03-01 16:02:42">2019/03/01</span>
+        </a>
+        
+        <a class="Golang " href="/2019/01/14/golang/Golang-flag包实现命令行参数的解析/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-flag包实现命令行参数的解析">Golang-flag包实现命令行参数的解析</span>
+            <span class="post-date" title="2019-01-14 16:25:58">2019/01/14</span>
+        </a>
+        
+        <a class="Golang " href="/2019/01/02/golang/Golang-fmt格式化I-O/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-fmt格式化I/O">Golang-fmt格式化I/O</span>
+            <span class="post-date" title="2019-01-02 14:53:51">2019/01/02</span>
+        </a>
+        
+        <a class="Golang " href="/2019/01/16/golang/Golang-bufio实现有缓冲的I-O/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-bufio实现有缓冲的I/O">Golang-bufio实现有缓冲的I/O</span>
+            <span class="post-date" title="2019-01-16 14:09:06">2019/01/16</span>
+        </a>
+        
+        <a class="Golang " href="/2019/01/18/golang/Golang-json、xml、gob数据编码解码（格式化）/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-json、xml、gob数据编码解码">Golang-json、xml、gob数据编码解码</span>
+            <span class="post-date" title="2019-01-18 10:27:34">2019/01/18</span>
+        </a>
+        
+        <a class="Golang " href="/2019/01/18/golang/Golang-json包实现了json对象的编-解码/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-json包实现了json对象的编/解码">Golang-json包实现了json对象的编/解码</span>
+            <span class="post-date" title="2019-01-18 10:34:55">2019/01/18</span>
+        </a>
+        
+        <a class="Golang " href="/2018/12/03/golang/Golang-regexp包实现了正则表达式搜索/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-regexp包实现了正则表达式搜索">Golang-regexp包实现了正则表达式搜索</span>
+            <span class="post-date" title="2018-12-03 13:55:44">2018/12/03</span>
+        </a>
+        
+        <a class="Golang " href="/2018/11/23/golang/Golang-sort排序/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-sort排序">Golang-sort排序</span>
+            <span class="post-date" title="2018-11-23 14:17:31">2018/11/23</span>
+        </a>
+        
+        <a class="Golang " href="/2018/11/14/golang/Golang-strconv基本数据类型和其字符串表示的相互转换/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-strconv基本数据类型和其字符串表示的相互转换">Golang-strconv基本数据类型和其字符串表示的相互转换</span>
+            <span class="post-date" title="2018-11-14 14:37:37">2018/11/14</span>
+        </a>
+        
+        <a class="Golang " href="/2018/11/20/golang/Golang-switch结构/" data-tag="Golang" data-author>
+            <span class="post-title" title="【转】Golang-switch结构">【转】Golang-switch结构</span>
+            <span class="post-date" title="2018-11-20 14:04:30">2018/11/20</span>
+        </a>
+        
+        <a class="Golang " href="/2018/11/09/golang/Golang-位左移的应用/" data-tag="Golang" data-author>
+            <span class="post-title" title="『记』Golang-位左移的应用">『记』Golang-位左移的应用</span>
+            <span class="post-date" title="2018-11-09 15:31:25">2018/11/09</span>
+        </a>
+        
+        <a class="Golang " href="/2018/11/12/golang/Golang-strings操作字符的简单函数/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-strings操作字符的简单函数">Golang-strings操作字符的简单函数</span>
+            <span class="post-date" title="2018-11-12 14:40:23">2018/11/12</span>
+        </a>
+        
+        <a class="Golang " href="/2018/11/15/golang/Golang-时间和日期time/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-时间和日期time">Golang-时间和日期time</span>
+            <span class="post-date" title="2018-11-15 10:33:06">2018/11/15</span>
+        </a>
+        
+        <a class="Golang " href="/2019/01/02/golang/Golang-读写数据一/" data-tag="Golang" data-author>
+            <span class="post-title" title="【转】Golang-读写数据一">【转】Golang-读写数据一</span>
+            <span class="post-date" title="2019-01-02 14:44:10">2019/01/02</span>
+        </a>
+        
+        <a class="Golang " href="/2019/01/14/golang/Golang-读写数据二/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-读写数据二">Golang-读写数据二</span>
+            <span class="post-date" title="2019-01-14 15:08:34">2019/01/14</span>
+        </a>
+        
+        <a class="Golang " href="/2018/11/21/golang/Golang-通过内存缓存来提升性能/" data-tag="Golang" data-author>
+            <span class="post-title" title="【转】Golang-通过内存缓存来提升性能">【转】Golang-通过内存缓存来提升性能</span>
+            <span class="post-date" title="2018-11-21 15:45:11">2018/11/21</span>
+        </a>
+        
+        <a class="Golang " href="/2019/01/23/golang/Golang-错误处理与测试/" data-tag="Golang" data-author>
+            <span class="post-title" title="【转】Golang-错误处理与测试">【转】Golang-错误处理与测试</span>
+            <span class="post-date" title="2019-01-23 14:16:22">2019/01/23</span>
+        </a>
+        
+        <a class="Golang " href="/2018/11/12/golang/Golang的单引号、双引号与反引号/" data-tag="Golang" data-author>
+            <span class="post-title" title="【转】Golang的单引号、双引号与反引号">【转】Golang的单引号、双引号与反引号</span>
+            <span class="post-date" title="2018-11-12 16:10:36">2018/11/12</span>
+        </a>
+        
+        <a class="Laravel " href="/2017/04/02/laravel/Laravel学习之旅——Blade 模板引擎/" data-tag="PHP,Laravel" data-author>
+            <span class="post-title" title="【转】Laravel学子之旅——Blade 模板引擎">【转】Laravel学子之旅——Blade 模板引擎</span>
+            <span class="post-date" title="2017-04-02 11:56:43">2017/04/02</span>
+        </a>
+        
+        <a class="Laravel " href="/2017/04/02/laravel/Laravel学习之旅——HTTP 中间件/" data-tag="PHP,Laravel" data-author>
+            <span class="post-title" title="【转】Laravel学习之旅——HTTP 中间件">【转】Laravel学习之旅——HTTP 中间件</span>
+            <span class="post-date" title="2017-04-02 09:45:46">2017/04/02</span>
+        </a>
+        
+        <a class="Laravel " href="/2017/04/01/laravel/Laravel学习之旅——HTTP 响应/" data-tag="PHP,Laravel" data-author>
+            <span class="post-title" title="【转】Laravel学习之旅——HTTP 响应">【转】Laravel学习之旅——HTTP 响应</span>
+            <span class="post-date" title="2017-04-01 16:45:15">2017/04/01</span>
+        </a>
+        
+        <a class="Laravel " href="/2017/04/01/laravel/Laravel学习之旅——HTTP 控制器/" data-tag="PHP,Laravel" data-author>
+            <span class="post-title" title="【转】Laravel学习之旅——HTTP 控制器">【转】Laravel学习之旅——HTTP 控制器</span>
+            <span class="post-date" title="2017-04-01 20:11:25">2017/04/01</span>
+        </a>
+        
+        <a class="Laravel " href="/2017/04/01/laravel/Laravel学习之旅——HTTP 请求/" data-tag="PHP,Laravel" data-author>
+            <span class="post-title" title="【转】Laravel学习之旅——HTTP 请求">【转】Laravel学习之旅——HTTP 请求</span>
+            <span class="post-date" title="2017-04-01 13:48:00">2017/04/01</span>
+        </a>
+        
+        <a class="Laravel " href="/2017/04/01/laravel/Laravel学习之旅——基础篇/" data-tag="PHP,Laravel" data-author>
+            <span class="post-title" title="【转】Laravel学习之旅——基础篇（安装、路由、CSRF、404）">【转】Laravel学习之旅——基础篇（安装、路由、CSRF、404）</span>
+            <span class="post-date" title="2017-04-01 09:31:25">2017/04/01</span>
+        </a>
+        
+        <a class="MySQL " href="/2017/10/18/mysql/linux mysql自动备份数据库/" data-tag="Linux,MySQL" data-author>
+            <span class="post-title" title="linux(deepin) 下mysql自动备份">linux(deepin) 下mysql自动备份</span>
+            <span class="post-date" title="2017-10-18 16:02:11">2017/10/18</span>
+        </a>
+        
+        <a class="Laravel " href="/2017/04/01/laravel/Laravel学习之旅——视图/" data-tag="PHP,Laravel" data-author>
+            <span class="post-title" title="【转】Laravel学习之旅——视图">【转】Laravel学习之旅——视图</span>
+            <span class="post-date" title="2017-04-01 21:00:12">2017/04/01</span>
+        </a>
+        
+        <a class="MySQL " href="/2017/11/13/mysql/mysql联合索引/" data-tag="MySQL" data-author>
+            <span class="post-title" title="mysql联合索引">mysql联合索引</span>
+            <span class="post-date" title="2017-11-13 10:25:12">2017/11/13</span>
+        </a>
+        
+        <a class="MySQL " href="/2017/11/13/mysql/数据库长连接与短连接的区别/" data-tag="MySQL" data-author>
+            <span class="post-title" title="【转】数据库长连接与短连接的区别">【转】数据库长连接与短连接的区别</span>
+            <span class="post-date" title="2017-11-13 08:59:12">2017/11/13</span>
+        </a>
+        
+        <a class="MySQL " href="/2017/04/02/mysql/配置phpMyAdmin连接多台mysql服务器/" data-tag="MySQL" data-author>
+            <span class="post-title" title="配置phpmyadmin使登录时可填写IP管理多台MySQL 连接多个数据库 自动登录">配置phpmyadmin使登录时可填写IP管理多台MySQL 连接多个数据库 自动登录</span>
+            <span class="post-date" title="2017-04-02 13:24:12">2017/04/02</span>
+        </a>
+        
+        <a class="MySQL " href="/2017/03/23/mysql/详解MySQL大表优化方案/" data-tag="MySQL" data-author>
+            <span class="post-title" title="【转】详解MySQL大表优化方案">【转】详解MySQL大表优化方案</span>
+            <span class="post-date" title="2017-03-23 19:00:22">2017/03/23</span>
+        </a>
+        
+        <a class="Nginx " href="/2018/10/30/nginx/NGINX宏观手记/" data-tag="Nginx,运维" data-author>
+            <span class="post-title" title="【转】NGINX宏观手记">【转】NGINX宏观手记</span>
+            <span class="post-date" title="2018-10-30 13:46:01">2018/10/30</span>
+        </a>
+        
+        <a class="Nginx " href="/2019/04/24/nginx/正向代理与反向代理/" data-tag="Nginx,负载均衡" data-author>
+            <span class="post-title" title="【转】正向代理与反向代理">【转】正向代理与反向代理</span>
+            <span class="post-date" title="2019-04-24 17:26:54">2019/04/24</span>
+        </a>
+        
+        <a class="PHP " href="/2017/11/15/php/CGI、FastCgi与PHP-fpm之间是个什么样的关系/" data-tag="Linux,PHP" data-author>
+            <span class="post-title" title="【转】CGI、FastCgi与PHP-fpm之间是个什么样的关系">【转】CGI、FastCgi与PHP-fpm之间是个什么样的关系</span>
+            <span class="post-date" title="2017-11-15 15:09:30">2017/11/15</span>
+        </a>
+        
+        <a class="PHP " href="/2017/02/22/php/PHP header() 函数/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP header() 函数">PHP header() 函数</span>
+            <span class="post-date" title="2017-02-22 16:05:11">2017/02/22</span>
+        </a>
+        
+        <a class="PHP、PHP标准规范 " href="/2019/02/18/php/PHP-PSR-1基础编码规范/" data-tag="PHP" data-author>
+            <span class="post-title" title="【转】PHP-PSR-1基础编码规范">【转】PHP-PSR-1基础编码规范</span>
+            <span class="post-date" title="2019-02-18 14:36:56">2019/02/18</span>
+        </a>
+        
+        <a class="PHP、PHP标准规范 " href="/2019/02/18/php/PHP-PSR-2编码风格规范/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP-PSR-2编码风格规范">PHP-PSR-2编码风格规范</span>
+            <span class="post-date" title="2019-02-18 15:03:50">2019/02/18</span>
+        </a>
+        
+        <a class="PHP、PHP标准规范 " href="/2019/02/19/php/PHP-PSR-3日志接口规范/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP-PSR-3日志接口规范">PHP-PSR-3日志接口规范</span>
+            <span class="post-date" title="2019-02-19 16:50:46">2019/02/19</span>
+        </a>
+        
+        <a class="PHP、PHP标准规范 " href="/2019/02/20/php/PHP-PSR-4自动加载规范/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP-PSR-4自动加载规范">PHP-PSR-4自动加载规范</span>
+            <span class="post-date" title="2019-02-20 10:24:40">2019/02/20</span>
+        </a>
+        
+        <a class="PHP、PHP标准规范 " href="/2019/02/20/php/PHP-PSR-6缓存接口规范/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP-PSR-6缓存接口规范">PHP-PSR-6缓存接口规范</span>
+            <span class="post-date" title="2019-02-20 11:04:19">2019/02/20</span>
+        </a>
+        
+        <a class="PHP、笔记 " href="/2019/02/21/php/PHP-header-生成文件/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP-header()生成文件">PHP-header()生成文件</span>
+            <span class="post-date" title="2019-02-21 15:12:04">2019/02/21</span>
+        </a>
+        
+        <a class="PHP，笔记 " href="/2019/04/15/php/PHP-to-xml/" data-tag="Linux,PHP" data-author>
+            <span class="post-title" title="PHP-to-xml">PHP-to-xml</span>
+            <span class="post-date" title="2019-04-15 17:43:02">2019/04/15</span>
+        </a>
+        
+        <a class="PHP、PHP标准规范 " href="/2019/02/20/php/PHP-PSR-7HTTP消息接口规范/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP-PSR-7HTTP消息接口规范">PHP-PSR-7HTTP消息接口规范</span>
+            <span class="post-date" title="2019-02-20 11:39:31">2019/02/20</span>
+        </a>
+        
+        <a class="PHP、笔记 " href="/2019/02/21/php/PHP-取整函数ceil，floor，round，intval函数的区别/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP-取整函数ceil，floor，round，intval函数的区别">PHP-取整函数ceil，floor，round，intval函数的区别</span>
+            <span class="post-date" title="2019-02-21 14:44:29">2019/02/21</span>
+        </a>
+        
+        <a class="PHP，笔记 " href="/2019/04/15/php/PHP-子类重写父类属性问题/" data-tag="Linux,PHP" data-author>
+            <span class="post-title" title="PHP-子类重写父类属性问题">PHP-子类重写父类属性问题</span>
+            <span class="post-date" title="2019-04-15 17:26:07">2019/04/15</span>
+        </a>
+        
+        <a class="PHP " href="/2019/02/21/php/PHP-数组根据某键值，把相同键值的合并最终生成一个新的二维数组/" data-tag="PHP、笔记" data-author>
+            <span class="post-title" title="PHP-数组根据某键值，把相同键值的合并最终生成一个新的二维数组.md">PHP-数组根据某键值，把相同键值的合并最终生成一个新的二维数组.md</span>
+            <span class="post-date" title="2019-02-21 15:28:07">2019/02/21</span>
+        </a>
+        
+        <a class="PHP、PHP标准规范 " href="/2019/02/12/php/PHP-自动加载规范/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP-自动加载规范">PHP-自动加载规范</span>
+            <span class="post-date" title="2019-02-12 15:45:33">2019/02/12</span>
+        </a>
+        
+        <a class="PHP " href="/2019/02/21/php/PHP-设计模式/" data-tag="PHP、笔记" data-author>
+            <span class="post-title" title="PHP-设计模式（一）">PHP-设计模式（一）</span>
+            <span class="post-date" title="2019-02-21 16:38:06">2019/02/21</span>
+        </a>
+        
+        <a class="PHP " href="/2018/10/25/php/PHP中被忽略的性能优化利器：生成器-md/" data-tag="PHP" data-author>
+            <span class="post-title" title="【转】PHP中被忽略的性能优化利器：生成器.md">【转】PHP中被忽略的性能优化利器：生成器.md</span>
+            <span class="post-date" title="2018-10-25 15:32:51">2018/10/25</span>
+        </a>
+        
+        <a class="PHP " href="/2017/11/28/php/PHP匿名函数、闭包函数/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP匿名函数、闭包函数">PHP匿名函数、闭包函数</span>
+            <span class="post-date" title="2017-11-28 00:00:00">2017/11/28</span>
+        </a>
+        
+        <a class="PHP " href="/2018/10/23/php/PHP实现异步调用方法/" data-tag="PHP" data-author>
+            <span class="post-title" title="【转】PHP实现异步调用方法">【转】PHP实现异步调用方法</span>
+            <span class="post-date" title="2018-10-23 17:49:19">2018/10/23</span>
+        </a>
+        
+        <a class="PHP " href="/2018/11/01/php/PHP手册-上下文（Context）选项和参数/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP手册-上下文（Context）选项和参数">PHP手册-上下文（Context）选项和参数</span>
+            <span class="post-date" title="2018-11-01 14:46:10">2018/11/01</span>
+        </a>
+        
+        <a class="PHP " href="/2018/11/04/php/PHP手册-支持的协议和封装协议/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP手册-支持的协议和封装协议">PHP手册-支持的协议和封装协议</span>
+            <span class="post-date" title="2018-11-04 14:43:48">2018/11/04</span>
+        </a>
+        
+        <a class="PHP " href="/2018/10/26/php/PHP手册-预定义变量/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP手册-预定义变量">PHP手册-预定义变量</span>
+            <span class="post-date" title="2018-10-26 14:40:26">2018/10/26</span>
+        </a>
+        
+        <a class="PHP " href="/2018/10/31/php/PHP手册-预定义异常/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP手册-预定义异常">PHP手册-预定义异常</span>
+            <span class="post-date" title="2018-10-31 11:10:41">2018/10/31</span>
+        </a>
+        
+        <a class="PHP " href="/2018/10/31/php/PHP手册-预定义接口/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP手册-预定义接口">PHP手册-预定义接口</span>
+            <span class="post-date" title="2018-10-31 14:17:59">2018/10/31</span>
+        </a>
+        
+        <a class="数据结构 " href="/2017/03/14/php/PHP的冒泡算法/" data-tag="数据结构,PHP" data-author>
+            <span class="post-title" title="PHP的冒泡算法">PHP的冒泡算法</span>
+            <span class="post-date" title="2017-03-14 14:28:30">2017/03/14</span>
+        </a>
+        
+        <a class="PHP " href="/2017/11/28/php/PHP类的自动加载 /" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP类的自动加载">PHP类的自动加载</span>
+            <span class="post-date" title="2017-11-28 00:00:00">2017/11/28</span>
+        </a>
+        
+        <a class="PHP " href="/2018/10/23/php/PHP递归删除数组中值为空的元素/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP递归删除数组中值为空的元素.md">PHP递归删除数组中值为空的元素.md</span>
+            <span class="post-date" title="2018-10-23 17:47:06">2018/10/23</span>
+        </a>
+        
+        <a class="PHP " href="/2017/03/14/php/PHP遍历某个文件夹下子目录和文件/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP遍历文件夹下子目录和文件">PHP遍历文件夹下子目录和文件</span>
+            <span class="post-date" title="2017-03-14 10:58:04">2017/03/14</span>
+        </a>
+        
+        <a class="PHP " href="/2017/11/28/php/PHP魔术常量/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP魔术常量">PHP魔术常量</span>
+            <span class="post-date" title="2017-11-28 00:00:00">2017/11/28</span>
+        </a>
+        
+        <a class="PHP " href="/2017/11/28/php/Trait /" data-tag="PHP" data-author>
+            <span class="post-title" title="Trait">Trait</span>
+            <span class="post-date" title="2017-11-28 00:00:00">2017/11/28</span>
+        </a>
+        
+        <a class="PHP " href="/2017/11/13/php/session原理，如何修改session生命周期/" data-tag="PHP,Session" data-author>
+            <span class="post-title" title="【转】session原理，如何修改session生命周期">【转】session原理，如何修改session生命周期</span>
+            <span class="post-date" title="2017-11-13 14:50:39">2017/11/13</span>
+        </a>
+        
+        <a class="PHP " href="/2017/05/08/php/webuploder+PHP实现大文件断点（切片）续传/" data-tag="js,PHP,webuploader" data-author>
+            <span class="post-title" title="webuploder+PHP实现大文件断点（切片）续传">webuploder+PHP实现大文件断点（切片）续传</span>
+            <span class="post-date" title="2017-05-08 11:18:07">2017/05/08</span>
+        </a>
+        
+        <a class="PHP " href="/2018/10/29/php/一道看似简单的面试题/" data-tag="PHP,运算符" data-author>
+            <span class="post-title" title="【转】一道看似简单的面试题">【转】一道看似简单的面试题</span>
+            <span class="post-date" title="2018-10-29 15:07:31">2018/10/29</span>
+        </a>
+        
+        <a class="PHP " href="/2017/11/13/php/从用户浏览器输入url到用户看到页面结果的过程，发生了什么事情？/" data-tag="面试总结" data-author>
+            <span class="post-title" title="【转】从用户浏览器输入url到用户看到页面结果的过程，发生了什么事情？">【转】从用户浏览器输入url到用户看到页面结果的过程，发生了什么事情？</span>
+            <span class="post-date" title="2017-11-13 14:50:39">2017/11/13</span>
+        </a>
+        
+        <a class="PHP " href="/2017/11/15/php/各类 HTTP 返回状态代码详解/" data-tag="PHP,HTTP" data-author>
+            <span class="post-title" title="【转】各类 HTTP 返回状态代码详解">【转】各类 HTTP 返回状态代码详解</span>
+            <span class="post-date" title="2017-11-15 16:30:30">2017/11/15</span>
+        </a>
+        
+        <a class="PHP " href="/2017/05/22/php/驼峰命名法和下划线风格的互转/" data-tag="PHP，面试汇总" data-author>
+            <span class="post-title" title="【转】驼峰命名法和下划线风格的互转">【转】驼峰命名法和下划线风格的互转</span>
+            <span class="post-date" title="2017-05-22 16:05:11">2017/05/22</span>
+        </a>
+        
+        <a class="Shell " href="/2019/04/01/shell/shell-shell编程基础/" data-tag="Linux,Shell" data-author>
+            <span class="post-title" title="shell-shell编程基础">shell-shell编程基础</span>
+            <span class="post-date" title="2019-04-01 11:26:01">2019/04/01</span>
+        </a>
+        
+        <a class="Shell " href="/2019/03/29/shell/shell-初识Shell/" data-tag="Linux,Shell" data-author>
+            <span class="post-title" title="shell-初识Shell">shell-初识Shell</span>
+            <span class="post-date" title="2019-03-29 14:58:08">2019/03/29</span>
+        </a>
+        
+        <a class="Shell " href="/2019/04/16/shell/shell-基本文本处理/" data-tag="Linux,Shell" data-author>
+            <span class="post-title" title="shell-基本文本处理">shell-基本文本处理</span>
+            <span class="post-date" title="2019-04-16 10:01:05">2019/04/16</span>
+        </a>
+        
+        <a class="Shell " href="/2019/05/21/shell/shell-文件和文件系统/" data-tag="Linux,Shell" data-author>
+            <span class="post-title" title="shell-文件和文件系统">shell-文件和文件系统</span>
+            <span class="post-date" title="2019-05-21 12:22:01">2019/05/21</span>
+        </a>
+        
+        <a class="Shell " href="/2019/05/29/shell/shell-文本处理利器 awk/" data-tag="Linux,Shell" data-author>
+            <span class="post-title" title="【转】shell-文本处理利器 awk">【转】shell-文本处理利器 awk</span>
+            <span class="post-date" title="2019-05-29 13:26:35">2019/05/29</span>
+        </a>
+        
+        <a class="Shell " href="/2019/04/15/shell/shell-正则表达式/" data-tag="Linux,Shell" data-author>
+            <span class="post-title" title="shell-正则表达式">shell-正则表达式</span>
+            <span class="post-date" title="2019-04-15 11:08:05">2019/04/15</span>
+        </a>
+        
+        <a class="Shell " href="/2019/05/28/shell/shell-流编辑sed/" data-tag="Linux,Shell" data-author>
+            <span class="post-title" title="shell-流编辑sed">shell-流编辑sed</span>
+            <span class="post-date" title="2019-05-28 13:33:35">2019/05/28</span>
+        </a>
+        
+        <a class="Shell " href="/2019/04/01/shell/shell-编程的基本元素/" data-tag="Linux,Shell" data-author>
+            <span class="post-title" title="shell-编程的基本元素">shell-编程的基本元素</span>
+            <span class="post-date" title="2019-04-01 15:42:03">2019/04/01</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-golang/Gin文档中文翻译" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">【转】Gin文档中文翻译</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+                <a data-rel="Golang">Golang</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a class="color2">Golang</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title="更新时间: 2020-03-26 10:29:38">2019-03-01 16:02</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>字数:7.6k</span>
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+        <span class="top-comment" title="跳转至评论区">
+            <a href="#comments">
+                评论:<span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </a>
+        </span>
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装"><span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用一个-vendor-工具，比如-Govendor"><span class="toc-text">使用一个 vendor 工具，比如 Govendor</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#依赖"><span class="toc-text">依赖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#快速开始"><span class="toc-text">快速开始</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Benchmarks"><span class="toc-text">Benchmarks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Gin-v1-stable"><span class="toc-text">Gin v1. stable</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用-jsoniter-构建"><span class="toc-text">使用 jsoniter 构建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#API-示例"><span class="toc-text">API 示例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用-GET-POST-PUT-PATCH-DELETE-and-OPTIONS"><span class="toc-text">使用 GET, POST, PUT, PATCH, DELETE and OPTIONS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#path-中的参数"><span class="toc-text">path 中的参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查询字符串参数"><span class="toc-text">查询字符串参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Multipart-Urlencoded-表单"><span class="toc-text">Multipart/Urlencoded 表单</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其他示例：-查询字符串参数-post-表单"><span class="toc-text">其他示例： 查询字符串参数 + post 表单</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#上传文件"><span class="toc-text">上传文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#单文件"><span class="toc-text">单文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#多文件"><span class="toc-text">多文件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#组路由"><span class="toc-text">组路由</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#默认的没有中间件的空白-Gin"><span class="toc-text">默认的没有中间件的空白 Gin</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用中间件"><span class="toc-text">使用中间件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#如何写入日志文件"><span class="toc-text">如何写入日志文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模型绑定和验证"><span class="toc-text">模型绑定和验证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#自定义验证器"><span class="toc-text">自定义验证器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#只绑定查询字符串"><span class="toc-text">只绑定查询字符串</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#绑定查询字符串或-post-数据"><span class="toc-text">绑定查询字符串或 post 数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#绑定-HTML-复选框"><span class="toc-text">绑定 HTML 复选框</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Multipart-Urlencoded-绑定"><span class="toc-text">Multipart/Urlencoded 绑定</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#XML-JSON-和-YAML-渲染"><span class="toc-text">XML, JSON 和 YAML 渲染</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#SecureJSON"><span class="toc-text">SecureJSON</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#JSONP"><span class="toc-text">JSONP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AsciiJSON"><span class="toc-text">AsciiJSON</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#静态文件服务"><span class="toc-text">静态文件服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#从-reader-提供数据"><span class="toc-text">从 reader 提供数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTML-渲染"><span class="toc-text">HTML 渲染</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#自定义模板渲染器"><span class="toc-text">自定义模板渲染器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#自定义分隔符"><span class="toc-text">自定义分隔符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#自定义模板函数"><span class="toc-text">自定义模板函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多模板"><span class="toc-text">多模板</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#重定向"><span class="toc-text">重定向</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#自定义中间件"><span class="toc-text">自定义中间件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用-BasicAuth-中间件"><span class="toc-text">使用 BasicAuth() 中间件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在中间件中使用协程"><span class="toc-text">在中间件中使用协程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#自定义-HTTP-配置"><span class="toc-text">自定义 HTTP 配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#支持-Let’s-Encrypt"><span class="toc-text">支持 Let’s Encrypt</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用-Gin-运行多个服务"><span class="toc-text">使用 Gin 运行多个服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#正常的重启或停止"><span class="toc-text">正常的重启或停止</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用模板构建单个二进制文件"><span class="toc-text">使用模板构建单个二进制文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用自定义结构绑定表单数据请求"><span class="toc-text">使用自定义结构绑定表单数据请求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#尝试将-body-绑定到不同的结构中"><span class="toc-text">尝试将 body 绑定到不同的结构中</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTP2-服务器推送"><span class="toc-text">HTTP2 服务器推送</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试"><span class="toc-text">测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用者"><span class="toc-text">使用者  </span></a></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Gin 是一个用 Go 语言编写的 WEB 框架。它具有和 maritini 类似的 API 并拥有更好的性能， 感谢 <a href="https://github.com/julienschmidt/httprouter" target="_blank" rel="noopener">httprouter</a> 使它的速度提升了 40 倍。如果你需要性能和良好的生产力，你将会爱上 Gin 。</p>
+<p><img src="https://gin-gonic.github.io/gin/other/console.png" alt="Gin console logger"></p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>要安装 Gin 包，你需要安装 Go 并且设置好你的 Go 工作空间。</p>
+<ol>
+<li>下载并安装它：</li>
+</ol>
+<pre><code class="sh">$ go get -u github.com/gin-gonic/gin</code></pre>
+<ol start="2">
+<li>在你的代码中导入它：</li>
+</ol>
+<pre><code class="go">import &quot;github.com/gin-gonic/gin&quot;</code></pre>
+<ol start="3">
+<li>（可选的） 导入 <code>net/http</code> 。 在使用类似<code>http.StatusOK</code>的常量时必须导入。</li>
+</ol>
+<pre><code class="go">import &quot;net/http&quot;</code></pre>
+<h3 id="使用一个-vendor-工具，比如-Govendor"><a href="#使用一个-vendor-工具，比如-Govendor" class="headerlink" title="使用一个 vendor 工具，比如 Govendor"></a>使用一个 vendor 工具，比如 <a href="https://github.com/kardianos/govendor" target="_blank" rel="noopener">Govendor</a></h3><ol>
+<li><code>go get</code> govendor</li>
+</ol>
+<pre><code class="sh">$ go get github.com/kardianos/govendor</code></pre>
+<ol start="2">
+<li>创建你的项目目录并使用 <code>cd</code> 进入</li>
+</ol>
+<pre><code class="sh">$ mkdir -p $GOPATH/src/github.com/myusername/project &amp;&amp; cd &quot;$_&quot;</code></pre>
+<ol start="3">
+<li>初始化你的项目的 Vendor 并添加 gin</li>
+</ol>
+<pre><code class="sh">$ govendor init
+$ govendor fetch github.com/gin-gonic/gin@v1.2</code></pre>
+<ol start="4">
+<li>复制一个开始模板到你的项目中</li>
+</ol>
+<pre><code class="sh">$ curl https://raw.githubusercontent.com/gin-gonic/gin/master/examples/basic/main.go &gt; main.go</code></pre>
+<ol start="5">
+<li>运行你的项目</li>
+</ol>
+<pre><code class="sh">$ go run main.go</code></pre>
+<h2 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h2><p>现在 Gin 需要 Go 1.6 或更高版本，并且很快它将会需要 Go 1.7 。</p>
+<h2 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h2><pre><code class="sh"># 假设下面代码在 example.go 文件中
+$ cat example.go</code></pre>
+<pre><code class="go">package main
+
+import &quot;github.com/gin-gonic/gin&quot;
+
+func main() {
+    r := gin.Default()
+    r.GET(&quot;/ping&quot;, func(c *gin.Context) {
+        c.JSON(200, gin.H{
+            &quot;message&quot;: &quot;pong&quot;,
+        })
+    })
+    r.Run() // 在 0.0.0.0:8080 上监听并服务
+}</code></pre>
+<pre><code># 运行 example.go 并在浏览器上访问 0.0.0.0:8080/ping
+$ go run example.go</code></pre><h2 id="Benchmarks"><a href="#Benchmarks" class="headerlink" title="Benchmarks"></a>Benchmarks</h2><p>Gin 采用一个 <a href="https://github.com/julienschmidt/httprouter" target="_blank" rel="noopener">HttpRouter</a> 的自定义版本</p>
+<p><a href="https://github.com/gin-gonic/gin/blob/master/BENCHMARKS.md" target="_blank" rel="noopener">查看所有 Benchmarks</a></p>
+<table>
+<thead>
+<tr>
+<th>Benchmark name</th>
+<th align="right">(1)</th>
+<th align="right">(2)</th>
+<th align="right">(3)</th>
+<th align="right">(4)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>BenchmarkGin_GithubAll</strong></td>
+<td align="right"><strong>30000</strong></td>
+<td align="right"><strong>48375</strong></td>
+<td align="right"><strong>0</strong></td>
+<td align="right"><strong>0</strong></td>
+</tr>
+<tr>
+<td>BenchmarkAce_GithubAll</td>
+<td align="right">10000</td>
+<td align="right">134059</td>
+<td align="right">13792</td>
+<td align="right">167</td>
+</tr>
+<tr>
+<td>BenchmarkBear_GithubAll</td>
+<td align="right">5000</td>
+<td align="right">534445</td>
+<td align="right">86448</td>
+<td align="right">943</td>
+</tr>
+<tr>
+<td>BenchmarkBeego_GithubAll</td>
+<td align="right">3000</td>
+<td align="right">592444</td>
+<td align="right">74705</td>
+<td align="right">812</td>
+</tr>
+<tr>
+<td>BenchmarkBone_GithubAll</td>
+<td align="right">200</td>
+<td align="right">6957308</td>
+<td align="right">698784</td>
+<td align="right">8453</td>
+</tr>
+<tr>
+<td>BenchmarkDenco_GithubAll</td>
+<td align="right">10000</td>
+<td align="right">158819</td>
+<td align="right">20224</td>
+<td align="right">167</td>
+</tr>
+<tr>
+<td>BenchmarkEcho_GithubAll</td>
+<td align="right">10000</td>
+<td align="right">154700</td>
+<td align="right">6496</td>
+<td align="right">203</td>
+</tr>
+<tr>
+<td>BenchmarkGocraftWeb_GithubAll</td>
+<td align="right">3000</td>
+<td align="right">570806</td>
+<td align="right">131656</td>
+<td align="right">1686</td>
+</tr>
+<tr>
+<td>BenchmarkGoji_GithubAll</td>
+<td align="right">2000</td>
+<td align="right">818034</td>
+<td align="right">56112</td>
+<td align="right">334</td>
+</tr>
+<tr>
+<td>BenchmarkGojiv2_GithubAll</td>
+<td align="right">2000</td>
+<td align="right">1213973</td>
+<td align="right">274768</td>
+<td align="right">3712</td>
+</tr>
+<tr>
+<td>BenchmarkGoJsonRest_GithubAll</td>
+<td align="right">2000</td>
+<td align="right">785796</td>
+<td align="right">134371</td>
+<td align="right">2737</td>
+</tr>
+<tr>
+<td>BenchmarkGoRestful_GithubAll</td>
+<td align="right">300</td>
+<td align="right">5238188</td>
+<td align="right">689672</td>
+<td align="right">4519</td>
+</tr>
+<tr>
+<td>BenchmarkGorillaMux_GithubAll</td>
+<td align="right">100</td>
+<td align="right">10257726</td>
+<td align="right">211840</td>
+<td align="right">2272</td>
+</tr>
+<tr>
+<td>BenchmarkHttpRouter_GithubAll</td>
+<td align="right">20000</td>
+<td align="right">105414</td>
+<td align="right">13792</td>
+<td align="right">167</td>
+</tr>
+<tr>
+<td>BenchmarkHttpTreeMux_GithubAll</td>
+<td align="right">10000</td>
+<td align="right">319934</td>
+<td align="right">65856</td>
+<td align="right">671</td>
+</tr>
+<tr>
+<td>BenchmarkKocha_GithubAll</td>
+<td align="right">10000</td>
+<td align="right">209442</td>
+<td align="right">23304</td>
+<td align="right">843</td>
+</tr>
+<tr>
+<td>BenchmarkLARS_GithubAll</td>
+<td align="right">20000</td>
+<td align="right">62565</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td>BenchmarkMacaron_GithubAll</td>
+<td align="right">2000</td>
+<td align="right">1161270</td>
+<td align="right">204194</td>
+<td align="right">2000</td>
+</tr>
+<tr>
+<td>BenchmarkMartini_GithubAll</td>
+<td align="right">200</td>
+<td align="right">9991713</td>
+<td align="right">226549</td>
+<td align="right">2325</td>
+</tr>
+<tr>
+<td>BenchmarkPat_GithubAll</td>
+<td align="right">200</td>
+<td align="right">5590793</td>
+<td align="right">1499568</td>
+<td align="right">27435</td>
+</tr>
+<tr>
+<td>BenchmarkPossum_GithubAll</td>
+<td align="right">10000</td>
+<td align="right">319768</td>
+<td align="right">84448</td>
+<td align="right">609</td>
+</tr>
+<tr>
+<td>BenchmarkR2router_GithubAll</td>
+<td align="right">10000</td>
+<td align="right">305134</td>
+<td align="right">77328</td>
+<td align="right">979</td>
+</tr>
+<tr>
+<td>BenchmarkRivet_GithubAll</td>
+<td align="right">10000</td>
+<td align="right">132134</td>
+<td align="right">16272</td>
+<td align="right">167</td>
+</tr>
+<tr>
+<td>BenchmarkTango_GithubAll</td>
+<td align="right">3000</td>
+<td align="right">552754</td>
+<td align="right">63826</td>
+<td align="right">1618</td>
+</tr>
+<tr>
+<td>BenchmarkTigerTonic_GithubAll</td>
+<td align="right">1000</td>
+<td align="right">1439483</td>
+<td align="right">239104</td>
+<td align="right">5374</td>
+</tr>
+<tr>
+<td>BenchmarkTraffic_GithubAll</td>
+<td align="right">100</td>
+<td align="right">11383067</td>
+<td align="right">2659329</td>
+<td align="right">21848</td>
+</tr>
+<tr>
+<td>BenchmarkVulcan_GithubAll</td>
+<td align="right">5000</td>
+<td align="right">394253</td>
+<td align="right">19894</td>
+<td align="right">609</td>
+</tr>
+</tbody></table>
+<ul>
+<li>（1）： 在固定时间内重复完成的总数，数值越高的是越好的结果</li>
+<li>（2）： 单次重复持续时间（ns / op），越低越好</li>
+<li>（3）： 堆内存（B / op），越低越好</li>
+<li>（4）： 每次重复的平均分配（allocs / op），越低越好</li>
+</ul>
+<h2 id="Gin-v1-stable"><a href="#Gin-v1-stable" class="headerlink" title="Gin v1. stable"></a>Gin v1. stable</h2><ul>
+<li><input checked disabled type="checkbox"> 零分配路由</li>
+<li><input checked disabled type="checkbox"> 从路由到写入都是最快的 http 路由器和框架</li>
+<li><input checked disabled type="checkbox"> 完整的单元测试套件</li>
+<li><input checked disabled type="checkbox"> 经过实战考验</li>
+<li><input checked disabled type="checkbox"> API冻结，新版本不会破坏您的代码。</li>
+</ul>
+<h2 id="使用-jsoniter-构建"><a href="#使用-jsoniter-构建" class="headerlink" title="使用 jsoniter 构建"></a>使用 <a href="https://github.com/json-iterator/go" target="_blank" rel="noopener">jsoniter</a> 构建</h2><p>Gin 使用 <code>encoding/json</code> 作为默认的 json 包，但是你可以在构建的时候通过 tags 去使用 <a href="https://github.com/json-iterator/go" target="_blank" rel="noopener">jsoniter</a> 。</p>
+<pre><code class="sh">$ go build -tags=jsoniter .</code></pre>
+<h2 id="API-示例"><a href="#API-示例" class="headerlink" title="API 示例"></a>API 示例</h2><h3 id="使用-GET-POST-PUT-PATCH-DELETE-and-OPTIONS"><a href="#使用-GET-POST-PUT-PATCH-DELETE-and-OPTIONS" class="headerlink" title="使用 GET, POST, PUT, PATCH, DELETE and OPTIONS"></a>使用 GET, POST, PUT, PATCH, DELETE and OPTIONS</h3><pre><code class="go">func main() {
+    // 禁用控制台颜色
+    // gin.DisableConsoleColor()
+
+    // 使用默认中间件创建一个 gin 路由：
+    // 日志与恢复中间件（无崩溃）。
+    router := gin.Default()
+
+    router.GET(&quot;/someGet&quot;, getting)
+    router.POST(&quot;/somePost&quot;, posting)
+    router.PUT(&quot;/somePut&quot;, putting)
+    router.DELETE(&quot;/someDelete&quot;, deleting)
+    router.PATCH(&quot;/somePatch&quot;, patching)
+    router.HEAD(&quot;/someHead&quot;, head)
+    router.OPTIONS(&quot;/someOptions&quot;, options)
+
+    // 默认情况下，它使用：8080，除非定义了 PORT 环境变量。
+    router.Run()
+    // router.Run(&quot;:3000&quot;) 硬编码端口
+}</code></pre>
+<h3 id="path-中的参数"><a href="#path-中的参数" class="headerlink" title="path 中的参数"></a>path 中的参数</h3><pre><code class="go">func main() {
+    router := gin.Default()
+
+    // 这个处理器可以匹配 /user/john ， 但是它不会匹配 /user
+    router.GET(&quot;/user/:name&quot;, func(c *gin.Context) {
+        name := c.Param(&quot;name&quot;)
+        c.String(http.StatusOK, &quot;Hello %s&quot;, name)
+    })
+
+    // 但是，这个可以匹配 /user/john 和 /user/john/send
+    // 如果没有其他的路由匹配 /user/john ， 它将重定向到 /user/john/
+    router.GET(&quot;/user/:name/*action&quot;, func(c *gin.Context) {
+        name := c.Param(&quot;name&quot;)
+        action := c.Param(&quot;action&quot;)
+        message := name + &quot; is &quot; + action
+        c.String(http.StatusOK, message)
+    })
+
+    router.Run(&quot;:8080&quot;)
+}</code></pre>
+<h3 id="查询字符串参数"><a href="#查询字符串参数" class="headerlink" title="查询字符串参数"></a>查询字符串参数</h3><pre><code class="go">func main() {
+    router := gin.Default()
+
+    // 查询字符串参数使用现有的底层 request 对象解析。
+    // 请求响应匹配的 URL： /welcome?firstname=Jane&amp;lastname=Doe
+    router.GET(&quot;/welcome&quot;, func(c *gin.Context) {
+        firstname := c.DefaultQuery(&quot;firstname&quot;, &quot;Guest&quot;)
+        // 这个是 c.Request.URL.Query().Get(&quot;lastname&quot;) 的快捷方式。
+        lastname := c.Query(&quot;lastname&quot;)
+
+        c.String(http.StatusOK, &quot;Hello %s %s&quot;, firstname, lastname)
+    })
+    router.Run(&quot;:8080&quot;)
+}</code></pre>
+<h3 id="Multipart-Urlencoded-表单"><a href="#Multipart-Urlencoded-表单" class="headerlink" title="Multipart/Urlencoded 表单"></a>Multipart/Urlencoded 表单</h3><pre><code class="go">func main() {
+    router := gin.Default()
+
+    router.POST(&quot;/form_post&quot;, func(c *gin.Context) {
+        message := c.PostForm(&quot;message&quot;)
+        nick := c.DefaultPostForm(&quot;nick&quot;, &quot;anonymous&quot;)
+
+        c.JSON(200, gin.H{
+            &quot;status&quot;:  &quot;posted&quot;,
+            &quot;message&quot;: message,
+            &quot;nick&quot;:    nick,
+        })
+    })
+    router.Run(&quot;:8080&quot;)
+}</code></pre>
+<h3 id="其他示例：-查询字符串参数-post-表单"><a href="#其他示例：-查询字符串参数-post-表单" class="headerlink" title="其他示例： 查询字符串参数 + post 表单"></a>其他示例： 查询字符串参数 + post 表单</h3><pre><code>POST /post?id=1234&amp;page=1 HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+
+name=manu&amp;message=this_is_great</code></pre><pre><code class="go">func main() {
+    router := gin.Default()
+
+    router.POST(&quot;/post&quot;, func(c *gin.Context) {
+
+        id := c.Query(&quot;id&quot;)
+        page := c.DefaultQuery(&quot;page&quot;, &quot;0&quot;)
+        name := c.PostForm(&quot;name&quot;)
+        message := c.PostForm(&quot;message&quot;)
+
+        fmt.Printf(&quot;id: %s; page: %s; name: %s; message: %s&quot;, id, page, name, message)
+    })
+    router.Run(&quot;:8080&quot;)
+}</code></pre>
+<pre><code>id: 1234; page: 1; name: manu; message: this_is_great</code></pre><h3 id="上传文件"><a href="#上传文件" class="headerlink" title="上传文件"></a>上传文件</h3><h4 id="单文件"><a href="#单文件" class="headerlink" title="单文件"></a>单文件</h4><p>参考 issue <a href="https://github.com/gin-gonic/gin/issues/774" target="_blank" rel="noopener">#774</a> 与详细的 <a href="https://github.com/gin-gonic/gin/tree/master/examples/upload-file/single" target="_blank" rel="noopener">示例代码</a> 。</p>
+<pre><code class="go">func main() {
+    router := gin.Default()
+    // 为 multipart 表单设置一个较低的内存限制（默认是 32 MiB）
+    // router.MaxMultipartMemory = 8 &lt;&lt; 20  // 8 MiB
+    router.POST(&quot;/upload&quot;, func(c *gin.Context) {
+        // 单文件
+        file, _ := c.FormFile(&quot;file&quot;)
+        log.Println(file.Filename)
+
+        // 上传文件到指定的 dst 。
+        // c.SaveUploadedFile(file, dst)
+
+        c.String(http.StatusOK, fmt.Sprintf(&quot;&#39;%s&#39; uploaded!&quot;, file.Filename))
+    })
+    router.Run(&quot;:8080&quot;)
+}</code></pre>
+<p>如何使用 <code>curl</code>:</p>
+<pre><code class="bash">curl -X POST http://localhost:8080/upload \
+  -F &quot;file=@/Users/appleboy/test.zip&quot; \
+  -H &quot;Content-Type: multipart/form-data&quot;</code></pre>
+<h4 id="多文件"><a href="#多文件" class="headerlink" title="多文件"></a>多文件</h4><p>查看详细的 <a href="examples/upload-file/multiple">例子代码</a>.</p>
+<pre><code class="go">func main() {
+    router := gin.Default()
+    // 为 multipart 表单设置一个较低的内存限制（默认是 32 MiB）
+    // router.MaxMultipartMemory = 8 &lt;&lt; 20  // 8 MiB
+    router.POST(&quot;/upload&quot;, func(c *gin.Context) {
+        // Multipart form
+        form, _ := c.MultipartForm()
+        files := form.File[&quot;upload[]&quot;]
+
+        for _, file := range files {
+            log.Println(file.Filename)
+
+            // 上传文件到指定的 dst.
+            // c.SaveUploadedFile(file, dst)
+        }
+        c.String(http.StatusOK, fmt.Sprintf(&quot;%d files uploaded!&quot;, len(files)))
+    })
+    router.Run(&quot;:8080&quot;)
+}</code></pre>
+<p>如何使用 <code>curl</code>:</p>
+<pre><code class="bash">curl -X POST http://localhost:8080/upload \
+  -F &quot;upload[]=@/Users/appleboy/test1.zip&quot; \
+  -F &quot;upload[]=@/Users/appleboy/test2.zip&quot; \
+  -H &quot;Content-Type: multipart/form-data&quot;</code></pre>
+<h3 id="组路由"><a href="#组路由" class="headerlink" title="组路由"></a>组路由</h3><pre><code class="go">func main() {
+    router := gin.Default()
+
+    // 简单组： v1
+    v1 := router.Group(&quot;/v1&quot;)
+    {
+        v1.POST(&quot;/login&quot;, loginEndpoint)
+        v1.POST(&quot;/submit&quot;, submitEndpoint)
+        v1.POST(&quot;/read&quot;, readEndpoint)
+    }
+
+    // 简单组： v2
+    v2 := router.Group(&quot;/v2&quot;)
+    {
+        v2.POST(&quot;/login&quot;, loginEndpoint)
+        v2.POST(&quot;/submit&quot;, submitEndpoint)
+        v2.POST(&quot;/read&quot;, readEndpoint)
+    }
+
+    router.Run(&quot;:8080&quot;)
+}</code></pre>
+<h3 id="默认的没有中间件的空白-Gin"><a href="#默认的没有中间件的空白-Gin" class="headerlink" title="默认的没有中间件的空白 Gin"></a>默认的没有中间件的空白 Gin</h3><p>Use</p>
+<pre><code class="go">r := gin.New()</code></pre>
+<p>代替</p>
+<pre><code class="go">// Default 已经连接了 Logger 和 Recovery 中间件
+r := gin.Default()</code></pre>
+<h3 id="使用中间件"><a href="#使用中间件" class="headerlink" title="使用中间件"></a>使用中间件</h3><pre><code class="go">func main() {
+    // 创建一个默认的没有任何中间件的路由
+    r := gin.New()
+
+    // 全局中间件
+    // Logger 中间件将写日志到 gin.DefaultWriter ,即使你设置 GIN_MODE=release 。
+    // 默认 gin.DefaultWriter = os.Stdout
+    r.Use(gin.Logger())
+
+    // Recovery 中间件从任何 panic 恢复，如果出现 panic，它会写一个 500 错误。
+    r.Use(gin.Recovery())
+
+    // 每个路由的中间件, 你能添加任意数量的中间件
+    r.GET(&quot;/benchmark&quot;, MyBenchLogger(), benchEndpoint)
+
+    // 授权组
+    // authorized := r.Group(&quot;/&quot;, AuthRequired())
+    // 也可以这样:
+    authorized := r.Group(&quot;/&quot;)
+    // 每个组的中间件！ 在这个实例中，我们只需要在 &quot;authorized&quot; 组中
+    // 使用自定义创建的 AuthRequired() 中间件
+    authorized.Use(AuthRequired())
+    {
+        authorized.POST(&quot;/login&quot;, loginEndpoint)
+        authorized.POST(&quot;/submit&quot;, submitEndpoint)
+        authorized.POST(&quot;/read&quot;, readEndpoint)
+
+        // nested group
+        testing := authorized.Group(&quot;testing&quot;)
+        testing.GET(&quot;/analytics&quot;, analyticsEndpoint)
+    }
+
+    // 监听并服务于 0.0.0.0:8080
+    r.Run(&quot;:8080&quot;)
+}</code></pre>
+<h3 id="如何写入日志文件"><a href="#如何写入日志文件" class="headerlink" title="如何写入日志文件"></a>如何写入日志文件</h3><pre><code class="go">func main() {
+    // 禁用控制台颜色，当你将日志写入到文件的时候，你不需要控制台颜色。
+    gin.DisableConsoleColor()
+
+    // 写入日志的文件
+    f, _ := os.Create(&quot;gin.log&quot;)
+    gin.DefaultWriter = io.MultiWriter(f)
+
+    // 如果你需要同时写入日志文件和控制台上显示，使用下面代码
+    // gin.DefaultWriter = io.MultiWriter(f, os.Stdout)
+
+    router := gin.Default()
+    router.GET(&quot;/ping&quot;, func(c *gin.Context) {
+        c.String(200, &quot;pong&quot;)
+    })
+
+    router.Run(&quot;:8080&quot;)
+}</code></pre>
+<h3 id="模型绑定和验证"><a href="#模型绑定和验证" class="headerlink" title="模型绑定和验证"></a>模型绑定和验证</h3><p>使用模型绑定可以绑定一个请求主体到一个类型。我们目前支持 JSON 、 XML 和标准表单的值（ foo=bar&amp;boo=baz ）的绑定。</p>
+<p>Gin 使用 <a href="https://github.com/go-playground/validator" target="_blank" rel="noopener"><strong>go-playground/validator.v8</strong></a> 进行验证。 在 <a href="http://godoc.org/gopkg.in/go-playground/validator.v8#hdr-Baked_In_Validators_and_Tags" target="_blank" rel="noopener">这里</a> 查看标签使用的完整文档。</p>
+<p>注意： 你需要在你想要绑定的所有字段上设置相应的绑定标签。例如：当要从 JSON 绑定的时候，设置 <code>json:&quot;fieldname&quot;</code> 。</p>
+<p>此外， Gin 提供了两组绑定方法：</p>
+<ul>
+<li><strong>类型</strong> - Must bind<ul>
+<li><strong>方法</strong> - <code>Bind</code>, <code>BindJSON</code>, <code>BindQuery</code></li>
+<li><strong>行为</strong> - 这些方法在底层使用 <code>MustBindWith</code>。如果存在绑定错误， 请求通过 <code>c.AbortWithError(400, err).SetType(ErrorTypeBind)</code> 被终止。 这组响应的状态吗被设置成 400 ，并将 <code>Content-Type</code> 头设置成 <code>text/plain; charset=utf-8</code> 。注意： 如果你尝试在这个之后去设置响应码，它会发出一个警告  <code>[GIN-debug] [WARNING] Headers were already written. Wanted to override status code 400 with 422</code> 。 如果你希望更好的控制行为， 请考虑使用 <code>ShouldBind</code> 等效的方法。</li>
+</ul>
+</li>
+<li><strong>类型</strong> - Should bind<ul>
+<li><strong>方法</strong> - <code>ShouldBind</code>, <code>ShouldBindJSON</code>, <code>ShouldBindQuery</code></li>
+<li><strong>行为</strong> - 这些方法在底层使用  <code>ShouldBindWith</code>。 如果存在绑定错误，这个错误会被返回， 需要开发者去处理相应的请求和错误。</li>
+</ul>
+</li>
+</ul>
+<p>使用Bind系列方法时， Gin 会尝试通过 Content-Type 推断出绑定器，如果你明确你要绑定内容，可以使用 <code>MustBindWith</code> 或 <code>ShouldBindWith</code> 。</p>
+<p>你也可以指定必填的字段。如果一个字段使用 <code>binding:&quot;required&quot;</code> 修饰，并且被绑定到一个空值的时候，将会返回一个错误。</p>
+<pre><code class="go">// 从 JSON 绑定
+type Login struct {
+    User     string `form:&quot;user&quot; json:&quot;user&quot; binding:&quot;required&quot;`
+    Password string `form:&quot;password&quot; json:&quot;password&quot; binding:&quot;required&quot;`
+}
+
+func main() {
+    router := gin.Default()
+
+    // 绑定 JSON 的示例 ({&quot;user&quot;: &quot;manu&quot;, &quot;password&quot;: &quot;123&quot;})
+    router.POST(&quot;/loginJSON&quot;, func(c *gin.Context) {
+        var json Login
+        if err := c.ShouldBindJSON(&amp;json); err == nil {
+            if json.User == &quot;manu&quot; &amp;&amp; json.Password == &quot;123&quot; {
+                c.JSON(http.StatusOK, gin.H{&quot;status&quot;: &quot;you are logged in&quot;})
+            } else {
+                c.JSON(http.StatusUnauthorized, gin.H{&quot;status&quot;: &quot;unauthorized&quot;})
+            }
+        } else {
+            c.JSON(http.StatusBadRequest, gin.H{&quot;error&quot;: err.Error()})
+        }
+    })
+
+    // 一个 HTML 表单绑定的示例 (user=manu&amp;password=123)
+    router.POST(&quot;/loginForm&quot;, func(c *gin.Context) {
+        var form Login
+        // 这个将通过 content-type 头去推断绑定器使用哪个依赖。
+        if err := c.ShouldBind(&amp;form); err == nil {
+            if form.User == &quot;manu&quot; &amp;&amp; form.Password == &quot;123&quot; {
+                c.JSON(http.StatusOK, gin.H{&quot;status&quot;: &quot;you are logged in&quot;})
+            } else {
+                c.JSON(http.StatusUnauthorized, gin.H{&quot;status&quot;: &quot;unauthorized&quot;})
+            }
+        } else {
+            c.JSON(http.StatusBadRequest, gin.H{&quot;error&quot;: err.Error()})
+        }
+    })
+
+    // 监听并服务于 0.0.0.0:8080
+    router.Run(&quot;:8080&quot;)
+}</code></pre>
+<p><strong>请求样本</strong></p>
+<pre><code class="shell">$ curl -v -X POST \
+  http://localhost:8080/loginJSON \
+  -H &#39;content-type: application/json&#39; \
+  -d &#39;{ &quot;user&quot;: &quot;manu&quot; }&#39;
+&gt; POST /loginJSON HTTP/1.1
+&gt; Host: localhost:8080
+&gt; User-Agent: curl/7.51.0
+&gt; Accept: */*
+&gt; content-type: application/json
+&gt; Content-Length: 18
+&gt;
+* upload completely sent off: 18 out of 18 bytes
+&lt; HTTP/1.1 400 Bad Request
+&lt; Content-Type: application/json; charset=utf-8
+&lt; Date: Fri, 04 Aug 2017 03:51:31 GMT
+&lt; Content-Length: 100
+&lt;
+{&quot;error&quot;:&quot;Key: &#39;Login.Password&#39; Error:Field validation for &#39;Password&#39; failed on the &#39;required&#39; tag&quot;}</code></pre>
+<p><strong>跳过验证</strong></p>
+<p>当在命令行上使用 <code>curl</code> 运行上面的示例时，它会返回一个错误。因为示例给 <code>Password</code> 绑定了 <code>binding:&quot;required&quot;</code> 。如果 <code>Password</code> 使用 <code>binding:&quot;-&quot;</code> ，然后再次运行上面的示例，它将不会返回错误。</p>
+<h3 id="自定义验证器"><a href="#自定义验证器" class="headerlink" title="自定义验证器"></a>自定义验证器</h3><p>可以注册自定义验证器。 参见 <a href="examples/custom-validation/server.go">示例代码</a> 。</p>
+<pre><code class="go">package main
+
+import (
+    &quot;net/http&quot;
+    &quot;reflect&quot;
+    &quot;time&quot;
+
+    &quot;github.com/gin-gonic/gin&quot;
+    &quot;github.com/gin-gonic/gin/binding&quot;
+    &quot;gopkg.in/go-playground/validator.v8&quot;
+)
+
+type Booking struct {
+    CheckIn  time.Time `form:&quot;check_in&quot; binding:&quot;required,bookabledate&quot; time_format:&quot;2006-01-02&quot;`
+    CheckOut time.Time `form:&quot;check_out&quot; binding:&quot;required,gtfield=CheckIn&quot; time_format:&quot;2006-01-02&quot;`
+}
+
+func bookableDate(
+    v *validator.Validate, topStruct reflect.Value, currentStructOrField reflect.Value,
+    field reflect.Value, fieldType reflect.Type, fieldKind reflect.Kind, param string,
+) bool {
+    if date, ok := field.Interface().(time.Time); ok {
+        today := time.Now()
+        if today.Year() &gt; date.Year() || today.YearDay() &gt; date.YearDay() {
+            return false
+        }
+    }
+    return true
+}
+
+func main() {
+    route := gin.Default()
+
+    if v, ok := binding.Validator.Engine().(*validator.Validate); ok {
+        v.RegisterValidation(&quot;bookabledate&quot;, bookableDate)
+    }
+
+    route.GET(&quot;/bookable&quot;, getBookable)
+    route.Run(&quot;:8085&quot;)
+}
+
+func getBookable(c *gin.Context) {
+    var b Booking
+    if err := c.ShouldBindWith(&amp;b, binding.Query); err == nil {
+        c.JSON(http.StatusOK, gin.H{&quot;message&quot;: &quot;Booking dates are valid!&quot;})
+    } else {
+        c.JSON(http.StatusBadRequest, gin.H{&quot;error&quot;: err.Error()})
+    }
+}</code></pre>
+<pre><code class="console">$ curl &quot;localhost:8085/bookable?check_in=2018-04-16&amp;check_out=2018-04-17&quot;
+{&quot;message&quot;:&quot;Booking dates are valid!&quot;}
+
+$ curl &quot;localhost:8085/bookable?check_in=2018-03-08&amp;check_out=2018-03-09&quot;
+{&quot;error&quot;:&quot;Key: &#39;Booking.CheckIn&#39; Error:Field validation for &#39;CheckIn&#39; failed on the &#39;bookabledate&#39; tag&quot;}</code></pre>
+<p><a href="https://github.com/go-playground/validator/releases/tag/v8.7" target="_blank" rel="noopener">结构级别的验证</a> 可以像这样注册。<br>查看 <a href="examples/struct-lvl-validations">示例 struct-lvl-validation </a> 学习更多。</p>
+<h3 id="只绑定查询字符串"><a href="#只绑定查询字符串" class="headerlink" title="只绑定查询字符串"></a>只绑定查询字符串</h3><p><code>ShouldBindQuery</code> 函数只绑定查询参数而不绑定 post 数据。查看 <a href="https://github.com/gin-gonic/gin/issues/742#issuecomment-315953017" target="_blank" rel="noopener">详细信息</a>.</p>
+<pre><code class="go">package main
+
+import (
+    &quot;log&quot;
+
+    &quot;github.com/gin-gonic/gin&quot;
+)
+
+type Person struct {
+    Name    string `form:&quot;name&quot;`
+    Address string `form:&quot;address&quot;`
+}
+
+func main() {
+    route := gin.Default()
+    route.Any(&quot;/testing&quot;, startPage)
+    route.Run(&quot;:8085&quot;)
+}
+
+func startPage(c *gin.Context) {
+    var person Person
+    if c.ShouldBindQuery(&amp;person) == nil {
+        log.Println(&quot;====== Only Bind By Query String ======&quot;)
+        log.Println(person.Name)
+        log.Println(person.Address)
+    }
+    c.String(200, &quot;Success&quot;)
+}
+</code></pre>
+<h3 id="绑定查询字符串或-post-数据"><a href="#绑定查询字符串或-post-数据" class="headerlink" title="绑定查询字符串或 post 数据"></a>绑定查询字符串或 post 数据</h3><p>查看 <a href="https://github.com/gin-gonic/gin/issues/742#issuecomment-264681292" target="_blank" rel="noopener">详细信息</a>.</p>
+<pre><code class="go">package main
+
+import &quot;log&quot;
+import &quot;github.com/gin-gonic/gin&quot;
+import &quot;time&quot;
+
+type Person struct {
+    Name     string    `form:&quot;name&quot;`
+    Address  string    `form:&quot;address&quot;`
+    Birthday time.Time `form:&quot;birthday&quot; time_format:&quot;2006-01-02&quot; time_utc:&quot;1&quot;`
+}
+
+func main() {
+    route := gin.Default()
+    route.GET(&quot;/testing&quot;, startPage)
+    route.Run(&quot;:8085&quot;)
+}
+
+func startPage(c *gin.Context) {
+    var person Person
+    // 如果是 `GET`, 只使用 `Form` 绑定引擎 (`query`) 。
+    // 如果 `POST`, 首先检查 `content-type` 为 `JSON` 或 `XML`, 然后使用 `Form` (`form-data`) 。
+    // 在这里查看更多信息 https://github.com/gin-gonic/gin/blob/master/binding/binding.go#L48
+    if c.ShouldBind(&amp;person) == nil {
+        log.Println(person.Name)
+        log.Println(person.Address)
+        log.Println(person.Birthday)
+    }
+
+    c.String(200, &quot;Success&quot;)
+}</code></pre>
+<p>测试它：</p>
+<pre><code class="sh">$ curl -X GET &quot;localhost:8085/testing?name=appleboy&amp;address=xyz&amp;birthday=1992-03-15&quot;</code></pre>
+<h3 id="绑定-HTML-复选框"><a href="#绑定-HTML-复选框" class="headerlink" title="绑定 HTML 复选框"></a>绑定 HTML 复选框</h3><p>查看 <a href="https://github.com/gin-gonic/gin/issues/129#issuecomment-124260092" target="_blank" rel="noopener">详细信息</a></p>
+<p>main.go</p>
+<pre><code class="go">...
+
+type myForm struct {
+    Colors []string `form:&quot;colors[]&quot;`
+}
+
+...
+
+func formHandler(c *gin.Context) {
+    var fakeForm myForm
+    c.ShouldBind(&amp;fakeForm)
+    c.JSON(200, gin.H{&quot;color&quot;: fakeForm.Colors})
+}
+
+...
+</code></pre>
+<p>form.html</p>
+<pre><code class="html">&lt;form action=&quot;/&quot; method=&quot;POST&quot;&gt;
+    &lt;p&gt;Check some colors&lt;/p&gt;
+    &lt;label for=&quot;red&quot;&gt;Red&lt;/label&gt;
+    &lt;input type=&quot;checkbox&quot; name=&quot;colors[]&quot; value=&quot;red&quot; id=&quot;red&quot; /&gt;
+    &lt;label for=&quot;green&quot;&gt;Green&lt;/label&gt;
+    &lt;input type=&quot;checkbox&quot; name=&quot;colors[]&quot; value=&quot;green&quot; id=&quot;green&quot; /&gt;
+    &lt;label for=&quot;blue&quot;&gt;Blue&lt;/label&gt;
+    &lt;input type=&quot;checkbox&quot; name=&quot;colors[]&quot; value=&quot;blue&quot; id=&quot;blue&quot; /&gt;
+    &lt;input type=&quot;submit&quot; /&gt;
+&lt;/form&gt;</code></pre>
+<p>result:</p>
+<pre><code>{&quot;color&quot;:[&quot;red&quot;,&quot;green&quot;,&quot;blue&quot;]}</code></pre><h3 id="Multipart-Urlencoded-绑定"><a href="#Multipart-Urlencoded-绑定" class="headerlink" title="Multipart/Urlencoded 绑定"></a>Multipart/Urlencoded 绑定</h3><pre><code class="go">package main
+
+import (
+    &quot;github.com/gin-gonic/gin&quot;
+)
+
+type LoginForm struct {
+    User     string `form:&quot;user&quot; binding:&quot;required&quot;`
+    Password string `form:&quot;password&quot; binding:&quot;required&quot;`
+}
+
+func main() {
+    router := gin.Default()
+    router.POST(&quot;/login&quot;, func(c *gin.Context) {
+        // 你可以使用显示绑定声明绑定 multipart 表单：
+        // c.ShouldBindWith(&amp;form, binding.Form
+        // 或者你可以使用 ShouldBind 方法去简单的使用自动绑定：
+        var form LoginForm
+        // 在这种情况下，将自动选择适合的绑定
+        if c.ShouldBind(&amp;form) == nil {
+            if form.User == &quot;user&quot; &amp;&amp; form.Password == &quot;password&quot; {
+                c.JSON(200, gin.H{&quot;status&quot;: &quot;you are logged in&quot;})
+            } else {
+                c.JSON(401, gin.H{&quot;status&quot;: &quot;unauthorized&quot;})
+            }
+        }
+    })
+    router.Run(&quot;:8080&quot;)
+}</code></pre>
+<p>测试它：</p>
+<pre><code class="sh">$ curl -v --form user=user --form password=password http://localhost:8080/login</code></pre>
+<h3 id="XML-JSON-和-YAML-渲染"><a href="#XML-JSON-和-YAML-渲染" class="headerlink" title="XML, JSON 和 YAML 渲染"></a>XML, JSON 和 YAML 渲染</h3><pre><code class="go">func main() {
+    r := gin.Default()
+
+    // gin.H 是一个 map[string]interface{} 的快捷方式
+    r.GET(&quot;/someJSON&quot;, func(c *gin.Context) {
+        c.JSON(http.StatusOK, gin.H{&quot;message&quot;: &quot;hey&quot;, &quot;status&quot;: http.StatusOK})
+    })
+
+    r.GET(&quot;/moreJSON&quot;, func(c *gin.Context) {
+        // 你也可以使用一个结构
+        var msg struct {
+            Name    string `json:&quot;user&quot;`
+            Message string
+            Number  int
+        }
+        msg.Name = &quot;Lena&quot;
+        msg.Message = &quot;hey&quot;
+        msg.Number = 123
+        // 注意 msg.Name 在 JSON 中会变成 &quot;user&quot;
+        // 将会输出： {&quot;user&quot;: &quot;Lena&quot;, &quot;Message&quot;: &quot;hey&quot;, &quot;Number&quot;: 123}
+        c.JSON(http.StatusOK, msg)
+    })
+
+    r.GET(&quot;/someXML&quot;, func(c *gin.Context) {
+        c.XML(http.StatusOK, gin.H{&quot;message&quot;: &quot;hey&quot;, &quot;status&quot;: http.StatusOK})
+    })
+
+    r.GET(&quot;/someYAML&quot;, func(c *gin.Context) {
+        c.YAML(http.StatusOK, gin.H{&quot;message&quot;: &quot;hey&quot;, &quot;status&quot;: http.StatusOK})
+    })
+
+    // 监听并服务于 0.0.0.0:8080
+    r.Run(&quot;:8080&quot;)
+}</code></pre>
+<h4 id="SecureJSON"><a href="#SecureJSON" class="headerlink" title="SecureJSON"></a>SecureJSON</h4><p>使用 SecureJSON 来防止 json 劫持。如果给定的结构体是数组值，默认预置 <code>&quot;while(1),&quot;</code> 到 response body 。</p>
+<pre><code class="go">func main() {
+    r := gin.Default()
+
+    // 你也可以使用自己的安装 json 前缀
+    // r.SecureJsonPrefix(&quot;)]}&#39;,\n&quot;)
+
+    r.GET(&quot;/someJSON&quot;, func(c *gin.Context) {
+        names := []string{&quot;lena&quot;, &quot;austin&quot;, &quot;foo&quot;}
+
+        // 将会输出  :   while(1);[&quot;lena&quot;,&quot;austin&quot;,&quot;foo&quot;]
+        c.SecureJSON(http.StatusOK, names)
+    })
+
+    // 监听并服务于 0.0.0.0:8080
+    r.Run(&quot;:8080&quot;)
+}</code></pre>
+<h4 id="JSONP"><a href="#JSONP" class="headerlink" title="JSONP"></a>JSONP</h4><p>在不同的域中使用 JSONP 从一个服务器请求数据。如果请求参数中存在 callback，添加 callback 到 response body 。</p>
+<pre><code class="go">func main() {
+    r := gin.Default()
+
+    r.GET(&quot;/JSONP?callback=x&quot;, func(c *gin.Context) {
+        data := map[string]interface{}{
+            &quot;foo&quot;: &quot;bar&quot;,
+        }
+
+        //callback 是 x
+        // 将会输出  :   x({\&quot;foo\&quot;:\&quot;bar\&quot;})
+        c.JSONP(http.StatusOK, data)
+    })
+
+    // 监听并服务于 0.0.0.0:8080
+    r.Run(&quot;:8080&quot;)
+}</code></pre>
+<h4 id="AsciiJSON"><a href="#AsciiJSON" class="headerlink" title="AsciiJSON"></a>AsciiJSON</h4><p>使用 AsciiJSON 生成仅有 ASCII 字符的 JSON，非ASCII字符将会被转义 。</p>
+<pre><code class="go">func main() {
+    r := gin.Default()
+
+    r.GET(&quot;/someJSON&quot;, func(c *gin.Context) {
+        data := map[string]interface{}{
+            &quot;lang&quot;: &quot;GO语言&quot;,
+            &quot;tag&quot;:  &quot;&lt;br&gt;&quot;,
+        }
+
+        // 将会输出 : {&quot;lang&quot;:&quot;GO\u8bed\u8a00&quot;,&quot;tag&quot;:&quot;\u003cbr\u003e&quot;}
+        c.AsciiJSON(http.StatusOK, data)
+    })
+
+    // 监听并服务于 0.0.0.0:8080
+    r.Run(&quot;:8080&quot;)
+}</code></pre>
+<h3 id="静态文件服务"><a href="#静态文件服务" class="headerlink" title="静态文件服务"></a>静态文件服务</h3><pre><code class="go">func main() {
+    router := gin.Default()
+    router.Static(&quot;/assets&quot;, &quot;./assets&quot;)
+    router.StaticFS(&quot;/more_static&quot;, http.Dir(&quot;my_file_system&quot;))
+    router.StaticFile(&quot;/favicon.ico&quot;, &quot;./resources/favicon.ico&quot;)
+
+    // 监听并服务于 0.0.0.0:8080
+    router.Run(&quot;:8080&quot;)
+}</code></pre>
+<h3 id="从-reader-提供数据"><a href="#从-reader-提供数据" class="headerlink" title="从 reader 提供数据"></a>从 reader 提供数据</h3><pre><code class="go">func main() {
+    router := gin.Default()
+    router.GET(&quot;/someDataFromReader&quot;, func(c *gin.Context) {
+        response, err := http.Get(&quot;https://raw.githubusercontent.com/gin-gonic/logo/master/color.png&quot;)
+        if err != nil || response.StatusCode != http.StatusOK {
+            c.Status(http.StatusServiceUnavailable)
+            return
+        }
+
+        reader := response.Body
+        contentLength := response.ContentLength
+        contentType := response.Header.Get(&quot;Content-Type&quot;)
+
+        extraHeaders := map[string]string{
+            &quot;Content-Disposition&quot;: `attachment; filename=&quot;gopher.png&quot;`,
+        }
+
+        c.DataFromReader(http.StatusOK, contentLength, contentType, reader, extraHeaders)
+    })
+    router.Run(&quot;:8080&quot;)
+}</code></pre>
+<h3 id="HTML-渲染"><a href="#HTML-渲染" class="headerlink" title="HTML 渲染"></a>HTML 渲染</h3><p>使用 LoadHTMLGlob() 或 LoadHTMLFiles()</p>
+<pre><code class="go">func main() {
+    router := gin.Default()
+    router.LoadHTMLGlob(&quot;templates/*&quot;)
+    //router.LoadHTMLFiles(&quot;templates/template1.html&quot;, &quot;templates/template2.html&quot;)
+    router.GET(&quot;/index&quot;, func(c *gin.Context) {
+        c.HTML(http.StatusOK, &quot;index.tmpl&quot;, gin.H{
+            &quot;title&quot;: &quot;Main website&quot;,
+        })
+    })
+    router.Run(&quot;:8080&quot;)
+}</code></pre>
+<p>templates/index.tmpl</p>
+<pre><code class="html">&lt;html&gt;
+    &lt;h1&gt;
+        {{ .title }}
+    &lt;/h1&gt;
+&lt;/html&gt;</code></pre>
+<p>在不同的目录使用具有相同名称的模板</p>
+<pre><code class="go">func main() {
+    router := gin.Default()
+    router.LoadHTMLGlob(&quot;templates/**/*&quot;)
+    router.GET(&quot;/posts/index&quot;, func(c *gin.Context) {
+        c.HTML(http.StatusOK, &quot;posts/index.tmpl&quot;, gin.H{
+            &quot;title&quot;: &quot;Posts&quot;,
+        })
+    })
+    router.GET(&quot;/users/index&quot;, func(c *gin.Context) {
+        c.HTML(http.StatusOK, &quot;users/index.tmpl&quot;, gin.H{
+            &quot;title&quot;: &quot;Users&quot;,
+        })
+    })
+    router.Run(&quot;:8080&quot;)
+}</code></pre>
+<p>templates/posts/index.tmpl</p>
+<pre><code class="html">{{ define "posts/index.tmpl" }}
+&lt;html&gt;&lt;h1&gt;
+    {{ .title }}
+&lt;/h1&gt;
+&lt;p&gt;Using posts/index.tmpl&lt;/p&gt;
+&lt;/html&gt;
+{{ end }}</code></pre>
+<p>templates/users/index.tmpl</p>
+<pre><code class="html">{{ define "users/index.tmpl" }}
+&lt;html&gt;&lt;h1&gt;
+    {{ .title }}
+&lt;/h1&gt;
+&lt;p&gt;Using users/index.tmpl&lt;/p&gt;
+&lt;/html&gt;
+{{ end }}</code></pre>
+<h4 id="自定义模板渲染器"><a href="#自定义模板渲染器" class="headerlink" title="自定义模板渲染器"></a>自定义模板渲染器</h4><p>你也可以使用你自己的 HTML 模板渲染</p>
+<pre><code class="go">import &quot;html/template&quot;
+
+func main() {
+    router := gin.Default()
+    html := template.Must(template.ParseFiles(&quot;file1&quot;, &quot;file2&quot;))
+    router.SetHTMLTemplate(html)
+    router.Run(&quot;:8080&quot;)
+}</code></pre>
+<h4 id="自定义分隔符"><a href="#自定义分隔符" class="headerlink" title="自定义分隔符"></a>自定义分隔符</h4><p>你可以使用自定义分隔符</p>
+<pre><code class="go">    r := gin.Default()
+    r.Delims(&quot;{[{&quot;, &quot;}]}&quot;)
+    r.LoadHTMLGlob(&quot;/path/to/templates&quot;))</code></pre>
+<h4 id="自定义模板函数"><a href="#自定义模板函数" class="headerlink" title="自定义模板函数"></a>自定义模板函数</h4><p>查看详细的 <a href="examples/template">示例代码</a>.</p>
+<p>main.go</p>
+<pre><code class="go">import (
+    &quot;fmt&quot;
+    &quot;html/template&quot;
+    &quot;net/http&quot;
+    &quot;time&quot;
+
+    &quot;github.com/gin-gonic/gin&quot;
+)
+
+func formatAsDate(t time.Time) string {
+    year, month, day := t.Date()
+    return fmt.Sprintf(&quot;%d%02d/%02d&quot;, year, month, day)
+}
+
+func main() {
+    router := gin.Default()
+    router.Delims(&quot;{[{&quot;, &quot;}]}&quot;)
+    router.SetFuncMap(template.FuncMap{
+        &quot;formatAsDate&quot;: formatAsDate,
+    })
+    router.LoadHTMLFiles(&quot;./fixtures/basic/raw.tmpl&quot;)
+
+    router.GET(&quot;/raw&quot;, func(c *gin.Context) {
+        c.HTML(http.StatusOK, &quot;raw.tmpl&quot;, map[string]interface{}{
+            &quot;now&quot;: time.Date(2017, 07, 01, 0, 0, 0, 0, time.UTC),
+        })
+    })
+
+    router.Run(&quot;:8080&quot;)
+}
+</code></pre>
+<p>raw.tmpl</p>
+<pre><code class="html">Date: {[{.now | formatAsDate}]}</code></pre>
+<p>Result:</p>
+<pre><code>Date: 2017/07/01</code></pre><h3 id="多模板"><a href="#多模板" class="headerlink" title="多模板"></a>多模板</h3><p>Gin 允许默认只使用一个 html.Template 。查看 <a href="https://github.com/gin-contrib/multitemplate" target="_blank" rel="noopener">多模板渲染</a> 的使用详情，类似 go 1.6 <code>block template</code></p>
+<h3 id="重定向"><a href="#重定向" class="headerlink" title="重定向"></a>重定向</h3><p>发出一个 HTTP 重定向非常容易， 同时支持内部和外部地址。</p>
+<pre><code class="go">r.GET(&quot;/test&quot;, func(c *gin.Context) {
+    c.Redirect(http.StatusMovedPermanently, &quot;http://www.google.com/&quot;)
+})</code></pre>
+<p>发出路由重定向，使用下面示例中的 <code>HandleContext</code> 。</p>
+<pre><code class="go">r.GET(&quot;/test&quot;, func(c *gin.Context) {
+    c.Request.URL.Path = &quot;/test2&quot;
+    r.HandleContext(c)
+})
+r.GET(&quot;/test2&quot;, func(c *gin.Context) {
+    c.JSON(200, gin.H{&quot;hello&quot;: &quot;world&quot;})
+})</code></pre>
+<h3 id="自定义中间件"><a href="#自定义中间件" class="headerlink" title="自定义中间件"></a>自定义中间件</h3><pre><code class="go">func Logger() gin.HandlerFunc {
+    return func(c *gin.Context) {
+        t := time.Now()
+
+        // 设置简单的变量
+        c.Set(&quot;example&quot;, &quot;12345&quot;)
+
+        // 在请求之前
+
+        c.Next()
+
+        // 在请求之后
+        latency := time.Since(t)
+        log.Print(latency)
+
+        // 记录我们的访问状态
+        status := c.Writer.Status()
+        log.Println(status)
+    }
+}
+
+func main() {
+    r := gin.New()
+    r.Use(Logger())
+
+    r.GET(&quot;/test&quot;, func(c *gin.Context) {
+        example := c.MustGet(&quot;example&quot;).(string)
+
+        // 它将打印： &quot;12345&quot;
+        log.Println(example)
+    })
+
+    // 监听并服务于 0.0.0.0:8080
+    r.Run(&quot;:8080&quot;)
+}</code></pre>
+<h3 id="使用-BasicAuth-中间件"><a href="#使用-BasicAuth-中间件" class="headerlink" title="使用 BasicAuth() 中间件"></a>使用 BasicAuth() 中间件</h3><pre><code class="go">// 模拟一些私有的数据
+var secrets = gin.H{
+    &quot;foo&quot;:    gin.H{&quot;email&quot;: &quot;foo@bar.com&quot;, &quot;phone&quot;: &quot;123433&quot;},
+    &quot;austin&quot;: gin.H{&quot;email&quot;: &quot;austin@example.com&quot;, &quot;phone&quot;: &quot;666&quot;},
+    &quot;lena&quot;:   gin.H{&quot;email&quot;: &quot;lena@guapa.com&quot;, &quot;phone&quot;: &quot;523443&quot;},
+}
+
+func main() {
+    r := gin.Default()
+
+    // 在组中使用 gin.BasicAuth() 中间件
+    // gin.Accounts 是 map[string]string 的快捷方式
+    authorized := r.Group(&quot;/admin&quot;, gin.BasicAuth(gin.Accounts{
+        &quot;foo&quot;:    &quot;bar&quot;,
+        &quot;austin&quot;: &quot;1234&quot;,
+        &quot;lena&quot;:   &quot;hello2&quot;,
+        &quot;manu&quot;:   &quot;4321&quot;,
+    }))
+
+    // /admin/secrets 结尾
+    // 点击 &quot;localhost:8080/admin/secrets
+    authorized.GET(&quot;/secrets&quot;, func(c *gin.Context) {
+        // 获取 user, 它是由 BasicAuth 中间件设置的
+        user := c.MustGet(gin.AuthUserKey).(string)
+        if secret, ok := secrets[user]; ok {
+            c.JSON(http.StatusOK, gin.H{&quot;user&quot;: user, &quot;secret&quot;: secret})
+        } else {
+            c.JSON(http.StatusOK, gin.H{&quot;user&quot;: user, &quot;secret&quot;: &quot;NO SECRET :(&quot;})
+        }
+    })
+
+    // 监听并服务于 0.0.0.0:8080
+    r.Run(&quot;:8080&quot;)
+}</code></pre>
+<h3 id="在中间件中使用协程"><a href="#在中间件中使用协程" class="headerlink" title="在中间件中使用协程"></a>在中间件中使用协程</h3><p>在一个中间件或处理器中启动一个新的协成时，你 <strong>不应该</strong> 使用它里面的原始的 context ，只能去使用它的只读副本。</p>
+<pre><code class="go">func main() {
+    r := gin.Default()
+
+    r.GET(&quot;/long_async&quot;, func(c *gin.Context) {
+        // 创建在协成中使用的副本
+        cCp := c.Copy()
+        go func() {
+            // 使用 time.Sleep() 休眠 5 秒，模拟一个用时长的任务。
+            time.Sleep(5 * time.Second)
+
+            // 注意，你使用的是复制的 context &quot;cCp&quot; ，重要
+            log.Println(&quot;Done! in path &quot; + cCp.Request.URL.Path)
+        }()
+    })
+
+    r.GET(&quot;/long_sync&quot;, func(c *gin.Context) {
+        // 使用 time.Sleep() 休眠 5 秒，模拟一个用时长的任务。
+        time.Sleep(5 * time.Second)
+
+        // 因为我们没有使用协成，我们不需要复制 context
+        log.Println(&quot;Done! in path &quot; + c.Request.URL.Path)
+    })
+
+    // 监听并服务于 0.0.0.0:8080
+    r.Run(&quot;:8080&quot;)
+}</code></pre>
+<h3 id="自定义-HTTP-配置"><a href="#自定义-HTTP-配置" class="headerlink" title="自定义 HTTP 配置"></a>自定义 HTTP 配置</h3><p>直接使用 <code>http.ListenAndServe()</code> ，像这样：</p>
+<pre><code class="go">func main() {
+    router := gin.Default()
+    http.ListenAndServe(&quot;:8080&quot;, router)
+}</code></pre>
+<p>或</p>
+<pre><code class="go">func main() {
+    router := gin.Default()
+
+    s := &amp;http.Server{
+        Addr:           &quot;:8080&quot;,
+        Handler:        router,
+        ReadTimeout:    10 * time.Second,
+        WriteTimeout:   10 * time.Second,
+        MaxHeaderBytes: 1 &lt;&lt; 20,
+    }
+    s.ListenAndServe()
+}</code></pre>
+<h3 id="支持-Let’s-Encrypt"><a href="#支持-Let’s-Encrypt" class="headerlink" title="支持 Let’s Encrypt"></a>支持 Let’s Encrypt</h3><p>一个 LetsEncrypt HTTPS 服务器的示例。</p>
+<pre><code class="go">package main
+
+import (
+    &quot;log&quot;
+
+    &quot;github.com/gin-gonic/autotls&quot;
+    &quot;github.com/gin-gonic/gin&quot;
+)
+
+func main() {
+    r := gin.Default()
+
+    // Ping 处理器
+    r.GET(&quot;/ping&quot;, func(c *gin.Context) {
+        c.String(200, &quot;pong&quot;)
+    })
+
+    log.Fatal(autotls.Run(r, &quot;example1.com&quot;, &quot;example2.com&quot;))
+}</code></pre>
+<p>自定义 autocert 管理器示例。</p>
+<pre><code class="go">package main
+
+import (
+    &quot;log&quot;
+
+    &quot;github.com/gin-gonic/autotls&quot;
+    &quot;github.com/gin-gonic/gin&quot;
+    &quot;golang.org/x/crypto/acme/autocert&quot;
+)
+
+func main() {
+    r := gin.Default()
+
+    // Ping handler
+    r.GET(&quot;/ping&quot;, func(c *gin.Context) {
+        c.String(200, &quot;pong&quot;)
+    })
+
+    m := autocert.Manager{
+        Prompt:     autocert.AcceptTOS,
+        HostPolicy: autocert.HostWhitelist(&quot;example1.com&quot;, &quot;example2.com&quot;),
+        Cache:      autocert.DirCache(&quot;/var/www/.cache&quot;),
+    }
+
+    log.Fatal(autotls.RunWithManager(r, &amp;m))
+}</code></pre>
+<h3 id="使用-Gin-运行多个服务"><a href="#使用-Gin-运行多个服务" class="headerlink" title="使用 Gin 运行多个服务"></a>使用 Gin 运行多个服务</h3><p>查看 <a href="https://github.com/gin-gonic/gin/issues/346" target="_blank" rel="noopener">问题</a> 并尝试下面示例：</p>
+<pre><code class="go">package main
+
+import (
+    &quot;log&quot;
+    &quot;net/http&quot;
+    &quot;time&quot;
+
+    &quot;github.com/gin-gonic/gin&quot;
+    &quot;golang.org/x/sync/errgroup&quot;
+)
+
+var (
+    g errgroup.Group
+)
+
+func router01() http.Handler {
+    e := gin.New()
+    e.Use(gin.Recovery())
+    e.GET(&quot;/&quot;, func(c *gin.Context) {
+        c.JSON(
+            http.StatusOK,
+            gin.H{
+                &quot;code&quot;:  http.StatusOK,
+                &quot;error&quot;: &quot;Welcome server 01&quot;,
+            },
+        )
+    })
+
+    return e
+}
+
+func router02() http.Handler {
+    e := gin.New()
+    e.Use(gin.Recovery())
+    e.GET(&quot;/&quot;, func(c *gin.Context) {
+        c.JSON(
+            http.StatusOK,
+            gin.H{
+                &quot;code&quot;:  http.StatusOK,
+                &quot;error&quot;: &quot;Welcome server 02&quot;,
+            },
+        )
+    })
+
+    return e
+}
+
+func main() {
+    server01 := &amp;http.Server{
+        Addr:         &quot;:8080&quot;,
+        Handler:      router01(),
+        ReadTimeout:  5 * time.Second,
+        WriteTimeout: 10 * time.Second,
+    }
+
+    server02 := &amp;http.Server{
+        Addr:         &quot;:8081&quot;,
+        Handler:      router02(),
+        ReadTimeout:  5 * time.Second,
+        WriteTimeout: 10 * time.Second,
+    }
+
+    g.Go(func() error {
+        return server01.ListenAndServe()
+    })
+
+    g.Go(func() error {
+        return server02.ListenAndServe()
+    })
+
+    if err := g.Wait(); err != nil {
+        log.Fatal(err)
+    }
+}</code></pre>
+<h3 id="正常的重启或停止"><a href="#正常的重启或停止" class="headerlink" title="正常的重启或停止"></a>正常的重启或停止</h3><p>你想正常的重启或停止你的 web 服务器吗？<br>有一些方法可以做到。</p>
+<p>我们能使用 <a href="https://github.com/fvbock/endless" target="_blank" rel="noopener">fvbock/endless</a> 去替换默认的 <code>ListenAndServe</code>. 参考 issue <a href="https://github.com/gin-gonic/gin/issues/296" target="_blank" rel="noopener">#296</a> 了解更多细节。</p>
+<pre><code class="go">router := gin.Default()
+router.GET(&quot;/&quot;, handler)
+// [...]
+endless.ListenAndServe(&quot;:4242&quot;, router)</code></pre>
+<p>另外一些替代方案：</p>
+<ul>
+<li><a href="https://github.com/braintree/manners" target="_blank" rel="noopener">manners</a>　： 一个有礼貌的 Go HTTP服务器，它可以正常的关闭。</li>
+<li><a href="https://github.com/tylerb/graceful" target="_blank" rel="noopener">graceful</a>　：　Graceful 是一个 Go 包，它可以正常的关闭一个　http.Handler 服务器。</li>
+<li><a href="https://github.com/facebookgo/grace" target="_blank" rel="noopener">grace</a>　：　正常的重启 &amp; Go　服务器零停机部署。</li>
+</ul>
+<p>如果你使用的是　Go 1.8，你可能不需要使用这些库！考虑使用　http.Server　内置的　<a href="https://golang.org/pkg/net/http/#Server.Shutdown" target="_blank" rel="noopener">Shutdown()</a>　方法正常关闭。查看 Gin 中完整的　<a href="./examples/graceful-shutdown">graceful-shutdown</a> 示例。</p>
+<pre><code class="go">// +build go1.8
+
+package main
+
+import (
+    &quot;context&quot;
+    &quot;log&quot;
+    &quot;net/http&quot;
+    &quot;os&quot;
+    &quot;os/signal&quot;
+    &quot;time&quot;
+
+    &quot;github.com/gin-gonic/gin&quot;
+)
+
+func main() {
+    router := gin.Default()
+    router.GET(&quot;/&quot;, func(c *gin.Context) {
+        time.Sleep(5 * time.Second)
+        c.String(http.StatusOK, &quot;Welcome Gin Server&quot;)
+    })
+
+    srv := &amp;http.Server{
+        Addr:    &quot;:8080&quot;,
+        Handler: router,
+    }
+
+    go func() {
+        // 连接服务器
+        if err := srv.ListenAndServe(); err != nil &amp;&amp; err != http.ErrServerClosed {
+            log.Fatalf(&quot;listen: %s\n&quot;, err)
+        }
+    }()
+
+    // 等待中断信号超时　５　秒正常关闭服务器
+    quit := make(chan os.Signal)
+    signal.Notify(quit, os.Interrupt)
+    &lt;-quit
+    log.Println(&quot;Shutdown Server ...&quot;)
+
+    ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+    defer cancel()
+    if err := srv.Shutdown(ctx); err != nil {
+        log.Fatal(&quot;Server Shutdown:&quot;, err)
+    }
+    log.Println(&quot;Server exiting&quot;)
+}</code></pre>
+<h3 id="使用模板构建单个二进制文件"><a href="#使用模板构建单个二进制文件" class="headerlink" title="使用模板构建单个二进制文件"></a>使用模板构建单个二进制文件</h3><p>你可以使用　<a href="https://github.com/jessevdk/go-assets" target="_blank" rel="noopener">go-assets</a>　将服务器构建到一个包含模板的单独的二进制文件中。</p>
+<pre><code class="go">func main() {
+    r := gin.New()
+
+    t, err := loadTemplate()
+    if err != nil {
+        panic(err)
+    }
+    r.SetHTMLTemplate(t)
+
+    r.GET(&quot;/&quot;, func(c *gin.Context) {
+        c.HTML(http.StatusOK, &quot;/html/index.tmpl&quot;,nil)
+    })
+    r.Run(&quot;:8080&quot;)
+}
+
+// loadTemplate 加载　go-assets-builder　嵌入的模板
+func loadTemplate() (*template.Template, error) {
+    t := template.New(&quot;&quot;)
+    for name, file := range Assets.Files {
+        if file.IsDir() || !strings.HasSuffix(name, &quot;.tmpl&quot;) {
+            continue
+        }
+        h, err := ioutil.ReadAll(file)
+        if err != nil {
+            return nil, err
+        }
+        t, err = t.New(name).Parse(string(h))
+        if err != nil {
+            return nil, err
+        }
+    }
+    return t, nil
+}</code></pre>
+<p>在　<code>examples/assets-in-binary</code>　中查看一个完成的示例。</p>
+<h3 id="使用自定义结构绑定表单数据请求"><a href="#使用自定义结构绑定表单数据请求" class="headerlink" title="使用自定义结构绑定表单数据请求"></a>使用自定义结构绑定表单数据请求</h3><p>下面示例使用自定义结构：</p>
+<pre><code class="go">type StructA struct {
+    FieldA string `form:&quot;field_a&quot;`
+}
+
+type StructB struct {
+    NestedStruct StructA
+    FieldB string `form:&quot;field_b&quot;`
+}
+
+type StructC struct {
+    NestedStructPointer *StructA
+    FieldC string `form:&quot;field_c&quot;`
+}
+
+type StructD struct {
+    NestedAnonyStruct struct {
+        FieldX string `form:&quot;field_x&quot;`
+    }
+    FieldD string `form:&quot;field_d&quot;`
+}
+
+func GetDataB(c *gin.Context) {
+    var b StructB
+    c.Bind(&amp;b)
+    c.JSON(200, gin.H{
+        &quot;a&quot;: b.NestedStruct,
+        &quot;b&quot;: b.FieldB,
+    })
+}
+
+func GetDataC(c *gin.Context) {
+    var b StructC
+    c.Bind(&amp;b)
+    c.JSON(200, gin.H{
+        &quot;a&quot;: b.NestedStructPointer,
+        &quot;c&quot;: b.FieldC,
+    })
+}
+
+func GetDataD(c *gin.Context) {
+    var b StructD
+    c.Bind(&amp;b)
+    c.JSON(200, gin.H{
+        &quot;x&quot;: b.NestedAnonyStruct,
+        &quot;d&quot;: b.FieldD,
+    })
+}
+
+func main() {
+    r := gin.Default()
+    r.GET(&quot;/getb&quot;, GetDataB)
+    r.GET(&quot;/getc&quot;, GetDataC)
+    r.GET(&quot;/getd&quot;, GetDataD)
+
+    r.Run()
+}</code></pre>
+<p>命令行中使用 <code>curl</code>　命令的结果：</p>
+<pre><code>$ curl &quot;http://localhost:8080/getb?field_a=hello&amp;field_b=world&quot;
+{&quot;a&quot;:{&quot;FieldA&quot;:&quot;hello&quot;},&quot;b&quot;:&quot;world&quot;}
+$ curl &quot;http://localhost:8080/getc?field_a=hello&amp;field_c=world&quot;
+{&quot;a&quot;:{&quot;FieldA&quot;:&quot;hello&quot;},&quot;c&quot;:&quot;world&quot;}
+$ curl &quot;http://localhost:8080/getd?field_x=hello&amp;field_d=world&quot;
+{&quot;d&quot;:&quot;world&quot;,&quot;x&quot;:{&quot;FieldX&quot;:&quot;hello&quot;}}</code></pre><p><strong>注意</strong>: 不支持下面风格的结构：</p>
+<pre><code class="go">type StructX struct {
+    X struct {} `form:&quot;name_x&quot;` // HERE have form
+}
+
+type StructY struct {
+    Y StructX `form:&quot;name_y&quot;` // HERE hava form
+}
+
+type StructZ struct {
+    Z *StructZ `form:&quot;name_z&quot;` // HERE hava form
+}</code></pre>
+<p>总之，只支持当前没有　<code>form</code> 嵌套的自定义结构。</p>
+<h3 id="尝试将-body-绑定到不同的结构中"><a href="#尝试将-body-绑定到不同的结构中" class="headerlink" title="尝试将 body 绑定到不同的结构中"></a>尝试将 body 绑定到不同的结构中</h3><p>绑定 request body 的常规方法是使用　<code>c.Request.Body</code>　并且不能多次调用它们。</p>
+<pre><code class="go">type formA struct {
+  Foo string `json:&quot;foo&quot; xml:&quot;foo&quot; binding:&quot;required&quot;`
+}
+
+type formB struct {
+  Bar string `json:&quot;bar&quot; xml:&quot;bar&quot; binding:&quot;required&quot;`
+}
+
+func SomeHandler(c *gin.Context) {
+  objA := formA{}
+  objB := formB{}
+  // 这里 c.ShouldBind 使用 c.Request.Body 并且它不能被重复使用。
+  if errA := c.ShouldBind(&amp;objA); errA == nil {
+    c.String(http.StatusOK, `the body should be formA`)
+  // 这里总会出现一个错误，因为　c.Request.Body　现在是　EOF 。
+  } else if errB := c.ShouldBind(&amp;objB); errB == nil {
+    c.String(http.StatusOK, `the body should be formB`)
+  } else {
+    ...
+  }
+}</code></pre>
+<p>对于这一点, 你可以使用 <code>c.ShouldBindBodyWith</code>　。</p>
+<pre><code class="go">func SomeHandler(c *gin.Context) {
+  objA := formA{}
+  objB := formB{}
+  // 这里读取　c.Request.Body　并将结果存储到　context 中。
+  if errA := c.ShouldBindBodyWith(&amp;objA, binding.JSON); errA == nil {
+    c.String(http.StatusOK, `the body should be formA`)
+  // At this time, it reuses body stored in the context.
+  // 这是，它重用存储在　context 中的　body 。
+  } else if errB := c.ShouldBindBodyWith(&amp;objB, binding.JSON); errB == nil {
+    c.String(http.StatusOK, `the body should be formB JSON`)
+  // 并且它可以接受其他格式
+  } else if errB2 := c.ShouldBindBodyWith(&amp;objB, binding.XML); errB2 == nil {
+    c.String(http.StatusOK, `the body should be formB XML`)
+  } else {
+    ...
+  }
+}</code></pre>
+<ul>
+<li><p><code>c.ShouldBindBodyWith</code> 在绑定前存储 body 到 context 中。这对性能会有轻微的影响，所以如果你可以通过立即调用绑定, 不应该使用这个方法。</p>
+</li>
+<li><p>只有一些格式需要这个功能 – <code>JSON</code> 、　<code>XML</code>　、 <code>MsgPack</code>、<br><code>ProtoBuf</code>　。 对于其他格式， <code>Query</code>、 <code>Form</code>、 <code>FormPost</code>、 <code>FormMultipart</code>，<br>能被 <code>c.ShouldBind()</code>　多次调用，而不会对性能造成任何损害　（参见 <a href="https://github.com/gin-gonic/gin/pull/1341" target="_blank" rel="noopener">#1341</a>）。</p>
+</li>
+</ul>
+<h3 id="HTTP2-服务器推送"><a href="#HTTP2-服务器推送" class="headerlink" title="HTTP2 服务器推送"></a>HTTP2 服务器推送</h3><p>http.Pusher 仅仅被 <strong>go1.8+</strong>　支持。 在 <a href="https://blog.golang.org/h2push" target="_blank" rel="noopener">golang 官方博客</a> 中查看详细信息。</p>
+<pre><code class="go">package main
+
+import (
+    &quot;html/template&quot;
+    &quot;log&quot;
+
+    &quot;github.com/gin-gonic/gin&quot;
+)
+
+var html = template.Must(template.New(&quot;https&quot;).Parse(`
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;Https Test&lt;/title&gt;
+  &lt;script src=&quot;/assets/app.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1 style=&quot;color:red;&quot;&gt;Welcome, Ginner!&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+`))
+
+func main() {
+    r := gin.Default()
+    r.Static(&quot;/assets&quot;, &quot;./assets&quot;)
+    r.SetHTMLTemplate(html)
+
+    r.GET(&quot;/&quot;, func(c *gin.Context) {
+        if pusher := c.Writer.Pusher(); pusher != nil {
+            // 使用 pusher.Push() 去进行服务器推送
+            if err := pusher.Push(&quot;/assets/app.js&quot;, nil); err != nil {
+                log.Printf(&quot;Failed to push: %v&quot;, err)
+            }
+        }
+        c.HTML(200, &quot;https&quot;, gin.H{
+            &quot;status&quot;: &quot;success&quot;,
+        })
+    })
+
+    // 监听并服务于 https://127.0.0.1:8080
+    r.RunTLS(&quot;:8080&quot;, &quot;./testdata/server.pem&quot;, &quot;./testdata/server.key&quot;)
+}</code></pre>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p><code>net/http/httptest</code> 包是　HTTP 测试的首选方式。</p>
+<pre><code class="go">package main
+
+func setupRouter() *gin.Engine {
+    r := gin.Default()
+    r.GET(&quot;/ping&quot;, func(c *gin.Context) {
+        c.String(200, &quot;pong&quot;)
+    })
+    return r
+}
+
+func main() {
+    r := setupRouter()
+    r.Run(&quot;:8080&quot;)
+}</code></pre>
+<p>测试上面代码的示例：</p>
+<pre><code class="go">package main
+
+import (
+    &quot;net/http&quot;
+    &quot;net/http/httptest&quot;
+    &quot;testing&quot;
+
+    &quot;github.com/stretchr/testify/assert&quot;
+)
+
+func TestPingRoute(t *testing.T) {
+    router := setupRouter()
+
+    w := httptest.NewRecorder()
+    req, _ := http.NewRequest(&quot;GET&quot;, &quot;/ping&quot;, nil)
+    router.ServeHTTP(w, req)
+
+    assert.Equal(t, 200, w.Code)
+    assert.Equal(t, &quot;pong&quot;, w.Body.String())
+}</code></pre>
+<h2 id="使用者"><a href="#使用者" class="headerlink" title="使用者  "></a>使用者  <a href="https://sourcegraph.com/github.com/gin-gonic/gin?badge" target="_blank" rel="noopener"><img src="https://sourcegraph.com/github.com/gin-gonic/gin/-/badge.svg" alt="Sourcegraph"></a></h2><p>使用 <a href="https://github.com/gin-gonic/gin" target="_blank" rel="noopener">Gin</a> web 框架的非常棒的项目列表。</p>
+<ul>
+<li><a href="https://github.com/drone/drone" target="_blank" rel="noopener">drone</a>：　Drone　是一个用　Go 编写的基于　Docker 的持续交付平台。</li>
+<li><a href="https://github.com/appleboy/gorush" target="_blank" rel="noopener">gorush</a>：　一个用　Go 编写的消息推送服务器。</li>
+</ul>
+<p>转载自：<a href="https://learnku.com/docs/gin-gonic/2018/gin-readme/3819" target="_blank" rel="noopener"> Gin 文档中文翻译</a></p>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 786532832@qq.com </span>
+    </div>
+</article>
+
+
+<p>
+    <a class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>【转】Gin文档中文翻译</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">7.6k</span></p>
+    <p><span class="copy-title">本文作者:</span><a title="Aurora-龙振巅峰">Aurora-龙振巅峰</a></p>
+    <p><span class="copy-title">发布时间:</span>2019-03-01, 16:02:42</p>
+    <p><span class="copy-title">最后更新:</span>2020-03-26, 10:29:38</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/03/01/golang/Gin文档中文翻译/" title="【转】Gin文档中文翻译">https://auroralzdf.gitee.io/2019/03/01/golang/Gin文档中文翻译/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target="_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+    <div id="comments"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+<script type="text/javascript">
+    $.getScript('/js/gitalk.js', function () {
+        var gitalk = new Gitalk({
+            clientID: 'b9203c40539965c52855',
+            clientSecret: '80f3357a6572570797a5b3f84643c9dc33841d85',
+            repo: 'AuroraLZDF.GitHub.io',
+            owner: 'AuroraLZDF',
+            admin: ['AuroraLZDF'],
+            id: decodeURI(location.pathname),
+            distractionFreeMode: 'true',
+            language: 'zh-CN',
+            perPage: parseInt('10',10)
+        })
+        gitalk.render('comments')
+    })
+</script>
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2017-2020 Aurora</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class id="rocket"></a>
+
+    </div>
+</div>
+<div class="acParent"></div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close" onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>喜欢就点赞,疼爱就打赏</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">支付宝</label></span><span><label><input type="radio" name="pay" value="weixin">微信</label></span>
+    </div>
+</div>
+
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.0.1"></script>
+
+<script src="/js/script.js?v=1.0.1"></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['#Linux','#系统','#Vue.js','#前端框架','#Python','#Hexo','#Ajax、笔记','#js','#Docker','#数据结构','#数学','#git','#Golang','#PHP','#Laravel','#MySQL','#Nginx','#运维','#负载均衡','#PHP、笔记','#Session','#webuploader','#运算符','#面试总结','#HTTP','#PHP，面试汇总','#Shell',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().trim().split('\n').length, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+        .nav .hide-list.fullscreen {
+            left: 492px
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://i.loli.net/2019/07/22/5d3521411f3f169375.png");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>

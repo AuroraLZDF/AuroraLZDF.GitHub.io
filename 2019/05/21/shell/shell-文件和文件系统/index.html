@@ -1,0 +1,1727 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <title>shell-文件和文件系统 | Aurora-龙振巅峰的博客</title>
+  <meta name="keywords" content=" Linux , Shell ">
+  <meta name="description" content="shell-文件和文件系统 | Aurora-龙振巅峰的博客">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="keywords" content="后端，PHP，Golang, Vuejs, JS，JQUERY，开发者，程序猿，编程，代码，开源，IT网站，Developer，Programmer，Coder，Geek，Html，Css，用户体验">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Aurora-龙振巅峰的博客">
+<meta property="og:url" content="https://auroralzdf.gitee.io/404.html">
+<meta property="og:site_name" content="Aurora-龙振巅峰的博客">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-03-26T02:29:38.795Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Aurora-龙振巅峰的博客">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1"></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+<script src="/js/iconfont.js?v=1.0.1"></script>
+
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value>
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg">
+</a>
+<div class="author">
+    <span>Aurora-龙振巅峰</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="rss" href="/atom.xml" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-rss"/>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="github" href="https://github.com/AuroraLZDF" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"/>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+    
+        
+        <a title="email" href="mailto:786532832@qq.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"/>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="qq" href="http://wpa.qq.com/msgrd?v=3&uin=786532832&site=qq&menu=yes" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-qq"/>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="kugou" href="https://www.kugou.com/" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-kugou"/>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(87)</small></div></li>
+    
+        
+            
+            <li><div data-rel="Deepin">Deepin<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Vue.js">Vue.js<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Python">Python<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Hexo">Hexo<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="JS">JS<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Linux">Linux<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Docker">Docker<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="数据结构">数据结构<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="git">git<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Golang">Golang<small>(18)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Laravel">Laravel<small>(7)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="MySQL">MySQL<small>(5)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Nginx">Nginx<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="PHP">PHP<small>(23)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="PHP、PHP标准规范">PHP、PHP标准规范<small>(7)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="PHP、笔记">PHP、笔记<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="PHP，笔记">PHP，笔记<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Shell">Shell<small>(8)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div><a class="about  hasFriend  site_url" href="/about">关于</a><a style="width: 50%" class="friends">友链</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="87">
+<input type="hidden" id="yelog_site_word_count" value="193.2k">
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode === 13){return false;}">
+        <input id="local-search-input" class="search" type="text" placeholder="Search...">
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none">
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <li class="article-tag-list-item">
+        <a class="color1">Linux</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">系统</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">Vue.js</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">前端框架</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">Python</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">Hexo</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">Ajax、笔记</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">js</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">Docker</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">数据结构</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">数学</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">git</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">Golang</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">PHP</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">Laravel</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">MySQL</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">Nginx</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">运维</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">负载均衡</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">PHP、笔记</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">Session</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">webuploader</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">运算符</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">面试总结</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">HTTP</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">PHP，面试汇总</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">Shell</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        <a class="Deepin " href="/2018/11/01/Chrome插件开发全攻略/" data-tag="Linux,系统" data-author>
+            <span class="post-title" title="【转】Chrome插件开发全攻略">【转】Chrome插件开发全攻略</span>
+            <span class="post-date" title="2018-11-01 09:44:31">2018/11/01</span>
+        </a>
+        
+        <a class="Deepin " href="/2017/09/22/Deepin磁盘空间不足/" data-tag="Linux,系统" data-author>
+            <span class="post-title" title="Deepin磁盘空间不足">Deepin磁盘空间不足</span>
+            <span class="post-date" title="2017-09-22 22:52:52">2017/09/22</span>
+        </a>
+        
+        <a class="Vue.js " href="/2017/04/11/Vue.js——60分钟快速入门/" data-tag="Vue.js,前端框架" data-author>
+            <span class="post-title" title="【转】Vue.js——60分钟快速入门">【转】Vue.js——60分钟快速入门</span>
+            <span class="post-date" title="2017-04-11 15:33:11">2017/04/11</span>
+        </a>
+        
+        <a class="Python " href="/2018/01/04/Python数据结构/" data-tag="Python" data-author>
+            <span class="post-title" title="数据结构">数据结构</span>
+            <span class="post-date" title="2018-01-04 00:00:00">2018/01/04</span>
+        </a>
+        
+        <a class="Hexo " href="/2017/04/02/hello-world/" data-tag="Hexo" data-author>
+            <span class="post-title" title="Hello World">Hello World</span>
+            <span class="post-date" title="2017-04-02 11:56:43">2017/04/02</span>
+        </a>
+        
+        <a class="JS " href="/2019/02/21/jQuery-ajax-serialize-方法/" data-tag="Ajax、笔记" data-author>
+            <span class="post-title" title="jQuery-ajax-serialize()方法">jQuery-ajax-serialize()方法</span>
+            <span class="post-date" title="2019-02-21 15:44:07">2019/02/21</span>
+        </a>
+        
+        <a class="Linux " href="/2017/05/22/ubuntu16.04下解决Adobe Flash不是最新版问题/" data-tag="Linux" data-author>
+            <span class="post-title" title="ubuntu16.04下解决Adobe Flash不是最新版问题">ubuntu16.04下解决Adobe Flash不是最新版问题</span>
+            <span class="post-date" title="2017-05-22 16:02:11">2017/05/22</span>
+        </a>
+        
+        <a class="Hexo " href="/2017/03/02/使用Hexo + Github Pages搭建个人独立博客/" data-tag="Hexo" data-author>
+            <span class="post-title" title="使用Hexo + Github Pages搭建个人独立博客">使用Hexo + Github Pages搭建个人独立博客</span>
+            <span class="post-date" title="2017-03-02 16:40:41">2017/03/02</span>
+        </a>
+        
+        <a class="Vue.js " href="/2017/05/02/入门Webpack，看这篇就够了/" data-tag="Vue.js,js" data-author>
+            <span class="post-title" title="【转】入门Webpack，看这篇就够了">【转】入门Webpack，看这篇就够了</span>
+            <span class="post-date" title="2017-05-02 10:19:03">2017/05/02</span>
+        </a>
+        
+        <a class="Docker " href="/2018/03/01/学习笔记：Docker简介和安装/" data-tag="Docker" data-author>
+            <span class="post-title" title="【转】学习笔记：Docker简介和安装">【转】学习笔记：Docker简介和安装</span>
+            <span class="post-date" title="2018-03-01 09:54:31">2018/03/01</span>
+        </a>
+        
+        <a class="数据结构 " href="/2019/06/06/数据结构-数学知识复习/" data-tag="数据结构,数学" data-author>
+            <span class="post-title" title="数据结构-数学知识复习">数据结构-数学知识复习</span>
+            <span class="post-date" title="2019-06-06 11:19:08">2019/06/06</span>
+        </a>
+        
+        <a class="git " href="/2017/09/23/线上服务器搭建GIT服务器，实现本地代码上传并同步到服务器/" data-tag="Linux,git" data-author>
+            <span class="post-title" title="线上服务器搭建GIT服务器，实现本地代码上传并同步到服务器">线上服务器搭建GIT服务器，实现本地代码上传并同步到服务器</span>
+            <span class="post-date" title="2017-09-23 00:00:00">2017/09/23</span>
+        </a>
+        
+        <a class="Golang " href="/2019/03/01/golang/Gin文档中文翻译/" data-tag="Golang" data-author>
+            <span class="post-title" title="【转】Gin文档中文翻译">【转】Gin文档中文翻译</span>
+            <span class="post-date" title="2019-03-01 16:02:42">2019/03/01</span>
+        </a>
+        
+        <a class="Golang " href="/2019/01/14/golang/Golang-flag包实现命令行参数的解析/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-flag包实现命令行参数的解析">Golang-flag包实现命令行参数的解析</span>
+            <span class="post-date" title="2019-01-14 16:25:58">2019/01/14</span>
+        </a>
+        
+        <a class="Golang " href="/2019/01/02/golang/Golang-fmt格式化I-O/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-fmt格式化I/O">Golang-fmt格式化I/O</span>
+            <span class="post-date" title="2019-01-02 14:53:51">2019/01/02</span>
+        </a>
+        
+        <a class="Golang " href="/2019/01/16/golang/Golang-bufio实现有缓冲的I-O/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-bufio实现有缓冲的I/O">Golang-bufio实现有缓冲的I/O</span>
+            <span class="post-date" title="2019-01-16 14:09:06">2019/01/16</span>
+        </a>
+        
+        <a class="Golang " href="/2019/01/18/golang/Golang-json、xml、gob数据编码解码（格式化）/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-json、xml、gob数据编码解码">Golang-json、xml、gob数据编码解码</span>
+            <span class="post-date" title="2019-01-18 10:27:34">2019/01/18</span>
+        </a>
+        
+        <a class="Golang " href="/2019/01/18/golang/Golang-json包实现了json对象的编-解码/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-json包实现了json对象的编/解码">Golang-json包实现了json对象的编/解码</span>
+            <span class="post-date" title="2019-01-18 10:34:55">2019/01/18</span>
+        </a>
+        
+        <a class="Golang " href="/2018/12/03/golang/Golang-regexp包实现了正则表达式搜索/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-regexp包实现了正则表达式搜索">Golang-regexp包实现了正则表达式搜索</span>
+            <span class="post-date" title="2018-12-03 13:55:44">2018/12/03</span>
+        </a>
+        
+        <a class="Golang " href="/2018/11/23/golang/Golang-sort排序/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-sort排序">Golang-sort排序</span>
+            <span class="post-date" title="2018-11-23 14:17:31">2018/11/23</span>
+        </a>
+        
+        <a class="Golang " href="/2018/11/14/golang/Golang-strconv基本数据类型和其字符串表示的相互转换/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-strconv基本数据类型和其字符串表示的相互转换">Golang-strconv基本数据类型和其字符串表示的相互转换</span>
+            <span class="post-date" title="2018-11-14 14:37:37">2018/11/14</span>
+        </a>
+        
+        <a class="Golang " href="/2018/11/20/golang/Golang-switch结构/" data-tag="Golang" data-author>
+            <span class="post-title" title="【转】Golang-switch结构">【转】Golang-switch结构</span>
+            <span class="post-date" title="2018-11-20 14:04:30">2018/11/20</span>
+        </a>
+        
+        <a class="Golang " href="/2018/11/09/golang/Golang-位左移的应用/" data-tag="Golang" data-author>
+            <span class="post-title" title="『记』Golang-位左移的应用">『记』Golang-位左移的应用</span>
+            <span class="post-date" title="2018-11-09 15:31:25">2018/11/09</span>
+        </a>
+        
+        <a class="Golang " href="/2018/11/12/golang/Golang-strings操作字符的简单函数/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-strings操作字符的简单函数">Golang-strings操作字符的简单函数</span>
+            <span class="post-date" title="2018-11-12 14:40:23">2018/11/12</span>
+        </a>
+        
+        <a class="Golang " href="/2018/11/15/golang/Golang-时间和日期time/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-时间和日期time">Golang-时间和日期time</span>
+            <span class="post-date" title="2018-11-15 10:33:06">2018/11/15</span>
+        </a>
+        
+        <a class="Golang " href="/2019/01/02/golang/Golang-读写数据一/" data-tag="Golang" data-author>
+            <span class="post-title" title="【转】Golang-读写数据一">【转】Golang-读写数据一</span>
+            <span class="post-date" title="2019-01-02 14:44:10">2019/01/02</span>
+        </a>
+        
+        <a class="Golang " href="/2019/01/14/golang/Golang-读写数据二/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-读写数据二">Golang-读写数据二</span>
+            <span class="post-date" title="2019-01-14 15:08:34">2019/01/14</span>
+        </a>
+        
+        <a class="Golang " href="/2018/11/21/golang/Golang-通过内存缓存来提升性能/" data-tag="Golang" data-author>
+            <span class="post-title" title="【转】Golang-通过内存缓存来提升性能">【转】Golang-通过内存缓存来提升性能</span>
+            <span class="post-date" title="2018-11-21 15:45:11">2018/11/21</span>
+        </a>
+        
+        <a class="Golang " href="/2019/01/23/golang/Golang-错误处理与测试/" data-tag="Golang" data-author>
+            <span class="post-title" title="【转】Golang-错误处理与测试">【转】Golang-错误处理与测试</span>
+            <span class="post-date" title="2019-01-23 14:16:22">2019/01/23</span>
+        </a>
+        
+        <a class="Golang " href="/2018/11/12/golang/Golang的单引号、双引号与反引号/" data-tag="Golang" data-author>
+            <span class="post-title" title="【转】Golang的单引号、双引号与反引号">【转】Golang的单引号、双引号与反引号</span>
+            <span class="post-date" title="2018-11-12 16:10:36">2018/11/12</span>
+        </a>
+        
+        <a class="Laravel " href="/2017/04/02/laravel/Laravel学习之旅——Blade 模板引擎/" data-tag="PHP,Laravel" data-author>
+            <span class="post-title" title="【转】Laravel学子之旅——Blade 模板引擎">【转】Laravel学子之旅——Blade 模板引擎</span>
+            <span class="post-date" title="2017-04-02 11:56:43">2017/04/02</span>
+        </a>
+        
+        <a class="Laravel " href="/2017/04/02/laravel/Laravel学习之旅——HTTP 中间件/" data-tag="PHP,Laravel" data-author>
+            <span class="post-title" title="【转】Laravel学习之旅——HTTP 中间件">【转】Laravel学习之旅——HTTP 中间件</span>
+            <span class="post-date" title="2017-04-02 09:45:46">2017/04/02</span>
+        </a>
+        
+        <a class="Laravel " href="/2017/04/01/laravel/Laravel学习之旅——HTTP 响应/" data-tag="PHP,Laravel" data-author>
+            <span class="post-title" title="【转】Laravel学习之旅——HTTP 响应">【转】Laravel学习之旅——HTTP 响应</span>
+            <span class="post-date" title="2017-04-01 16:45:15">2017/04/01</span>
+        </a>
+        
+        <a class="Laravel " href="/2017/04/01/laravel/Laravel学习之旅——HTTP 控制器/" data-tag="PHP,Laravel" data-author>
+            <span class="post-title" title="【转】Laravel学习之旅——HTTP 控制器">【转】Laravel学习之旅——HTTP 控制器</span>
+            <span class="post-date" title="2017-04-01 20:11:25">2017/04/01</span>
+        </a>
+        
+        <a class="Laravel " href="/2017/04/01/laravel/Laravel学习之旅——HTTP 请求/" data-tag="PHP,Laravel" data-author>
+            <span class="post-title" title="【转】Laravel学习之旅——HTTP 请求">【转】Laravel学习之旅——HTTP 请求</span>
+            <span class="post-date" title="2017-04-01 13:48:00">2017/04/01</span>
+        </a>
+        
+        <a class="Laravel " href="/2017/04/01/laravel/Laravel学习之旅——基础篇/" data-tag="PHP,Laravel" data-author>
+            <span class="post-title" title="【转】Laravel学习之旅——基础篇（安装、路由、CSRF、404）">【转】Laravel学习之旅——基础篇（安装、路由、CSRF、404）</span>
+            <span class="post-date" title="2017-04-01 09:31:25">2017/04/01</span>
+        </a>
+        
+        <a class="MySQL " href="/2017/10/18/mysql/linux mysql自动备份数据库/" data-tag="Linux,MySQL" data-author>
+            <span class="post-title" title="linux(deepin) 下mysql自动备份">linux(deepin) 下mysql自动备份</span>
+            <span class="post-date" title="2017-10-18 16:02:11">2017/10/18</span>
+        </a>
+        
+        <a class="Laravel " href="/2017/04/01/laravel/Laravel学习之旅——视图/" data-tag="PHP,Laravel" data-author>
+            <span class="post-title" title="【转】Laravel学习之旅——视图">【转】Laravel学习之旅——视图</span>
+            <span class="post-date" title="2017-04-01 21:00:12">2017/04/01</span>
+        </a>
+        
+        <a class="MySQL " href="/2017/11/13/mysql/mysql联合索引/" data-tag="MySQL" data-author>
+            <span class="post-title" title="mysql联合索引">mysql联合索引</span>
+            <span class="post-date" title="2017-11-13 10:25:12">2017/11/13</span>
+        </a>
+        
+        <a class="MySQL " href="/2017/11/13/mysql/数据库长连接与短连接的区别/" data-tag="MySQL" data-author>
+            <span class="post-title" title="【转】数据库长连接与短连接的区别">【转】数据库长连接与短连接的区别</span>
+            <span class="post-date" title="2017-11-13 08:59:12">2017/11/13</span>
+        </a>
+        
+        <a class="MySQL " href="/2017/04/02/mysql/配置phpMyAdmin连接多台mysql服务器/" data-tag="MySQL" data-author>
+            <span class="post-title" title="配置phpmyadmin使登录时可填写IP管理多台MySQL 连接多个数据库 自动登录">配置phpmyadmin使登录时可填写IP管理多台MySQL 连接多个数据库 自动登录</span>
+            <span class="post-date" title="2017-04-02 13:24:12">2017/04/02</span>
+        </a>
+        
+        <a class="MySQL " href="/2017/03/23/mysql/详解MySQL大表优化方案/" data-tag="MySQL" data-author>
+            <span class="post-title" title="【转】详解MySQL大表优化方案">【转】详解MySQL大表优化方案</span>
+            <span class="post-date" title="2017-03-23 19:00:22">2017/03/23</span>
+        </a>
+        
+        <a class="Nginx " href="/2018/10/30/nginx/NGINX宏观手记/" data-tag="Nginx,运维" data-author>
+            <span class="post-title" title="【转】NGINX宏观手记">【转】NGINX宏观手记</span>
+            <span class="post-date" title="2018-10-30 13:46:01">2018/10/30</span>
+        </a>
+        
+        <a class="Nginx " href="/2019/04/24/nginx/正向代理与反向代理/" data-tag="Nginx,负载均衡" data-author>
+            <span class="post-title" title="【转】正向代理与反向代理">【转】正向代理与反向代理</span>
+            <span class="post-date" title="2019-04-24 17:26:54">2019/04/24</span>
+        </a>
+        
+        <a class="PHP " href="/2017/11/15/php/CGI、FastCgi与PHP-fpm之间是个什么样的关系/" data-tag="Linux,PHP" data-author>
+            <span class="post-title" title="【转】CGI、FastCgi与PHP-fpm之间是个什么样的关系">【转】CGI、FastCgi与PHP-fpm之间是个什么样的关系</span>
+            <span class="post-date" title="2017-11-15 15:09:30">2017/11/15</span>
+        </a>
+        
+        <a class="PHP " href="/2017/02/22/php/PHP header() 函数/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP header() 函数">PHP header() 函数</span>
+            <span class="post-date" title="2017-02-22 16:05:11">2017/02/22</span>
+        </a>
+        
+        <a class="PHP、PHP标准规范 " href="/2019/02/18/php/PHP-PSR-1基础编码规范/" data-tag="PHP" data-author>
+            <span class="post-title" title="【转】PHP-PSR-1基础编码规范">【转】PHP-PSR-1基础编码规范</span>
+            <span class="post-date" title="2019-02-18 14:36:56">2019/02/18</span>
+        </a>
+        
+        <a class="PHP、PHP标准规范 " href="/2019/02/18/php/PHP-PSR-2编码风格规范/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP-PSR-2编码风格规范">PHP-PSR-2编码风格规范</span>
+            <span class="post-date" title="2019-02-18 15:03:50">2019/02/18</span>
+        </a>
+        
+        <a class="PHP、PHP标准规范 " href="/2019/02/19/php/PHP-PSR-3日志接口规范/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP-PSR-3日志接口规范">PHP-PSR-3日志接口规范</span>
+            <span class="post-date" title="2019-02-19 16:50:46">2019/02/19</span>
+        </a>
+        
+        <a class="PHP、PHP标准规范 " href="/2019/02/20/php/PHP-PSR-4自动加载规范/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP-PSR-4自动加载规范">PHP-PSR-4自动加载规范</span>
+            <span class="post-date" title="2019-02-20 10:24:40">2019/02/20</span>
+        </a>
+        
+        <a class="PHP、PHP标准规范 " href="/2019/02/20/php/PHP-PSR-6缓存接口规范/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP-PSR-6缓存接口规范">PHP-PSR-6缓存接口规范</span>
+            <span class="post-date" title="2019-02-20 11:04:19">2019/02/20</span>
+        </a>
+        
+        <a class="PHP、笔记 " href="/2019/02/21/php/PHP-header-生成文件/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP-header()生成文件">PHP-header()生成文件</span>
+            <span class="post-date" title="2019-02-21 15:12:04">2019/02/21</span>
+        </a>
+        
+        <a class="PHP，笔记 " href="/2019/04/15/php/PHP-to-xml/" data-tag="Linux,PHP" data-author>
+            <span class="post-title" title="PHP-to-xml">PHP-to-xml</span>
+            <span class="post-date" title="2019-04-15 17:43:02">2019/04/15</span>
+        </a>
+        
+        <a class="PHP、PHP标准规范 " href="/2019/02/20/php/PHP-PSR-7HTTP消息接口规范/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP-PSR-7HTTP消息接口规范">PHP-PSR-7HTTP消息接口规范</span>
+            <span class="post-date" title="2019-02-20 11:39:31">2019/02/20</span>
+        </a>
+        
+        <a class="PHP、笔记 " href="/2019/02/21/php/PHP-取整函数ceil，floor，round，intval函数的区别/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP-取整函数ceil，floor，round，intval函数的区别">PHP-取整函数ceil，floor，round，intval函数的区别</span>
+            <span class="post-date" title="2019-02-21 14:44:29">2019/02/21</span>
+        </a>
+        
+        <a class="PHP，笔记 " href="/2019/04/15/php/PHP-子类重写父类属性问题/" data-tag="Linux,PHP" data-author>
+            <span class="post-title" title="PHP-子类重写父类属性问题">PHP-子类重写父类属性问题</span>
+            <span class="post-date" title="2019-04-15 17:26:07">2019/04/15</span>
+        </a>
+        
+        <a class="PHP " href="/2019/02/21/php/PHP-数组根据某键值，把相同键值的合并最终生成一个新的二维数组/" data-tag="PHP、笔记" data-author>
+            <span class="post-title" title="PHP-数组根据某键值，把相同键值的合并最终生成一个新的二维数组.md">PHP-数组根据某键值，把相同键值的合并最终生成一个新的二维数组.md</span>
+            <span class="post-date" title="2019-02-21 15:28:07">2019/02/21</span>
+        </a>
+        
+        <a class="PHP、PHP标准规范 " href="/2019/02/12/php/PHP-自动加载规范/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP-自动加载规范">PHP-自动加载规范</span>
+            <span class="post-date" title="2019-02-12 15:45:33">2019/02/12</span>
+        </a>
+        
+        <a class="PHP " href="/2019/02/21/php/PHP-设计模式/" data-tag="PHP、笔记" data-author>
+            <span class="post-title" title="PHP-设计模式（一）">PHP-设计模式（一）</span>
+            <span class="post-date" title="2019-02-21 16:38:06">2019/02/21</span>
+        </a>
+        
+        <a class="PHP " href="/2018/10/25/php/PHP中被忽略的性能优化利器：生成器-md/" data-tag="PHP" data-author>
+            <span class="post-title" title="【转】PHP中被忽略的性能优化利器：生成器.md">【转】PHP中被忽略的性能优化利器：生成器.md</span>
+            <span class="post-date" title="2018-10-25 15:32:51">2018/10/25</span>
+        </a>
+        
+        <a class="PHP " href="/2017/11/28/php/PHP匿名函数、闭包函数/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP匿名函数、闭包函数">PHP匿名函数、闭包函数</span>
+            <span class="post-date" title="2017-11-28 00:00:00">2017/11/28</span>
+        </a>
+        
+        <a class="PHP " href="/2018/10/23/php/PHP实现异步调用方法/" data-tag="PHP" data-author>
+            <span class="post-title" title="【转】PHP实现异步调用方法">【转】PHP实现异步调用方法</span>
+            <span class="post-date" title="2018-10-23 17:49:19">2018/10/23</span>
+        </a>
+        
+        <a class="PHP " href="/2018/11/01/php/PHP手册-上下文（Context）选项和参数/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP手册-上下文（Context）选项和参数">PHP手册-上下文（Context）选项和参数</span>
+            <span class="post-date" title="2018-11-01 14:46:10">2018/11/01</span>
+        </a>
+        
+        <a class="PHP " href="/2018/11/04/php/PHP手册-支持的协议和封装协议/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP手册-支持的协议和封装协议">PHP手册-支持的协议和封装协议</span>
+            <span class="post-date" title="2018-11-04 14:43:48">2018/11/04</span>
+        </a>
+        
+        <a class="PHP " href="/2018/10/26/php/PHP手册-预定义变量/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP手册-预定义变量">PHP手册-预定义变量</span>
+            <span class="post-date" title="2018-10-26 14:40:26">2018/10/26</span>
+        </a>
+        
+        <a class="PHP " href="/2018/10/31/php/PHP手册-预定义异常/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP手册-预定义异常">PHP手册-预定义异常</span>
+            <span class="post-date" title="2018-10-31 11:10:41">2018/10/31</span>
+        </a>
+        
+        <a class="PHP " href="/2018/10/31/php/PHP手册-预定义接口/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP手册-预定义接口">PHP手册-预定义接口</span>
+            <span class="post-date" title="2018-10-31 14:17:59">2018/10/31</span>
+        </a>
+        
+        <a class="数据结构 " href="/2017/03/14/php/PHP的冒泡算法/" data-tag="数据结构,PHP" data-author>
+            <span class="post-title" title="PHP的冒泡算法">PHP的冒泡算法</span>
+            <span class="post-date" title="2017-03-14 14:28:30">2017/03/14</span>
+        </a>
+        
+        <a class="PHP " href="/2017/11/28/php/PHP类的自动加载 /" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP类的自动加载">PHP类的自动加载</span>
+            <span class="post-date" title="2017-11-28 00:00:00">2017/11/28</span>
+        </a>
+        
+        <a class="PHP " href="/2018/10/23/php/PHP递归删除数组中值为空的元素/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP递归删除数组中值为空的元素.md">PHP递归删除数组中值为空的元素.md</span>
+            <span class="post-date" title="2018-10-23 17:47:06">2018/10/23</span>
+        </a>
+        
+        <a class="PHP " href="/2017/03/14/php/PHP遍历某个文件夹下子目录和文件/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP遍历文件夹下子目录和文件">PHP遍历文件夹下子目录和文件</span>
+            <span class="post-date" title="2017-03-14 10:58:04">2017/03/14</span>
+        </a>
+        
+        <a class="PHP " href="/2017/11/28/php/PHP魔术常量/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP魔术常量">PHP魔术常量</span>
+            <span class="post-date" title="2017-11-28 00:00:00">2017/11/28</span>
+        </a>
+        
+        <a class="PHP " href="/2017/11/28/php/Trait /" data-tag="PHP" data-author>
+            <span class="post-title" title="Trait">Trait</span>
+            <span class="post-date" title="2017-11-28 00:00:00">2017/11/28</span>
+        </a>
+        
+        <a class="PHP " href="/2017/11/13/php/session原理，如何修改session生命周期/" data-tag="PHP,Session" data-author>
+            <span class="post-title" title="【转】session原理，如何修改session生命周期">【转】session原理，如何修改session生命周期</span>
+            <span class="post-date" title="2017-11-13 14:50:39">2017/11/13</span>
+        </a>
+        
+        <a class="PHP " href="/2017/05/08/php/webuploder+PHP实现大文件断点（切片）续传/" data-tag="js,PHP,webuploader" data-author>
+            <span class="post-title" title="webuploder+PHP实现大文件断点（切片）续传">webuploder+PHP实现大文件断点（切片）续传</span>
+            <span class="post-date" title="2017-05-08 11:18:07">2017/05/08</span>
+        </a>
+        
+        <a class="PHP " href="/2018/10/29/php/一道看似简单的面试题/" data-tag="PHP,运算符" data-author>
+            <span class="post-title" title="【转】一道看似简单的面试题">【转】一道看似简单的面试题</span>
+            <span class="post-date" title="2018-10-29 15:07:31">2018/10/29</span>
+        </a>
+        
+        <a class="PHP " href="/2017/11/13/php/从用户浏览器输入url到用户看到页面结果的过程，发生了什么事情？/" data-tag="面试总结" data-author>
+            <span class="post-title" title="【转】从用户浏览器输入url到用户看到页面结果的过程，发生了什么事情？">【转】从用户浏览器输入url到用户看到页面结果的过程，发生了什么事情？</span>
+            <span class="post-date" title="2017-11-13 14:50:39">2017/11/13</span>
+        </a>
+        
+        <a class="PHP " href="/2017/11/15/php/各类 HTTP 返回状态代码详解/" data-tag="PHP,HTTP" data-author>
+            <span class="post-title" title="【转】各类 HTTP 返回状态代码详解">【转】各类 HTTP 返回状态代码详解</span>
+            <span class="post-date" title="2017-11-15 16:30:30">2017/11/15</span>
+        </a>
+        
+        <a class="PHP " href="/2017/05/22/php/驼峰命名法和下划线风格的互转/" data-tag="PHP，面试汇总" data-author>
+            <span class="post-title" title="【转】驼峰命名法和下划线风格的互转">【转】驼峰命名法和下划线风格的互转</span>
+            <span class="post-date" title="2017-05-22 16:05:11">2017/05/22</span>
+        </a>
+        
+        <a class="Shell " href="/2019/04/01/shell/shell-shell编程基础/" data-tag="Linux,Shell" data-author>
+            <span class="post-title" title="shell-shell编程基础">shell-shell编程基础</span>
+            <span class="post-date" title="2019-04-01 11:26:01">2019/04/01</span>
+        </a>
+        
+        <a class="Shell " href="/2019/03/29/shell/shell-初识Shell/" data-tag="Linux,Shell" data-author>
+            <span class="post-title" title="shell-初识Shell">shell-初识Shell</span>
+            <span class="post-date" title="2019-03-29 14:58:08">2019/03/29</span>
+        </a>
+        
+        <a class="Shell " href="/2019/04/16/shell/shell-基本文本处理/" data-tag="Linux,Shell" data-author>
+            <span class="post-title" title="shell-基本文本处理">shell-基本文本处理</span>
+            <span class="post-date" title="2019-04-16 10:01:05">2019/04/16</span>
+        </a>
+        
+        <a class="Shell " href="/2019/05/21/shell/shell-文件和文件系统/" data-tag="Linux,Shell" data-author>
+            <span class="post-title" title="shell-文件和文件系统">shell-文件和文件系统</span>
+            <span class="post-date" title="2019-05-21 12:22:01">2019/05/21</span>
+        </a>
+        
+        <a class="Shell " href="/2019/05/29/shell/shell-文本处理利器 awk/" data-tag="Linux,Shell" data-author>
+            <span class="post-title" title="【转】shell-文本处理利器 awk">【转】shell-文本处理利器 awk</span>
+            <span class="post-date" title="2019-05-29 13:26:35">2019/05/29</span>
+        </a>
+        
+        <a class="Shell " href="/2019/04/15/shell/shell-正则表达式/" data-tag="Linux,Shell" data-author>
+            <span class="post-title" title="shell-正则表达式">shell-正则表达式</span>
+            <span class="post-date" title="2019-04-15 11:08:05">2019/04/15</span>
+        </a>
+        
+        <a class="Shell " href="/2019/05/28/shell/shell-流编辑sed/" data-tag="Linux,Shell" data-author>
+            <span class="post-title" title="shell-流编辑sed">shell-流编辑sed</span>
+            <span class="post-date" title="2019-05-28 13:33:35">2019/05/28</span>
+        </a>
+        
+        <a class="Shell " href="/2019/04/01/shell/shell-编程的基本元素/" data-tag="Linux,Shell" data-author>
+            <span class="post-title" title="shell-编程的基本元素">shell-编程的基本元素</span>
+            <span class="post-date" title="2019-04-01 15:42:03">2019/04/01</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-shell/shell-文件和文件系统" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">shell-文件和文件系统</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+                <a data-rel="Shell">Shell</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a class="color1">Linux</a>
+            
+            <a class="color1">Shell</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title="更新时间: 2020-03-26 10:29:38">2019-05-21 12:22</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>字数:6.2k</span>
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+        <span class="top-comment" title="跳转至评论区">
+            <a href="#comments">
+                评论:<span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </a>
+        </span>
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#文件"><span class="toc-text">文件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#列出文件"><span class="toc-text">列出文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ls"><span class="toc-text">ls</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件的类型"><span class="toc-text">文件的类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件的权限"><span class="toc-text">文件的权限</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#用户分组"><span class="toc-text">用户分组</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#chown"><span class="toc-text">chown</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#chgrp"><span class="toc-text">chgrp</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件权限"><span class="toc-text">文件权限</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#chmod"><span class="toc-text">chmod</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件的修改时间"><span class="toc-text">文件的修改时间</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#touch"><span class="toc-text">touch</span></a></li></ol></li></ol></li></ol><li class="toc-item toc-level-1"><a class="toc-link" href="#寻找文件"><span class="toc-text">寻找文件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#find-命令的参数"><span class="toc-text">find 命令的参数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#find"><span class="toc-text">find</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#遍历文件"><span class="toc-text">遍历文件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#比较文件"><span class="toc-text">比较文件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#使用-comm-比较排序后文件"><span class="toc-text">使用 comm 比较排序后文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用-diff-比较文件"><span class="toc-text">使用 diff 比较文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#diff"><span class="toc-text">diff</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#comm"><span class="toc-text">comm</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其他文本比较方法"><span class="toc-text">其他文本比较方法</span></a></li></ol></li>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h1><h2 id="列出文件"><a href="#列出文件" class="headerlink" title="列出文件"></a>列出文件</h2><h3 id="ls"><a href="#ls" class="headerlink" title="ls"></a>ls</h3><p><code>ls</code> 命令用于显示目录或文件名的内容。<code>ls</code> 将每个由 <code>Directory</code> 参数指定的目录或者每个有 <code>File</code> 参数指定的名称写道标准输出，以及你所要求的和标志一起的其他信息。如果不指定参数，<code>ls</code> 命令显示当前目录的内容。</p>
+<pre><code class="bash">用法：ls [选项]... [文件]...
+列出文件信息 (默认是当前目录)。
+
+必选参数对长短选项同时适用。
+  -a, --all            不隐藏任何以. 开始的项目
+  -A, --almost-all        列出除. 及.. 以外的任何项目
+      --author            与-l 同时使用时列出每个文件的作者
+  -b, --escape            以八进制溢出序列表示不可打印的字符
+  -B, --ignore-backups  不输出以“～”结尾的备份文件
+  -c                    输出文件的 i 节点的修改时间，并以此排序
+  -C                    按列输出，纵向排序
+  -d, --directory       将目录像文件一样显示，而不是显示其下的文件。
+  -D, --dired           生成为Emacs dired模式设计的输出     
+  -f                    对输出的文件不排序，不区分颜色
+  -F, --classify        在每个文件后面附加一个字符，以说明该文件的类型，“*”表示可执行的普通文件；“/”表示目录；“@”表示符号链接；“|”表示FIFOs；“=”表示套接字（socket）
+  -g                类似-l，但不列出所有者
+  -G, --no-group    无明显效果
+  -h, --human-readable       与 -l、-s连用显示可读性的文件大小(例如, 1K 234M 2G)
+  -H, --dereference-command-line    无明显效果
+  -i, --inode                输出文件索引
+  -I, --ignore=PATTERN       不列出匹配shell模式的隐含条目
+  -k, --kibibytes            磁盘使用默认为1024字节块
+  -l                使用较长格式列出信息
+  -L, --dereference        当显示符号链接的文件信息时，显示符号链接所指示
+                的对象而并非符号链接本身的信息
+  -m                所有文件以逗号分隔，并填满整行行宽
+  -n, --numeric-uid-gid      类似 -l, 类似 -l, 但是用户以数字显示，用户组以id显示
+  -N, --literal              不要用引号引起文件名
+  -o                         类似 -l, 但是不显示组信息
+  -p, --indicator-style=slash    向目录追加/指示符
+  -q, --hide-control-chars   打印吗?而不是非图形字符
+  -Q, --quote-name           将条目名称用双引号括起来 
+  -r, --reverse            逆序排列
+  -R, --recursive        递归显示子目录
+  -s, --size            以块数形式显示每个文件分配的尺寸
+  -S                    以文件大小倒序排序                     
+  -t                    根据修改时间倒序排序
+  -T, --tabsize=COLS         假定每个制表符宽度是 cols 。缺省为 8。为求效率， ls 可能在输出中使用制表符。  若 cols 为 0，则不使用制表符
+  -u                         与 -lt连用，以访问时间倒序排序
+                               与 -l连用，显示访问时间，并且以名称排序
+                                否则以访问时间排序
+  -U                         不排序;按目录顺序列出条目
+  -v                         文本中的(版本)数字的自然排序
+  -w, --width=COLS           将输出宽度设置为COLS。0表示没有极限
+  -x                         按行而不是按列列出条目
+  -X                         按条目扩展名的字母顺序排序
+  -Z, --context              打印每个文件的任何安全上下文
+  -1                         每行列出一个文件。避免使用带-q或-b的\n</code></pre>
+<h2 id="文件的类型"><a href="#文件的类型" class="headerlink" title="文件的类型"></a>文件的类型</h2><p>命令 <code>ls -l</code> 输出，第一列信息表示的文件的类型和读写权限，例如：</p>
+<pre><code class="bash">$ pwd
+/home/aurora
+$ ls -l
+</code></pre>
+<p>第一列字段由 10 个字符组成，其中第一个字符会有 6 中不同的字符，分别是：</p>
+<p><strong>-</strong> 普通文件</p>
+<p><strong>d</strong> 文件夹</p>
+<p><strong>b</strong> 块设备文件，硬盘（/dev/sda）、光盘（/dev/cdrom）等</p>
+<p><strong>c</strong> 字符设备文件，内存（/dev/mem）、终端（/dev/tty）、黑洞（/dev/null）等</p>
+<p><strong>l</strong> 软连接文件</p>
+<p><strong>s</strong> 套接字文件</p>
+<h2 id="文件的权限"><a href="#文件的权限" class="headerlink" title="文件的权限"></a>文件的权限</h2><p>在 Linux 中的每个文件或目录都包含有访问权限，这些访问权限决定了谁能访问和如何访问这些文件和目录。</p>
+<h3 id="用户分组"><a href="#用户分组" class="headerlink" title="用户分组"></a>用户分组</h3><p>对于一个文件来说，可以针对 3 种不同的用户类型设置不同的访问权限。</p>
+<ul>
+<li><strong>OWNER</strong> 所有者，指创建文件的用户。</li>
+<li><strong>GROUP</strong> 用户组，用户组是指一组相似用户。用户组中的单个用户能够设置其所在用户组访问该用户文件的权限。</li>
+<li><strong>OTHER</strong> 其他用户，用户也可以将自己的文件向系统内的其他所有用户开放。</li>
+</ul>
+<h4 id="chown"><a href="#chown" class="headerlink" title="chown"></a>chown</h4><pre><code class="bash">说明：更改与文件关联的所有者或组
+
+用法：chown [选项]... [所有者][:[组]] 文件...
+　或：chown [选项]... --reference=参考文件 文件...
+
+  -c, --changes          效果类似“-v”参数，但仅回报更改的部分；
+  -f, --silent, --quiet  禁止除用法消息之外的所有错误消息;
+  -v, --verbose          显示指令执行过程
+      --dereference      效果和“-h”参数相同；
+  -h, --no-dereference   只对符号连接的文件作修改，而不更改其他任何相关文件；
+  -R, --recursive        o递归处理，将指定目录下的所有文件及子目录一并处理；
+  -H                     如果命令行参数是指向目录的符号链接，则遍历它，遍历遇到的每个指向目录的符号链接
+  -P                     不遍历任何符号链接(默认)
+
+示例：
+  chown root /u        将 /u 的属主更改为&quot;root&quot;。
+  chown root:staff /u    和上面类似，但同时也将其属组更改为&quot;staff&quot;。
+  chown -hR root /u    将 /u 及其子目录下所有文件的属主更改为&quot;root&quot;。</code></pre>
+<h4 id="chgrp"><a href="#chgrp" class="headerlink" title="chgrp"></a>chgrp</h4><pre><code class="bash">说明：变更文件或目录的所属群组
+
+用法：chgrp [选项]... 用户组 文件...
+　或：chgrp [选项]... --reference=参考文件 文件...
+
+  -c, --changes         效果类似“-v”参数，但仅回报更改的部分；
+  -f, --silent, --quiet  禁止除用法消息之外的所有错误消息;
+  -v, --verbose          显示指令执行过程；
+  -h, --no-dereference   只对符号连接的文件作修改，而不是该其他任何相关文件；
+  -R, --recursive        递归式地改变指定目录及其下的所有子目录和文件的所属的组
+  -H                     如果命令行参数是一个通到目录的符号链接，则遍历符号链接
+  -L                    遍历每一个遇到的通到目录的符号链接
+  -P                    不遍历任何符号链接（默认）
+
+示例：
+  chgrp staff /u            将 /u 的属组更改为&quot;staff&quot;。
+  chgrp -hR staff /u    将 /u 及其子目录下所有文件的属组更改为&quot;staff&quot;。</code></pre>
+<h3 id="文件权限"><a href="#文件权限" class="headerlink" title="文件权限"></a>文件权限</h3><p>对于每个文件来说，文件所有者或超级用户可以设置文件的可读、可写和可执行权限，他们分别是<strong>r</strong>、<strong>w</strong>、<strong>x</strong>。</p>
+<ul>
+<li><strong>r（Read，读取）</strong> 对于文件而言，可以读取文件内容；对于目录而言，具有浏览目录的权限。</li>
+<li><strong>w（Write，写入）</strong> 对于文件而言，具有新增、修改文件内容的权限；对于目录而言，具有移动、删除目录的权限。</li>
+<li><strong>x（eXecute，执行）</strong> 对于文件而言，具有执行文件的权限；对于目录而言，该用户具有进入目录的权限</li>
+</ul>
+<p><strong>Linux 文件的权限位图：</strong></p>
+<img src="/images/shell/linux文件的权限位图.png">
+
+<h4 id="chmod"><a href="#chmod" class="headerlink" title="chmod"></a>chmod</h4><pre><code class="bash">说明：用来变更文件或目录的权限
+
+用法：chmod [选项]... 模式[,模式]... 文件...
+　或：chmod [选项]... 八进制模式 文件...
+　或：chmod [选项]... --reference=参考文件 文件...
+
+  -c, --changes          效果类似“-v”参数，但仅回报更改的部分，如果文件权限已经改变，显示其操作信息；
+  -f, --silent, --quiet  操作过程中不显示任何错误信息；
+  -v, --verbose          显示命令运行时的详细执行过程；
+  -R, --recursive        递归处理，将指令目录下的所有文件及子目录一并处理；</code></pre>
+<h2 id="文件的修改时间"><a href="#文件的修改时间" class="headerlink" title="文件的修改时间"></a>文件的修改时间</h2><p>通过 <code>ls -l</code> 查看 <code>/tmp</code> 下文件的详细信息，其中第 6 列就是文件的修改时间，例如：</p>
+<pre><code class="bash">$ ls -l /tmp
+-rw------- 1 aurora              aurora                   0 5月  21 08:40  config-err-Rtp07N
+srw------- 1 aurora              aurora                   0 5月  21 08:40  fcitx-socket-:0
+drwxr-xr-x 2 aurora              aurora                4096 5月  23 14:12  hsperfdata_aurora
+drwxr-xr-x 2 aurora              aurora                4096 5月  21 16:13  insomnia_6.3.2
+-rw-r--r-- 1 aurora              aurora                   0 5月  21 08:41  lastore-session-helper-source-checked
+</code></pre>
+<h4 id="touch"><a href="#touch" class="headerlink" title="touch"></a>touch</h4><pre><code class="bash">说明：将每个文件的访问和修改该事件修改为当前时间；当一个文件不存在时，创建这个空文件（除非提供 -c 或 -h 参数）。
+
+用法：touch [选项]... 文件...
+
+必选参数对长短选项同时适用。
+  -a            只更改访问时间
+  -c, --no-create    不创建任何文件
+  -d, --date=字符串    使用指定字符串表示时间而非当前时间
+  -f            尝试强制 touch 运行，不管文件的读和写许可权
+  -h, --no-dereference        会影响符号链接本身，而非符号链接所指示的目的地 (当系统支持更改符号链接的所有者时，此选项才有用)
+  -m            只更改修改时间
+  -r, --reference=FILE   使用该文件的时间代替当前时间
+  -t STAMP               使用制定时间 [[CC]YY]MMDDhhmm[.ss] 代替当前时间
+      --time=WORD        change the specified time:
+                           WORD is access, atime, or use: equivalent to -a
+                           WORD is modify or mtime: equivalent to -m
+
+请注意，-d 和-t 选项可接受不同的时间/日期格式。</code></pre>
+<h1 id="寻找文件"><a href="#寻找文件" class="headerlink" title="寻找文件"></a>寻找文件</h1><p>在 UNIX/Linux 下寻找文件的机制很强大，使用 <code>find</code> 命令与其他工具结合时，你就能：</p>
+<ul>
+<li>找到符合某种规则的文件</li>
+<li>对这类文件一次执行某命令</li>
+</ul>
+<h2 id="find-命令的参数"><a href="#find-命令的参数" class="headerlink" title="find 命令的参数"></a>find 命令的参数</h2><h4 id="find"><a href="#find" class="headerlink" title="find"></a>find</h4><pre><code class="bash">说明：在指定目录下查找文件
+find命令 用来在指定目录下查找文件。任何位于参数之前的字符串都将被视为欲查找的目录名。如果使用该命令时，不设置任何参数，则find命令将在当前目录下查找子目录与文件。并且将查找到的子目录和文件全部进行显示。
+
+用法: find [-H] [-L] [-P] [-Olevel] [-D debugopts] [path...] [expression]
+
+-amin&lt;分钟&gt;：查找在指定时间曾被存取过的文件或目录，单位以分钟计算；
+-anewer&lt;参考文件或目录&gt;：查找其存取时间较指定文件或目录的存取时间更接近现在的文件或目录；
+-atime&lt;24小时数&gt;：查找在指定时间曾被存取过的文件或目录，单位以24小时计算；
+-cmin&lt;分钟&gt;：查找在指定时间之时被更改过的文件或目录；
+-cnewer&lt;参考文件或目录&gt;查找其更改时间较指定文件或目录的更改时间更接近现在的文件或目录；
+-ctime&lt;24小时数&gt;：查找在指定时间之时被更改的文件或目录，单位以24小时计算；
+-daystart：从本日开始计算时间；
+-depth：从指定目录下最深层的子目录开始查找；
+-expty：寻找文件大小为0 Byte的文件，或目录下没有任何子目录或文件的空目录；
+-exec&lt;执行指令&gt;：假设find指令的回传值为True，就执行该指令；
+-false：将find指令的回传值皆设为False；
+-fls&lt;列表文件&gt;：此参数的效果和指定“-ls”参数类似，但会把结果保存为指定的列表文件；
+-follow：排除符号连接；
+-fprint&lt;列表文件&gt;：此参数的效果和指定“-print”参数类似，但会把结果保存成指定的列表文件；
+-fprint0&lt;列表文件&gt;：此参数的效果和指定“-print0”参数类似，但会把结果保存成指定的列表文件；
+-fprintf&lt;列表文件&gt;&lt;输出格式&gt;：此参数的效果和指定“-printf”参数类似，但会把结果保存成指定的列表文件；
+-fstype&lt;文件系统类型&gt;：只寻找该文件系统类型下的文件或目录；
+-gid&lt;群组识别码&gt;：查找符合指定之群组识别码的文件或目录；
+-group&lt;群组名称&gt;：查找符合指定之群组名称的文件或目录；
+-help或——help：在线帮助；
+-ilname&lt;范本样式&gt;：此参数的效果和指定“-lname”参数类似，但忽略字符大小写的差别；
+-iname&lt;范本样式&gt;：此参数的效果和指定“-name”参数类似，但忽略字符大小写的差别；
+-inum&lt;inode编号&gt;：查找符合指定的inode编号的文件或目录；
+-ipath&lt;范本样式&gt;：此参数的效果和指定“-path”参数类似，但忽略字符大小写的差别；
+-iregex&lt;范本样式&gt;：此参数的效果和指定“-regexe”参数类似，但忽略字符大小写的差别；
+-links&lt;连接数目&gt;：查找符合指定的硬连接数目的文件或目录；
+-iname&lt;范本样式&gt;：指定字符串作为寻找符号连接的范本样式；
+-ls：假设find指令的回传值为Ture，就将文件或目录名称列出到标准输出；
+-maxdepth&lt;目录层级&gt;：设置最大目录层级；
+-mindepth&lt;目录层级&gt;：设置最小目录层级；
+-mmin&lt;分钟&gt;：查找在指定时间曾被更改过的文件或目录，单位以分钟计算；
+-mount：此参数的效果和指定“-xdev”相同；
+-mtime&lt;24小时数&gt;：查找在指定时间曾被更改过的文件或目录，单位以24小时计算；
+-name&lt;范本样式&gt;：指定字符串作为寻找文件或目录的范本样式；
+-newer&lt;参考文件或目录&gt;：查找其更改时间较指定文件或目录的更改时间更接近现在的文件或目录；
+-nogroup：找出不属于本地主机群组识别码的文件或目录；
+-noleaf：不去考虑目录至少需拥有两个硬连接存在；
+-nouser：找出不属于本地主机用户识别码的文件或目录；
+-ok&lt;执行指令&gt;：此参数的效果和指定“-exec”类似，但在执行指令之前会先询问用户，若回答“y”或“Y”，则放弃执行命令；
+-path&lt;范本样式&gt;：指定字符串作为寻找目录的范本样式；
+-perm&lt;权限数值&gt;：查找符合指定的权限数值的文件或目录；
+-print：假设find指令的回传值为Ture，就将文件或目录名称列出到标准输出。格式为每列一个名称，每个名称前皆有“./”字符串；
+-print0：假设find指令的回传值为Ture，就将文件或目录名称列出到标准输出。格式为全部的名称皆在同一行；
+-printf&lt;输出格式&gt;：假设find指令的回传值为Ture，就将文件或目录名称列出到标准输出。格式可以自行指定；
+-prune：不寻找字符串作为寻找文件或目录的范本样式;
+-regex&lt;范本样式&gt;：指定字符串作为寻找文件或目录的范本样式；
+-size&lt;文件大小&gt;：查找符合指定的文件大小的文件；
+-true：将find指令的回传值皆设为True；
+-type&lt;文件类型&gt;：只寻找符合指定的文件类型的文件；
+-uid&lt;用户识别码&gt;：查找符合指定的用户识别码的文件或目录；
+-used&lt;日数&gt;：查找文件或目录被更改之后在指定时间曾被存取过的文件或目录，单位以日计算；
+-user&lt;拥有者名称&gt;：查找符和指定的拥有者名称的文件或目录；
+-version或——version：显示版本信息；
+-xdev：将范围局限在先行的文件系统中；
+-xtype&lt;文件类型&gt;：此参数的效果和指定“-type”参数类似，差别在于它针对符号连接检查。</code></pre>
+<p><strong>示例</strong></p>
+<pre><code class="bash">$ find /etc -iname &quot;*rc&quot; -print # 递归检索 /etc 下的所有文件，打印输出以 rc 结尾的文件
+/etc/screenrc
+/etc/nanorc
+/etc/drirc
+/etc/X11/xinit/xserverrc
+/etc/X11/xinit/xinputrc
+/etc/X11/xinit/xinitrc
+/etc/X11/imwheel/imwheelrc
+/etc/X11/Xsession.d/40x11-common_xsessionrc
+/etc/init.d/rc
+/etc/libreoffice/sofficerc
+/etc/xdg/xfce4/helpers.rc
+$ find /etc -iname &quot;*rc&quot; -exec cp {} /tmp/rcfile/ \; # 递归检索 /etc 下的所有文件，然后将这类文件执行命令 `cp file /tmp/rcfile/` 将文件复制到 /tmp/rcfile 目录下
+$ls /tmp/rcfile
+screenrc    nanorc    drirc    xserverrc    xinputrc    xinitrc
+imwheelrc    40x11-common_xsessionrc    rc    sofficerc    helpers.rc
+$ find . -perm 755 # 找出当前目录下权限位为 755 的文件
+./rcfile
+./rcfile/rc
+./rcfile/xinitrc
+./dir022
+...
+$ find . -iname &quot;*.txt&quot; # 找到当前目录下后缀名为 .txt 的文件，不区分大小写
+./X11/rgb.txt
+./java-10-openjdk/security/policy/README.txt
+$ find . -maxdepth 1 -type d -print # 找出当前目录下所有的文件夹（d）,仅列出深度为 1 的目录
+.
+./XMind Zen Crashes
+./systemd-private-c2b4f3fdcf3c46c19413929c99d1aea7-ModemManager.service-9E5vPg
+./systemd-private-c2b4f3fdcf3c46c19413929c99d1aea7-systemd-timesyncd.service-8x3wT2
+./pulse-2L9K88eMlGn7
+./runtime-root
+./.X11-unix
+./.mount_insomniPOkzf
+./mysql-workbench-27530
+./insomnia_6.3.2
+./.font-unix
+./.Test-unix
+./.wine-1000</code></pre>
+<h2 id="遍历文件"><a href="#遍历文件" class="headerlink" title="遍历文件"></a>遍历文件</h2><p>​    在使用 <code>find</code> 命令的 <code>-exec</code> 选项处理匹配到的文件时，<code>find</code> 命令将所有匹配到的文件一起传递给 <code>exec</code> 执行。但有些系统对能够传递给 <code>exec</code> 的命令长度有限制，这样在 <code>find</code> 命令运行几分钟之后，就会出现溢出的错误。错误信息通常是“参数列太长”或“参数列溢出”。这就是 <strong><code>xargs</code></strong> 命令的用处所在，特别是与 <code>find</code> 命令一起使用。</p>
+<p>​    <code>find</code>  把匹配到的文件传递给 <code>xargs</code> 命令，<code>xargs</code> 命令每次值获取一部分文件而不是全部，不像 <code>-exec</code> 那样。这样他就可以先处理最先获取到的一部分文件，然后是下一批，依次处理。</p>
+<p>​    另外，<code>-exec</code> 再处理每个文件时，都会发起一个进程；而使用 <code>xargs</code> 只会生成一个进程。这样，两个命令对系统资源的占用就显而易见了。</p>
+<p><strong>示例</strong></p>
+<pre><code class="bash">$ find /tmp -maxdepth 1 -type f -print | xargs file # 先通过 find 命令查找指定条件的文件，然后用 file 命令 查看文件详细类型
+/tmp/sogou-qimpanel:0.pid:                     ASCII text
+/tmp/.org.chromium.Chromium.yQ9ITt:            ELF 64-bit LSB pie executable x86-64, version 1 (SYSV), dynamically linked, BuildID[sha1]=60dce875a215f4a70652fe45471fae0b7d79f5f5, not stripped
+/tmp/.org.chromium.Chromium.Gx2uO8:            ELF 64-bit LSB pie executable x86-64, version 1 (SYSV), dynamically linked, BuildID[sha1]=0fd8ffb3df5232bcd7ad3ea9b4088effb852e15d, not stripped
+/tmp/startdde-login-sound-mark:                empty
+/tmp/config-err-Rtp07N:                        empty</code></pre>
+<h1 id="比较文件"><a href="#比较文件" class="headerlink" title="比较文件"></a>比较文件</h1><h2 id="使用-comm-比较排序后文件"><a href="#使用-comm-比较排序后文件" class="headerlink" title="使用 comm 比较排序后文件"></a>使用 comm 比较排序后文件</h2><p><code>comm</code> 命令会一行行地比较两个已排序文件的差异，并将结果显示出来。要求被比较的文件需先完成排序。</p>
+<p><strong>示例</strong></p>
+<pre><code class="bash">$ cat test.txt 
+line1
+line2
+line3
+$ cat test2.txt 
+line1
+line2
+line4
+$ comm test.txt test2.txt 
+        line1
+        line2
+line3
+    line4
+$ comm -1 test.txt test2.txt # 不显示只在第一个文件里出现过的列
+    line1
+    line2
+line4
+$ comm -2 test.txt test2.txt # 不显示只在第二个文件里出现过的列
+    line1
+    line2
+line3
+$ comm -3 test.txt test2.txt # 不显示只在第一个文件和第二个文件里出现过的列
+line3
+    line4
+$ comm -13 test.txt test2.txt
+line4
+$ comm -23 test.txt test2.txt
+line3</code></pre>
+<h2 id="使用-diff-比较文件"><a href="#使用-diff-比较文件" class="headerlink" title="使用 diff 比较文件"></a>使用 diff 比较文件</h2><p><code>diff</code> 命令会逐行比较两个文本文件，列出其不同之处。他比 <code>comm</code> 命令能完成更加复杂的检查。他对给出的文件进行系统的检查，并且显示两个文件中所有不同的行，不要求实现对文件进行排序。</p>
+<p><strong>示例</strong></p>
+<pre><code class="bash">$ cat test.txt 
+line1
+line2
+line3
+$ cat test2.txt 
+line1
+line2
+line4
+$ cat test3.txt
+line1
+line2
+$ diff test.txt test2.txt
+3c3
+&lt; line3
+---
+&gt; line4
+$ diff test.txt test3.txt
+3d2
+&lt; line3
+$ diff test3.txt test.txt
+2a3
+&gt; line3
+$ diff test2.txt test3.txt
+3d2
+&lt; line4</code></pre>
+<p>​                               <strong>diff 命令的输出格式</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">Lines Affected in File1</th>
+<th align="center">Action</th>
+<th align="center">Lines Affected in File2</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Number1</td>
+<td align="center">a</td>
+<td align="center">Num2[,Number3]</td>
+</tr>
+<tr>
+<td align="center">Num1[,Number2]</td>
+<td align="center">d</td>
+<td align="center">Number3</td>
+</tr>
+<tr>
+<td align="center">Num1[,Number2]</td>
+<td align="center">c</td>
+<td align="center">Num3[,Number4]</td>
+</tr>
+</tbody></table>
+<h3 id="diff"><a href="#diff" class="headerlink" title="diff"></a>diff</h3><pre><code class="bash">说明：逐行比较文本文件，也可以比较目录内容
+用法：diff [选项]... 文件们
+
+  -q, --brief                   只有在文件不同时报告
+  -s, --report-identical-files  当两个一样时仍然显示结果
+  -c, -C NUM, --context[=NUM]   输出上下文的复制行数(默认为3行)
+  -u, -U 数量, --unified[=数量] 输出 &lt;数量&gt;（默认为 3）行一致化上下文
+  -e, --ed                      以 ed script 方式输出
+  -n, --rcs                     以 RCS diff 格式输出
+  -y, --side-by-side            output in two columns
+  -W, --width=数量              每行显示最多 &lt;数量&gt;（默认 130）个字符
+      --left-column             当有两行相同时只显示左边栏的一行
+      --suppress-common-lines   当有两行相同时不显示
+
+  -p, --show-c-function         show which C function each change is in
+  -F, --show-function-line=RE   show the most recent line matching RE
+      --label LABEL             use LABEL instead of file name and timestamp
+                                  (can be repeated)
+
+  -t, --expand-tabs             将输出中的 tab 转换成空格
+  -T, --initial-tab             每行先加上 tab 字符，使 tab 字符可以对齐
+      --tabsize=数字           TAB 格的宽度，默认为 8 个打印列宽
+      --suppress-blank-empty    suppress space or tab before empty output lines
+  -l, --paginate                将输出送至 “pr” 指令来分页
+
+  -r, --recursive                 连同所有子目录一起比较
+      --no-dereference            don&#39;t follow symbolic links
+  -N, --new-file                  不存在的文件以空文件方式处理
+      --unidirectional-new-file   若第一文件不存在，以空文件处理
+      --ignore-file-name-case     忽略文件名大小写的区别
+      --no-ignore-file-name-case  不忽略文件名大小写的区别
+  -x, --exclude=模式              排除匹配 &lt;模式&gt; 的文件
+  -X, --exclude-from=文件         排除所有匹配在&lt;文件&gt;中列出的模式的文件
+  -S, --starting-file=文件        当比较目录時，由&lt;文件&gt;开始比较
+      --from-file=文件1           将&lt;文件1&gt;和操作数中的所有文件/目录作比较；
+                                    &lt;文件1&gt;可以是目录
+      --to-file=文件2             将操作数中的所有文件/目录和&lt;文件2&gt;作比较；
+                                    &lt;文件2&gt;可以是目录
+
+  -i, --ignore-case               忽略文件内容大小写的区别
+  -E, --ignore-tab-expansion      忽略由制表符宽度造成的差异
+  -Z, --ignore-trailing-space     忽略每行末端的空格
+  -b, --ignore-space-change       忽略由空格数不同造成的差异
+  -w, --ignore-all-space          忽略所有空格
+  -B, --ignore-blank-lines        忽略任何因空行而造成的差异
+  -I, --ignore-matching-lines=正则 若某行完全匹配 &lt;正则&gt;，则忽略由该行造成的差异
+
+  -a, --text                      所有文件都以文本方式处理
+      --strip-trailing-cr         去除输入内容每行末端的回车（CR）字符
+
+  -D, --ifdef=名称                输出的内容以 ‘#ifdef &lt;名称&gt;’ 方式标明差异
+      --GTYPE-group-format=GFMT   以 GFMT 格式处理 GTYPE 输入行组
+      --line-format=LFMT          以 LFMT 格式处理每一行资料
+      --LTYPE-line-format=LFMT    以 LFMT 格式处理 LTYPE 输入的行
+    These format options provide fine-grained control over the output
+      of diff, generalizing -D/--ifdef.
+    LTYPE 可以是 “old”、“new” 或 “unchanged”。GTYPE 可以是 LTYPE 的选择
+    或是 “changed”。
+  （仅）GFMT 可包括：
+      %&lt;  该组中每行属于&lt;文件1&gt;的差异
+      %&gt;  该组中每行属于&lt;文件2&gt;的差异
+      %=  该组中同时在&lt;文件1&gt;和&lt;文件2&gt;出现的每一行
+      %[-][宽度][.[精确度]]{doxX}字符  以 printf 格式表示该&lt;字符&gt;代表的内容
+        大写&lt;字符&gt;表示属于新的文件，小写表示属于旧的文件。&lt;字符&gt;的意义如下：
+          F  行组中第一行的行号
+          L  行组中最后一行的行号
+          N  行数 ( =L-F+1 )
+          E  F-1
+          M  L+1
+      %(A=B?T:E)  如果 A 等于 B 那么 T 否则 E
+  （仅）LFMT 可包括：
+      %L  该行的内容
+      %l  该行的内容，但不包括结束的换行符
+      %[-][宽度][.[精确度]]{doxX}n  以 printf 格式表示的输入行号
+    GFMT 或 LFMT 都可包括：
+      %%        %
+      %c&#39;C&#39;     单个字符 C
+      %c&#39;\OOO&#39;  八进制码 OOO 所代表的字符
+      C         字符 C（处上述转义外的其他字符代表它们自身）
+
+  -d, --minimal            尽可能找出最小的差异。
+      --horizon-lines=数量 保持&lt;数量&gt;行的一致前后缀
+      --speed-large-files  假设文件十分大而且文件中含有许多微小的差异
+      --color[=WHEN]       colorize the output; WHEN can be &#39;never&#39;, &#39;always&#39;,
+                             or &#39;auto&#39; (the default)
+      --palette=PALETTE    the colors to use when --color is active; PALETTE is
+                             a colon-separated list of terminfo capabilities</code></pre>
+<h3 id="comm"><a href="#comm" class="headerlink" title="comm"></a>comm</h3><pre><code class="bash">说明：逐行比较已排序的文件文件1 和文件2。When FILE1 or FILE2 (not both) is -, read standard input.
+用法：comm [选项]... 文件1 文件2
+
+
+如果不附带选项，程序会生成三列输出。第一列包含文件1 特有的行，第二列包含 文件2 特有的行，而第三列包含两个文件共有的行。
+
+  -1        不输出文件1 特有的行
+  -2        不输出文件2 特有的行
+  -3        不输出两个文件共有的行
+
+  --check-order            检查输入是否被正确排序，即使所有输入行均成对
+  --nocheck-order        不检查输入是否被正确排序
+  --output-delimiter=STR    依照STR 分列
+  --total           output a summary
+  -z, --zero-terminated    line delimiter is NUL, not newline
+
+示例：
+  comm -12 文件1 文件2  只打印在文件1 和文件2 中都有的行
+  comm -3  文件1 文件2  打印在文件1 中有，而文件2 中没有的行。反之亦然。</code></pre>
+<h2 id="其他文本比较方法"><a href="#其他文本比较方法" class="headerlink" title="其他文本比较方法"></a>其他文本比较方法</h2><p><code>vimdiff</code></p>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 786532832@qq.com </span>
+    </div>
+</article>
+
+
+<p>
+    <a class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>shell-文件和文件系统</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">6.2k</span></p>
+    <p><span class="copy-title">本文作者:</span><a title="Aurora-龙振巅峰">Aurora-龙振巅峰</a></p>
+    <p><span class="copy-title">发布时间:</span>2019-05-21, 12:22:01</p>
+    <p><span class="copy-title">最后更新:</span>2020-03-26, 10:29:38</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/05/21/shell/shell-文件和文件系统/" title="shell-文件和文件系统">https://auroralzdf.gitee.io/2019/05/21/shell/shell-文件和文件系统/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target="_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+    <div id="comments"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+<script type="text/javascript">
+    $.getScript('/js/gitalk.js', function () {
+        var gitalk = new Gitalk({
+            clientID: 'b9203c40539965c52855',
+            clientSecret: '80f3357a6572570797a5b3f84643c9dc33841d85',
+            repo: 'AuroraLZDF.GitHub.io',
+            owner: 'AuroraLZDF',
+            admin: ['AuroraLZDF'],
+            id: decodeURI(location.pathname),
+            distractionFreeMode: 'true',
+            language: 'zh-CN',
+            perPage: parseInt('10',10)
+        })
+        gitalk.render('comments')
+    })
+</script>
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2017-2020 Aurora</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class id="rocket"></a>
+
+    </div>
+</div>
+<div class="acParent"></div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close" onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>喜欢就点赞,疼爱就打赏</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">支付宝</label></span><span><label><input type="radio" name="pay" value="weixin">微信</label></span>
+    </div>
+</div>
+
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.0.1"></script>
+
+<script src="/js/script.js?v=1.0.1"></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['#Linux','#系统','#Vue.js','#前端框架','#Python','#Hexo','#Ajax、笔记','#js','#Docker','#数据结构','#数学','#git','#Golang','#PHP','#Laravel','#MySQL','#Nginx','#运维','#负载均衡','#PHP、笔记','#Session','#webuploader','#运算符','#面试总结','#HTTP','#PHP，面试汇总','#Shell',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().trim().split('\n').length, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+        .nav .hide-list.fullscreen {
+            left: 492px
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://i.loli.net/2019/07/22/5d3521411f3f169375.png");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>
