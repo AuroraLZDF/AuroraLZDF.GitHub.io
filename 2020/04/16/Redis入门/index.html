@@ -1,0 +1,1756 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <title>Redis入门 | Aurora-龙振巅峰的博客</title>
+  <meta name="keywords" content=" Redis ">
+  <meta name="description" content="Redis入门 | Aurora-龙振巅峰的博客">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="keywords" content="后端，PHP，Golang, Vuejs, JS，JQUERY，开发者，程序猿，编程，代码，开源，IT网站，Developer，Programmer，Coder，Geek，Html，Css，用户体验">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Aurora-龙振巅峰的博客">
+<meta property="og:url" content="https://auroralzdf.github.io/404.html">
+<meta property="og:site_name" content="Aurora-龙振巅峰的博客">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-03-26T02:29:38.795Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Aurora-龙振巅峰的博客">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1"></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+<script src="/js/iconfont.js?v=1.0.1"></script>
+
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value>
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg">
+</a>
+<div class="author">
+    <span>Aurora-龙振巅峰</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="rss" href="/atom.xml" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-rss"/>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="github" href="https://github.com/AuroraLZDF" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"/>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+    
+        
+        <a title="email" href="mailto:786532832@qq.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"/>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="qq" href="http://wpa.qq.com/msgrd?v=3&uin=786532832&site=qq&menu=yes" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-qq"/>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="kugou" href="https://www.kugou.com/" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-kugou"/>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(97)</small></div></li>
+    
+        
+            
+            <li><div data-rel="Deepin">Deepin<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Deployer">Deployer<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Memcached">Memcached<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Docker">Docker<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Python">Python<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Redis">Redis<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Vue.js">Vue.js<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Hexo">Hexo<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="JS">JS<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Linux">Linux<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="数据结构">数据结构<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="git">git<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Golang">Golang<small>(19)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Laravel">Laravel<small>(7)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="算法">算法<small>(4)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="MySQL">MySQL<small>(5)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Nginx">Nginx<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="PHP">PHP<small>(23)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="PHP、PHP标准规范">PHP、PHP标准规范<small>(7)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="PHP、笔记">PHP、笔记<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="PHP，笔记">PHP，笔记<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Shell">Shell<small>(8)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div><a class="about  hasFriend  site_url" href="/about">关于</a><a style="width: 50%" class="friends">友链</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="97">
+<input type="hidden" id="yelog_site_word_count" value="206.2k">
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode === 13){return false;}">
+        <input id="local-search-input" class="search" type="text" placeholder="Search...">
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none">
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <li class="article-tag-list-item">
+        <a class="color1">Linux</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">系统</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">Deployer</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">Memcached</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">Docker</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">Python</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">Redis</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">Vue.js</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">前端框架</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">Hexo</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">Ajax、笔记</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">js</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">数据结构</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">数学</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">git</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">Golang</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">PHP</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">Laravel</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">MySQL</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">Nginx</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">运维</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">负载均衡</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">PHP、笔记</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">Session</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">运算符</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">面试总结</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">HTTP</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">Shell</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">PHP，面试汇总</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">webuploader</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        <a class="Deepin " href="/2017/09/22/Deepin磁盘空间不足/" data-tag="Linux,系统" data-author>
+            <span class="post-title" title="Deepin磁盘空间不足">Deepin磁盘空间不足</span>
+            <span class="post-date" title="2017-09-22 22:52:52">2017/09/22</span>
+        </a>
+        
+        <a class="Deepin " href="/2018/11/01/Chrome插件开发全攻略/" data-tag="Linux,系统" data-author>
+            <span class="post-title" title="【转】Chrome插件开发全攻略">【转】Chrome插件开发全攻略</span>
+            <span class="post-date" title="2018-11-01 09:44:31">2018/11/01</span>
+        </a>
+        
+        <a class="Deployer " href="/2020/04/02/Deployer部署项目/" data-tag="Deployer" data-author>
+            <span class="post-title" title="Deployer部署项目">Deployer部署项目</span>
+            <span class="post-date" title="2020-04-02 16:11:51">2020/04/02</span>
+        </a>
+        
+        <a class="Memcached " href="/2020/04/14/Memcached入门/" data-tag="Memcached" data-author>
+            <span class="post-title" title="Memcached入门">Memcached入门</span>
+            <span class="post-date" title="2020-04-14 13:56:43">2020/04/14</span>
+        </a>
+        
+        <a class="Docker " href="/2020/04/01/Docker安装gitlab/" data-tag="Docker" data-author>
+            <span class="post-title" title="Docker安装gitlab">Docker安装gitlab</span>
+            <span class="post-date" title="2020-04-01 08:44:51">2020/04/01</span>
+        </a>
+        
+        <a class="Python " href="/2018/01/04/Python数据结构/" data-tag="Python" data-author>
+            <span class="post-title" title="数据结构">数据结构</span>
+            <span class="post-date" title="2018-01-04 00:00:00">2018/01/04</span>
+        </a>
+        
+        <a class="Redis " href="/2020/04/16/Redis入门/" data-tag="Redis" data-author>
+            <span class="post-title" title="Redis入门">Redis入门</span>
+            <span class="post-date" title="2020-04-16 09:34:42">2020/04/16</span>
+        </a>
+        
+        <a class="Vue.js " href="/2017/04/11/Vue.js——60分钟快速入门/" data-tag="Vue.js,前端框架" data-author>
+            <span class="post-title" title="【转】Vue.js——60分钟快速入门">【转】Vue.js——60分钟快速入门</span>
+            <span class="post-date" title="2017-04-11 15:33:11">2017/04/11</span>
+        </a>
+        
+        <a class="Hexo " href="/2017/04/02/hello-world/" data-tag="Hexo" data-author>
+            <span class="post-title" title="Hello World">Hello World</span>
+            <span class="post-date" title="2017-04-02 11:56:43">2017/04/02</span>
+        </a>
+        
+        <a class="JS " href="/2019/02/21/jQuery-ajax-serialize-方法/" data-tag="Ajax、笔记" data-author>
+            <span class="post-title" title="jQuery-ajax-serialize()方法">jQuery-ajax-serialize()方法</span>
+            <span class="post-date" title="2019-02-21 15:44:07">2019/02/21</span>
+        </a>
+        
+        <a class="Linux " href="/2017/05/22/ubuntu16.04下解决Adobe Flash不是最新版问题/" data-tag="Linux" data-author>
+            <span class="post-title" title="ubuntu16.04下解决Adobe Flash不是最新版问题">ubuntu16.04下解决Adobe Flash不是最新版问题</span>
+            <span class="post-date" title="2017-05-22 16:02:11">2017/05/22</span>
+        </a>
+        
+        <a class="Hexo " href="/2017/03/02/使用Hexo + Github Pages搭建个人独立博客/" data-tag="Hexo" data-author>
+            <span class="post-title" title="使用Hexo + Github Pages搭建个人独立博客">使用Hexo + Github Pages搭建个人独立博客</span>
+            <span class="post-date" title="2017-03-02 16:40:41">2017/03/02</span>
+        </a>
+        
+        <a class="Vue.js " href="/2017/05/02/入门Webpack，看这篇就够了/" data-tag="Vue.js,js" data-author>
+            <span class="post-title" title="【转】入门Webpack，看这篇就够了">【转】入门Webpack，看这篇就够了</span>
+            <span class="post-date" title="2017-05-02 10:19:03">2017/05/02</span>
+        </a>
+        
+        <a class="Docker " href="/2018/03/01/学习笔记：Docker简介和安装/" data-tag="Docker" data-author>
+            <span class="post-title" title="【转】学习笔记：Docker简介和安装">【转】学习笔记：Docker简介和安装</span>
+            <span class="post-date" title="2018-03-01 09:54:31">2018/03/01</span>
+        </a>
+        
+        <a class="数据结构 " href="/2019/06/06/数据结构-数学知识复习/" data-tag="数据结构,数学" data-author>
+            <span class="post-title" title="数据结构-数学知识复习">数据结构-数学知识复习</span>
+            <span class="post-date" title="2019-06-06 11:19:08">2019/06/06</span>
+        </a>
+        
+        <a class="git " href="/2017/09/23/线上服务器搭建GIT服务器，实现本地代码上传并同步到服务器/" data-tag="Linux,git" data-author>
+            <span class="post-title" title="线上服务器搭建GIT服务器，实现本地代码上传并同步到服务器">线上服务器搭建GIT服务器，实现本地代码上传并同步到服务器</span>
+            <span class="post-date" title="2017-09-23 00:00:00">2017/09/23</span>
+        </a>
+        
+        <a class="Deployer " href="/2020/04/03/通过sh脚本执行Deployer代码部署/" data-tag="Deployer" data-author>
+            <span class="post-title" title="通过sh脚本执行Deployer代码部署">通过sh脚本执行Deployer代码部署</span>
+            <span class="post-date" title="2020-04-03 16:32:16">2020/04/03</span>
+        </a>
+        
+        <a class="Golang " href="/2019/01/14/golang/Golang-flag包实现命令行参数的解析/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-flag包实现命令行参数的解析">Golang-flag包实现命令行参数的解析</span>
+            <span class="post-date" title="2019-01-14 16:25:58">2019/01/14</span>
+        </a>
+        
+        <a class="Golang " href="/2019/01/16/golang/Golang-bufio实现有缓冲的I-O/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-bufio实现有缓冲的I/O">Golang-bufio实现有缓冲的I/O</span>
+            <span class="post-date" title="2019-01-16 14:09:06">2019/01/16</span>
+        </a>
+        
+        <a class="Golang " href="/2019/01/18/golang/Golang-json、xml、gob数据编码解码（格式化）/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-json、xml、gob数据编码解码">Golang-json、xml、gob数据编码解码</span>
+            <span class="post-date" title="2019-01-18 10:27:34">2019/01/18</span>
+        </a>
+        
+        <a class="Golang " href="/2019/01/02/golang/Golang-fmt格式化I-O/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-fmt格式化I/O">Golang-fmt格式化I/O</span>
+            <span class="post-date" title="2019-01-02 14:53:51">2019/01/02</span>
+        </a>
+        
+        <a class="Golang " href="/2019/01/18/golang/Golang-json包实现了json对象的编-解码/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-json包实现了json对象的编/解码">Golang-json包实现了json对象的编/解码</span>
+            <span class="post-date" title="2019-01-18 10:34:55">2019/01/18</span>
+        </a>
+        
+        <a class="Golang " href="/2018/11/23/golang/Golang-sort排序/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-sort排序">Golang-sort排序</span>
+            <span class="post-date" title="2018-11-23 14:17:31">2018/11/23</span>
+        </a>
+        
+        <a class="Golang " href="/2018/12/03/golang/Golang-regexp包实现了正则表达式搜索/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-regexp包实现了正则表达式搜索">Golang-regexp包实现了正则表达式搜索</span>
+            <span class="post-date" title="2018-12-03 13:55:44">2018/12/03</span>
+        </a>
+        
+        <a class="Golang " href="/2018/11/14/golang/Golang-strconv基本数据类型和其字符串表示的相互转换/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-strconv基本数据类型和其字符串表示的相互转换">Golang-strconv基本数据类型和其字符串表示的相互转换</span>
+            <span class="post-date" title="2018-11-14 14:37:37">2018/11/14</span>
+        </a>
+        
+        <a class="Golang " href="/2019/03/01/golang/Gin文档中文翻译/" data-tag="Golang" data-author>
+            <span class="post-title" title="【转】Gin文档中文翻译">【转】Gin文档中文翻译</span>
+            <span class="post-date" title="2019-03-01 16:02:42">2019/03/01</span>
+        </a>
+        
+        <a class="Golang " href="/2020/03/26/golang/Golang-环境搭建/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-环境搭建">Golang-环境搭建</span>
+            <span class="post-date" title="2020-03-26 15:08:24">2020/03/26</span>
+        </a>
+        
+        <a class="Golang " href="/2018/11/09/golang/Golang-位左移的应用/" data-tag="Golang" data-author>
+            <span class="post-title" title="『记』Golang-位左移的应用">『记』Golang-位左移的应用</span>
+            <span class="post-date" title="2018-11-09 15:31:25">2018/11/09</span>
+        </a>
+        
+        <a class="Golang " href="/2018/11/20/golang/Golang-switch结构/" data-tag="Golang" data-author>
+            <span class="post-title" title="【转】Golang-switch结构">【转】Golang-switch结构</span>
+            <span class="post-date" title="2018-11-20 14:04:30">2018/11/20</span>
+        </a>
+        
+        <a class="Golang " href="/2018/11/12/golang/Golang-strings操作字符的简单函数/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-strings操作字符的简单函数">Golang-strings操作字符的简单函数</span>
+            <span class="post-date" title="2018-11-12 14:40:23">2018/11/12</span>
+        </a>
+        
+        <a class="Golang " href="/2019/01/14/golang/Golang-读写数据二/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-读写数据二">Golang-读写数据二</span>
+            <span class="post-date" title="2019-01-14 15:08:34">2019/01/14</span>
+        </a>
+        
+        <a class="Golang " href="/2018/11/21/golang/Golang-通过内存缓存来提升性能/" data-tag="Golang" data-author>
+            <span class="post-title" title="【转】Golang-通过内存缓存来提升性能">【转】Golang-通过内存缓存来提升性能</span>
+            <span class="post-date" title="2018-11-21 15:45:11">2018/11/21</span>
+        </a>
+        
+        <a class="Golang " href="/2018/11/12/golang/Golang的单引号、双引号与反引号/" data-tag="Golang" data-author>
+            <span class="post-title" title="【转】Golang的单引号、双引号与反引号">【转】Golang的单引号、双引号与反引号</span>
+            <span class="post-date" title="2018-11-12 16:10:36">2018/11/12</span>
+        </a>
+        
+        <a class="Golang " href="/2019/01/02/golang/Golang-读写数据一/" data-tag="Golang" data-author>
+            <span class="post-title" title="【转】Golang-读写数据一">【转】Golang-读写数据一</span>
+            <span class="post-date" title="2019-01-02 14:44:10">2019/01/02</span>
+        </a>
+        
+        <a class="Golang " href="/2018/11/15/golang/Golang-时间和日期time/" data-tag="Golang" data-author>
+            <span class="post-title" title="Golang-时间和日期time">Golang-时间和日期time</span>
+            <span class="post-date" title="2018-11-15 10:33:06">2018/11/15</span>
+        </a>
+        
+        <a class="Laravel " href="/2017/04/02/laravel/Laravel学习之旅——HTTP 中间件/" data-tag="PHP,Laravel" data-author>
+            <span class="post-title" title="【转】Laravel学习之旅——HTTP 中间件">【转】Laravel学习之旅——HTTP 中间件</span>
+            <span class="post-date" title="2017-04-02 09:45:46">2017/04/02</span>
+        </a>
+        
+        <a class="Laravel " href="/2017/04/02/laravel/Laravel学习之旅——Blade 模板引擎/" data-tag="PHP,Laravel" data-author>
+            <span class="post-title" title="【转】Laravel学子之旅——Blade 模板引擎">【转】Laravel学子之旅——Blade 模板引擎</span>
+            <span class="post-date" title="2017-04-02 11:56:43">2017/04/02</span>
+        </a>
+        
+        <a class="Laravel " href="/2017/04/01/laravel/Laravel学习之旅——HTTP 响应/" data-tag="PHP,Laravel" data-author>
+            <span class="post-title" title="【转】Laravel学习之旅——HTTP 响应">【转】Laravel学习之旅——HTTP 响应</span>
+            <span class="post-date" title="2017-04-01 16:45:15">2017/04/01</span>
+        </a>
+        
+        <a class="Golang " href="/2019/01/23/golang/Golang-错误处理与测试/" data-tag="Golang" data-author>
+            <span class="post-title" title="【转】Golang-错误处理与测试">【转】Golang-错误处理与测试</span>
+            <span class="post-date" title="2019-01-23 14:16:22">2019/01/23</span>
+        </a>
+        
+        <a class="Laravel " href="/2017/04/01/laravel/Laravel学习之旅——HTTP 控制器/" data-tag="PHP,Laravel" data-author>
+            <span class="post-title" title="【转】Laravel学习之旅——HTTP 控制器">【转】Laravel学习之旅——HTTP 控制器</span>
+            <span class="post-date" title="2017-04-01 20:11:25">2017/04/01</span>
+        </a>
+        
+        <a class="Laravel " href="/2017/04/01/laravel/Laravel学习之旅——视图/" data-tag="PHP,Laravel" data-author>
+            <span class="post-title" title="【转】Laravel学习之旅——视图">【转】Laravel学习之旅——视图</span>
+            <span class="post-date" title="2017-04-01 21:00:12">2017/04/01</span>
+        </a>
+        
+        <a class="Laravel " href="/2017/04/01/laravel/Laravel学习之旅——基础篇/" data-tag="PHP,Laravel" data-author>
+            <span class="post-title" title="【转】Laravel学习之旅——基础篇（安装、路由、CSRF、404）">【转】Laravel学习之旅——基础篇（安装、路由、CSRF、404）</span>
+            <span class="post-date" title="2017-04-01 09:31:25">2017/04/01</span>
+        </a>
+        
+        <a class="算法 " href="/2020/05/07/leetCode/每日一题——两数之和/" data-tag="数学" data-author>
+            <span class="post-title" title="每日一题——两数之和">每日一题——两数之和</span>
+            <span class="post-date" title="2020-05-07 10:18:37">2020/05/07</span>
+        </a>
+        
+        <a class="Laravel " href="/2017/04/01/laravel/Laravel学习之旅——HTTP 请求/" data-tag="PHP,Laravel" data-author>
+            <span class="post-title" title="【转】Laravel学习之旅——HTTP 请求">【转】Laravel学习之旅——HTTP 请求</span>
+            <span class="post-date" title="2017-04-01 13:48:00">2017/04/01</span>
+        </a>
+        
+        <a class="MySQL " href="/2017/10/18/mysql/linux mysql自动备份数据库/" data-tag="Linux,MySQL" data-author>
+            <span class="post-title" title="linux(deepin) 下mysql自动备份">linux(deepin) 下mysql自动备份</span>
+            <span class="post-date" title="2017-10-18 16:02:11">2017/10/18</span>
+        </a>
+        
+        <a class="MySQL " href="/2017/04/02/mysql/配置phpMyAdmin连接多台mysql服务器/" data-tag="MySQL" data-author>
+            <span class="post-title" title="配置phpmyadmin使登录时可填写IP管理多台MySQL 连接多个数据库 自动登录">配置phpmyadmin使登录时可填写IP管理多台MySQL 连接多个数据库 自动登录</span>
+            <span class="post-date" title="2017-04-02 13:24:12">2017/04/02</span>
+        </a>
+        
+        <a class="MySQL " href="/2017/11/13/mysql/mysql联合索引/" data-tag="MySQL" data-author>
+            <span class="post-title" title="mysql联合索引">mysql联合索引</span>
+            <span class="post-date" title="2017-11-13 10:25:12">2017/11/13</span>
+        </a>
+        
+        <a class="Nginx " href="/2018/10/30/nginx/NGINX宏观手记/" data-tag="Nginx,运维" data-author>
+            <span class="post-title" title="【转】NGINX宏观手记">【转】NGINX宏观手记</span>
+            <span class="post-date" title="2018-10-30 13:46:01">2018/10/30</span>
+        </a>
+        
+        <a class="MySQL " href="/2017/11/13/mysql/数据库长连接与短连接的区别/" data-tag="MySQL" data-author>
+            <span class="post-title" title="【转】数据库长连接与短连接的区别">【转】数据库长连接与短连接的区别</span>
+            <span class="post-date" title="2017-11-13 08:59:12">2017/11/13</span>
+        </a>
+        
+        <a class="Nginx " href="/2019/04/24/nginx/正向代理与反向代理/" data-tag="Nginx,负载均衡" data-author>
+            <span class="post-title" title="【转】正向代理与反向代理">【转】正向代理与反向代理</span>
+            <span class="post-date" title="2019-04-24 17:26:54">2019/04/24</span>
+        </a>
+        
+        <a class="PHP " href="/2017/11/15/php/CGI、FastCgi与PHP-fpm之间是个什么样的关系/" data-tag="Linux,PHP" data-author>
+            <span class="post-title" title="【转】CGI、FastCgi与PHP-fpm之间是个什么样的关系">【转】CGI、FastCgi与PHP-fpm之间是个什么样的关系</span>
+            <span class="post-date" title="2017-11-15 15:09:30">2017/11/15</span>
+        </a>
+        
+        <a class="MySQL " href="/2017/03/23/mysql/详解MySQL大表优化方案/" data-tag="MySQL" data-author>
+            <span class="post-title" title="【转】详解MySQL大表优化方案">【转】详解MySQL大表优化方案</span>
+            <span class="post-date" title="2017-03-23 19:00:22">2017/03/23</span>
+        </a>
+        
+        <a class="PHP " href="/2017/02/22/php/PHP header() 函数/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP header() 函数">PHP header() 函数</span>
+            <span class="post-date" title="2017-02-22 16:05:11">2017/02/22</span>
+        </a>
+        
+        <a class="PHP、PHP标准规范 " href="/2019/02/18/php/PHP-PSR-1基础编码规范/" data-tag="PHP" data-author>
+            <span class="post-title" title="【转】PHP-PSR-1基础编码规范">【转】PHP-PSR-1基础编码规范</span>
+            <span class="post-date" title="2019-02-18 14:36:56">2019/02/18</span>
+        </a>
+        
+        <a class="PHP、PHP标准规范 " href="/2019/02/20/php/PHP-PSR-4自动加载规范/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP-PSR-4自动加载规范">PHP-PSR-4自动加载规范</span>
+            <span class="post-date" title="2019-02-20 10:24:40">2019/02/20</span>
+        </a>
+        
+        <a class="PHP、PHP标准规范 " href="/2019/02/18/php/PHP-PSR-2编码风格规范/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP-PSR-2编码风格规范">PHP-PSR-2编码风格规范</span>
+            <span class="post-date" title="2019-02-18 15:03:50">2019/02/18</span>
+        </a>
+        
+        <a class="PHP、笔记 " href="/2019/02/21/php/PHP-header-生成文件/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP-header()生成文件">PHP-header()生成文件</span>
+            <span class="post-date" title="2019-02-21 15:12:04">2019/02/21</span>
+        </a>
+        
+        <a class="PHP，笔记 " href="/2019/04/15/php/PHP-to-xml/" data-tag="Linux,PHP" data-author>
+            <span class="post-title" title="PHP-to-xml">PHP-to-xml</span>
+            <span class="post-date" title="2019-04-15 17:43:02">2019/04/15</span>
+        </a>
+        
+        <a class="PHP、PHP标准规范 " href="/2019/02/19/php/PHP-PSR-3日志接口规范/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP-PSR-3日志接口规范">PHP-PSR-3日志接口规范</span>
+            <span class="post-date" title="2019-02-19 16:50:46">2019/02/19</span>
+        </a>
+        
+        <a class="PHP、PHP标准规范 " href="/2019/02/20/php/PHP-PSR-6缓存接口规范/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP-PSR-6缓存接口规范">PHP-PSR-6缓存接口规范</span>
+            <span class="post-date" title="2019-02-20 11:04:19">2019/02/20</span>
+        </a>
+        
+        <a class="PHP、笔记 " href="/2019/02/21/php/PHP-取整函数ceil，floor，round，intval函数的区别/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP-取整函数ceil，floor，round，intval函数的区别">PHP-取整函数ceil，floor，round，intval函数的区别</span>
+            <span class="post-date" title="2019-02-21 14:44:29">2019/02/21</span>
+        </a>
+        
+        <a class="PHP，笔记 " href="/2019/04/15/php/PHP-子类重写父类属性问题/" data-tag="Linux,PHP" data-author>
+            <span class="post-title" title="PHP-子类重写父类属性问题">PHP-子类重写父类属性问题</span>
+            <span class="post-date" title="2019-04-15 17:26:07">2019/04/15</span>
+        </a>
+        
+        <a class="PHP " href="/2019/02/21/php/PHP-数组根据某键值，把相同键值的合并最终生成一个新的二维数组/" data-tag="PHP、笔记" data-author>
+            <span class="post-title" title="PHP-数组根据某键值，把相同键值的合并最终生成一个新的二维数组.md">PHP-数组根据某键值，把相同键值的合并最终生成一个新的二维数组.md</span>
+            <span class="post-date" title="2019-02-21 15:28:07">2019/02/21</span>
+        </a>
+        
+        <a class="PHP " href="/2019/02/21/php/PHP-设计模式/" data-tag="PHP、笔记" data-author>
+            <span class="post-title" title="PHP-设计模式（一）">PHP-设计模式（一）</span>
+            <span class="post-date" title="2019-02-21 16:38:06">2019/02/21</span>
+        </a>
+        
+        <a class="PHP、PHP标准规范 " href="/2019/02/12/php/PHP-自动加载规范/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP-自动加载规范">PHP-自动加载规范</span>
+            <span class="post-date" title="2019-02-12 15:45:33">2019/02/12</span>
+        </a>
+        
+        <a class="PHP " href="/2018/10/23/php/PHP实现异步调用方法/" data-tag="PHP" data-author>
+            <span class="post-title" title="【转】PHP实现异步调用方法">【转】PHP实现异步调用方法</span>
+            <span class="post-date" title="2018-10-23 17:49:19">2018/10/23</span>
+        </a>
+        
+        <a class="PHP " href="/2017/11/28/php/PHP匿名函数、闭包函数/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP匿名函数、闭包函数">PHP匿名函数、闭包函数</span>
+            <span class="post-date" title="2017-11-28 00:00:00">2017/11/28</span>
+        </a>
+        
+        <a class="PHP " href="/2018/10/25/php/PHP中被忽略的性能优化利器：生成器-md/" data-tag="PHP" data-author>
+            <span class="post-title" title="【转】PHP中被忽略的性能优化利器：生成器.md">【转】PHP中被忽略的性能优化利器：生成器.md</span>
+            <span class="post-date" title="2018-10-25 15:32:51">2018/10/25</span>
+        </a>
+        
+        <a class="PHP " href="/2018/11/04/php/PHP手册-支持的协议和封装协议/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP手册-支持的协议和封装协议">PHP手册-支持的协议和封装协议</span>
+            <span class="post-date" title="2018-11-04 14:43:48">2018/11/04</span>
+        </a>
+        
+        <a class="PHP " href="/2018/11/01/php/PHP手册-上下文（Context）选项和参数/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP手册-上下文（Context）选项和参数">PHP手册-上下文（Context）选项和参数</span>
+            <span class="post-date" title="2018-11-01 14:46:10">2018/11/01</span>
+        </a>
+        
+        <a class="PHP " href="/2018/10/31/php/PHP手册-预定义异常/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP手册-预定义异常">PHP手册-预定义异常</span>
+            <span class="post-date" title="2018-10-31 11:10:41">2018/10/31</span>
+        </a>
+        
+        <a class="PHP " href="/2018/10/31/php/PHP手册-预定义接口/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP手册-预定义接口">PHP手册-预定义接口</span>
+            <span class="post-date" title="2018-10-31 14:17:59">2018/10/31</span>
+        </a>
+        
+        <a class="数据结构 " href="/2017/03/14/php/PHP的冒泡算法/" data-tag="数据结构,PHP" data-author>
+            <span class="post-title" title="PHP的冒泡算法">PHP的冒泡算法</span>
+            <span class="post-date" title="2017-03-14 14:28:30">2017/03/14</span>
+        </a>
+        
+        <a class="PHP、PHP标准规范 " href="/2019/02/20/php/PHP-PSR-7HTTP消息接口规范/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP-PSR-7HTTP消息接口规范">PHP-PSR-7HTTP消息接口规范</span>
+            <span class="post-date" title="2019-02-20 11:39:31">2019/02/20</span>
+        </a>
+        
+        <a class="PHP " href="/2018/10/26/php/PHP手册-预定义变量/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP手册-预定义变量">PHP手册-预定义变量</span>
+            <span class="post-date" title="2018-10-26 14:40:26">2018/10/26</span>
+        </a>
+        
+        <a class="PHP " href="/2018/10/23/php/PHP递归删除数组中值为空的元素/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP递归删除数组中值为空的元素.md">PHP递归删除数组中值为空的元素.md</span>
+            <span class="post-date" title="2018-10-23 17:47:06">2018/10/23</span>
+        </a>
+        
+        <a class="PHP " href="/2017/11/28/php/PHP类的自动加载 /" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP类的自动加载">PHP类的自动加载</span>
+            <span class="post-date" title="2017-11-28 00:00:00">2017/11/28</span>
+        </a>
+        
+        <a class="PHP " href="/2017/03/14/php/PHP遍历某个文件夹下子目录和文件/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP遍历文件夹下子目录和文件">PHP遍历文件夹下子目录和文件</span>
+            <span class="post-date" title="2017-03-14 10:58:04">2017/03/14</span>
+        </a>
+        
+        <a class="PHP " href="/2017/11/28/php/PHP魔术常量/" data-tag="PHP" data-author>
+            <span class="post-title" title="PHP魔术常量">PHP魔术常量</span>
+            <span class="post-date" title="2017-11-28 00:00:00">2017/11/28</span>
+        </a>
+        
+        <a class="PHP " href="/2017/11/13/php/session原理，如何修改session生命周期/" data-tag="PHP,Session" data-author>
+            <span class="post-title" title="【转】session原理，如何修改session生命周期">【转】session原理，如何修改session生命周期</span>
+            <span class="post-date" title="2017-11-13 14:50:39">2017/11/13</span>
+        </a>
+        
+        <a class="PHP " href="/2017/11/28/php/Trait /" data-tag="PHP" data-author>
+            <span class="post-title" title="Trait">Trait</span>
+            <span class="post-date" title="2017-11-28 00:00:00">2017/11/28</span>
+        </a>
+        
+        <a class="PHP " href="/2018/10/29/php/一道看似简单的面试题/" data-tag="PHP,运算符" data-author>
+            <span class="post-title" title="【转】一道看似简单的面试题">【转】一道看似简单的面试题</span>
+            <span class="post-date" title="2018-10-29 15:07:31">2018/10/29</span>
+        </a>
+        
+        <a class="PHP " href="/2017/11/13/php/从用户浏览器输入url到用户看到页面结果的过程，发生了什么事情？/" data-tag="面试总结" data-author>
+            <span class="post-title" title="【转】从用户浏览器输入url到用户看到页面结果的过程，发生了什么事情？">【转】从用户浏览器输入url到用户看到页面结果的过程，发生了什么事情？</span>
+            <span class="post-date" title="2017-11-13 14:50:39">2017/11/13</span>
+        </a>
+        
+        <a class="PHP " href="/2017/11/15/php/各类 HTTP 返回状态代码详解/" data-tag="PHP,HTTP" data-author>
+            <span class="post-title" title="【转】各类 HTTP 返回状态代码详解">【转】各类 HTTP 返回状态代码详解</span>
+            <span class="post-date" title="2017-11-15 16:30:30">2017/11/15</span>
+        </a>
+        
+        <a class="Shell " href="/2019/04/01/shell/shell-shell编程基础/" data-tag="Linux,Shell" data-author>
+            <span class="post-title" title="shell-shell编程基础">shell-shell编程基础</span>
+            <span class="post-date" title="2019-04-01 11:26:01">2019/04/01</span>
+        </a>
+        
+        <a class="PHP " href="/2017/05/22/php/驼峰命名法和下划线风格的互转/" data-tag="PHP，面试汇总" data-author>
+            <span class="post-title" title="【转】驼峰命名法和下划线风格的互转">【转】驼峰命名法和下划线风格的互转</span>
+            <span class="post-date" title="2017-05-22 16:05:11">2017/05/22</span>
+        </a>
+        
+        <a class="Shell " href="/2019/03/29/shell/shell-初识Shell/" data-tag="Linux,Shell" data-author>
+            <span class="post-title" title="shell-初识Shell">shell-初识Shell</span>
+            <span class="post-date" title="2019-03-29 14:58:08">2019/03/29</span>
+        </a>
+        
+        <a class="PHP " href="/2017/05/08/php/webuploder+PHP实现大文件断点（切片）续传/" data-tag="js,PHP,webuploader" data-author>
+            <span class="post-title" title="webuploder+PHP实现大文件断点（切片）续传">webuploder+PHP实现大文件断点（切片）续传</span>
+            <span class="post-date" title="2017-05-08 11:18:07">2017/05/08</span>
+        </a>
+        
+        <a class="Shell " href="/2019/04/16/shell/shell-基本文本处理/" data-tag="Linux,Shell" data-author>
+            <span class="post-title" title="shell-基本文本处理">shell-基本文本处理</span>
+            <span class="post-date" title="2019-04-16 10:01:05">2019/04/16</span>
+        </a>
+        
+        <a class="Shell " href="/2019/04/15/shell/shell-正则表达式/" data-tag="Linux,Shell" data-author>
+            <span class="post-title" title="shell-正则表达式">shell-正则表达式</span>
+            <span class="post-date" title="2019-04-15 11:08:05">2019/04/15</span>
+        </a>
+        
+        <a class="Shell " href="/2019/05/21/shell/shell-文件和文件系统/" data-tag="Linux,Shell" data-author>
+            <span class="post-title" title="shell-文件和文件系统">shell-文件和文件系统</span>
+            <span class="post-date" title="2019-05-21 12:22:01">2019/05/21</span>
+        </a>
+        
+        <a class="Shell " href="/2019/05/29/shell/shell-文本处理利器 awk/" data-tag="Linux,Shell" data-author>
+            <span class="post-title" title="【转】shell-文本处理利器 awk">【转】shell-文本处理利器 awk</span>
+            <span class="post-date" title="2019-05-29 13:26:35">2019/05/29</span>
+        </a>
+        
+        <a class="Shell " href="/2019/05/28/shell/shell-流编辑sed/" data-tag="Linux,Shell" data-author>
+            <span class="post-title" title="shell-流编辑sed">shell-流编辑sed</span>
+            <span class="post-date" title="2019-05-28 13:33:35">2019/05/28</span>
+        </a>
+        
+        <a class="Shell " href="/2019/04/01/shell/shell-编程的基本元素/" data-tag="Linux,Shell" data-author>
+            <span class="post-title" title="shell-编程的基本元素">shell-编程的基本元素</span>
+            <span class="post-date" title="2019-04-01 15:42:03">2019/04/01</span>
+        </a>
+        
+        <a class="算法 " href="/2020/05/07/leetCode/每日一题——回文数/" data-tag="数学" data-author>
+            <span class="post-title" title="每日一题——回文数">每日一题——回文数</span>
+            <span class="post-date" title="2020-05-07 15:32:49">2020/05/07</span>
+        </a>
+        
+        <a class="算法 " href="/2020/05/07/leetCode/每日一题——整数反转/" data-tag="数学" data-author>
+            <span class="post-title" title="每日一题——整数反转">每日一题——整数反转</span>
+            <span class="post-date" title="2020-05-07 13:46:32">2020/05/07</span>
+        </a>
+        
+        <a class="算法 " href="/2020/05/07/leetCode/每日一题——罗马数字转整数/" data-tag="数学" data-author>
+            <span class="post-title" title="每日一题——罗马数字转整数">每日一题——罗马数字转整数</span>
+            <span class="post-date" title="2020-05-07 17:14:07">2020/05/07</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-Redis入门" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">Redis入门</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+                <a data-rel="Redis">Redis</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a class="color1">Redis</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title="更新时间: 2020-04-24 15:46:44">2020-04-16 09:34</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>字数:4.3k</span>
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+        <span class="top-comment" title="跳转至评论区">
+            <a href="#comments">
+                评论:<span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </a>
+        </span>
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Redis简介"><span class="toc-text">Redis简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Redis-数据类型"><span class="toc-text">Redis 数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#String（字符串）"><span class="toc-text">String（字符串）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#实例"><span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hash（哈希）"><span class="toc-text">Hash（哈希）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#实例-1"><span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#List（列表）"><span class="toc-text">List（列表）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#实例-2"><span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Set（集合）"><span class="toc-text">Set（集合）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#sadd-命令"><span class="toc-text">sadd 命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#smembers-命令"><span class="toc-text">smembers 命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实例-3"><span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#zset-sorted-set：有序集合"><span class="toc-text">zset(sorted set：有序集合)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#zadd-命令"><span class="toc-text">zadd 命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实例-4"><span class="toc-text">实例</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Redis-命令"><span class="toc-text">Redis 命令</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Redis-登陆命令"><span class="toc-text">Redis 登陆命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#语法"><span class="toc-text">语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实例-5"><span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在远程服务上执行命令"><span class="toc-text">在远程服务上执行命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#语法-1"><span class="toc-text">语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实例-6"><span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Redis-键-key"><span class="toc-text">Redis 键(key)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#语法-2"><span class="toc-text">语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实例-7"><span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Redis-keys-命令参考"><span class="toc-text">Redis keys 命令参考</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Redis-字符串-String"><span class="toc-text">Redis 字符串(String)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Redis-哈希-Hash"><span class="toc-text">Redis 哈希(Hash)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Redis-列表-List"><span class="toc-text">Redis 列表(List)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Redis-集合-Set"><span class="toc-text">Redis 集合(Set)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Redis-有序集合-sorted-set"><span class="toc-text">Redis 有序集合(sorted set)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Redis-发布订阅"><span class="toc-text">Redis 发布订阅</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Redis-事务"><span class="toc-text">Redis 事务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Redis-脚本"><span class="toc-text">Redis 脚本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Redis-连接"><span class="toc-text">Redis 连接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Redis-服务器"><span class="toc-text">Redis 服务器</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Redis-高级教程"><span class="toc-text">Redis 高级教程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Redis-数据备份与恢复"><span class="toc-text">Redis 数据备份与恢复</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#备份数据"><span class="toc-text">备份数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#恢复数据"><span class="toc-text">恢复数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bgsave"><span class="toc-text">Bgsave</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Redis-安全"><span class="toc-text">Redis 安全</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Redis-性能测试"><span class="toc-text">Redis 性能测试</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#语法-3"><span class="toc-text">语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实例-8"><span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实例-9"><span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Redis-客户端连接"><span class="toc-text">Redis 客户端连接</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#最大连接数"><span class="toc-text">最大连接数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实例-10"><span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Redis-管道技术"><span class="toc-text">Redis 管道技术</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#实例-11"><span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#管道技术的优势"><span class="toc-text">管道技术的优势</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Redis-分区"><span class="toc-text">Redis 分区</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#分区的优势"><span class="toc-text">分区的优势</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分区的不足"><span class="toc-text">分区的不足</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分区类型"><span class="toc-text">分区类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#范围分区"><span class="toc-text">范围分区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#哈希分区"><span class="toc-text">哈希分区</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PHP-使用-Redis"><span class="toc-text">PHP 使用 Redis</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PHP安装redis扩展"><span class="toc-text">PHP安装redis扩展</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修改php-ini文件"><span class="toc-text">修改php.ini文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#连接到-redis-服务"><span class="toc-text">连接到 redis 服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Redis-PHP-String-字符串-实例"><span class="toc-text">Redis PHP String(字符串) 实例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Redis-PHP-List-列表-实例"><span class="toc-text">Redis PHP List(列表) 实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Redis-PHP-Keys-实例"><span class="toc-text">Redis PHP Keys 实例</span></a></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Redis简介"><a href="#Redis简介" class="headerlink" title="Redis简介"></a>Redis简介</h1><p><code>Redis</code> 是一个开源（BSD许可）的，内存中的数据结构存储系统，它可以用作数据库、缓存和消息中间件。 它支持多种类型的数据结构，如 <strong>字符串（strings）</strong>， <strong>散列（hashes）</strong>， <strong>列表（lists）</strong>， <strong>集合（sets）</strong>， <strong>有序集合（sorted sets）</strong> 与范围查询， <strong>bitmaps</strong>， <strong>hyperloglogs</strong> 和 地理空间（geospatial） 索引半径查询。 Redis 内置了 <strong>复制（replication）</strong>，<strong>LUA脚本（Lua scripting）</strong>， <strong>LRU驱动事件（LRU eviction）</strong>，<strong>事务（transactions）</strong> 和不同级别的 <strong>磁盘持久化（persistence）</strong>， 并通过 <strong>Redis哨兵（Sentinel）*</strong>和<strong>自动 分区</strong>（Cluster）提供高可用性（high availability）。</p>
+<p><code>Redis</code> 与其他 key - value 缓存产品有以下三个特点：</p>
+<ul>
+<li>Redis支持数据的持久化，可以将内存中的数据保存在磁盘中，重启的时候可以再次加载进行使用。</li>
+<li>Redis不仅仅支持简单的key-value类型的数据，同时还提供list，set，zset，hash等数据结构的存储。</li>
+<li>Redis支持数据的备份，即master-slave模式的数据备份。</li>
+</ul>
+<h1 id="Redis-数据类型"><a href="#Redis-数据类型" class="headerlink" title="Redis 数据类型"></a>Redis 数据类型</h1><p><code>Redis</code> 支持五种数据类型：<strong>string（字符串）</strong>，<strong>hash（哈希）</strong>，<strong>list（列表）</strong>，<strong>set（集合）</strong>及zset(sorted set：<strong>有序集合</strong>)。</p>
+<h2 id="String（字符串）"><a href="#String（字符串）" class="headerlink" title="String（字符串）"></a>String（字符串）</h2><p>string 是 <code>Redis</code> 最基本的类型，你可以理解成与 <code>Memcached</code> 一模一样的类型，一个 key 对应一个 value。</p>
+<p>string 类型是二进制安全的。意思是 <code>Redis</code> 的 string 可以包含任何数据。比如jpg图片或者序列化的对象。</p>
+<p>string 类型是 <code>Redis</code> 最基本的数据类型，string 类型的值最大能存储 <strong>512MB</strong>。</p>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><pre><code class="bash">127.0.0.1:6379&gt; set ruoob &quot;Hello&quot;
+OK
+127.0.0.1:6379&gt; get ruoob
+&quot;Hello&quot;</code></pre>
+<p><strong>注意</strong>：一个键最大能存储 512MB。</p>
+<h2 id="Hash（哈希）"><a href="#Hash（哈希）" class="headerlink" title="Hash（哈希）"></a>Hash（哈希）</h2><p><code>Redis</code> hash 是一个键值(key=&gt;value)对集合。</p>
+<p><code>Redis</code> hash 是一个 string 类型的 field 和 value 的映射表，hash 特别适合用于存储对象。</p>
+<h3 id="实例-1"><a href="#实例-1" class="headerlink" title="实例"></a>实例</h3><pre><code class="bash">127.0.0.1:6379&gt; hmset runoob field1 &quot;hello&quot; field2 &quot;world&quot;
+OK
+127.0.0.1:6379&gt; HGET runoob field1
+&quot;Hello&quot;
+127.0.0.1:6379&gt; HGET runoob field2
+&quot;World&quot;</code></pre>
+<p>实例中我们使用了 <code>Redis</code> <code>HMSET</code>, <code>HGET</code> 命令，<code>HMSET</code> 设置了两个 <strong>field=&gt;value</strong> 对, <code>HGET</code> 获取对应 <strong>field</strong> 对应的 <strong>value</strong>。</p>
+<p>每个 hash 可以存储 <code>2^32 - 1</code> 键值对（40多亿）。</p>
+<h2 id="List（列表）"><a href="#List（列表）" class="headerlink" title="List（列表）"></a>List（列表）</h2><p><code>Redis</code> 列表是简单的字符串列表，按照插入顺序排序。你可以添加一个元素到列表的头部（左边）或者尾部（右边）。</p>
+<h3 id="实例-2"><a href="#实例-2" class="headerlink" title="实例"></a>实例</h3><pre><code class="bash">127.0.0.1:6379&gt; del runoob                # del key 删除一个 key
+127.0.0.1:6379&gt; lpush runoob redis        # lpush 往列表中插入一个值
+(integer) 1
+127.0.0.1:6379&gt; lpush runoob mongodb
+(integer) 2
+127.0.0.1:6379&gt; lpush runoob rabitmq
+(integer) 3
+127.0.0.1:6379&gt; lpush runoob git
+(integer) 4
+127.0.0.1:6379&gt; lpush runoob svn
+(integer) 5
+127.0.0.1:6379&gt; lrange runoob 0 10        # lrange 获取列表 0-10 范围内的元素
+1) &quot;svn&quot;
+2) &quot;git&quot;
+3) &quot;rabitmq&quot;
+4) &quot;mongodb&quot;
+5) &quot;redis&quot;
+127.0.0.1:6379&gt;</code></pre>
+<p>列表最多可存储 <code>2^32 - 1</code> 元素 (4294967295, 每个列表可存储40多亿)。</p>
+<h2 id="Set（集合）"><a href="#Set（集合）" class="headerlink" title="Set（集合）"></a>Set（集合）</h2><p><code>Redis</code> 的 Set 是 string 类型的<strong>无序集合</strong>。</p>
+<p>集合是通过哈希表实现的，所以添加，删除，查找的复杂度都是 O(1)。</p>
+<h3 id="sadd-命令"><a href="#sadd-命令" class="headerlink" title="sadd 命令"></a>sadd 命令</h3><p>添加一个 string 元素到 key 对应的 set 集合中，成功返回 1，如果元素已经在集合中返回 0。</p>
+<h3 id="smembers-命令"><a href="#smembers-命令" class="headerlink" title="smembers 命令"></a>smembers 命令</h3><p>读取一个 key 对应的 set 集合。</p>
+<h3 id="实例-3"><a href="#实例-3" class="headerlink" title="实例"></a>实例</h3><pre><code class="bash">127.0.0.1:6379&gt; del runoob
+127.0.0.1:6379&gt; sadd runoob redis
+(integer) 1
+127.0.0.1:6379&gt; sadd runoob mongodb
+(integer) 1
+127.0.0.1:6379&gt; sadd runoob rabitmq
+(integer) 1
+127.0.0.1:6379&gt; sadd runoob rabitmq
+(integer) 0
+127.0.0.1:6379&gt; smembers runoob
+1) &quot;redis&quot;
+2) &quot;rabitmq&quot;
+3) &quot;mongodb&quot;</code></pre>
+<p>注意：以上实例中 <code>rabitmq</code> 添加了两次，但根据集合内元素的唯一性，第二次插入的元素将被忽略。</p>
+<p>集合中最大的成员数为 <code>2^32 - 1</code>(4294967295, 每个集合可存储40多亿个成员)。</p>
+<h2 id="zset-sorted-set：有序集合"><a href="#zset-sorted-set：有序集合" class="headerlink" title="zset(sorted set：有序集合)"></a>zset(sorted set：有序集合)</h2><p><code>Redis</code> zset 和 set 一样也是string类型元素的集合,且<strong>不允许重复的成员</strong>。<br>不同的是每个元素都会关联一个double类型的分数。redis正是通过分数来为集合中的成员进行从小到大的排序。</p>
+<p>zset的成员是唯一的,但分数(score)却可以重复。</p>
+<h3 id="zadd-命令"><a href="#zadd-命令" class="headerlink" title="zadd 命令"></a>zadd 命令</h3><p>添加元素到集合，元素在集合中存在则更新对应score</p>
+<pre><code class="bash">zadd key score member </code></pre>
+<h3 id="实例-4"><a href="#实例-4" class="headerlink" title="实例"></a>实例</h3><pre><code class="bash">127.0.0.1:6379&gt; del runoob
+127.0.0.1:6379&gt; zadd runoob 0 redis
+(integer) 1
+127.0.0.1:6379&gt; zadd runoob 0 mongodb
+(integer) 1
+127.0.0.1:6379&gt; zadd runoob 0 rabitmq
+(integer) 1
+127.0.0.1:6379&gt; zadd runoob 0 rabitmq
+(integer) 0
+127.0.0.1:6379&gt; &gt; ZRANGEBYSCORE runoob 0 1000
+1) &quot;mongodb&quot;
+2) &quot;rabitmq&quot;
+3) &quot;redis&quot;</code></pre>
+<h1 id="Redis-命令"><a href="#Redis-命令" class="headerlink" title="Redis 命令"></a>Redis 命令</h1><h2 id="Redis-登陆命令"><a href="#Redis-登陆命令" class="headerlink" title="Redis 登陆命令"></a>Redis 登陆命令</h2><h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><p>Redis 客户端的基本语法为：</p>
+<pre><code class="bash">$ redis-cli</code></pre>
+<h3 id="实例-5"><a href="#实例-5" class="headerlink" title="实例"></a>实例</h3><pre><code class="bash">$ redis-cli
+127.0.0.1:6379&gt;
+127.0.0.1:6379&gt; PING
+PONG</code></pre>
+<p>在以上实例中我们连接到本地的 redis 服务并执行 <strong>PING</strong> 命令，该命令用于检测 redis 服务是否启动。</p>
+<h2 id="在远程服务上执行命令"><a href="#在远程服务上执行命令" class="headerlink" title="在远程服务上执行命令"></a>在远程服务上执行命令</h2><h3 id="语法-1"><a href="#语法-1" class="headerlink" title="语法"></a>语法</h3><pre><code class="bash">$ redis-cli -h host -p port -a password</code></pre>
+<h3 id="实例-6"><a href="#实例-6" class="headerlink" title="实例"></a>实例</h3><pre><code class="bash">$redis-cli -h 127.0.0.1 -p 6379 -a &quot;password&quot;
+Warning: Using a password with &#39;-a&#39; or &#39;-u&#39; option on the command line interface may not be safe.
+127.0.0.1:6379&gt;
+127.0.0.1:6379&gt; PING
+PONG</code></pre>
+<h2 id="Redis-键-key"><a href="#Redis-键-key" class="headerlink" title="Redis 键(key)"></a>Redis 键(key)</h2><p><code>Redis</code> 键命令用于管理 redis 的键。</p>
+<h3 id="语法-2"><a href="#语法-2" class="headerlink" title="语法"></a>语法</h3><p><code>Redis</code> 键命令的基本语法如下：</p>
+<pre><code class="bash">127.0.0.1:6379&gt; COMMAND KEY_NAME</code></pre>
+<h3 id="实例-7"><a href="#实例-7" class="headerlink" title="实例"></a>实例</h3><pre><code class="bash">127.0.0.1:6379&gt; SET runoobkey redis
+OK
+127.0.0.1:6379&gt; DEL runoobkey
+(integer) 1</code></pre>
+<p>在以上实例中 <code>DEL</code> 是一个命令， <code>runoobkey</code> 是一个键。 如果键被删除成功，命令执行后输出 <strong>(integer) 1</strong>，否则将输出 <strong>(integer) 0</strong></p>
+<h2 id="Redis-keys-命令参考"><a href="#Redis-keys-命令参考" class="headerlink" title="Redis keys 命令参考"></a>Redis keys 命令参考</h2><p><a href="http://doc.redisfans.com/key/index.html" target="_blank" rel="noopener">Redis 命令参考——Key（键）</a></p>
+<h2 id="Redis-字符串-String"><a href="#Redis-字符串-String" class="headerlink" title="Redis 字符串(String)"></a>Redis 字符串(String)</h2><p><a href="http://doc.redisfans.com/string/index.html" target="_blank" rel="noopener">Redis 命令参考——字符串(String)</a></p>
+<h2 id="Redis-哈希-Hash"><a href="#Redis-哈希-Hash" class="headerlink" title="Redis 哈希(Hash)"></a>Redis 哈希(Hash)</h2><p><a href="http://doc.redisfans.com/hash/index.html" target="_blank" rel="noopener">Redis 命令参考——哈希(Hash)</a></p>
+<h2 id="Redis-列表-List"><a href="#Redis-列表-List" class="headerlink" title="Redis 列表(List)"></a>Redis 列表(List)</h2><p><a href="http://doc.redisfans.com/list/index.html" target="_blank" rel="noopener">Redis 命令参考——列表(List)</a></p>
+<h2 id="Redis-集合-Set"><a href="#Redis-集合-Set" class="headerlink" title="Redis 集合(Set)"></a>Redis 集合(Set)</h2><p><a href="http://doc.redisfans.com/set/index.html" target="_blank" rel="noopener">Redis 命令参考——集合(Set)</a></p>
+<h2 id="Redis-有序集合-sorted-set"><a href="#Redis-有序集合-sorted-set" class="headerlink" title="Redis 有序集合(sorted set)"></a>Redis 有序集合(sorted set)</h2><p><a href="http://doc.redisfans.com/sorted_set/index.html" target="_blank" rel="noopener">Redis 命令参考——有序集合(sorted set)</a></p>
+<h2 id="Redis-发布订阅"><a href="#Redis-发布订阅" class="headerlink" title="Redis 发布订阅"></a>Redis 发布订阅</h2><p><a href="http://doc.redisfans.com/pub_sub/index.html" target="_blank" rel="noopener">Redis 命令参考——Pub/Sub（发布/订阅）</a></p>
+<h2 id="Redis-事务"><a href="#Redis-事务" class="headerlink" title="Redis 事务"></a>Redis 事务</h2><p><a href="http://doc.redisfans.com/transaction/index.html" target="_blank" rel="noopener">Redis 命令参考——Transaction（事务）</a></p>
+<h2 id="Redis-脚本"><a href="#Redis-脚本" class="headerlink" title="Redis 脚本"></a>Redis 脚本</h2><p><a href="http://doc.redisfans.com/script/index.html" target="_blank" rel="noopener">Redis 命令参考——Script（脚本）</a></p>
+<h2 id="Redis-连接"><a href="#Redis-连接" class="headerlink" title="Redis 连接"></a>Redis 连接</h2><p><a href="http://doc.redisfans.com/connection/index.html" target="_blank" rel="noopener">Redis 命令参考——Connection（连接）</a></p>
+<h2 id="Redis-服务器"><a href="#Redis-服务器" class="headerlink" title="Redis 服务器"></a>Redis 服务器</h2><p><a href="http://doc.redisfans.com/server/index.html" target="_blank" rel="noopener">Redis 命令参考——Server（服务器）</a></p>
+<h1 id="Redis-高级教程"><a href="#Redis-高级教程" class="headerlink" title="Redis 高级教程"></a>Redis 高级教程</h1><h2 id="Redis-数据备份与恢复"><a href="#Redis-数据备份与恢复" class="headerlink" title="Redis 数据备份与恢复"></a>Redis 数据备份与恢复</h2><h3 id="备份数据"><a href="#备份数据" class="headerlink" title="备份数据"></a>备份数据</h3><p>Redis <code>SAVE</code> 命令用于创建当前数据库的备份。</p>
+<pre><code class="bash">127.0.0.1:6379&gt; SAVE 
+OK</code></pre>
+<p>该命令将在 redis 安装目录中创建 <strong>dump.rdb</strong> 文件。</p>
+<h3 id="恢复数据"><a href="#恢复数据" class="headerlink" title="恢复数据"></a>恢复数据</h3><p>如果需要恢复数据，只需将备份文件 (<strong>dump.rdb</strong>) 移动到 redis 安装目录并启动服务即可。获取 redis 目录可以使用 CONFIG 命令，如下所示：</p>
+<p>redis 127.0.0.1:6379&gt; CONFIG GET dir<br>1) “dir”<br>2) “/usr/local/redis/bin”<br>以上命令 CONFIG GET dir 输出的 redis 安装目录为 /usr/local/redis/bin。</p>
+<h3 id="Bgsave"><a href="#Bgsave" class="headerlink" title="Bgsave"></a>Bgsave</h3><p>创建 redis 备份文件也可以使用命令 <strong>BGSAVE</strong>，该命令在后台执行。</p>
+<pre><code class="bash">127.0.0.1:6379&gt; BGSAVE
+Background saving started   </code></pre>
+<h2 id="Redis-安全"><a href="#Redis-安全" class="headerlink" title="Redis 安全"></a>Redis 安全</h2><p>我们可以通过 redis 的配置文件设置密码参数，这样客户端连接到 redis 服务就需要密码验证，这样可以让你的 redis 服务更安全。</p>
+<p>通过以下命令查看是否设置了密码验证：</p>
+<pre><code class="bash">127.0.0.1:6379&gt; config get requirepass
+1) &quot;requirepass&quot;
+2) &quot;&quot;</code></pre>
+<p>默认情况下 requirepass 参数是空的，这就意味着你无需通过密码验证就可以连接到 redis 服务。</p>
+<p>你可以通过以下命令来修改该参数：</p>
+<pre><code class="bash">127.0.0.1:6379&gt; CONFIG set requirepass &quot;123456&quot;
+OK
+127.0.0.1:6379&gt; CONFIG get requirepass
+1) &quot;requirepass&quot;
+2) &quot;123456&quot;</code></pre>
+<p>设置密码后，客户端连接 redis 服务就需要密码验证，否则无法执行命令。</p>
+<pre><code class="bash">$ redis-cli 
+127.0.0.1:6379&gt; get runoob
+(error) NOAUTH Authentication required.
+127.0.0.1:6379&gt; auth 123456
+OK
+127.0.0.1:6379&gt; get runoob
+&quot;requirepass test&quot;</code></pre>
+<h2 id="Redis-性能测试"><a href="#Redis-性能测试" class="headerlink" title="Redis 性能测试"></a>Redis 性能测试</h2><p>Redis 性能测试是通过同时执行多个命令实现的。</p>
+<h3 id="语法-3"><a href="#语法-3" class="headerlink" title="语法"></a>语法</h3><p>redis 性能测试的基本命令如下：</p>
+<pre><code class="bash">redis-benchmark [option] [option value]</code></pre>
+<p><strong>注意</strong>：该命令是在 redis 的目录下执行的，而不是 redis 客户端的内部指令。</p>
+<h3 id="实例-8"><a href="#实例-8" class="headerlink" title="实例"></a>实例</h3><p>以下实例同时执行 10000 个请求来检测性能：</p>
+<pre><code class="bash">$ redis-benchmark -n 10000 -q
+PING_INLINE: 77519.38 requests per second
+PING_BULK: 69444.45 requests per second
+SET: 79365.08 requests per second
+GET: 81967.21 requests per second
+INCR: 78740.16 requests per second
+LPUSH: 86956.52 requests per second
+RPUSH: 81300.81 requests per second
+LPOP: 84033.61 requests per second
+RPOP: 81967.21 requests per second
+SADD: 88495.58 requests per second
+HSET: 90090.09 requests per second
+SPOP: 92592.59 requests per second
+LPUSH (needed to benchmark LRANGE): 91743.12 requests per second
+LRANGE_100 (first 100 elements): 91743.12 requests per second
+LRANGE_300 (first 300 elements): 84033.61 requests per second
+LRANGE_500 (first 450 elements): 90090.09 requests per second
+LRANGE_600 (first 600 elements): 87719.30 requests per second
+MSET (10 keys): 90909.09 requests per second</code></pre>
+<p>redis 性能测试工具可选参数如下所示：</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>选项</th>
+<th>描述</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>-h</td>
+<td>指定服务器主机名</td>
+<td>127.0.0.1</td>
+</tr>
+<tr>
+<td>2</td>
+<td>-p</td>
+<td>指定服务器端口</td>
+<td>6379</td>
+</tr>
+<tr>
+<td>3</td>
+<td>-s</td>
+<td>指定服务器</td>
+<td>socket</td>
+</tr>
+<tr>
+<td>4</td>
+<td>-c</td>
+<td>指定并发连接数</td>
+<td>50</td>
+</tr>
+<tr>
+<td>5</td>
+<td>-n</td>
+<td>指定请求数</td>
+<td>10000</td>
+</tr>
+<tr>
+<td>6</td>
+<td>-d</td>
+<td>以字节的形式指定 SET/GET 值的数据大小</td>
+<td>2</td>
+</tr>
+<tr>
+<td>7</td>
+<td>-k</td>
+<td>1=keep alive 0=reconnect</td>
+<td>1</td>
+</tr>
+<tr>
+<td>8</td>
+<td>-r</td>
+<td>SET/GET/INCR 使用随机 key, SADD 使用随机值</td>
+<td></td>
+</tr>
+<tr>
+<td>9</td>
+<td>-P</td>
+<td>通过管道传输 <numreq> 请求</numreq></td>
+<td>1</td>
+</tr>
+<tr>
+<td>10</td>
+<td>-q</td>
+<td>强制退出 redis。仅显示 query/sec 值</td>
+<td></td>
+</tr>
+<tr>
+<td>11</td>
+<td>–csv</td>
+<td>以 CSV 格式输出</td>
+<td></td>
+</tr>
+<tr>
+<td>12</td>
+<td>-l</td>
+<td>生成循环，永久执行测试</td>
+<td></td>
+</tr>
+<tr>
+<td>13</td>
+<td>-t</td>
+<td>仅运行以逗号分隔的测试命令列表。</td>
+<td></td>
+</tr>
+<tr>
+<td>14</td>
+<td>-I</td>
+<td>Idle 模式。仅打开 N 个 idle 连接并等待。</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="实例-9"><a href="#实例-9" class="headerlink" title="实例"></a>实例</h3><p>以下实例我们使用了多个参数来测试 redis 性能：</p>
+<pre><code class="bash">$ redis-benchmark -h 127.0.0.1 -p 6379 -t set,lpush -n 10000 -q
+SET: 71942.45 requests per second
+LPUSH: 73529.41 requests per second</code></pre>
+<p>以上实例中主机为 127.0.0.1，端口号为 6379，执行的命令为 set,lpush，请求数为 10000，通过 -q 参数让结果只显示每秒执行的请求数。</p>
+<h2 id="Redis-客户端连接"><a href="#Redis-客户端连接" class="headerlink" title="Redis 客户端连接"></a>Redis 客户端连接</h2><p>Redis 通过监听一个 TCP 端口或者 Unix socket 的方式来接收来自客户端的连接，当一个连接建立后，Redis 内部会进行以下一些操作：</p>
+<p>首先，客户端 socket 会被设置为非阻塞模式，因为 Redis 在网络事件处理上采用的是非阻塞多路复用模型。<br>然后为这个 socket 设置 TCP_NODELAY 属性，禁用 Nagle 算法<br>然后创建一个可读的文件事件用于监听这个客户端 socket 的数据发送</p>
+<h3 id="最大连接数"><a href="#最大连接数" class="headerlink" title="最大连接数"></a>最大连接数</h3><p>在 Redis2.4 中，最大连接数是被直接硬编码在代码里面的，而在2.6版本中这个值变成可配置的。</p>
+<p><code>maxclients</code> 的默认值是 <strong>10000</strong>，你也可以在 redis.conf 中对这个值进行修改。</p>
+<pre><code class="bash">config get maxclients
+
+1) &quot;maxclients&quot;
+2) &quot;10000&quot;</code></pre>
+<h3 id="实例-10"><a href="#实例-10" class="headerlink" title="实例"></a>实例</h3><p>以下实例我们在服务启动时设置最大连接数为 100000：</p>
+<pre><code class="bash">redis-server --maxclients 100000</code></pre>
+<h2 id="Redis-管道技术"><a href="#Redis-管道技术" class="headerlink" title="Redis 管道技术"></a>Redis 管道技术</h2><p>Redis是一种基于客户端-服务端模型以及请求/响应协议的TCP服务。这意味着通常情况下一个请求会遵循以下步骤：</p>
+<p>客户端向服务端发送一个查询请求，并监听Socket返回，通常是以阻塞模式，等待服务端响应。<br>服务端处理命令，并将结果返回给客户端。</p>
+<p><strong>Redis 管道技术</strong>可以在服务端未响应时，客户端可以继续向服务端发送请求，并最终一次性读取所有服务端的响应。</p>
+<h3 id="实例-11"><a href="#实例-11" class="headerlink" title="实例"></a>实例</h3><p>查看 redis 管道，只需要启动 redis 实例并输入以下命令：</p>
+<pre><code class="bash">$(echo -en &quot;PING\r\n SET runoobkey redis\r\nGET runoobkey\r\nINCR visitor\r\nINCR visitor\r\nINCR visitor\r\n&quot;; sleep 10) | nc localhost 6379
+
++PONG
++OK
+$5
+redis
+:1
+:2
+:3</code></pre>
+<p>以上实例中我们通过使用 PING 命令查看redis服务是否可用， 之后我们设置了 runoobkey 的值为 redis，然后我们获取 runoobkey 的值并使得 visitor 自增 3 次。</p>
+<p>在返回的结果中我们可以看到这些命令一次性向 redis 服务提交，并最终一次性读取所有服务端的响应</p>
+<h3 id="管道技术的优势"><a href="#管道技术的优势" class="headerlink" title="管道技术的优势"></a>管道技术的优势</h3><p>管道技术最显著的优势是提高了 redis 服务的性能。</p>
+<h2 id="Redis-分区"><a href="#Redis-分区" class="headerlink" title="Redis 分区"></a>Redis 分区</h2><p>分区是分割数据到多个Redis实例的处理过程，因此每个实例只保存key的一个子集。</p>
+<h3 id="分区的优势"><a href="#分区的优势" class="headerlink" title="分区的优势"></a>分区的优势</h3><ul>
+<li>通过利用多台计算机内存的和值，允许我们构造更大的数据库。</li>
+<li>通过多核和多台计算机，允许我们扩展计算能力；通过多台计算机和网络适配器，允许我们扩展网络带宽。</li>
+</ul>
+<h3 id="分区的不足"><a href="#分区的不足" class="headerlink" title="分区的不足"></a>分区的不足</h3><p>redis的一些特性在分区方面表现的不是很好：</p>
+<ul>
+<li>涉及多个key的操作通常是不被支持的。举例来说，当两个set映射到不同的redis实例上时，你就不能对这两个set执行交集操作。</li>
+<li>涉及多个key的redis事务不能使用。</li>
+<li>当使用分区时，数据处理较为复杂，比如你需要处理多个rdb/aof文件，并且从多个实例和主机备份持久化文件。</li>
+<li>增加或删除容量也比较复杂。redis集群大多数支持在运行时增加、删除节点的透明数据平衡的能力，但是类似于客户端分区、代理等其他系统则不支持这项特性。然而，一种叫做presharding的技术对此是有帮助的。</li>
+</ul>
+<h3 id="分区类型"><a href="#分区类型" class="headerlink" title="分区类型"></a>分区类型</h3><p>Redis 有两种类型分区。 假设有4个Redis实例 R0，R1，R2，R3，和类似user:1，user:2这样的表示用户的多个key，对既定的key有多种不同方式来选择这个key存放在哪个实例中。也就是说，有不同的系统来映射某个key到某个Redis服务。</p>
+<h3 id="范围分区"><a href="#范围分区" class="headerlink" title="范围分区"></a>范围分区</h3><p>最简单的分区方式是按范围分区，就是映射一定范围的对象到特定的Redis实例。</p>
+<p>比如，ID从0到10000的用户会保存到实例R0，ID从10001到 20000的用户会保存到R1，以此类推。</p>
+<p>这种方式是可行的，并且在实际中使用，不足就是要有一个区间范围到实例的映射表。这个表要被管理，同时还需要各 种对象的映射表，通常对Redis来说并非是好的方法。</p>
+<h3 id="哈希分区"><a href="#哈希分区" class="headerlink" title="哈希分区"></a>哈希分区</h3><p>另外一种分区方法是hash分区。这对任何key都适用，也无需是object_name:这种形式，像下面描述的一样简单：</p>
+<ul>
+<li>用一个hash函数将key转换为一个数字，比如使用crc32 hash函数。对key foobar执行crc32(foobar)会输出类似93024922的整数。</li>
+<li>对这个整数取模，将其转化为0-3之间的数字，就可以将这个整数映射到4个Redis实例中的一个了。93024922 % 4 = 2，就是说key foobar应该被存到R2实例中。注意：取模操作是取除的余数，通常在多种编程语言中用%操作符实现。</li>
+</ul>
+<h2 id="PHP-使用-Redis"><a href="#PHP-使用-Redis" class="headerlink" title="PHP 使用 Redis"></a>PHP 使用 Redis</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>开始在 PHP 中使用 Redis 前， 我们需要确保已经安装了 redis 服务及 PHP redis 驱动，且你的机器上能正常使用 PHP。 接下来让我们安装 PHP redis 驱动：下载地址为:<a href="https://github.com/phpredis/phpredis/releases" target="_blank" rel="noopener"><strong>https://github.com/phpredis/phpredis/releases</strong></a>。</p>
+<h3 id="PHP安装redis扩展"><a href="#PHP安装redis扩展" class="headerlink" title="PHP安装redis扩展"></a>PHP安装redis扩展</h3><p>以下操作需要在下载的 phpredis 目录中完成：</p>
+<pre><code class="bash">$ wget https://github.com/phpredis/phpredis/archive/3.1.4.tar.gz
+$ cd phpredis-3.1.4                      # 进入 phpredis 目录
+$ /usr/local/php/bin/phpize              # php安装后的路径
+$ ./configure --with-php-config=/usr/local/php/bin/php-config
+$ make &amp;&amp; make install</code></pre>
+<h3 id="修改php-ini文件"><a href="#修改php-ini文件" class="headerlink" title="修改php.ini文件"></a>修改php.ini文件</h3><pre><code class="bash">vi /usr/local/php/lib/php.ini</code></pre>
+<p>增加如下内容:</p>
+<pre><code class="bash">extension_dir = &quot;/usr/local/php/lib/php/extensions/no-debug-zts-20090626&quot;
+
+extension=redis.so</code></pre>
+<p>安装完成后重启php-fpm 或 apache。查看phpinfo信息，就能看到redis扩展。</p>
+<p><img src="https://www.runoob.com/wp-content/uploads/2014/11/14022020088882.jpg" alt="PHP 使用 Redis"></p>
+<h3 id="连接到-redis-服务"><a href="#连接到-redis-服务" class="headerlink" title="连接到 redis 服务"></a>连接到 redis 服务</h3><pre><code class="php">&lt;?php
+    //连接本地的 Redis 服务
+   $redis = new Redis();
+   $redis-&gt;connect(&#39;127.0.0.1&#39;, 6379);
+   echo &quot;Connection to server successfully&quot;;
+         //查看服务是否运行
+   echo &quot;Server is running: &quot; . $redis-&gt;ping();
+?&gt;</code></pre>
+<p>执行脚本，输出结果为：</p>
+<pre><code class="bash">Connection to server sucessfully
+Server is running: PONG</code></pre>
+<h3 id="Redis-PHP-String-字符串-实例"><a href="#Redis-PHP-String-字符串-实例" class="headerlink" title="Redis PHP String(字符串) 实例"></a>Redis PHP String(字符串) 实例</h3><pre><code class="php">&lt;?php
+   //连接本地的 Redis 服务
+   $redis = new Redis();
+   $redis-&gt;connect(&#39;127.0.0.1&#39;, 6379);
+   echo &quot;Connection to server successfully&quot;;
+   //设置 redis 字符串数据
+   $redis-&gt;set(&quot;tutorial-name&quot;, &quot;Redis tutorial&quot;);
+   // 获取存储的数据并输出
+   echo &quot;Stored string in redis:: &quot; . $redis-&gt;get(&quot;tutorial-name&quot;);
+?&gt;</code></pre>
+<p>执行脚本，输出结果为：</p>
+<pre><code class="bash">Connection to server sucessfully
+Stored string in redis:: Redis tutorial</code></pre>
+<hr>
+<h2 id="Redis-PHP-List-列表-实例"><a href="#Redis-PHP-List-列表-实例" class="headerlink" title="Redis PHP List(列表) 实例"></a>Redis PHP List(列表) 实例</h2><pre><code class="php">&lt;?php
+   //连接本地的 Redis 服务
+   $redis = new Redis();
+   $redis-&gt;connect(&#39;127.0.0.1&#39;, 6379);
+   echo &quot;Connection to server successfully&quot;;
+   //存储数据到列表中
+   $redis-&gt;lpush(&quot;tutorial-list&quot;, &quot;Redis&quot;);
+   $redis-&gt;lpush(&quot;tutorial-list&quot;, &quot;Mongodb&quot;);
+   $redis-&gt;lpush(&quot;tutorial-list&quot;, &quot;Mysql&quot;);
+   // 获取存储的数据并输出
+   $arList = $redis-&gt;lrange(&quot;tutorial-list&quot;, 0 ,5);
+   echo &quot;Stored string in redis&quot;;
+   print_r($arList);
+?&gt;</code></pre>
+<p>执行脚本，输出结果为：</p>
+<pre><code class="bash">Connection to server sucessfully
+Stored string in redis
+Mysql
+Mongodb
+Redis</code></pre>
+<hr>
+<h2 id="Redis-PHP-Keys-实例"><a href="#Redis-PHP-Keys-实例" class="headerlink" title="Redis PHP Keys 实例"></a>Redis PHP Keys 实例</h2><pre><code class="php">&lt;?php
+   //连接本地的 Redis 服务
+   $redis = new Redis();
+   $redis-&gt;connect(&#39;127.0.0.1&#39;, 6379);
+   echo &quot;Connection to server successfully&quot;;
+   // 获取数据并输出
+   $arList = $redis-&gt;keys(&quot;*&quot;);
+   echo &quot;Stored keys in redis:: &quot;;
+   print_r($arList);
+?&gt;</code></pre>
+<p>执行脚本，输出结果为：</p>
+<pre><code class="bash">Connection to server sucessfully
+Stored string in redis::
+tutorial-name
+tutorial-list</code></pre>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 786532832@qq.com </span>
+    </div>
+</article>
+
+
+<p>
+    <a class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>Redis入门</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">4.3k</span></p>
+    <p><span class="copy-title">本文作者:</span><a title="Aurora-龙振巅峰">Aurora-龙振巅峰</a></p>
+    <p><span class="copy-title">发布时间:</span>2020-04-16, 09:34:42</p>
+    <p><span class="copy-title">最后更新:</span>2020-04-24, 15:46:44</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2020/04/16/Redis入门/" title="Redis入门">https://auroralzdf.github.io/2020/04/16/Redis入门/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target="_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+    <div id="comments"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+<script type="text/javascript">
+    $.getScript('/js/gitalk.js', function () {
+        var gitalk = new Gitalk({
+            clientID: 'b9203c40539965c52855',
+            clientSecret: '80f3357a6572570797a5b3f84643c9dc33841d85',
+            repo: 'AuroraLZDF.GitHub.io',
+            owner: 'AuroraLZDF',
+            admin: ['AuroraLZDF'],
+            id: decodeURI(location.pathname),
+            distractionFreeMode: 'true',
+            language: 'zh-CN',
+            perPage: parseInt('10',10)
+        })
+        gitalk.render('comments')
+    })
+</script>
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2017-2020 Aurora</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class id="rocket"></a>
+
+    </div>
+</div>
+<div class="acParent"></div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close" onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>喜欢就点赞,疼爱就打赏</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">支付宝</label></span><span><label><input type="radio" name="pay" value="weixin">微信</label></span>
+    </div>
+</div>
+
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.0.1"></script>
+
+<script src="/js/script.js?v=1.0.1"></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['#Linux','#系统','#Deployer','#Memcached','#Docker','#Python','#Redis','#Vue.js','#前端框架','#Hexo','#Ajax、笔记','#js','#数据结构','#数学','#git','#Golang','#PHP','#Laravel','#MySQL','#Nginx','#运维','#负载均衡','#PHP、笔记','#Session','#运算符','#面试总结','#HTTP','#Shell','#PHP，面试汇总','#webuploader',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().trim().split('\n').length, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+        .nav .hide-list.fullscreen {
+            left: 492px
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://i.loli.net/2019/07/22/5d3521411f3f169375.png");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>
