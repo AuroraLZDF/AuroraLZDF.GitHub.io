@@ -1,0 +1,502 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="主从复制原理 从服务器连接主服务器，发送 SYNC 命令； 主服务器接收到 SYNC 命名后，开始执行 BGSAVE 命令生成 RDB 文件并使用缓冲区记录此后执行的所有写命令； 主服务器 BGSAVE 执行完后，向所有从服务器发送快照文件，并在发送期间继续记录被执行的写命令； 从服务器收到快照文件后丢弃所有旧数据，载入收到的快照； 主服务器快照发送完毕后开始向从服务器发送缓冲区中的写命令； 从服">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis主从服务器实战">
+<meta property="og:url" content="http://example.com/2020/05/13/redis/Redis%E4%B8%BB%E4%BB%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%9E%E6%88%98/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="主从复制原理 从服务器连接主服务器，发送 SYNC 命令； 主服务器接收到 SYNC 命名后，开始执行 BGSAVE 命令生成 RDB 文件并使用缓冲区记录此后执行的所有写命令； 主服务器 BGSAVE 执行完后，向所有从服务器发送快照文件，并在发送期间继续记录被执行的写命令； 从服务器收到快照文件后丢弃所有旧数据，载入收到的快照； 主服务器快照发送完毕后开始向从服务器发送缓冲区中的写命令； 从服">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-05-13T05:48:51.000Z">
+<meta property="article:modified_time" content="2020-05-25T18:39:22.000Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Redis">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>Redis主从服务器实战 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.13","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>LZDF</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Redis主从服务器实战">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-05-13 13:48" pubdate>
+        2020年5月13日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      5.7k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      48 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Redis主从服务器实战</h1>
+            
+            <div class="markdown-body">
+              <h1 id="主从复制"><a href="#主从复制" class="headerlink" title="主从复制"></a>主从复制</h1><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><ul>
+<li>从服务器连接主服务器，发送 <code>SYNC</code> 命令；</li>
+<li>主服务器接收到 <code>SYNC</code> 命名后，开始执行 <code>BGSAVE</code> 命令生成 <code>RDB</code> 文件并使用缓冲区记录此后执行的所有写命令；</li>
+<li>主服务器 <code>BGSAVE</code> 执行完后，向所有从服务器发送快照文件，并在发送期间继续记录被执行的写命令；</li>
+<li>从服务器收到快照文件后丢弃所有旧数据，载入收到的快照；</li>
+<li>主服务器快照发送完毕后开始向从服务器发送缓冲区中的写命令；</li>
+<li>从服务器完成对快照的载入，开始接收命令请求，并执行来自主服务器缓冲区的写命令；（<strong>从服务器初始化完成</strong>）</li>
+<li>主服务器每执行一个写命令就会向从服务器发送相同的写命令，从服务器接收并执行收到的写命令（<strong>从服务器初始化完成后的操作</strong>）</li>
+</ul>
+<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ul>
+<li>支持主从复制，主机会自动将数据同步到从机，可以进行读写分离</li>
+<li>为了分载 <strong>Master</strong> 的读操作压力，<strong>Slave</strong> 服务器可以为客户端提供只读操作的服务，写服务仍然必须由 <strong>Master</strong> 来完成</li>
+<li><strong>Slave</strong> 同样可以接受其它 <strong>Slaves</strong> 的连接和同步请求，这样可以有效的分载 <strong>Master</strong> 的同步压力。</li>
+<li><strong>Master Server</strong> 是以非阻塞的方式为 <strong>Slaves</strong> 提供服务。所以在 <strong>Master-Slave</strong> 同步期间，客户端仍然可以提交查询或修改请求。</li>
+<li><strong>Slave Server</strong> 同样是以非阻塞的方式完成数据同步。在同步期间，如果有客户端提交查询请求，<strong>Redis</strong> 则返回同步之前的数据</li>
+</ul>
+<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><ul>
+<li><strong>Redis</strong> 不具备自动容错和恢复功能，主机从机的宕机都会导致前端部分读写请求失败，需要等待机器重启或者手动切换前端的 <strong>IP</strong> 才能恢复。</li>
+<li>主机宕机，宕机前有部分数据未能及时同步到从机，切换 <strong>IP</strong> 后还会引入数据不一致的问题，降低了系统的可用性。</li>
+<li><strong>Redis</strong> 较难支持在线扩容，在集群容量达到上限时在线扩容会变得很复杂。</li>
+</ul>
+<h1 id="主从复制实战"><a href="#主从复制实战" class="headerlink" title="主从复制实战"></a>主从复制实战</h1><h2 id="主服务器配置"><a href="#主服务器配置" class="headerlink" title="主服务器配置"></a>主服务器配置</h2><p>master IP：192.168.15.68</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 指定 redis 只接收来自于这些地址的请求，如果不进行设置，那么将处理所有请求</span><br><span class="hljs-comment"># bind 127.0.0.1 192.168.17.66 192.168.15.76</span><br><span class="hljs-built_in">bind</span> 0.0.0.0		<span class="hljs-comment"># 指定IP报错，这里直接改为 0.0.0.0</span><br><br><span class="hljs-comment"># 默认端口 is 6379</span><br>port 6379<br><br><span class="hljs-comment"># 保护模式是一层安全保护，以避免任何 Internet 上打开的 Redis 实例访问和利用。开启该参数后，redis只会本地进行访问，拒绝外部访问（这里因为允许外部IP访问，所以因该设置为 no）。</span><br>protected-mode no<br><br><span class="hljs-comment"># requirepass 配置可以让用户使用 AUTH 命令来认证密码，才能使用其他命令。</span><br>requirepass redis:123:456<br><br><span class="hljs-comment"># 客户端闲置 N 秒后服务端会断开连接 (0 不关闭)</span><br>timeout 0<br><br><span class="hljs-comment"># 默认情况下，Redis 不会作为守护进程（守护进程）运行。 如果需要，请使用“是”。请注意，Redis 守护进程将在 /var/run/redis.pid 中写入一个 pid 文件。</span><br>daemonize yes<br><br><span class="hljs-comment"># 当服务器在非守护进程下运行时，如果没有 pid 文件，则不会创建在配置中指定。守护服务器时，即使未指定，也会使用pid文件，默认为“ /var/run/redis.pid”。</span><br>pidfile /var/run/redis_6379.pid<br><br><span class="hljs-comment">#服务端日志的级别。</span><br>loglevel notice<br><br><span class="hljs-comment"># 指定了记录日志的文件。空字符串的话，日志会打印到标准输出设备。后台运行的redis标准输出是/dev/null</span><br>logfile <span class="hljs-string">&quot;/var/log/redis_6379.log&quot;</span><br><br><span class="hljs-comment"># 数据库的数量，默认使用的数据库是0。</span><br>databases 16<br><br><span class="hljs-comment"># RDB 核心规则配置 save &lt;指定时间间隔&gt; &lt;执行指定次数更新操作&gt;，满足条件就将内存中的数据同步到硬盘中。</span><br>save <span class="hljs-string">&quot;&quot;</span>		<span class="hljs-comment"># 禁用 rdb，由从服务器生成 rdb 文件</span><br><span class="hljs-comment">#save 900 1</span><br><span class="hljs-comment">#save 300 10</span><br><span class="hljs-comment">#save 60 10000</span><br><br><span class="hljs-comment"># 指定本地数据库文件名</span><br>dbfilename dump_6379.rdb<br><br><br></code></pre></td></tr></table></figure>
+
+<h2 id="slave服务器1配置"><a href="#slave服务器1配置" class="headerlink" title="slave服务器1配置"></a>slave服务器1配置</h2><p>slave1 IP：192.168.17.66</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 指定 redis 只接收来自于这些地址的请求，如果不进行设置，那么将处理所有请求</span><br><span class="hljs-built_in">bind</span> 127.0.0.1<br><br><span class="hljs-comment"># 默认端口 is 6379</span><br>port 6379<br><br><span class="hljs-comment"># 保护模式是一层安全保护，以避免任何 Internet 上打开的 Redis 实例访问和利用。开启该参数后，redis只会本地进行访问，拒绝外部访问（这里因为允许外部IP访问，所以因该设置为 no）。</span><br>protected-mode yes<br><br><span class="hljs-comment"># 客户端闲置 N 秒后服务端会断开连接 (0 不关闭)</span><br>timeout 0<br><br><span class="hljs-comment"># 默认情况下，Redis 不会作为守护进程（守护进程）运行。 如果需要，请使用“是”。请注意，Redis 守护进程将在 /var/run/redis.pid 中写入一个 pid 文件。</span><br>daemonize yes<br><br><span class="hljs-comment"># 当服务器在非守护进程下运行时，如果没有 pid 文件，则不会创建在配置中指定。守护服务器时，即使未指定，也会使用pid文件，默认为“ /var/run/redis.pid”。</span><br>pidfile /var/run/redis_6379.pid<br><br><span class="hljs-comment">#服务端日志的级别。</span><br>loglevel notice<br><br><span class="hljs-comment"># 指定了记录日志的文件。空字符串的话，日志会打印到标准输出设备。后台运行的redis标准输出是/dev/null</span><br>logfile <span class="hljs-string">&quot;/var/log/redis_6379.log&quot;</span><br><br><span class="hljs-comment"># 数据库的数量，默认使用的数据库是0。</span><br>databases 16<br><br><span class="hljs-comment"># RDB 核心规则配置 save &lt;指定时间间隔&gt; &lt;执行指定次数更新操作&gt;，满足条件就将内存中的数据同步到硬盘中。</span><br><span class="hljs-comment"># save &quot;&quot;</span><br>save 900 1		<span class="hljs-comment"># 主服务器减少I/O，禁用 save rdb文件，由 slave1 来 save！</span><br>save 300 10<br>save 60 10000<br><br><span class="hljs-comment"># 指定本地数据库文件名</span><br>dbfilename dump_6379.rdb<br><br><span class="hljs-comment"># 复制选项，slave复制对应的master。</span><br>replicaof 192.168.15.68 6379<br><br><span class="hljs-comment"># 如果主服务器受密码保护，那么slave要连上master，需要有master的密码才行。</span><br>masterauth redis:123:456<br><br><span class="hljs-comment"># 当从库同主机失去连接或者复制正在进行，从服务器稳定输出，不报错</span><br>replica-serve-stale-data yes<br><br><span class="hljs-comment"># slave 服务器只读</span><br>replica-read-only yes<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="slave服务器2配置"><a href="#slave服务器2配置" class="headerlink" title="slave服务器2配置"></a>slave服务器2配置</h2><p>slave2 IP：192.168.15.76</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 指定 redis 只接收来自于这些地址的请求，如果不进行设置，那么将处理所有请求</span><br><span class="hljs-built_in">bind</span> 127.0.0.1<br><br><span class="hljs-comment"># 默认端口 is 6379</span><br>port 6379<br><br><span class="hljs-comment"># 保护模式是一层安全保护，以避免任何 Internet 上打开的 Redis 实例访问和利用。开启该参数后，redis只会本地进行访问，拒绝外部访问（这里因为允许外部IP访问，所以因该设置为 no）。</span><br>protected-mode yes<br><br><span class="hljs-comment"># 客户端闲置 N 秒后服务端会断开连接 (0 不关闭)</span><br>timeout 0<br><br><span class="hljs-comment"># 默认情况下，Redis 不会作为守护进程（守护进程）运行。 如果需要，请使用“是”。请注意，Redis 守护进程将在 /var/run/redis.pid 中写入一个 pid 文件。</span><br>daemonize yes<br><br><span class="hljs-comment"># 当服务器在非守护进程下运行时，如果没有 pid 文件，则不会创建在配置中指定。守护服务器时，即使未指定，也会使用pid文件，默认为“ /var/run/redis.pid”。</span><br>pidfile /var/run/redis_6379.pid<br><br><span class="hljs-comment">#服务端日志的级别。</span><br>loglevel notice<br><br><span class="hljs-comment"># 指定了记录日志的文件。空字符串的话，日志会打印到标准输出设备。后台运行的redis标准输出是/dev/null</span><br>logfile <span class="hljs-string">&quot;/var/log/redis_6379.log&quot;</span><br><br><span class="hljs-comment"># 数据库的数量，默认使用的数据库是0。</span><br>databases 16<br><br><span class="hljs-comment"># RDB 核心规则配置 save &lt;指定时间间隔&gt; &lt;执行指定次数更新操作&gt;，满足条件就将内存中的数据同步到硬盘中。</span><br>save <span class="hljs-string">&quot;&quot;</span>		<span class="hljs-comment"># 禁用 rdb，由slave1服务器生成 rdb 文件即可</span><br><span class="hljs-comment">#save 900 1</span><br><span class="hljs-comment">#save 300 10</span><br><span class="hljs-comment">#save 60 10000</span><br><br><span class="hljs-comment"># 指定本地数据库文件名</span><br>dbfilename dump_6379.rdb<br><br><span class="hljs-comment"># 复制选项，slave复制对应的master。</span><br>replicaof 192.168.15.68 6379<br><br><span class="hljs-comment"># 如果主服务器受密码保护，那么slave要连上master，需要有master的密码才行。</span><br>masterauth redis:123:456<br><br><span class="hljs-comment"># 当从库同主机失去连接或者复制正在进行，从服务器稳定输出，不报错</span><br>replica-serve-stale-data yes<br><br><span class="hljs-comment"># slave 服务器只读</span><br>replica-read-only yes<br></code></pre></td></tr></table></figure>
+
+<h2 id="实际操作遇到问题"><a href="#实际操作遇到问题" class="headerlink" title="实际操作遇到问题"></a>实际操作遇到问题</h2><p>按照上面配置好主从服务器并重启 redis 服务后，并没有实现同步数据，查看 slave 服务器 redis 日志报错：</p>
+<p>1）错误提示1：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ cat /var/<span class="hljs-built_in">log</span>/redis/redis.log<br>14015:S 13 May 2020 17:08:24.047 * Connecting to MASTER 192.168.15.68:6379<br>14015:S 13 May 2020 17:08:24.048 * MASTER &lt;-&gt; REPLICA sync started<br>14015:S 13 May 2020 17:08:24.049 <span class="hljs-comment"># Error condition on socket for SYNC: No route to host</span><br></code></pre></td></tr></table></figure>
+
+<p>查阅资料发现是 <strong>master</strong> 服务器没有开放端口访问。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-variable">$firewall</span>-cmd --list-ports<br>80/tcp<br></code></pre></td></tr></table></figure>
+
+<p>开放 <strong>master</strong> <code>redis</code> 端口：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ firewall-cmd --zone=public --add-port=6379/tcp --permanent<br>success<br>$ firewall-cmd --reload<br>success<br>$ firewall-cmd --list-ports<br>80/tcp 6379/tcp<br></code></pre></td></tr></table></figure>
+
+<p>2）错误提示2：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">14015:S 13 May 2020 17:08:24.047 * Connecting to MASTER 192.168.15.68:6379<br>14015:S 13 May 2020 17:08:24.048 * MASTER &lt;-&gt; REPLICA sync started<br>14015:S 13 May 2020 17:08:24.049 <span class="hljs-comment"># Error condition on socket for SYNC: Connection refused</span><br></code></pre></td></tr></table></figure>
+
+<p>查阅资料将 <strong>master</strong> 服务器 <code>bind</code> 端口改为开放所有：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 指定 redis 只接收来自于这些地址的请求，如果不进行设置，那么将处理所有请求</span><br><span class="hljs-built_in">bind</span> 0.0.0.0<br></code></pre></td></tr></table></figure>
+
+<p>重启 <strong>master</strong> <code>redis</code> 服务，<code>slave</code> 服务器已经看到了成功信息：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash">14015:S 13 May 2020 17:08:24.049 <span class="hljs-comment"># Error condition on socket for SYNC: Connection refused</span><br>14015:S 13 May 2020 17:08:25.050 * Connecting to MASTER 192.168.15.68:6379<br>14015:S 13 May 2020 17:08:25.050 * MASTER &lt;-&gt; REPLICA sync started<br>14015:S 13 May 2020 17:08:25.140 * Non blocking connect <span class="hljs-keyword">for</span> SYNC fired the event.<br>14015:S 13 May 2020 17:08:25.141 * Master replied to PING, replication can <span class="hljs-built_in">continue</span>...<br>14015:S 13 May 2020 17:08:25.144 * Partial resynchronization not possible (no cached master)<br>14015:S 13 May 2020 17:08:25.146 * Full resync from master: c658aa4725c9200d910e7704e58a44bf36a57e28:0<br>14015:S 13 May 2020 17:08:25.233 * MASTER &lt;-&gt; REPLICA sync: receiving 224 bytes from master<br>14015:S 13 May 2020 17:08:25.234 * MASTER &lt;-&gt; REPLICA sync: Flushing old data<br>14015:S 13 May 2020 17:08:25.234 * MASTER &lt;-&gt; REPLICA sync: Loading DB <span class="hljs-keyword">in</span> memory<br>14015:S 13 May 2020 17:08:25.234 * MASTER &lt;-&gt; REPLICA sync: Finished with success<br></code></pre></td></tr></table></figure>
+
+<p><code>slave</code> 验证数据是否同步：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ redis-cli <br>127.0.0.1:6379&gt; keys *<br>1) <span class="hljs-string">&quot;to-slave&quot;</span><br>2) <span class="hljs-string">&quot;hello&quot;</span><br>127.0.0.1:6379&gt; get hello<br><span class="hljs-string">&quot;world&quot;</span><br>127.0.0.1:6379&gt; get to-slave<br><span class="hljs-string">&quot;hello this is master&quot;</span><br>127.0.0.1:6379&gt; <br></code></pre></td></tr></table></figure>
+
+<p>至此，<code>redis</code> 主从同步实践成功！</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Redis/">Redis</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Redis/">Redis</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/05/13/redis/Redis%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E5%AE%9E%E6%88%98/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Redis服务器集群实战</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/05/11/redis/Redis%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%AF%A6%E8%A7%A3/">
+                        <span class="hidden-mobile">Redis配置文件详解</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

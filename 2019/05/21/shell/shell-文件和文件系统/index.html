@@ -1,0 +1,546 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="文件列出文件lsls 命令用于显示目录或文件名的内容。ls 将每个由 Directory 参数指定的目录或者每个有 File 参数指定的名称写道标准输出，以及你所要求的和标志一起的其他信息。如果不指定参数，ls 命令显示当前目录的内容。 123456789101112131415161718192021222324252627282930313233343536373839404142434445">
+<meta property="og:type" content="article">
+<meta property="og:title" content="shell-文件和文件系统">
+<meta property="og:url" content="http://example.com/2019/05/21/shell/shell-%E6%96%87%E4%BB%B6%E5%92%8C%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="文件列出文件lsls 命令用于显示目录或文件名的内容。ls 将每个由 Directory 参数指定的目录或者每个有 File 参数指定的名称写道标准输出，以及你所要求的和标志一起的其他信息。如果不指定参数，ls 命令显示当前目录的内容。 123456789101112131415161718192021222324252627282930313233343536373839404142434445">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/shell/linux文件的权限位图.png">
+<meta property="article:published_time" content="2019-05-21T04:22:01.000Z">
+<meta property="article:modified_time" content="2022-02-10T03:10:56.479Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Shell">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/images/shell/linux文件的权限位图.png">
+  
+  
+  <title>shell-文件和文件系统 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.13","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>LZDF</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="shell-文件和文件系统">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2019-05-21 12:22" pubdate>
+        2019年5月21日 中午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      13k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      107 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">shell-文件和文件系统</h1>
+            
+            <div class="markdown-body">
+              <h1 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h1><h2 id="列出文件"><a href="#列出文件" class="headerlink" title="列出文件"></a>列出文件</h2><h3 id="ls"><a href="#ls" class="headerlink" title="ls"></a>ls</h3><p><code>ls</code> 命令用于显示目录或文件名的内容。<code>ls</code> 将每个由 <code>Directory</code> 参数指定的目录或者每个有 <code>File</code> 参数指定的名称写道标准输出，以及你所要求的和标志一起的其他信息。如果不指定参数，<code>ls</code> 命令显示当前目录的内容。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs bash">用法：ls [选项]... [文件]...<br>列出文件信息 (默认是当前目录)。<br><br>必选参数对长短选项同时适用。<br>  -a, --all			不隐藏任何以. 开始的项目<br>  -A, --almost-all		列出除. 及.. 以外的任何项目<br>      --author			与-l 同时使用时列出每个文件的作者<br>  -b, --escape			以八进制溢出序列表示不可打印的字符<br>  -B, --ignore-backups  不输出以“～”结尾的备份文件<br>  -c                    输出文件的 i 节点的修改时间，并以此排序<br>  -C                    按列输出，纵向排序<br>  -d, --directory       将目录像文件一样显示，而不是显示其下的文件。<br>  -D, --dired           生成为Emacs dired模式设计的输出     <br>  -f                    对输出的文件不排序，不区分颜色<br>  -F, --classify        在每个文件后面附加一个字符，以说明该文件的类型，“*”表示可执行的普通文件；“/”表示目录；“@”表示符号链接；“|”表示FIFOs；“=”表示套接字（socket）<br>  -g				类似-l，但不列出所有者<br>  -G, --no-group    无明显效果<br>  -h, --human-readable       与 -l、-s连用显示可读性的文件大小(例如, 1K 234M 2G)<br>  -H, --dereference-command-line	无明显效果<br>  -i, --inode                输出文件索引<br>  -I, --ignore=PATTERN       不列出匹配shell模式的隐含条目<br>  -k, --kibibytes            磁盘使用默认为1024字节块<br>  -l				使用较长格式列出信息<br>  -L, --dereference		当显示符号链接的文件信息时，显示符号链接所指示<br>				的对象而并非符号链接本身的信息<br>  -m				所有文件以逗号分隔，并填满整行行宽<br>  -n, --numeric-uid-gid      类似 -l, 类似 -l, 但是用户以数字显示，用户组以id显示<br>  -N, --literal              不要用引号引起文件名<br>  -o                         类似 -l, 但是不显示组信息<br>  -p, --indicator-style=slash	向目录追加/指示符<br>  -q, --hide-control-chars   打印吗?而不是非图形字符<br>  -Q, --quote-name           将条目名称用双引号括起来 <br>  -r, --reverse			逆序排列<br>  -R, --recursive		递归显示子目录<br>  -s, --size			以块数形式显示每个文件分配的尺寸<br>  -S                    以文件大小倒序排序                     <br>  -t                    根据修改时间倒序排序<br>  -T, --tabsize=COLS         假定每个制表符宽度是 cols 。缺省为 8。为求效率， ls 可能在输出中使用制表符。  若 cols 为 0，则不使用制表符<br>  -u                         与 -lt连用，以访问时间倒序排序<br>                               与 -l连用，显示访问时间，并且以名称排序<br>								否则以访问时间排序<br>  -U                         不排序;按目录顺序列出条目<br>  -v                         文本中的(版本)数字的自然排序<br>  -w, --width=COLS           将输出宽度设置为COLS。0表示没有极限<br>  -x                         按行而不是按列列出条目<br>  -X                         按条目扩展名的字母顺序排序<br>  -Z, --context              打印每个文件的任何安全上下文<br>  -1                         每行列出一个文件。避免使用带-q或-b的\n<br></code></pre></td></tr></table></figure>
+
+<h2 id="文件的类型"><a href="#文件的类型" class="headerlink" title="文件的类型"></a>文件的类型</h2><p>命令 <code>ls -l</code> 输出，第一列信息表示的文件的类型和读写权限，例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ <span class="hljs-built_in">pwd</span><br>/home/aurora<br>$ ls -l<br><br></code></pre></td></tr></table></figure>
+
+<p>第一列字段由 10 个字符组成，其中第一个字符会有 6 中不同的字符，分别是：</p>
+<p><strong>-</strong> 普通文件</p>
+<p><strong>d</strong> 文件夹</p>
+<p><strong>b</strong> 块设备文件，硬盘（/dev/sda）、光盘（/dev/cdrom）等</p>
+<p><strong>c</strong> 字符设备文件，内存（/dev/mem）、终端（/dev/tty）、黑洞（/dev/null）等</p>
+<p><strong>l</strong> 软连接文件</p>
+<p><strong>s</strong> 套接字文件</p>
+<h2 id="文件的权限"><a href="#文件的权限" class="headerlink" title="文件的权限"></a>文件的权限</h2><p>在 Linux 中的每个文件或目录都包含有访问权限，这些访问权限决定了谁能访问和如何访问这些文件和目录。</p>
+<h3 id="用户分组"><a href="#用户分组" class="headerlink" title="用户分组"></a>用户分组</h3><p>对于一个文件来说，可以针对 3 种不同的用户类型设置不同的访问权限。</p>
+<ul>
+<li><strong>OWNER</strong> 所有者，指创建文件的用户。</li>
+<li><strong>GROUP</strong> 用户组，用户组是指一组相似用户。用户组中的单个用户能够设置其所在用户组访问该用户文件的权限。</li>
+<li><strong>OTHER</strong> 其他用户，用户也可以将自己的文件向系统内的其他所有用户开放。</li>
+</ul>
+<h4 id="chown"><a href="#chown" class="headerlink" title="chown"></a>chown</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs bash">说明：更改与文件关联的所有者或组<br><br>用法：chown [选项]... [所有者][:[组]] 文件...<br>　或：chown [选项]... --reference=参考文件 文件...<br><br>  -c, --changes          效果类似“-v”参数，但仅回报更改的部分；<br>  -f, --silent, --quiet  禁止除用法消息之外的所有错误消息;<br>  -v, --verbose          显示指令执行过程<br>      --dereference      效果和“-h”参数相同；<br>  -h, --no-dereference   只对符号连接的文件作修改，而不更改其他任何相关文件；<br>  -R, --recursive        o递归处理，将指定目录下的所有文件及子目录一并处理；<br>  -H                     如果命令行参数是指向目录的符号链接，则遍历它，遍历遇到的每个指向目录的符号链接<br>  -P                     不遍历任何符号链接(默认)<br><br>示例：<br>  chown root /u		将 /u 的属主更改为<span class="hljs-string">&quot;root&quot;</span>。<br>  chown root:staff /u	和上面类似，但同时也将其属组更改为<span class="hljs-string">&quot;staff&quot;</span>。<br>  chown -hR root /u	将 /u 及其子目录下所有文件的属主更改为<span class="hljs-string">&quot;root&quot;</span>。<br></code></pre></td></tr></table></figure>
+
+<h4 id="chgrp"><a href="#chgrp" class="headerlink" title="chgrp"></a>chgrp</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs bash">说明：变更文件或目录的所属群组<br><br>用法：chgrp [选项]... 用户组 文件...<br>　或：chgrp [选项]... --reference=参考文件 文件...<br><br>  -c, --changes         效果类似“-v”参数，但仅回报更改的部分；<br>  -f, --silent, --quiet  禁止除用法消息之外的所有错误消息;<br>  -v, --verbose          显示指令执行过程；<br>  -h, --no-dereference   只对符号连接的文件作修改，而不是该其他任何相关文件；<br>  -R, --recursive        递归式地改变指定目录及其下的所有子目录和文件的所属的组<br>  -H                     如果命令行参数是一个通到目录的符号链接，则遍历符号链接<br>  -L                    遍历每一个遇到的通到目录的符号链接<br>  -P                    不遍历任何符号链接（默认）<br><br>示例：<br>  chgrp staff /u            将 /u 的属组更改为<span class="hljs-string">&quot;staff&quot;</span>。<br>  chgrp -hR staff /u    将 /u 及其子目录下所有文件的属组更改为<span class="hljs-string">&quot;staff&quot;</span>。<br></code></pre></td></tr></table></figure>
+
+<h3 id="文件权限"><a href="#文件权限" class="headerlink" title="文件权限"></a>文件权限</h3><p>对于每个文件来说，文件所有者或超级用户可以设置文件的可读、可写和可执行权限，他们分别是<strong>r</strong>、<strong>w</strong>、<strong>x</strong>。</p>
+<ul>
+<li><strong>r（Read，读取）</strong> 对于文件而言，可以读取文件内容；对于目录而言，具有浏览目录的权限。</li>
+<li><strong>w（Write，写入）</strong> 对于文件而言，具有新增、修改文件内容的权限；对于目录而言，具有移动、删除目录的权限。</li>
+<li><strong>x（eXecute，执行）</strong> 对于文件而言，具有执行文件的权限；对于目录而言，该用户具有进入目录的权限</li>
+</ul>
+<p><strong>Linux 文件的权限位图：</strong></p>
+<img src='/images/shell/linux文件的权限位图.png' />
+
+<h4 id="chmod"><a href="#chmod" class="headerlink" title="chmod"></a>chmod</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">说明：用来变更文件或目录的权限<br><br>用法：chmod [选项]... 模式[,模式]... 文件...<br>　或：chmod [选项]... 八进制模式 文件...<br>　或：chmod [选项]... --reference=参考文件 文件...<br><br>  -c, --changes          效果类似“-v”参数，但仅回报更改的部分，如果文件权限已经改变，显示其操作信息；<br>  -f, --silent, --quiet  操作过程中不显示任何错误信息；<br>  -v, --verbose          显示命令运行时的详细执行过程；<br>  -R, --recursive        递归处理，将指令目录下的所有文件及子目录一并处理；<br></code></pre></td></tr></table></figure>
+
+<h2 id="文件的修改时间"><a href="#文件的修改时间" class="headerlink" title="文件的修改时间"></a>文件的修改时间</h2><p>通过 <code>ls -l</code> 查看 <code>/tmp</code> 下文件的详细信息，其中第 6 列就是文件的修改时间，例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ ls -l /tmp<br>-rw------- 1 aurora              aurora                   0 5月  21 08:40  config-err-Rtp07N<br>srw------- 1 aurora              aurora                   0 5月  21 08:40  fcitx-socket-:0<br>drwxr-xr-x 2 aurora              aurora                4096 5月  23 14:12  hsperfdata_aurora<br>drwxr-xr-x 2 aurora              aurora                4096 5月  21 16:13  insomnia_6.3.2<br>-rw-r--r-- 1 aurora              aurora                   0 5月  21 08:41  lastore-session-helper-source-checked<br><br></code></pre></td></tr></table></figure>
+
+<h4 id="touch"><a href="#touch" class="headerlink" title="touch"></a>touch</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs bash">说明：将每个文件的访问和修改该事件修改为当前时间；当一个文件不存在时，创建这个空文件（除非提供 -c 或 -h 参数）。<br><br>用法：touch [选项]... 文件...<br><br>必选参数对长短选项同时适用。<br>  -a			只更改访问时间<br>  -c, --no-create	不创建任何文件<br>  -d, --date=字符串	使用指定字符串表示时间而非当前时间<br>  -f			尝试强制 touch 运行，不管文件的读和写许可权<br>  -h, --no-dereference		会影响符号链接本身，而非符号链接所指示的目的地 (当系统支持更改符号链接的所有者时，此选项才有用)<br>  -m			只更改修改时间<br>  -r, --reference=FILE   使用该文件的时间代替当前时间<br>  -t STAMP               使用制定时间 [[CC]YY]MMDDhhmm[.ss] 代替当前时间<br>      --time=WORD        change the specified time:<br>                           WORD is access, atime, or use: equivalent to -a<br>                           WORD is modify or mtime: equivalent to -m<br>     <br>请注意，-d 和-t 选项可接受不同的时间/日期格式。<br></code></pre></td></tr></table></figure>
+
+<h1 id="寻找文件"><a href="#寻找文件" class="headerlink" title="寻找文件"></a>寻找文件</h1><p>在 UNIX/Linux 下寻找文件的机制很强大，使用 <code>find</code> 命令与其他工具结合时，你就能：</p>
+<ul>
+<li>找到符合某种规则的文件</li>
+<li>对这类文件一次执行某命令</li>
+</ul>
+<h2 id="find-命令的参数"><a href="#find-命令的参数" class="headerlink" title="find 命令的参数"></a>find 命令的参数</h2><h4 id="find"><a href="#find" class="headerlink" title="find"></a>find</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><code class="hljs bash">说明：在指定目录下查找文件<br>find命令 用来在指定目录下查找文件。任何位于参数之前的字符串都将被视为欲查找的目录名。如果使用该命令时，不设置任何参数，则find命令将在当前目录下查找子目录与文件。并且将查找到的子目录和文件全部进行显示。<br><br>用法: find [-H] [-L] [-P] [-Olevel] [-D debugopts] [path...] [expression]<br><br>-amin&lt;分钟&gt;：查找在指定时间曾被存取过的文件或目录，单位以分钟计算；<br>-anewer&lt;参考文件或目录&gt;：查找其存取时间较指定文件或目录的存取时间更接近现在的文件或目录；<br>-atime&lt;24小时数&gt;：查找在指定时间曾被存取过的文件或目录，单位以24小时计算；<br>-cmin&lt;分钟&gt;：查找在指定时间之时被更改过的文件或目录；<br>-cnewer&lt;参考文件或目录&gt;查找其更改时间较指定文件或目录的更改时间更接近现在的文件或目录；<br>-ctime&lt;24小时数&gt;：查找在指定时间之时被更改的文件或目录，单位以24小时计算；<br>-daystart：从本日开始计算时间；<br>-depth：从指定目录下最深层的子目录开始查找；<br>-expty：寻找文件大小为0 Byte的文件，或目录下没有任何子目录或文件的空目录；<br>-<span class="hljs-built_in">exec</span>&lt;执行指令&gt;：假设find指令的回传值为True，就执行该指令；<br>-<span class="hljs-literal">false</span>：将find指令的回传值皆设为False；<br>-fls&lt;列表文件&gt;：此参数的效果和指定“-ls”参数类似，但会把结果保存为指定的列表文件；<br>-follow：排除符号连接；<br>-fprint&lt;列表文件&gt;：此参数的效果和指定“-<span class="hljs-built_in">print</span>”参数类似，但会把结果保存成指定的列表文件；<br>-fprint0&lt;列表文件&gt;：此参数的效果和指定“-print0”参数类似，但会把结果保存成指定的列表文件；<br>-fprintf&lt;列表文件&gt;&lt;输出格式&gt;：此参数的效果和指定“-<span class="hljs-built_in">printf</span>”参数类似，但会把结果保存成指定的列表文件；<br>-fstype&lt;文件系统类型&gt;：只寻找该文件系统类型下的文件或目录；<br>-gid&lt;群组识别码&gt;：查找符合指定之群组识别码的文件或目录；<br>-group&lt;群组名称&gt;：查找符合指定之群组名称的文件或目录；<br>-<span class="hljs-built_in">help</span>或——<span class="hljs-built_in">help</span>：在线帮助；<br>-ilname&lt;范本样式&gt;：此参数的效果和指定“-lname”参数类似，但忽略字符大小写的差别；<br>-iname&lt;范本样式&gt;：此参数的效果和指定“-name”参数类似，但忽略字符大小写的差别；<br>-inum&lt;inode编号&gt;：查找符合指定的inode编号的文件或目录；<br>-ipath&lt;范本样式&gt;：此参数的效果和指定“-path”参数类似，但忽略字符大小写的差别；<br>-iregex&lt;范本样式&gt;：此参数的效果和指定“-regexe”参数类似，但忽略字符大小写的差别；<br>-links&lt;连接数目&gt;：查找符合指定的硬连接数目的文件或目录；<br>-iname&lt;范本样式&gt;：指定字符串作为寻找符号连接的范本样式；<br>-ls：假设find指令的回传值为Ture，就将文件或目录名称列出到标准输出；<br>-maxdepth&lt;目录层级&gt;：设置最大目录层级；<br>-mindepth&lt;目录层级&gt;：设置最小目录层级；<br>-mmin&lt;分钟&gt;：查找在指定时间曾被更改过的文件或目录，单位以分钟计算；<br>-mount：此参数的效果和指定“-xdev”相同；<br>-mtime&lt;24小时数&gt;：查找在指定时间曾被更改过的文件或目录，单位以24小时计算；<br>-name&lt;范本样式&gt;：指定字符串作为寻找文件或目录的范本样式；<br>-newer&lt;参考文件或目录&gt;：查找其更改时间较指定文件或目录的更改时间更接近现在的文件或目录；<br>-nogroup：找出不属于本地主机群组识别码的文件或目录；<br>-noleaf：不去考虑目录至少需拥有两个硬连接存在；<br>-nouser：找出不属于本地主机用户识别码的文件或目录；<br>-ok&lt;执行指令&gt;：此参数的效果和指定“-<span class="hljs-built_in">exec</span>”类似，但在执行指令之前会先询问用户，若回答“y”或“Y”，则放弃执行命令；<br>-path&lt;范本样式&gt;：指定字符串作为寻找目录的范本样式；<br>-perm&lt;权限数值&gt;：查找符合指定的权限数值的文件或目录；<br>-<span class="hljs-built_in">print</span>：假设find指令的回传值为Ture，就将文件或目录名称列出到标准输出。格式为每列一个名称，每个名称前皆有“./”字符串；<br>-print0：假设find指令的回传值为Ture，就将文件或目录名称列出到标准输出。格式为全部的名称皆在同一行；<br>-<span class="hljs-built_in">printf</span>&lt;输出格式&gt;：假设find指令的回传值为Ture，就将文件或目录名称列出到标准输出。格式可以自行指定；<br>-prune：不寻找字符串作为寻找文件或目录的范本样式;<br>-regex&lt;范本样式&gt;：指定字符串作为寻找文件或目录的范本样式；<br>-size&lt;文件大小&gt;：查找符合指定的文件大小的文件；<br>-<span class="hljs-literal">true</span>：将find指令的回传值皆设为True；<br>-<span class="hljs-built_in">type</span>&lt;文件类型&gt;：只寻找符合指定的文件类型的文件；<br>-uid&lt;用户识别码&gt;：查找符合指定的用户识别码的文件或目录；<br>-used&lt;日数&gt;：查找文件或目录被更改之后在指定时间曾被存取过的文件或目录，单位以日计算；<br>-user&lt;拥有者名称&gt;：查找符和指定的拥有者名称的文件或目录；<br>-version或——version：显示版本信息；<br>-xdev：将范围局限在先行的文件系统中；<br>-xtype&lt;文件类型&gt;：此参数的效果和指定“-<span class="hljs-built_in">type</span>”参数类似，差别在于它针对符号连接检查。<br></code></pre></td></tr></table></figure>
+
+<p><strong>示例</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ find /etc -iname <span class="hljs-string">&quot;*rc&quot;</span> -<span class="hljs-built_in">print</span> <span class="hljs-comment"># 递归检索 /etc 下的所有文件，打印输出以 rc 结尾的文件</span><br>/etc/screenrc<br>/etc/nanorc<br>/etc/drirc<br>/etc/X11/xinit/xserverrc<br>/etc/X11/xinit/xinputrc<br>/etc/X11/xinit/xinitrc<br>/etc/X11/imwheel/imwheelrc<br>/etc/X11/Xsession.d/40x11-common_xsessionrc<br>/etc/init.d/rc<br>/etc/libreoffice/sofficerc<br>/etc/xdg/xfce4/helpers.rc<br>$ find /etc -iname <span class="hljs-string">&quot;*rc&quot;</span> -<span class="hljs-built_in">exec</span> cp &#123;&#125; /tmp/rcfile/ \; <span class="hljs-comment"># 递归检索 /etc 下的所有文件，然后将这类文件执行命令 `cp file /tmp/rcfile/` 将文件复制到 /tmp/rcfile 目录下</span><br><span class="hljs-variable">$ls</span> /tmp/rcfile<br>screenrc	nanorc	drirc	xserverrc	xinputrc	xinitrc<br>imwheelrc	40x11-common_xsessionrc	rc	sofficerc	helpers.rc<br>$ find . -perm 755 <span class="hljs-comment"># 找出当前目录下权限位为 755 的文件</span><br>./rcfile<br>./rcfile/rc<br>./rcfile/xinitrc<br>./dir022<br>...<br>$ find . -iname <span class="hljs-string">&quot;*.txt&quot;</span> <span class="hljs-comment"># 找到当前目录下后缀名为 .txt 的文件，不区分大小写</span><br>./X11/rgb.txt<br>./java-10-openjdk/security/policy/README.txt<br>$ find . -maxdepth 1 -<span class="hljs-built_in">type</span> d -<span class="hljs-built_in">print</span> <span class="hljs-comment"># 找出当前目录下所有的文件夹（d）,仅列出深度为 1 的目录</span><br>.<br>./XMind Zen Crashes<br>./systemd-private-c2b4f3fdcf3c46c19413929c99d1aea7-ModemManager.service-9E5vPg<br>./systemd-private-c2b4f3fdcf3c46c19413929c99d1aea7-systemd-timesyncd.service-8x3wT2<br>./pulse-2L9K88eMlGn7<br>./runtime-root<br>./.X11-unix<br>./.mount_insomniPOkzf<br>./mysql-workbench-27530<br>./insomnia_6.3.2<br>./.font-unix<br>./.Test-unix<br>./.wine-1000<br></code></pre></td></tr></table></figure>
+
+<h2 id="遍历文件"><a href="#遍历文件" class="headerlink" title="遍历文件"></a>遍历文件</h2><p>​    在使用 <code>find</code> 命令的 <code>-exec</code> 选项处理匹配到的文件时，<code>find</code> 命令将所有匹配到的文件一起传递给 <code>exec</code> 执行。但有些系统对能够传递给 <code>exec</code> 的命令长度有限制，这样在 <code>find</code> 命令运行几分钟之后，就会出现溢出的错误。错误信息通常是“参数列太长”或“参数列溢出”。这就是 <strong><code>xargs</code></strong> 命令的用处所在，特别是与 <code>find</code> 命令一起使用。</p>
+<p>​    <code>find</code>  把匹配到的文件传递给 <code>xargs</code> 命令，<code>xargs</code> 命令每次值获取一部分文件而不是全部，不像 <code>-exec</code> 那样。这样他就可以先处理最先获取到的一部分文件，然后是下一批，依次处理。</p>
+<p>​    另外，<code>-exec</code> 再处理每个文件时，都会发起一个进程；而使用 <code>xargs</code> 只会生成一个进程。这样，两个命令对系统资源的占用就显而易见了。</p>
+<p><strong>示例</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ find /tmp -maxdepth 1 -<span class="hljs-built_in">type</span> f -<span class="hljs-built_in">print</span> | xargs file <span class="hljs-comment"># 先通过 find 命令查找指定条件的文件，然后用 file 命令 查看文件详细类型</span><br>/tmp/sogou-qimpanel:0.pid:                     ASCII text<br>/tmp/.org.chromium.Chromium.yQ9ITt:            ELF 64-bit LSB pie executable x86-64, version 1 (SYSV), dynamically linked, BuildID[sha1]=60dce875a215f4a70652fe45471fae0b7d79f5f5, not stripped<br>/tmp/.org.chromium.Chromium.Gx2uO8:            ELF 64-bit LSB pie executable x86-64, version 1 (SYSV), dynamically linked, BuildID[sha1]=0fd8ffb3df5232bcd7ad3ea9b4088effb852e15d, not stripped<br>/tmp/startdde-login-sound-mark:                empty<br>/tmp/config-err-Rtp07N:                        empty<br></code></pre></td></tr></table></figure>
+
+<h1 id="比较文件"><a href="#比较文件" class="headerlink" title="比较文件"></a>比较文件</h1><h2 id="使用-comm-比较排序后文件"><a href="#使用-comm-比较排序后文件" class="headerlink" title="使用 comm 比较排序后文件"></a>使用 comm 比较排序后文件</h2><p><code>comm</code> 命令会一行行地比较两个已排序文件的差异，并将结果显示出来。要求被比较的文件需先完成排序。</p>
+<p><strong>示例</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ cat test.txt <br>line1<br>line2<br>line3<br>$ cat test2.txt <br>line1<br>line2<br>line4<br>$ comm test.txt test2.txt <br>		line1<br>		line2<br>line3<br>	line4<br>$ comm -1 test.txt test2.txt <span class="hljs-comment"># 不显示只在第一个文件里出现过的列</span><br>	line1<br>	line2<br>line4<br>$ comm -2 test.txt test2.txt <span class="hljs-comment"># 不显示只在第二个文件里出现过的列</span><br>	line1<br>	line2<br>line3<br>$ comm -3 test.txt test2.txt <span class="hljs-comment"># 不显示只在第一个文件和第二个文件里出现过的列</span><br>line3<br>	line4<br>$ comm -13 test.txt test2.txt<br>line4<br>$ comm -23 test.txt test2.txt<br>line3<br></code></pre></td></tr></table></figure>
+
+<h2 id="使用-diff-比较文件"><a href="#使用-diff-比较文件" class="headerlink" title="使用 diff 比较文件"></a>使用 diff 比较文件</h2><p><code>diff</code> 命令会逐行比较两个文本文件，列出其不同之处。他比 <code>comm</code> 命令能完成更加复杂的检查。他对给出的文件进行系统的检查，并且显示两个文件中所有不同的行，不要求实现对文件进行排序。</p>
+<p><strong>示例</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ cat test.txt <br>line1<br>line2<br>line3<br>$ cat test2.txt <br>line1<br>line2<br>line4<br>$ cat test3.txt<br>line1<br>line2<br>$ diff test.txt test2.txt<br>3c3<br>&lt; line3<br>---<br>&gt; line4<br>$ diff test.txt test3.txt<br>3d2<br>&lt; line3<br>$ diff test3.txt test.txt<br>2a3<br>&gt; line3<br>$ diff test2.txt test3.txt<br>3d2<br>&lt; line4<br></code></pre></td></tr></table></figure>
+
+<p>​                               <strong>diff 命令的输出格式</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">Lines Affected in File1</th>
+<th align="center">Action</th>
+<th align="center">Lines Affected in File2</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Number1</td>
+<td align="center">a</td>
+<td align="center">Num2[,Number3]</td>
+</tr>
+<tr>
+<td align="center">Num1[,Number2]</td>
+<td align="center">d</td>
+<td align="center">Number3</td>
+</tr>
+<tr>
+<td align="center">Num1[,Number2]</td>
+<td align="center">c</td>
+<td align="center">Num3[,Number4]</td>
+</tr>
+</tbody></table>
+<h3 id="diff"><a href="#diff" class="headerlink" title="diff"></a>diff</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><code class="hljs bash">说明：逐行比较文本文件，也可以比较目录内容<br>用法：diff [选项]... 文件们<br><br>  -q, --brief                   只有在文件不同时报告<br>  -s, --report-identical-files  当两个一样时仍然显示结果<br>  -c, -C NUM, --context[=NUM]   输出上下文的复制行数(默认为3行)<br>  -u, -U 数量, --unified[=数量] 输出 &lt;数量&gt;（默认为 3）行一致化上下文<br>  -e, --ed                      以 ed script 方式输出<br>  -n, --rcs                     以 RCS diff 格式输出<br>  -y, --side-by-side            output <span class="hljs-keyword">in</span> two columns<br>  -W, --width=数量              每行显示最多 &lt;数量&gt;（默认 130）个字符<br>      --left-column             当有两行相同时只显示左边栏的一行<br>      --suppress-common-lines   当有两行相同时不显示<br><br>  -p, --show-c-function         show <span class="hljs-built_in">which</span> C <span class="hljs-keyword">function</span> each change is <span class="hljs-keyword">in</span><br>  -F, --show-function-line=RE   show the most recent line matching RE<br>      --label LABEL             use LABEL instead of file name and timestamp<br>                                  (can be repeated)<br><br>  -t, --expand-tabs             将输出中的 tab 转换成空格<br>  -T, --initial-tab             每行先加上 tab 字符，使 tab 字符可以对齐<br>      --tabsize=数字           TAB 格的宽度，默认为 8 个打印列宽<br>      --suppress-blank-empty    suppress space or tab before empty output lines<br>  -l, --paginate                将输出送至 “pr” 指令来分页<br><br>  -r, --recursive                 连同所有子目录一起比较<br>      --no-dereference            don<span class="hljs-string">&#x27;t follow symbolic links</span><br><span class="hljs-string">  -N, --new-file                  不存在的文件以空文件方式处理</span><br><span class="hljs-string">      --unidirectional-new-file   若第一文件不存在，以空文件处理</span><br><span class="hljs-string">      --ignore-file-name-case     忽略文件名大小写的区别</span><br><span class="hljs-string">      --no-ignore-file-name-case  不忽略文件名大小写的区别</span><br><span class="hljs-string">  -x, --exclude=模式              排除匹配 &lt;模式&gt; 的文件</span><br><span class="hljs-string">  -X, --exclude-from=文件         排除所有匹配在&lt;文件&gt;中列出的模式的文件</span><br><span class="hljs-string">  -S, --starting-file=文件        当比较目录時，由&lt;文件&gt;开始比较</span><br><span class="hljs-string">      --from-file=文件1           将&lt;文件1&gt;和操作数中的所有文件/目录作比较；</span><br><span class="hljs-string">                                    &lt;文件1&gt;可以是目录</span><br><span class="hljs-string">      --to-file=文件2             将操作数中的所有文件/目录和&lt;文件2&gt;作比较；</span><br><span class="hljs-string">                                    &lt;文件2&gt;可以是目录</span><br><span class="hljs-string"></span><br><span class="hljs-string">  -i, --ignore-case               忽略文件内容大小写的区别</span><br><span class="hljs-string">  -E, --ignore-tab-expansion      忽略由制表符宽度造成的差异</span><br><span class="hljs-string">  -Z, --ignore-trailing-space     忽略每行末端的空格</span><br><span class="hljs-string">  -b, --ignore-space-change       忽略由空格数不同造成的差异</span><br><span class="hljs-string">  -w, --ignore-all-space          忽略所有空格</span><br><span class="hljs-string">  -B, --ignore-blank-lines        忽略任何因空行而造成的差异</span><br><span class="hljs-string">  -I, --ignore-matching-lines=正则 若某行完全匹配 &lt;正则&gt;，则忽略由该行造成的差异</span><br><span class="hljs-string"></span><br><span class="hljs-string">  -a, --text                      所有文件都以文本方式处理</span><br><span class="hljs-string">      --strip-trailing-cr         去除输入内容每行末端的回车（CR）字符</span><br><span class="hljs-string"></span><br><span class="hljs-string">  -D, --ifdef=名称                输出的内容以 ‘#ifdef &lt;名称&gt;’ 方式标明差异</span><br><span class="hljs-string">      --GTYPE-group-format=GFMT   以 GFMT 格式处理 GTYPE 输入行组</span><br><span class="hljs-string">      --line-format=LFMT          以 LFMT 格式处理每一行资料</span><br><span class="hljs-string">      --LTYPE-line-format=LFMT    以 LFMT 格式处理 LTYPE 输入的行</span><br><span class="hljs-string">    These format options provide fine-grained control over the output</span><br><span class="hljs-string">      of diff, generalizing -D/--ifdef.</span><br><span class="hljs-string">    LTYPE 可以是 “old”、“new” 或 “unchanged”。GTYPE 可以是 LTYPE 的选择</span><br><span class="hljs-string">    或是 “changed”。</span><br><span class="hljs-string">  （仅）GFMT 可包括：</span><br><span class="hljs-string">      %&lt;  该组中每行属于&lt;文件1&gt;的差异</span><br><span class="hljs-string">      %&gt;  该组中每行属于&lt;文件2&gt;的差异</span><br><span class="hljs-string">      %=  该组中同时在&lt;文件1&gt;和&lt;文件2&gt;出现的每一行</span><br><span class="hljs-string">      %[-][宽度][.[精确度]]&#123;doxX&#125;字符  以 printf 格式表示该&lt;字符&gt;代表的内容</span><br><span class="hljs-string">        大写&lt;字符&gt;表示属于新的文件，小写表示属于旧的文件。&lt;字符&gt;的意义如下：</span><br><span class="hljs-string">          F  行组中第一行的行号</span><br><span class="hljs-string">          L  行组中最后一行的行号</span><br><span class="hljs-string">          N  行数 ( =L-F+1 )</span><br><span class="hljs-string">          E  F-1</span><br><span class="hljs-string">          M  L+1</span><br><span class="hljs-string">      %(A=B?T:E)  如果 A 等于 B 那么 T 否则 E</span><br><span class="hljs-string">  （仅）LFMT 可包括：</span><br><span class="hljs-string">      %L  该行的内容</span><br><span class="hljs-string">      %l  该行的内容，但不包括结束的换行符</span><br><span class="hljs-string">      %[-][宽度][.[精确度]]&#123;doxX&#125;n  以 printf 格式表示的输入行号</span><br><span class="hljs-string">    GFMT 或 LFMT 都可包括：</span><br><span class="hljs-string">      %%        %</span><br><span class="hljs-string">      %c&#x27;</span>C<span class="hljs-string">&#x27;     单个字符 C</span><br><span class="hljs-string">      %c&#x27;</span>\OOO<span class="hljs-string">&#x27;  八进制码 OOO 所代表的字符</span><br><span class="hljs-string">      C         字符 C（处上述转义外的其他字符代表它们自身）</span><br><span class="hljs-string"></span><br><span class="hljs-string">  -d, --minimal            尽可能找出最小的差异。</span><br><span class="hljs-string">      --horizon-lines=数量 保持&lt;数量&gt;行的一致前后缀</span><br><span class="hljs-string">      --speed-large-files  假设文件十分大而且文件中含有许多微小的差异</span><br><span class="hljs-string">      --color[=WHEN]       colorize the output; WHEN can be &#x27;</span>never<span class="hljs-string">&#x27;, &#x27;</span>always<span class="hljs-string">&#x27;,</span><br><span class="hljs-string">                             or &#x27;</span>auto<span class="hljs-string">&#x27; (the default)</span><br><span class="hljs-string">      --palette=PALETTE    the colors to use when --color is active; PALETTE is</span><br><span class="hljs-string">                             a colon-separated list of terminfo capabilities</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="comm"><a href="#comm" class="headerlink" title="comm"></a>comm</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs bash">说明：逐行比较已排序的文件文件1 和文件2。When FILE1 or FILE2 (not both) is -, <span class="hljs-built_in">read</span> standard input.<br>用法：comm [选项]... 文件1 文件2<br><br><br>如果不附带选项，程序会生成三列输出。第一列包含文件1 特有的行，第二列包含 文件2 特有的行，而第三列包含两个文件共有的行。<br><br>  -1		不输出文件1 特有的行<br>  -2		不输出文件2 特有的行<br>  -3		不输出两个文件共有的行<br><br>  --check-order			检查输入是否被正确排序，即使所有输入行均成对<br>  --nocheck-order		不检查输入是否被正确排序<br>  --output-delimiter=STR	依照STR 分列<br>  --total           output a summary<br>  -z, --zero-terminated    line delimiter is NUL, not newline<br><br>示例：<br>  comm -12 文件1 文件2  只打印在文件1 和文件2 中都有的行<br>  comm -3  文件1 文件2  打印在文件1 中有，而文件2 中没有的行。反之亦然。<br></code></pre></td></tr></table></figure>
+
+<h2 id="其他文本比较方法"><a href="#其他文本比较方法" class="headerlink" title="其他文本比较方法"></a>其他文本比较方法</h2><p><code>vimdiff</code></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Shell/">Shell</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Linux/">Linux</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Shell/">Shell</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/05/28/shell/shell-%E6%B5%81%E7%BC%96%E8%BE%91sed/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">shell-流编辑sed</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2019/04/24/nginx/%E6%AD%A3%E5%90%91%E4%BB%A3%E7%90%86%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/">
+                        <span class="hidden-mobile">【转】正向代理与反向代理</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

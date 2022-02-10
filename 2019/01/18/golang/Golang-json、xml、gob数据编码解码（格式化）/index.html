@@ -1,0 +1,521 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="数据结构要在网络中传输或保存到文件，就必须对其编码和解码；目前存在很多编码格式：JSON，XML，gob，Google 缓冲协议等等。Go 语言支持所有这些编码格式；在后面的章节，我们将讨论前三种格式。 JSON 数据格式Go 语言的 json 包可以让你在程序中方便的读取和写入 JSON 数据。示例： 12345678910111213141516171819202122232425262728">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Golang-json、xml、gob数据编码解码">
+<meta property="og:url" content="http://example.com/2019/01/18/golang/Golang-json%E3%80%81xml%E3%80%81gob%E6%95%B0%E6%8D%AE%E7%BC%96%E7%A0%81%E8%A7%A3%E7%A0%81%EF%BC%88%E6%A0%BC%E5%BC%8F%E5%8C%96%EF%BC%89/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="数据结构要在网络中传输或保存到文件，就必须对其编码和解码；目前存在很多编码格式：JSON，XML，gob，Google 缓冲协议等等。Go 语言支持所有这些编码格式；在后面的章节，我们将讨论前三种格式。 JSON 数据格式Go 语言的 json 包可以让你在程序中方便的读取和写入 JSON 数据。示例： 12345678910111213141516171819202122232425262728">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-01-18T02:27:34.000Z">
+<meta property="article:modified_time" content="2022-02-10T03:13:30.779Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Golang">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>Golang-json、xml、gob数据编码解码 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.13","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>LZDF</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Golang-json、xml、gob数据编码解码">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2019-01-18 10:27" pubdate>
+        2019年1月18日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      7.8k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      65 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Golang-json、xml、gob数据编码解码</h1>
+            
+            <div class="markdown-body">
+              <p>数据结构要在网络中传输或保存到文件，就必须对其编码和解码；目前存在很多编码格式：JSON，XML，gob，Google 缓冲协议等等。Go 语言支持所有这些编码格式；在后面的章节，我们将讨论前三种格式。</p>
+<h1 id="JSON-数据格式"><a href="#JSON-数据格式" class="headerlink" title="JSON 数据格式"></a>JSON 数据格式</h1><p>Go 语言的 <code>json</code> 包可以让你在程序中方便的读取和写入 JSON 数据。<br>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// json.go</span><br><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>    <span class="hljs-string">&quot;encoding/json&quot;</span><br>    <span class="hljs-string">&quot;fmt&quot;</span><br>    <span class="hljs-string">&quot;log&quot;</span><br>    <span class="hljs-string">&quot;os&quot;</span><br>)<br><br><span class="hljs-keyword">type</span> Address <span class="hljs-keyword">struct</span> &#123;<br>    Type    <span class="hljs-keyword">string</span><br>    City    <span class="hljs-keyword">string</span><br>    Country <span class="hljs-keyword">string</span><br>&#125;<br><br><span class="hljs-keyword">type</span> VCard <span class="hljs-keyword">struct</span> &#123;<br>    FirstName <span class="hljs-keyword">string</span><br>    LastName  <span class="hljs-keyword">string</span><br>    Addresses []*Address<br>    Remark    <span class="hljs-keyword">string</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    pa := &amp;Address&#123;<span class="hljs-string">&quot;private&quot;</span>, <span class="hljs-string">&quot;Aartselaar&quot;</span>, <span class="hljs-string">&quot;Belgium&quot;</span>&#125;<br>    wa := &amp;Address&#123;<span class="hljs-string">&quot;work&quot;</span>, <span class="hljs-string">&quot;Boom&quot;</span>, <span class="hljs-string">&quot;Belgium&quot;</span>&#125;<br>    vc := VCard&#123;<span class="hljs-string">&quot;Jan&quot;</span>, <span class="hljs-string">&quot;Kersschot&quot;</span>, []*Address&#123;pa, wa&#125;, <span class="hljs-string">&quot;none&quot;</span>&#125;<br>    <span class="hljs-comment">// fmt.Printf(&quot;%v: \n&quot;, vc) // &#123;Jan Kersschot [0x126d2b80 0x126d2be0] none&#125;:</span><br>    <span class="hljs-comment">// JSON format:</span><br>    js, _ := json.Marshal(vc)<br>    fmt.Printf(<span class="hljs-string">&quot;JSON format: %s&quot;</span>, js)<br>    <span class="hljs-comment">// using an encoder:</span><br>    file, _ := os.OpenFile(<span class="hljs-string">&quot;vcard.json&quot;</span>, os.O_CREATE|os.O_WRONLY, <span class="hljs-number">0666</span>)<br>    <span class="hljs-keyword">defer</span> file.Close()<br>    enc := json.NewEncoder(file)<br>    err := enc.Encode(vc)<br>    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>        log.Println(<span class="hljs-string">&quot;Error in encoding json&quot;</span>)<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><code>json.Marshal()</code> 的函数签名是 <code>func Marshal(v interface&#123;&#125;) ([]byte, error)</code>，下面是数据编码后的 JSON 文本（实际上是一个 <code>[]byte</code>）：<br>输出：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs bash">&#123;<br>    <span class="hljs-string">&quot;FirstName&quot;</span>: <span class="hljs-string">&quot;Jan&quot;</span>,<br>    <span class="hljs-string">&quot;LastName&quot;</span>: <span class="hljs-string">&quot;Kersschot&quot;</span>,<br>    <span class="hljs-string">&quot;Addresses&quot;</span>: [&#123;<br>        <span class="hljs-string">&quot;Type&quot;</span>: <span class="hljs-string">&quot;private&quot;</span>,<br>        <span class="hljs-string">&quot;City&quot;</span>: <span class="hljs-string">&quot;Aartselaar&quot;</span>,<br>        <span class="hljs-string">&quot;Country&quot;</span>: <span class="hljs-string">&quot;Belgium&quot;</span><br>    &#125;, &#123;<br>        <span class="hljs-string">&quot;Type&quot;</span>: <span class="hljs-string">&quot;work&quot;</span>,<br>        <span class="hljs-string">&quot;City&quot;</span>: <span class="hljs-string">&quot;Boom&quot;</span>,<br>        <span class="hljs-string">&quot;Country&quot;</span>: <span class="hljs-string">&quot;Belgium&quot;</span><br>    &#125;],<br>    <span class="hljs-string">&quot;Remark&quot;</span>: <span class="hljs-string">&quot;none&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>出于安全考虑，在 web 应用中最好使用 <code>json.HTMLEscape()</code> 函数，其对数据执行HTML转码，所以文本可以被安全地嵌在 HTML <script> 标签中。</p>
+<p><code>json.NewEncoder()</code> 的函数签名是 <code>func NewEncoder(w io.Writer) *Encoder</code>，返回的Encoder类型的指针可调用方法 <code>Encode(v interface&#123;&#125;)</code>，将数据对象 v 的json编码写入 <code>io.Writer</code> w 中。</p>
+<p>JSON 与 Go 类型对应如下：</p>
+<ul>
+<li>bool 对应 JSON 的 booleans</li>
+<li>float64 对应 JSON 的 numbers</li>
+<li>string 对应 JSON 的 strings</li>
+<li>nil 对应 JSON 的 null</li>
+</ul>
+<p>不是所有的数据都可以编码为 JSON 类型：只有验证通过的数据结构才能被编码：</p>
+<ul>
+<li>JSON 对象只支持字符串类型的 key；要编码一个 Go map 类型，map 必须是 map[string]T（T是 json 包中支持的任何类型）</li>
+<li>Channel，复杂类型和函数类型不能被编码</li>
+<li>不支持循环数据结构；它将引起序列化进入一个无限循环</li>
+<li>指针可以被编码，实际上是对指针指向的值进行编码（或者指针是 nil）</li>
+</ul>
+<h2 id="反序列化"><a href="#反序列化" class="headerlink" title="反序列化"></a>反序列化</h2><p><code>UnMarshal()</code> 的函数签名是 <code>func Unmarshal(data []byte, v interface&#123;&#125;) error</code> 把 JSON 解码为数据结构。</p>
+<p>示例12.16中对 vc 编码后的数据为 js ，对其解码时，我们首先创建结构 VCard 用来保存解码的数据：<code>var v VCard</code> 并调用 <code>json.Unmarshal(js, &amp;v)</code>，解析 []byte 中的 JSON 数据并将结果存入指针 &amp;v 指向的值。</p>
+<p>虽然反射能够让 JSON 字段去尝试匹配目标结构字段；但是只有真正匹配上的字段才会填充数据。字段没有匹配不会报错，而是直接忽略掉。</p>
+<h2 id="解码任意的数据"><a href="#解码任意的数据" class="headerlink" title="解码任意的数据"></a>解码任意的数据</h2><p>json 包使用 <code>map[string]interface&#123;&#125;</code> 和 <code>[]interface&#123;&#125;</code> 储存任意的 JSON 对象和数组；其可以被反序列化为任何的 JSON blob 存储到接口值中。</p>
+<p>来看这个 JSON 数据，被存储在变量 b 中：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">b := []<span class="hljs-keyword">byte</span>(<span class="hljs-string">`&#123;&quot;Name&quot;: &quot;Wednesday&quot;, &quot;Age&quot;: 6, &quot;Parents&quot;: [&quot;Gomez&quot;, &quot;Morticia&quot;]&#125;`</span>)<br></code></pre></td></tr></table></figure>
+<p>不用理解这个数据的结构，我们可以直接使用 Unmarshal 把这个数据编码并保存在接口值中：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> f <span class="hljs-keyword">interface</span>&#123;&#125;<br>err := json.Unmarshal(b, &amp;f)<br></code></pre></td></tr></table></figure>
+<p>f 指向的值是一个 map，key 是一个字符串，value 是自身存储作为空接口类型的值：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">interface</span>&#123;&#125; &#123;<br>    <span class="hljs-string">&quot;Name&quot;</span>: <span class="hljs-string">&quot;Wednesday&quot;</span>,<br>    <span class="hljs-string">&quot;Age&quot;</span>:  <span class="hljs-number">6</span>,<br>    <span class="hljs-string">&quot;Parents&quot;</span>: []<span class="hljs-keyword">interface</span>&#123;&#125; &#123;<br>        <span class="hljs-string">&quot;Gomez&quot;</span>,<br>        <span class="hljs-string">&quot;Morticia&quot;</span>,<br>    &#125;,<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>要访问这个数据，我们可以使用类型断言</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">m := f.(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">interface</span>&#123;&#125;)<br></code></pre></td></tr></table></figure>
+<p>我们可以通过 for range 语法和 type switch 来访问其实际类型：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">for</span> k, v := <span class="hljs-keyword">range</span> m &#123;<br>    <span class="hljs-keyword">switch</span> vv := v.(<span class="hljs-keyword">type</span>) &#123;<br>    <span class="hljs-keyword">case</span> <span class="hljs-keyword">string</span>:<br>        fmt.Println(k, <span class="hljs-string">&quot;is string&quot;</span>, vv)<br>    <span class="hljs-keyword">case</span> <span class="hljs-keyword">int</span>:<br>        fmt.Println(k, <span class="hljs-string">&quot;is int&quot;</span>, vv)<br><br>    <span class="hljs-keyword">case</span> []<span class="hljs-keyword">interface</span>&#123;&#125;:<br>        fmt.Println(k, <span class="hljs-string">&quot;is an array:&quot;</span>)<br>        <span class="hljs-keyword">for</span> i, u := <span class="hljs-keyword">range</span> vv &#123;<br>            fmt.Println(i, u)<br>        &#125;<br>    <span class="hljs-keyword">default</span>:<br>        fmt.Println(k, <span class="hljs-string">&quot;is of a type I don’t know how to handle&quot;</span>)<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>通过这种方式，你可以处理未知的 JSON 数据，同时可以确保类型安全。</p>
+<h2 id="解码数据到结构"><a href="#解码数据到结构" class="headerlink" title="解码数据到结构"></a>解码数据到结构</h2><p>如果我们事先知道 JSON 数据，我们可以定义一个适当的结构并对 JSON 数据反序列化。下面的例子中，我们将定义：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> FamilyMember <span class="hljs-keyword">struct</span> &#123;<br>    Name    <span class="hljs-keyword">string</span><br>    Age     <span class="hljs-keyword">int</span><br>    Parents []<span class="hljs-keyword">string</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>并对其反序列化：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> m FamilyMember<br>err := json.Unmarshal(b, &amp;m)<br></code></pre></td></tr></table></figure>
+<p>程序实际上是分配了一个新的切片。这是一个典型的反序列化引用类型（指针、切片和 map）的例子。</p>
+<h2 id="编码和解码流"><a href="#编码和解码流" class="headerlink" title="编码和解码流"></a>编码和解码流</h2><p>json 包提供 Decoder 和 Encoder 类型来支持常用 JSON 数据流读写。NewDecoder 和 NewEncoder 函数分别封装了 io.Reader 和 io.Writer 接口。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">NewDecoder</span><span class="hljs-params">(r io.Reader)</span> *<span class="hljs-title">Decoder</span></span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">NewEncoder</span><span class="hljs-params">(w io.Writer)</span> *<span class="hljs-title">Encoder</span></span><br></code></pre></td></tr></table></figure>
+<p>要想把 JSON 直接写入文件，可以使用 json.NewEncoder 初始化文件（或者任何实现 io.Writer 的类型），并调用 Encode()；反过来与其对应的是使用 json.Decoder 和 Decode() 函数：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">NewDecoder</span><span class="hljs-params">(r io.Reader)</span> *<span class="hljs-title">Decoder</span></span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(dec *Decoder)</span> <span class="hljs-title">Decode</span><span class="hljs-params">(v <span class="hljs-keyword">interface</span>&#123;&#125;)</span> <span class="hljs-title">error</span></span><br></code></pre></td></tr></table></figure>
+<p>来看下接口是如何对实现进行抽象的：数据结构可以是任何类型，只要其实现了某种接口，目标或源数据要能够被编码就必须实现 io.Writer 或 io.Reader 接口。由于 Go 语言中到处都实现了 Reader 和 Writer，因此 Encoder 和 Decoder 可被应用的场景非常广泛，例如读取或写入 HTTP 连接、websockets 或文件。</p>
+<h1 id="XML-数据格式"><a href="#XML-数据格式" class="headerlink" title="XML 数据格式"></a>XML 数据格式</h1><p>下面是与 JSON 例子等价的 XML 版本：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go">&lt;Person&gt;<br>    &lt;FirstName&gt;Laura&lt;/FirstName&gt;<br>    &lt;LastName&gt;Lynn&lt;/LastName&gt;<br>&lt;/Person&gt;<br></code></pre></td></tr></table></figure>
+<p>如同 json 包一样，也有 Marshal() 和 UnMarshal() 从 XML 中编码和解码数据；但这个更通用，可以从文件中读取和写入（或者任何实现了 io.Reader 和 io.Writer 接口的类型）</p>
+<p>和 JSON 的方式一样，XML 数据可以序列化为结构，或者从结构反序列化为 XML 数据。</p>
+<p><code>encoding/xml</code> 包实现了一个简单的 XML 解析器（SAX），用来解析 XML 数据内容。下面的例子说明如何使用解析器：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// xml.go</span><br><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>    <span class="hljs-string">&quot;encoding/xml&quot;</span><br>    <span class="hljs-string">&quot;fmt&quot;</span><br>    <span class="hljs-string">&quot;strings&quot;</span><br>)<br><br><span class="hljs-keyword">var</span> t, token xml.Token<br><span class="hljs-keyword">var</span> err error<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    input := <span class="hljs-string">&quot;&lt;Person&gt;&lt;FirstName&gt;Laura&lt;/FirstName&gt;&lt;LastName&gt;Lynn&lt;/LastName&gt;&lt;/Person&gt;&quot;</span><br>    inputReader := strings.NewReader(input)<br>    p := xml.NewDecoder(inputReader)<br><br>    <span class="hljs-keyword">for</span> t, err = p.Token(); err == <span class="hljs-literal">nil</span>; t, err = p.Token() &#123;<br>        <span class="hljs-keyword">switch</span> token := t.(<span class="hljs-keyword">type</span>) &#123;<br>        <span class="hljs-keyword">case</span> xml.StartElement:<br>            name := token.Name.Local<br>            fmt.Printf(<span class="hljs-string">&quot;Token name: %s\n&quot;</span>, name)<br>            <span class="hljs-keyword">for</span> _, attr := <span class="hljs-keyword">range</span> token.Attr &#123;<br>                attrName := attr.Name.Local<br>                attrValue := attr.Value<br>                fmt.Printf(<span class="hljs-string">&quot;An attribute is: %s %s\n&quot;</span>, attrName, attrValue)<br>                <span class="hljs-comment">// ...</span><br>            &#125;<br>        <span class="hljs-keyword">case</span> xml.EndElement:<br>            fmt.Println(<span class="hljs-string">&quot;End of token&quot;</span>)<br>        <span class="hljs-keyword">case</span> xml.CharData:<br>            content := <span class="hljs-keyword">string</span>([]<span class="hljs-keyword">byte</span>(token))<br>            fmt.Printf(<span class="hljs-string">&quot;This is the content: %v\n&quot;</span>, content)<br>            <span class="hljs-comment">// ...</span><br>        <span class="hljs-keyword">default</span>:<br>            <span class="hljs-comment">// ...</span><br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">Token name: Person<br>Token name: FirstName<br>This is the content: Laura<br>End of token<br>Token name: LastName<br>This is the content: Lynn<br>End of token<br>End of token<br></code></pre></td></tr></table></figure>
+<p>包中定义了若干 XML 标签类型：StartElement，Chardata（这是从开始标签到结束标签之间的实际文本），EndElement，Comment，Directive 或 ProcInst。</p>
+<p>包中同样定义了一个结构解析器：<code>NewParser</code> 方法持有一个 io.Reader（这里具体类型是 strings.NewReader）并生成一个解析器类型的对象。还有一个 <code>Token()</code> 方法返回输入流里的下一个 XML token。在输入流的结尾处，会返回（nil，io.EOF）</p>
+<p>XML 文本被循环处理直到 <code>Token()</code> 返回一个错误，因为已经到达文件尾部，再没有内容可供处理了。通过一个 type-switch 可以根据一些 XML 标签进一步处理。Chardata 中的内容只是一个 []byte，通过字符串转换让其变得可读性强一些。</p>
+<h1 id="用-Gob-传输数据"><a href="#用-Gob-传输数据" class="headerlink" title="用 Gob 传输数据"></a>用 Gob 传输数据</h1><p>Gob 是 Go 自己的以二进制形式序列化和反序列化程序数据的格式；可以在 <code>encoding</code> 包中找到。这种格式的数据简称为 Gob （即 Go binary 的缩写）。类似于 Python 的 “pickle” 和 Java 的 “Serialization”。</p>
+<p>Gob 通常用于远程方法调用（RPCs）参数和结果的传输，以及应用程序和机器之间的数据传输。 它和 JSON 或 XML 有什么不同呢？Gob 特定地用于纯 Go 的环境中，例如，两个用 Go 写的服务之间的通信。这样的话服务可以被实现得更加高效和优化。 Gob 不是可外部定义，语言无关的编码方式。因此它的首选格式是二进制，而不是像 JSON 和 XML 那样的文本格式。 Gob 并不是一种不同于 Go 的语言，而是在编码和解码过程中用到了 Go 的反射。</p>
+<p>Gob 文件或流是完全自描述的：里面包含的所有类型都有一个对应的描述，并且总是可以用 Go 解码，而不需要了解文件的内容。</p>
+<p>只有可导出的字段会被编码，零值会被忽略。在解码结构体的时候，只有同时匹配名称和可兼容类型的字段才会被解码。当源数据类型增加新字段后，Gob 解码客户端仍然可以以这种方式正常工作：解码客户端会继续识别以前存在的字段。并且还提供了很大的灵活性，比如在发送者看来，整数被编码成没有固定长度的可变长度，而忽略具体的 Go 类型。</p>
+<p>假如在发送者这边有一个有结构 T：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> T <span class="hljs-keyword">struct</span> &#123; X, Y, Z <span class="hljs-keyword">int</span> &#125;<br><span class="hljs-keyword">var</span> t = T&#123;X: <span class="hljs-number">7</span>, Y: <span class="hljs-number">0</span>, Z: <span class="hljs-number">8</span>&#125;<br></code></pre></td></tr></table></figure>
+<p>而在接收者这边可以用一个结构体 U 类型的变量 u 来接收这个值：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> U <span class="hljs-keyword">struct</span> &#123; X, Y *<span class="hljs-keyword">int8</span> &#125;<br><span class="hljs-keyword">var</span> u U<br></code></pre></td></tr></table></figure>
+<p>在接收者中，X 的值是7，Y 的值是0（Y的值并没有从 t 中传递过来，因为它是零值）</p>
+<p>和 JSON 的使用方式一样，Gob 使用通用的 <code>io.Writer</code> 接口，通过 <code>NewEncoder()</code> 函数创建 <code>Encoder</code> 对象并调用 <code>Encode()</code>；相反的过程使用通用的 <code>io.Reader</code> 接口，通过 <code>NewDecoder()</code> 函数创建 <code>Decoder</code> 对象并调用 <code>Decode</code>。</p>
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// gob1.go</span><br><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>    <span class="hljs-string">&quot;bytes&quot;</span><br>    <span class="hljs-string">&quot;fmt&quot;</span><br>    <span class="hljs-string">&quot;encoding/gob&quot;</span><br>    <span class="hljs-string">&quot;log&quot;</span><br>)<br><br><span class="hljs-keyword">type</span> P <span class="hljs-keyword">struct</span> &#123;<br>    X, Y, Z <span class="hljs-keyword">int</span><br>    Name    <span class="hljs-keyword">string</span><br>&#125;<br><br><span class="hljs-keyword">type</span> Q <span class="hljs-keyword">struct</span> &#123;<br>    X, Y *<span class="hljs-keyword">int32</span><br>    Name <span class="hljs-keyword">string</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    <span class="hljs-comment">// Initialize the encoder and decoder.  Normally enc and dec would be      </span><br>    <span class="hljs-comment">// bound to network connections and the encoder and decoder would      </span><br>    <span class="hljs-comment">// run in different processes.      </span><br>    <span class="hljs-keyword">var</span> network bytes.Buffer   <span class="hljs-comment">// Stand-in for a network connection      </span><br>    enc := gob.NewEncoder(&amp;network) <span class="hljs-comment">// Will write to network.      </span><br>    dec := gob.NewDecoder(&amp;network)    <span class="hljs-comment">// Will read from network.      </span><br>    <span class="hljs-comment">// Encode (send) the value.      </span><br>    err := enc.Encode(P&#123;<span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-string">&quot;Pythagoras&quot;</span>&#125;)<br>    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>        log.Fatal(<span class="hljs-string">&quot;encode error:&quot;</span>, err)<br>    &#125;<br>    <span class="hljs-comment">// Decode (receive) the value.      </span><br>    <span class="hljs-keyword">var</span> q Q<br>    err = dec.Decode(&amp;q)<br>    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>        log.Fatal(<span class="hljs-string">&quot;decode error:&quot;</span>, err)<br>    &#125;<br>    fmt.Printf(<span class="hljs-string">&quot;%q: &#123;%d,%d&#125;\n&quot;</span>, q.Name, *q.X, *q.Y)<br>&#125;<br><span class="hljs-comment">// Output:   &quot;Pythagoras&quot;: &#123;3,4&#125;</span><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Golang/">Golang</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Golang/">Golang</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/02/12/php/PHP-%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%E8%A7%84%E8%8C%83/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">PHP-自动加载规范</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2018/11/21/golang/Golang-%E9%80%9A%E8%BF%87%E5%86%85%E5%AD%98%E7%BC%93%E5%AD%98%E6%9D%A5%E6%8F%90%E5%8D%87%E6%80%A7%E8%83%BD/">
+                        <span class="hidden-mobile">【转】Golang-通过内存缓存来提升性能</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

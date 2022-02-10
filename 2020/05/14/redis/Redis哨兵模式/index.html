@@ -1,0 +1,449 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="sentinel.conf1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889909192939495969798">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis哨兵模式">
+<meta property="og:url" content="http://example.com/2020/05/14/redis/Redis%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="sentinel.conf1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889909192939495969798">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-05-14T03:03:40.000Z">
+<meta property="article:modified_time" content="2020-05-25T18:39:22.000Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Redis">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>Redis哨兵模式 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.13","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>LZDF</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Redis哨兵模式">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-05-14 11:03" pubdate>
+        2020年5月14日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      9k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      76 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Redis哨兵模式</h1>
+            
+            <div class="markdown-body">
+              <h1 id="sentinel-conf"><a href="#sentinel-conf" class="headerlink" title="sentinel.conf"></a>sentinel.conf</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># Example sentinel.conf</span><br><br><span class="hljs-comment"># *** IMPORTANT ***</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># By default Sentinel will not be reachable from interfaces different than</span><br><span class="hljs-comment"># localhost, either use the &#x27;bind&#x27; directive to bind to a list of network</span><br><span class="hljs-comment"># interfaces, or disable protected mode with &quot;protected-mode no&quot; by</span><br><span class="hljs-comment"># adding it to this configuration file.</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># Before doing that MAKE SURE the instance is protected from the outside</span><br><span class="hljs-comment"># world via firewalling or other means.</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># For example you may use one of the following:</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># bind 127.0.0.1 192.168.1.1</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># protected-mode no</span><br><br><span class="hljs-comment"># port &lt;sentinel-port&gt;</span><br><span class="hljs-comment"># The port that this sentinel instance will run on</span><br>port 26379<br><br><span class="hljs-comment"># By default Redis Sentinel does not run as a daemon. Use &#x27;yes&#x27; if you need it.</span><br><span class="hljs-comment"># Note that Redis will write a pid file in /var/run/redis-sentinel.pid when</span><br><span class="hljs-comment"># daemonized.</span><br>daemonize no<br><br><span class="hljs-comment"># When running daemonized, Redis Sentinel writes a pid file in</span><br><span class="hljs-comment"># /var/run/redis-sentinel.pid by default. You can specify a custom pid file</span><br><span class="hljs-comment"># location here.</span><br>pidfile /var/run/redis-sentinel.pid<br><br><span class="hljs-comment"># Specify the log file name. Also the empty string can be used to force</span><br><span class="hljs-comment"># Sentinel to log on the standard output. Note that if you use standard</span><br><span class="hljs-comment"># output for logging but daemonize, logs will be sent to /dev/null</span><br>logfile <span class="hljs-string">&quot;&quot;</span><br><br><span class="hljs-comment"># sentinel announce-ip &lt;ip&gt;</span><br><span class="hljs-comment"># sentinel announce-port &lt;port&gt;</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># The above two configuration directives are useful in environments where,</span><br><span class="hljs-comment"># because of NAT, Sentinel is reachable from outside via a non-local address.</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># When announce-ip is provided, the Sentinel will claim the specified IP address</span><br><span class="hljs-comment"># in HELLO messages used to gossip its presence, instead of auto-detecting the</span><br><span class="hljs-comment"># local address as it usually does.</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># Similarly when announce-port is provided and is valid and non-zero, Sentinel</span><br><span class="hljs-comment"># will announce the specified TCP port.</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># The two options don&#x27;t need to be used together, if only announce-ip is</span><br><span class="hljs-comment"># provided, the Sentinel will announce the specified IP and the server port</span><br><span class="hljs-comment"># as specified by the &quot;port&quot; option. If only announce-port is provided, the</span><br><span class="hljs-comment"># Sentinel will announce the auto-detected local IP and the specified port.</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># Example:</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># sentinel announce-ip 1.2.3.4</span><br><br><span class="hljs-comment"># dir &lt;working-directory&gt;</span><br><span class="hljs-comment"># Every long running process should have a well-defined working directory.</span><br><span class="hljs-comment"># For Redis Sentinel to chdir to /tmp at startup is the simplest thing</span><br><span class="hljs-comment"># for the process to don&#x27;t interfere with administrative tasks such as</span><br><span class="hljs-comment"># unmounting filesystems.</span><br>dir /tmp<br><br><span class="hljs-comment"># sentinel monitor &lt;master-name&gt; &lt;ip&gt; &lt;redis-port&gt; &lt;quorum&gt;</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># Tells Sentinel to monitor this master, and to consider it in O_DOWN</span><br><span class="hljs-comment"># (Objectively Down) state only if at least &lt;quorum&gt; sentinels agree.</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># Note that whatever is the ODOWN quorum, a Sentinel will require to</span><br><span class="hljs-comment"># be elected by the majority of the known Sentinels in order to</span><br><span class="hljs-comment"># start a failover, so no failover can be performed in minority.</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># Replicas are auto-discovered, so you don&#x27;t need to specify replicas in</span><br><span class="hljs-comment"># any way. Sentinel itself will rewrite this configuration file adding</span><br><span class="hljs-comment"># the replicas using additional configuration options.</span><br><span class="hljs-comment"># Also note that the configuration file is rewritten when a</span><br><span class="hljs-comment"># replica is promoted to master.</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># Note: master name should not include special characters or spaces.</span><br><span class="hljs-comment"># The valid charset is A-z 0-9 and the three characters &quot;.-_&quot;.</span><br>sentinel monitor mymaster 127.0.0.1 6379 2<br><br><span class="hljs-comment"># sentinel auth-pass &lt;master-name&gt; &lt;password&gt;</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># Set the password to use to authenticate with the master and replicas.</span><br><span class="hljs-comment"># Useful if there is a password set in the Redis instances to monitor.</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># Note that the master password is also used for replicas, so it is not</span><br><span class="hljs-comment"># possible to set a different password in masters and replicas instances</span><br><span class="hljs-comment"># if you want to be able to monitor these instances with Sentinel.</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># However you can have Redis instances without the authentication enabled</span><br><span class="hljs-comment"># mixed with Redis instances requiring the authentication (as long as the</span><br><span class="hljs-comment"># password set is the same for all the instances requiring the password) as</span><br><span class="hljs-comment"># the AUTH command will have no effect in Redis instances with authentication</span><br><span class="hljs-comment"># switched off.</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># Example:</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># sentinel auth-pass mymaster MySUPER--secret-0123passw0rd</span><br><br><span class="hljs-comment"># sentinel down-after-milliseconds &lt;master-name&gt; &lt;milliseconds&gt;</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># Number of milliseconds the master (or any attached replica or sentinel) should</span><br><span class="hljs-comment"># be unreachable (as in, not acceptable reply to PING, continuously, for the</span><br><span class="hljs-comment"># specified period) in order to consider it in S_DOWN state (Subjectively</span><br><span class="hljs-comment"># Down).</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># Default is 30 seconds.</span><br>sentinel down-after-milliseconds mymaster 30000<br><br><span class="hljs-comment"># sentinel parallel-syncs &lt;master-name&gt; &lt;numreplicas&gt;</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># How many replicas we can reconfigure to point to the new replica simultaneously</span><br><span class="hljs-comment"># during the failover. Use a low number if you use the replicas to serve query</span><br><span class="hljs-comment"># to avoid that all the replicas will be unreachable at about the same</span><br><span class="hljs-comment"># time while performing the synchronization with the master.</span><br>sentinel parallel-syncs mymaster 1<br><br><span class="hljs-comment"># sentinel failover-timeout &lt;master-name&gt; &lt;milliseconds&gt;</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># Specifies the failover timeout in milliseconds. It is used in many ways:</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># - The time needed to re-start a failover after a previous failover was</span><br><span class="hljs-comment">#   already tried against the same master by a given Sentinel, is two</span><br><span class="hljs-comment">#   times the failover timeout.</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># - The time needed for a replica replicating to a wrong master according</span><br><span class="hljs-comment">#   to a Sentinel current configuration, to be forced to replicate</span><br><span class="hljs-comment">#   with the right master, is exactly the failover timeout (counting since</span><br><span class="hljs-comment">#   the moment a Sentinel detected the misconfiguration).</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># - The time needed to cancel a failover that is already in progress but</span><br><span class="hljs-comment">#   did not produced any configuration change (SLAVEOF NO ONE yet not</span><br><span class="hljs-comment">#   acknowledged by the promoted replica).</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># - The maximum time a failover in progress waits for all the replicas to be</span><br><span class="hljs-comment">#   reconfigured as replicas of the new master. However even after this time</span><br><span class="hljs-comment">#   the replicas will be reconfigured by the Sentinels anyway, but not with</span><br><span class="hljs-comment">#   the exact parallel-syncs progression as specified.</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># Default is 3 minutes.</span><br>sentinel failover-timeout mymaster 180000<br><br><span class="hljs-comment"># SCRIPTS EXECUTION</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># sentinel notification-script and sentinel reconfig-script are used in order</span><br><span class="hljs-comment"># to configure scripts that are called to notify the system administrator</span><br><span class="hljs-comment"># or to reconfigure clients after a failover. The scripts are executed</span><br><span class="hljs-comment"># with the following rules for error handling:</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># If script exits with &quot;1&quot; the execution is retried later (up to a maximum</span><br><span class="hljs-comment"># number of times currently set to 10).</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># If script exits with &quot;2&quot; (or an higher value) the script execution is</span><br><span class="hljs-comment"># not retried.</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># If script terminates because it receives a signal the behavior is the same</span><br><span class="hljs-comment"># as exit code 1.</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># A script has a maximum running time of 60 seconds. After this limit is</span><br><span class="hljs-comment"># reached the script is terminated with a SIGKILL and the execution retried.</span><br><br><span class="hljs-comment"># NOTIFICATION SCRIPT</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># sentinel notification-script &lt;master-name&gt; &lt;script-path&gt;</span><br><span class="hljs-comment"># </span><br><span class="hljs-comment"># Call the specified notification script for any sentinel event that is</span><br><span class="hljs-comment"># generated in the WARNING level (for instance -sdown, -odown, and so forth).</span><br><span class="hljs-comment"># This script should notify the system administrator via email, SMS, or any</span><br><span class="hljs-comment"># other messaging system, that there is something wrong with the monitored</span><br><span class="hljs-comment"># Redis systems.</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># The script is called with just two arguments: the first is the event type</span><br><span class="hljs-comment"># and the second the event description.</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># The script must exist and be executable in order for sentinel to start if</span><br><span class="hljs-comment"># this option is provided.</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># Example:</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># sentinel notification-script mymaster /var/redis/notify.sh</span><br><br><span class="hljs-comment"># CLIENTS RECONFIGURATION SCRIPT</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># sentinel client-reconfig-script &lt;master-name&gt; &lt;script-path&gt;</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># When the master changed because of a failover a script can be called in</span><br><span class="hljs-comment"># order to perform application-specific tasks to notify the clients that the</span><br><span class="hljs-comment"># configuration has changed and the master is at a different address.</span><br><span class="hljs-comment"># </span><br><span class="hljs-comment"># The following arguments are passed to the script:</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># &lt;master-name&gt; &lt;role&gt; &lt;state&gt; &lt;from-ip&gt; &lt;from-port&gt; &lt;to-ip&gt; &lt;to-port&gt;</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># &lt;state&gt; is currently always &quot;failover&quot;</span><br><span class="hljs-comment"># &lt;role&gt; is either &quot;leader&quot; or &quot;observer&quot;</span><br><span class="hljs-comment"># </span><br><span class="hljs-comment"># The arguments from-ip, from-port, to-ip, to-port are used to communicate</span><br><span class="hljs-comment"># the old address of the master and the new address of the elected replica</span><br><span class="hljs-comment"># (now a master).</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># This script should be resistant to multiple invocations.</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># Example:</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># sentinel client-reconfig-script mymaster /var/redis/reconfig.sh</span><br><br><span class="hljs-comment"># SECURITY</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># By default SENTINEL SET will not be able to change the notification-script</span><br><span class="hljs-comment"># and client-reconfig-script at runtime. This avoids a trivial security issue</span><br><span class="hljs-comment"># where clients can set the script to anything and trigger a failover in order</span><br><span class="hljs-comment"># to get the program executed.</span><br><br>sentinel deny-scripts-reconfig yes<br><br><span class="hljs-comment"># REDIS COMMANDS RENAMING</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># Sometimes the Redis server has certain commands, that are needed for Sentinel</span><br><span class="hljs-comment"># to work correctly, renamed to unguessable strings. This is often the case</span><br><span class="hljs-comment"># of CONFIG and SLAVEOF in the context of providers that provide Redis as</span><br><span class="hljs-comment"># a service, and don&#x27;t want the customers to reconfigure the instances outside</span><br><span class="hljs-comment"># of the administration console.</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># In such case it is possible to tell Sentinel to use different command names</span><br><span class="hljs-comment"># instead of the normal ones. For example if the master &quot;mymaster&quot;, and the</span><br><span class="hljs-comment"># associated replicas, have &quot;CONFIG&quot; all renamed to &quot;GUESSME&quot;, I could use:</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># SENTINEL rename-command mymaster CONFIG GUESSME</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># After such configuration is set, every time Sentinel would use CONFIG it will</span><br><span class="hljs-comment"># use GUESSME instead. Note that there is no actual need to respect the command</span><br><span class="hljs-comment"># case, so writing &quot;config guessme&quot; is the same in the example above.</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># SENTINEL SET can also be used in order to perform this configuration at runtime.</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># In order to set a command back to its original name (undo the renaming), it</span><br><span class="hljs-comment"># is possible to just rename a command to itsef:</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># SENTINEL rename-command mymaster CONFIG CONFIG</span><br><br></code></pre></td></tr></table></figure>
+
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Redis/">Redis</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Redis/">Redis</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/05/15/2020%E4%B8%AA%E4%BA%BA%E9%9D%A2%E8%AF%95%E9%A2%98%E6%B1%87%E6%80%BB/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">2020个人面试题汇总</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/05/13/redis/Redis%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF/">
+                        <span class="hidden-mobile">Redis常用配置信息</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

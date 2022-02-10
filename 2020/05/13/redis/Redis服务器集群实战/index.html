@@ -1,0 +1,532 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Cluster 集群原理sentinel 哨兵模式基本可以满足一般生产的需求，具备高可用性。但是当数据量过大到一台服务器存放不下的情况时，主从模式或 sentinel 模式就不能满足需求了，这个时候需要对存储的数据进行分片，将数据存储到多个Redis实例中。Cluster 模式的出现就是为了解决单机 Redis 容量有限的问题，将 Redis 的数据根据一定的规则分配到多台机器。 Cluster">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis服务器集群实战">
+<meta property="og:url" content="http://example.com/2020/05/13/redis/Redis%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E5%AE%9E%E6%88%98/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Cluster 集群原理sentinel 哨兵模式基本可以满足一般生产的需求，具备高可用性。但是当数据量过大到一台服务器存放不下的情况时，主从模式或 sentinel 模式就不能满足需求了，这个时候需要对存储的数据进行分片，将数据存储到多个Redis实例中。Cluster 模式的出现就是为了解决单机 Redis 容量有限的问题，将 Redis 的数据根据一定的规则分配到多台机器。 Cluster">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/redis%E9%9B%86%E7%BE%A4%E5%88%9B%E5%BB%BA.png">
+<meta property="article:published_time" content="2020-05-13T05:49:03.000Z">
+<meta property="article:modified_time" content="2020-05-25T18:39:22.000Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Redis">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/images/redis%E9%9B%86%E7%BE%A4%E5%88%9B%E5%BB%BA.png">
+  
+  
+  <title>Redis服务器集群实战 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.13","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>LZDF</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Redis服务器集群实战">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-05-13 13:49" pubdate>
+        2020年5月13日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      9.9k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      83 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Redis服务器集群实战</h1>
+            
+            <div class="markdown-body">
+              <h1 id="Cluster-集群"><a href="#Cluster-集群" class="headerlink" title="Cluster 集群"></a>Cluster 集群</h1><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p><strong>sentinel</strong> 哨兵模式基本可以满足一般生产的需求，具备高可用性。但是当数据量过大到一台服务器存放不下的情况时，<strong>主从模式</strong>或 <strong>sentinel</strong> 模式就不能满足需求了，这个时候需要对存储的数据进行分片，将数据存储到多个<strong>Redis</strong>实例中。<strong>Cluster</strong> 模式的出现就是为了解决单机 <strong>Redis</strong> 容量有限的问题，将 <strong>Redis</strong> 的数据根据一定的规则分配到多台机器。</p>
+<p><strong>Cluster</strong> 可以说是 <strong>sentinel</strong> 和 <strong>主从模式</strong> 的结合体，通过 <strong>Cluster</strong> 可以实现主从和 master 重选功能，所以如果配置两个副本三个分片的话，就需要六个 <strong>Redis</strong> 实例。因为 <strong>Redis</strong> 的数据是根据一定规则分配到 <strong>Cluster</strong> 的不同机器的，当数据量过大时，可以新增机器进行扩容。</p>
+<p><strong>Redis-Cluster</strong> 采用无中心结构，它的特点如下：</p>
+<ul>
+<li>所有的 <strong>redis</strong> 节点彼此互联(PING-PONG机制)，内部使用二进制协议优化传输速度和带宽。</li>
+<li>节点的 <code>fail</code> 是通过集群中超过半数的节点检测失效时才生效。</li>
+<li>所有的节点都是一主一从（也可以是一主多从），其中从不提供服务，仅作为备用</li>
+<li>客户端与 <strong>redis</strong> 节点直连，不需要中间代理层。客户端不需要连接集群所有节点，连接集群中任何一个可用节点即可。</li>
+</ul>
+<h1 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h1><p>使用集群，只需要将 <strong>Redis</strong> 配置文件中的 <code>cluster-enable</code> 配置打开即可。每个集群中至少需要三个主数据库才能正常运行。</p>
+<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><p><strong>Redis</strong> 集群需要三个服务器，每个服务器有需要要一个 <strong>salve</strong> 服务器，所以最少要准备六个 <strong>Redis</strong> 服务器：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">两台机器，分别开启三个 redis 服务（端口）<br>192.168.15.68		端口：7001,7002,7003<br>192.168.15.66		端口：7001,7002,7003<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>修改配置文件</li>
+</ul>
+<p>192.168.15.68：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ mkdir /usr/<span class="hljs-built_in">local</span>/redis-5.0.8/cluster<br>$ cp /usr/<span class="hljs-built_in">local</span>/redis-5.0.8/redis.conf /usr/<span class="hljs-built_in">local</span>/redis-5.0.8/cluster/redis_7001.conf<br>$ cp /usr/<span class="hljs-built_in">local</span>/redis-5.0.8/redis.conf /usr/<span class="hljs-built_in">local</span>/redis-5.0.8/cluster/redis_7002.conf<br>$ cp /usr/<span class="hljs-built_in">local</span>/redis-5.0.8/redis.conf /usr/<span class="hljs-built_in">local</span>/redis-5.0.8/cluster/redis_7003.conf<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ vim /usr/<span class="hljs-built_in">local</span>/redis-5.0.8/cluster/redis_7001.conf<br><br><span class="hljs-built_in">bind</span> 192.168.17.66 192.168.15.68<br>port 7001<br>daemonize yes<br>pidfile /var/run/redis_7001.pid<br>logfile <span class="hljs-string">&quot;/var/log/redis/redis_7001.log&quot;</span><br>dbfilename dump_7001.rdb<br>dir /var/lib/redis/<br>appendonly yes<br>appendfilename <span class="hljs-string">&quot;appendonly_7001.aof&quot;</span><br>cluster-enabled yes<br>cluster-config-file nodes_7001.conf<br>cluster-node-timeout 15000<br>masterauth 123456<br>requirepass 123456<br><br>......<br></code></pre></td></tr></table></figure>
+
+<p>其它 **5 **个配置与 <code>redis_7001.conf</code> 一致，此处省略。</p>
+<ul>
+<li>开放端口，启动 <strong>redis</strong> 服务：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ firewall-cmd --zone=public --add-port=7001/tcp --permanent<br>success<br>$ firewall-cmd --zone=public --add-port=17001/tcp --permanent<br>success<br>$ firewall-cmd --zone=public --add-port=7002/tcp --permanent<br>success<br>$ firewall-cmd --zone=public --add-port=17002/tcp --permanent<br>success<br>$ firewall-cmd --zone=public --add-port=7003/tcp --permanent<br>success<br>$ firewall-cmd --zone=public --add-port=17003/tcp --permanent<br>success<br>$ firewall-cmd --reload<br>success<br>$ firewall-cmd --list-ports<br>80/tcp 6379/tcp 7001/tcp 7002/tcp 7003/tcp 17001/tcp 17002/tcp 17003/tcp 7004/tcp 17004/tcp<br>$ redis-server /usr/<span class="hljs-built_in">local</span>/redis-5.0.8/cluster/redis_7001.conf<br>$ redis-server /usr/<span class="hljs-built_in">local</span>/redis-5.0.8/cluster/redis_7002.conf<br>$ redis-server /usr/<span class="hljs-built_in">local</span>/redis-5.0.8/cluster/redis_7003.conf<br></code></pre></td></tr></table></figure>
+
+<p>另一台服务器进行同样的配置。<strong>注意</strong>，这里在启动一个端口时，同时启动了 <code>+10000</code> 端口（请注意，重新映射时，如果未设置总线端口，通常将使用 <code>10000</code> 的固定偏移量。）。</p>
+<h2 id="创建集群"><a href="#创建集群" class="headerlink" title="创建集群"></a>创建集群</h2><p>所有环境准备完毕后，开始创建集群：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ redis-cli -a 123456 --cluster create 192.168.15.68:7001 192.168.15.68:7002 192.168.15.68:7003 192.168.17.66:7001 192.168.17.66:7002 192.168.17.66:7003 --cluster-replicas 1	<br><span class="hljs-comment"># *注意*：`redis 5` 以后不再需要使用 `ruby` 组建进行创建集群了，直接使用 `redis-cli` 创建集群即可。</span><br></code></pre></td></tr></table></figure>
+
+<p>集群创建成功：</p>
+<p><img src="/images/redis%E9%9B%86%E7%BE%A4%E5%88%9B%E5%BB%BA.png" srcset="/img/loading.gif" lazyload alt="redis集群创建.png"></p>
+<p>从图中可以看到，集群生成了三个 <strong>master</strong> 和 对应的三个 <strong>slave</strong>，且一个 <strong>salve</strong> 对应一个 <strong>master</strong>。</p>
+<p>集群自动生成了 <code>nodes.conf</code> 文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ ls /var/lib/redis/<br>appendonly_7001.aof  appendonly_7004.aof  dump_7002.rdb  nodes_7001.conf  nodes_7004.conf<br>appendonly_7002.aof  appendonly.aof       dump_7003.rdb  nodes_7002.conf<br>appendonly_7003.aof  dump_7001.rdb        dump.rdb       nodes_7003.conf<br></code></pre></td></tr></table></figure>
+
+<h2 id="集群操作"><a href="#集群操作" class="headerlink" title="集群操作"></a>集群操作</h2><ul>
+<li><p>登陆集群</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ redis-cli -c -h 192.168.17.66 -p 7001 -a 123456 <span class="hljs-comment"># -c，使用集群方式登录</span><br>Warning: Using a password with <span class="hljs-string">&#x27;-a&#x27;</span> or <span class="hljs-string">&#x27;-u&#x27;</span> option on the <span class="hljs-built_in">command</span> line interface may not be safe.<br>192.168.17.66:7001&gt; <br></code></pre></td></tr></table></figure></li>
+<li><p>查看集群信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs bash">192.168.17.66:7001&gt; CLUSTER INFO                   <span class="hljs-comment">#集群状态</span><br>cluster_state:ok<br>cluster_slots_assigned:16384<br>cluster_slots_ok:16384<br>cluster_slots_pfail:0<br>cluster_slots_fail:0<br>cluster_known_nodes:7<br>cluster_size:3<br>cluster_current_epoch:10<br>cluster_my_epoch:9<br>cluster_stats_messages_ping_sent:3049<br>cluster_stats_messages_pong_sent:3230<br>cluster_stats_messages_update_sent:1<br>cluster_stats_messages_sent:6280<br>cluster_stats_messages_ping_received:3230<br>cluster_stats_messages_pong_received:3045<br>cluster_stats_messages_update_received:4<br>cluster_stats_messages_received:6279<br></code></pre></td></tr></table></figure></li>
+<li><p>列出节点信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">192.168.17.66:7001&gt; CLUSTER NODES                  <span class="hljs-comment">#列出节点信息</span><br>c1c22b5427ab32e0e4154a5b00c0d45a34fc9575 192.168.15.68:7003@17003 master - 0 1589519932000 9 connected 5461-10922<br>d26dce64338aabb3bf83b5844e4f0a5868ab5764 192.168.17.66:7002@17002 slave cd61db40efd55708c1074dd4e751a2959d460f79 0 1589519935512 10 connected<br>4349662174b6481bac831c4e062356b5433fa08f 192.168.15.68:7002@17002 master - 0 1589519932621 2 connected 10923-16383<br>c74f7cece02aca84266278cdd589cc6d7103a4fd 192.168.17.66:7003@17003 slave 4349662174b6481bac831c4e062356b5433fa08f 0 1589519932000 2 connected<br>cd61db40efd55708c1074dd4e751a2959d460f79 192.168.15.68:7001@17001 master - 0 1589519934628 10 connected 0-5460<br>e7db7b26b32dfd746e67d84e165ecdfd76ea0d1c 192.168.15.68:7004@17004 master - 0 1589519933555 0 connected<br>9fc6342460f3a4297260ad2a949056c899351720 192.168.17.66:7001@17001 myself,slave c1c22b5427ab32e0e4154a5b00c0d45a34fc9575 0 1589519934000 4 connected<br></code></pre></td></tr></table></figure>
+
+<p>可以看到三个 <strong>master</strong> 以及各自对应的 <strong>slave</strong>。</p>
+</li>
+<li><p>写入数据</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs bash">192.168.17.66:7001&gt; <span class="hljs-built_in">set</span> key111 111<br>-&gt; Redirected to slot [13680] located at 192.168.15.68:7002<br>OK<br>192.168.15.68:7002&gt; <span class="hljs-built_in">set</span> key222 222<br>-&gt; Redirected to slot [2320] located at 192.168.15.68:7001<br>OK<br>192.168.15.68:7001&gt; <span class="hljs-built_in">set</span> key333 333<br>-&gt; Redirected to slot [7472] located at 192.168.15.68:7003<br>OK<br>192.168.15.68:7003&gt; <span class="hljs-built_in">set</span> key444 444<br>-&gt; Redirected to slot [12752] located at 192.168.15.68:7002<br>OK<br>192.168.15.68:7002&gt; <span class="hljs-built_in">set</span> key555 555<br>-&gt; Redirected to slot [9712] located at 192.168.15.68:7003<br>OK<br></code></pre></td></tr></table></figure>
+
+<p>可以看出 <strong>Redis Cluster</strong> 集群是去中心化的，每个 <strong>master</strong> 节点都是平等的，连接哪个节点都可以获取和设置数据。</p>
+</li>
+<li><p>增加节点</p>
+<ul>
+<li><p>添加节点配置文件，方法同上面一样</p>
+</li>
+<li><p>在集群中添加节点：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash">192.168.15.68:7002&gt; CLUSTER MEET 192.168.15.68 7005<br>OK<br>192.168.17.66:7001&gt; CLUSTER NODES<br>192.168.17.66:7001&gt; CLUSTER NODES                  <span class="hljs-comment">#列出节点信息</span><br>c1c22b5427ab32e0e4154a5b00c0d45a34fc9575 192.168.15.68:7003@17003 master - 0 1589519932000 9 connected 5461-10922<br>d26dce64338aabb3bf83b5844e4f0a5868ab5764 192.168.17.66:7002@17002 slave cd61db40efd55708c1074dd4e751a2959d460f79 0 1589519935512 10 connected<br>4349662174b6481bac831c4e062356b5433fa08f 192.168.15.68:7002@17002 master - 0 1589519932621 2 connected 10923-16383<br>c74f7cece02aca84266278cdd589cc6d7103a4fd 192.168.17.66:7003@17003 slave 4349662174b6481bac831c4e062356b5433fa08f 0 1589519932000 2 connected<br>cd61db40efd55708c1074dd4e751a2959d460f79 192.168.15.68:7001@17001 master - 0 1589519934628 10 connected 0-5460<br>c7db7b234rf2dfd746e6784e165ecdfd76ea00db 192.168.15.68:7005@17005 master - 0 1589519933666 0 connected<br>ed34fcece02aca842662hg65d589cc6d7103a4t5 192.168.17.66:7005@17005 slave c7db7b234rf2dfd746e6784e165ecdfd76ea00db 0 1589519933666 2 connected<br>e7db7b26b32dfd746e67d84e165ecdfd76ea0d1c 192.168.15.68:7004@17004 master - 0 1589519933555 0 connected<br>9fc6342460f3a4297260ad2a949056c899351720 192.168.17.66:7001@17001 myself,slave c1c22b5427ab32e0e4154a5b00c0d45a34fc9575 0 1589519934000 4 connected<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>更换节点身份</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">redis-cli -c -h 192.168.15.68 -p 7001 -a 123456 cluster replicate e7db7b26b32dfd746e67d84e165ecdfd76ea0d1c<br></code></pre></td></tr></table></figure></li>
+<li><p>删除节点</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">192.168.15.68:7001&gt; CLUSTER FORGET 9fc6342460f3a4297260ad2a949056c899351720<br>(error) ERR I tried hard but I can<span class="hljs-string">&#x27;t forget myself...     #无法删除登录节点</span><br><span class="hljs-string"></span><br><span class="hljs-string">192.168.15.68:7001&gt; CLUSTER FORGET c1c22b5427ab32e0e4154a5b00c0d45a34fc9575</span><br><span class="hljs-string">(error) ERR Can&#x27;</span>t forget my master!                 	  <span class="hljs-comment">#不能删除自己的master节点</span><br><br>192.168.15.68:7001&gt; CLUSTER FORGET c7db7b234rf2dfd746e6784e165ecdfd76ea00db<br>OK              										  <span class="hljs-comment">#可以删除其它的master节点</span><br></code></pre></td></tr></table></figure></li>
+<li><p>保存配置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">192.168.15.68:7001&gt; CLUSTER SAVECONFIG                 <span class="hljs-comment">#将节点配置信息保存到硬盘</span><br>OK<br></code></pre></td></tr></table></figure></li>
+<li><p>模拟 <strong>master</strong> 节点挂掉：</p>
+<p>192.168.15.68</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ ps -ef | grep redis-server<br>root      5528     1  0 5月14 ?       00:00:56 redis-server 192.168.15.68:7003 [cluster]<br>root      6618     1  0 5月14 ?       00:00:54 redis-server 192.168.15.68:7004 [cluster]<br>root      8586     1  0 5月14 ?       00:00:49 redis-server 127.0.0.1:6379<br>root      8654     1  0 5月14 ?       00:00:52 redis-server 192.168.15.68:7001 [cluster]<br>root      8696     1  0 5月14 ?       00:00:53 redis-server 192.168.15.68:7002 [cluster]<br><br>$ <span class="hljs-built_in">kill</span> -9 8654<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs bash">192.168.15.68:7003&gt; cluster nodes		<span class="hljs-comment"># Kill 前</span><br>4349662174b6481bac831c4e062356b5433fa08f 192.168.15.68:7002@17002 master - 0 1589521299646 2 connected 10923-16383<br>c74f7cece02aca84266278cdd589cc6d7103a4fd 192.168.17.66:7003@17003 slave 4349662174b6481bac831c4e062356b5433fa08f 0 1589521298640 6 connected<br>e7db7b26b32dfd746e67d84e165ecdfd76ea0d1c 192.168.15.68:7004@17004 master - 0 1589521297628 0 connected<br>d26dce64338aabb3bf83b5844e4f0a5868ab5764 192.168.17.66:7002@17002 slave cd61db40efd55708c1074dd4e751a2959d460f79 0 1589521294000 10 connected<br>cd61db40efd55708c1074dd4e751a2959d460f79 192.168.15.68:7001@17001 master - 1589521298236 1589521293594 10 disconnected 0-5460<br>9fc6342460f3a4297260ad2a949056c899351720 192.168.17.66:7001@17001 slave c1c22b5427ab32e0e4154a5b00c0d45a34fc9575 0 1589521300688 9 connected<br>c1c22b5427ab32e0e4154a5b00c0d45a34fc9575 192.168.15.68:7003@17003 myself,master - 0 1589521298000 9 connected 5461-10922<br><br>192.168.15.68:7003&gt; cluster nodes		<span class="hljs-comment"># Kill 后</span><br>4349662174b6481bac831c4e062356b5433fa08f 192.168.15.68:7002@17002 master - 0 1589521325829 2 connected 10923-16383<br>c74f7cece02aca84266278cdd589cc6d7103a4fd 192.168.17.66:7003@17003 slave 4349662174b6481bac831c4e062356b5433fa08f 0 1589521326841 6 connected<br>e7db7b26b32dfd746e67d84e165ecdfd76ea0d1c 192.168.15.68:7004@17004 master - 0 1589521326000 0 connected<br>d26dce64338aabb3bf83b5844e4f0a5868ab5764 192.168.17.66:7002@17002 master - 0 1589521325000 11 connected 0-5460<br>cd61db40efd55708c1074dd4e751a2959d460f79 192.168.15.68:7001@17001 master,fail - 1589521298236 1589521293594 10 disconnected<br>9fc6342460f3a4297260ad2a949056c899351720 192.168.17.66:7001@17001 slave c1c22b5427ab32e0e4154a5b00c0d45a34fc9575 0 1589521325000 9 connected<br>c1c22b5427ab32e0e4154a5b00c0d45a34fc9575 192.168.15.68:7003@17003 myself,master - 0 1589521324000 9 connected 5461-10922<br></code></pre></td></tr></table></figure>
+
+<p>对应 <code>7001</code> 的一行可以看到，<strong>master fail</strong>，状态为 <strong>disconnected</strong>；而对应 <code>7002</code> 的一行，<strong>slave</strong> 已经变成 <strong>master</strong>。</p>
+</li>
+<li><p>重启 <strong>7001</strong> 节点：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">192.168.15.68:7003&gt; cluster nodes<br>4349662174b6481bac831c4e062356b5433fa08f 192.168.15.68:7002@17002 master - 0 1589521575000 2 connected 10923-16383<br>c74f7cece02aca84266278cdd589cc6d7103a4fd 192.168.17.66:7003@17003 slave 4349662174b6481bac831c4e062356b5433fa08f 0 1589521579571 6 connected<br>e7db7b26b32dfd746e67d84e165ecdfd76ea0d1c 192.168.15.68:7004@17004 master - 0 1589521578441 0 connected<br>d26dce64338aabb3bf83b5844e4f0a5868ab5764 192.168.17.66:7002@17002 master - 0 1589521577447 11 connected 0-5460<br>cd61db40efd55708c1074dd4e751a2959d460f79 192.168.15.68:7001@17001 slave d26dce64338aabb3bf83b5844e4f0a5868ab5764 0 1589521575513 11 connected<br>9fc6342460f3a4297260ad2a949056c899351720 192.168.17.66:7001@17001 slave c1c22b5427ab32e0e4154a5b00c0d45a34fc9575 0 1589521579000 9 connected<br>c1c22b5427ab32e0e4154a5b00c0d45a34fc9575 192.168.15.68:7003@17003 myself,master - 0 1589521577000 9 connected 5461-10922<br></code></pre></td></tr></table></figure>
+
+<p>这里看到 <code>7001</code> 已经变为 <strong>salve</strong>节点了，并且是 <code>7003</code> 的节点。即 <strong>master</strong> 节点如果挂掉，它的 <strong>slave</strong> 节点变为新 <strong>master</strong> 节点继续对外提供服务，而原来的 <strong>master</strong> 节点如果重启，则变为新 <strong>master</strong> 节点的 <strong>slave</strong> 节点。</p>
+</li>
+</ul>
+<p>更多参考：</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/gossip/p/5993922.html">Redis集群常用命令</a></p>
+<p>本文参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/miss1181248983/article/details/90056960#commentBox">Redis集群详解</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Redis/">Redis</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Redis/">Redis</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/05/13/redis/Redis%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Redis常用配置信息</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/05/13/redis/Redis%E4%B8%BB%E4%BB%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%9E%E6%88%98/">
+                        <span class="hidden-mobile">Redis主从服务器实战</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

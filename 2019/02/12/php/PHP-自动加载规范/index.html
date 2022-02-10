@@ -1,0 +1,455 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="简单实现12345678910111213141516&lt;?phpfunction autoload($className)&amp;#123;    $className &#x3D; ltrim($className, &amp;#x27;\\&amp;#x27;);    $fileName  &#x3D; &amp;#x27;&amp;#x27;;    $namespace &#x3D; &amp;#x27;&amp;#x27;;    if ($lastNsPos">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP-自动加载规范">
+<meta property="og:url" content="http://example.com/2019/02/12/php/PHP-%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%E8%A7%84%E8%8C%83/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="简单实现12345678910111213141516&lt;?phpfunction autoload($className)&amp;#123;    $className &#x3D; ltrim($className, &amp;#x27;\\&amp;#x27;);    $fileName  &#x3D; &amp;#x27;&amp;#x27;;    $namespace &#x3D; &amp;#x27;&amp;#x27;;    if ($lastNsPos">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-02-12T07:45:33.000Z">
+<meta property="article:modified_time" content="2022-02-10T03:12:23.045Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="PHP">
+<meta property="article:tag" content="PHP标准规范">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>PHP-自动加载规范 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.13","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>LZDF</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="PHP-自动加载规范">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2019-02-12 15:45" pubdate>
+        2019年2月12日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.9k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      41 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">PHP-自动加载规范</h1>
+            
+            <div class="markdown-body">
+              <h1 id="简单实现"><a href="#简单实现" class="headerlink" title="简单实现"></a>简单实现</h1><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">autoload</span>(<span class="hljs-params"><span class="hljs-variable">$className</span></span>)</span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-variable">$className</span> = ltrim(<span class="hljs-variable">$className</span>, <span class="hljs-string">&#x27;\\&#x27;</span>);<br>    <span class="hljs-variable">$fileName</span>  = <span class="hljs-string">&#x27;&#x27;</span>;<br>    <span class="hljs-variable">$namespace</span> = <span class="hljs-string">&#x27;&#x27;</span>;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-variable">$lastNsPos</span> = strrpos(<span class="hljs-variable">$className</span>, <span class="hljs-string">&#x27;\\&#x27;</span>)) &#123;<br>        <span class="hljs-variable">$namespace</span> = substr(<span class="hljs-variable">$className</span>, <span class="hljs-number">0</span>, <span class="hljs-variable">$lastNsPos</span>);<br>        <span class="hljs-variable">$className</span> = substr(<span class="hljs-variable">$className</span>, <span class="hljs-variable">$lastNsPos</span> + <span class="hljs-number">1</span>);<br>        <span class="hljs-variable">$fileName</span>  = str_replace(<span class="hljs-string">&#x27;\\&#x27;</span>, DIRECTORY_SEPARATOR, <span class="hljs-variable">$namespace</span>) . DIRECTORY_SEPARATOR;<br>    &#125;<br>    <span class="hljs-variable">$fileName</span> .= str_replace(<span class="hljs-string">&#x27;_&#x27;</span>, DIRECTORY_SEPARATOR, <span class="hljs-variable">$className</span>) . <span class="hljs-string">&#x27;.php&#x27;</span>;<br><br>    <span class="hljs-keyword">require</span> <span class="hljs-variable">$fileName</span>;<br>&#125;<br>spl_autoload_register(<span class="hljs-string">&#x27;autoload&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>摘录自：<a target="_blank" rel="noopener" href="https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md#example-implementation">https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md#example-implementation</a></p>
+<h1 id="SplClassLoader-实现"><a href="#SplClassLoader-实现" class="headerlink" title="SplClassLoader 实现"></a>SplClassLoader 实现</h1><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-comment">/*</span><br><span class="hljs-comment"> * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span><br><span class="hljs-comment"> * &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span><br><span class="hljs-comment"> * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR</span><br><span class="hljs-comment"> * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT</span><br><span class="hljs-comment"> * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,</span><br><span class="hljs-comment"> * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT</span><br><span class="hljs-comment"> * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,</span><br><span class="hljs-comment"> * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY</span><br><span class="hljs-comment"> * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span><br><span class="hljs-comment"> * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE</span><br><span class="hljs-comment"> * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * This software consists of voluntary contributions made by many individuals</span><br><span class="hljs-comment"> * and is licensed under the MIT license. For more information, see</span><br><span class="hljs-comment"> * &lt;http://www.doctrine-project.org&gt;.</span><br><span class="hljs-comment"> */</span><br> <br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * SplClassLoader implementation that implements the technical interoperability</span><br><span class="hljs-comment"> * standards for PHP 5.3 namespaces and class names.</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * http://groups.google.com/group/php-standards/web/psr-0-final-proposal?pli=1</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> *     // Example which loads classes for the Doctrine Common package in the</span><br><span class="hljs-comment"> *     // Doctrine\Common namespace.</span><br><span class="hljs-comment"> *     $classLoader = new SplClassLoader(&#x27;Doctrine\Common&#x27;, &#x27;/path/to/doctrine&#x27;);</span><br><span class="hljs-comment"> *     $classLoader-&gt;register();</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@license</span> http://www.opensource.org/licenses/mit-license.html  MIT License</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> Jonathan H. Wage &lt;jonwage<span class="hljs-doctag">@gmail</span>.com&gt;</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> Roman S. Borschel &lt;roman<span class="hljs-doctag">@code</span>-factory.org&gt;</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> Matthew Weier O&#x27;Phinney &lt;matthew<span class="hljs-doctag">@zend</span>.com&gt;</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> Kris Wallsmith &lt;kris.wallsmith<span class="hljs-doctag">@gmail</span>.com&gt;</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> Fabien Potencier &lt;fabien.potencier<span class="hljs-doctag">@symfony</span>-project.org&gt;</span><br><span class="hljs-comment"> */</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SplClassLoader</span></span><br><span class="hljs-class"></span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-variable">$_fileExtension</span> = <span class="hljs-string">&#x27;.php&#x27;</span>;<br>    <span class="hljs-keyword">private</span> <span class="hljs-variable">$_namespace</span>;<br>    <span class="hljs-keyword">private</span> <span class="hljs-variable">$_includePath</span>;<br>    <span class="hljs-keyword">private</span> <span class="hljs-variable">$_namespaceSeparator</span> = <span class="hljs-string">&#x27;\\&#x27;</span>;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 创建一个新的SplClassLoader，用于加载指定命名空间。</span><br><span class="hljs-comment">     * </span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> string $ns The namespace to use.</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"><span class="hljs-variable">$ns</span> = <span class="hljs-literal">null</span>, <span class="hljs-variable">$includePath</span> = <span class="hljs-literal">null</span></span>)</span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">$this</span>-&gt;_namespace = <span class="hljs-variable">$ns</span>;<br>        <span class="hljs-keyword">$this</span>-&gt;_includePath = <span class="hljs-variable">$includePath</span>;<br>    &#125;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 设置这个类加载器的命名空间中类使用的命名空间分隔符。</span><br><span class="hljs-comment">     * </span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> string $sep The separator to use.</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setNamespaceSeparator</span>(<span class="hljs-params"><span class="hljs-variable">$sep</span></span>)</span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">$this</span>-&gt;_namespaceSeparator = <span class="hljs-variable">$sep</span>;<br>    &#125;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 获取这个类加载器的命名空间中类使用的命名空间分隔符。</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> void</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getNamespaceSeparator</span>(<span class="hljs-params"></span>)</span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">$this</span>-&gt;_namespaceSeparator;<br>    &#125;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 设置此类加载器命名空间中所有类文件的基包含路径。</span><br><span class="hljs-comment">     * </span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> string $includePath</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setIncludePath</span>(<span class="hljs-params"><span class="hljs-variable">$includePath</span></span>)</span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">$this</span>-&gt;_includePath = <span class="hljs-variable">$includePath</span>;<br>    &#125;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 获取此类加载器命名空间中所有类文件的基包含路径。</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> string $includePath</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getIncludePath</span>(<span class="hljs-params"></span>)</span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">$this</span>-&gt;_includePath;<br>    &#125;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 在这个类加载器的命名空间中设置类文件的文件扩展名。</span><br><span class="hljs-comment">     * </span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> string $fileExtension</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setFileExtension</span>(<span class="hljs-params"><span class="hljs-variable">$fileExtension</span></span>)</span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">$this</span>-&gt;_fileExtension = <span class="hljs-variable">$fileExtension</span>;<br>    &#125;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 获取这个类加载器的命名空间中设置类文件的文件扩展名。</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> string $fileExtension</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getFileExtension</span>(<span class="hljs-params"></span>)</span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">$this</span>-&gt;_fileExtension;<br>    &#125;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 将此类加载器安装在SPL自动加载堆栈上。</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">register</span>(<span class="hljs-params"></span>)</span><br><span class="hljs-function">    </span>&#123;<br>        spl_autoload_register(<span class="hljs-keyword">array</span>(<span class="hljs-keyword">$this</span>, <span class="hljs-string">&#x27;loadClass&#x27;</span>));<br>    &#125;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 从SPL自动加载程序堆栈卸载此类加载程序。</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">unregister</span>(<span class="hljs-params"></span>)</span><br><span class="hljs-function">    </span>&#123;<br>        spl_autoload_unregister(<span class="hljs-keyword">array</span>(<span class="hljs-keyword">$this</span>, <span class="hljs-string">&#x27;loadClass&#x27;</span>));<br>    &#125;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 加载给定的类或接口。</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> string $className The name of the class to load.</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> void</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadClass</span>(<span class="hljs-params"><span class="hljs-variable">$className</span></span>)</span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-literal">null</span> === <span class="hljs-keyword">$this</span>-&gt;_namespace || <span class="hljs-keyword">$this</span>-&gt;_namespace.<span class="hljs-keyword">$this</span>-&gt;_namespaceSeparator === substr(<span class="hljs-variable">$className</span>, <span class="hljs-number">0</span>, strlen(<span class="hljs-keyword">$this</span>-&gt;_namespace.<span class="hljs-keyword">$this</span>-&gt;_namespaceSeparator))) &#123;<br>            <span class="hljs-variable">$fileName</span> = <span class="hljs-string">&#x27;&#x27;</span>;<br>            <span class="hljs-variable">$namespace</span> = <span class="hljs-string">&#x27;&#x27;</span>;<br>            <span class="hljs-keyword">if</span> (<span class="hljs-literal">false</span> !== (<span class="hljs-variable">$lastNsPos</span> = strripos(<span class="hljs-variable">$className</span>, <span class="hljs-keyword">$this</span>-&gt;_namespaceSeparator))) &#123;<br>                <span class="hljs-variable">$namespace</span> = substr(<span class="hljs-variable">$className</span>, <span class="hljs-number">0</span>, <span class="hljs-variable">$lastNsPos</span>);<br>                <span class="hljs-variable">$className</span> = substr(<span class="hljs-variable">$className</span>, <span class="hljs-variable">$lastNsPos</span> + <span class="hljs-number">1</span>);<br>                <span class="hljs-variable">$fileName</span> = str_replace(<span class="hljs-keyword">$this</span>-&gt;_namespaceSeparator, DIRECTORY_SEPARATOR, <span class="hljs-variable">$namespace</span>) . DIRECTORY_SEPARATOR;<br>            &#125;<br>            <span class="hljs-variable">$fileName</span> .= str_replace(<span class="hljs-string">&#x27;_&#x27;</span>, DIRECTORY_SEPARATOR, <span class="hljs-variable">$className</span>) . <span class="hljs-keyword">$this</span>-&gt;_fileExtension;<br>            <span class="hljs-keyword">require</span> (<span class="hljs-keyword">$this</span>-&gt;_includePath !== <span class="hljs-literal">null</span> ? <span class="hljs-keyword">$this</span>-&gt;_includePath . DIRECTORY_SEPARATOR : <span class="hljs-string">&#x27;&#x27;</span>) . <span class="hljs-variable">$fileName</span>;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>摘录自：<a target="_blank" rel="noopener" href="https://gist.github.com/jwage/221634">https://gist.github.com/jwage/221634</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/PHP/">PHP</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/PHP/">PHP</a>
+                    
+                      <a class="hover-with-bg" href="/tags/PHP%E6%A0%87%E5%87%86%E8%A7%84%E8%8C%83/">PHP标准规范</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/02/21/php/PHP-%E5%8F%96%E6%95%B4%E5%87%BD%E6%95%B0ceil%EF%BC%8Cfloor%EF%BC%8Cround%EF%BC%8Cintval%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">PHP-取整函数ceil，floor，round，intval函数的区别</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2019/01/18/golang/Golang-json%E3%80%81xml%E3%80%81gob%E6%95%B0%E6%8D%AE%E7%BC%96%E7%A0%81%E8%A7%A3%E7%A0%81%EF%BC%88%E6%A0%BC%E5%BC%8F%E5%8C%96%EF%BC%89/">
+                        <span class="hidden-mobile">Golang-json、xml、gob数据编码解码</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

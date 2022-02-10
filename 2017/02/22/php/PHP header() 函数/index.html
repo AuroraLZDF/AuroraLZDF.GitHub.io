@@ -1,0 +1,519 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="定义和用法header() 函数向客户端发送原始的 HTTP 报头。认识到一点很重要，即必须在任何实际的输出被发送之前调用 header() 函数（在 PHP 4 以及更高的版本中，您可以使用输出缓存来解决此问题） 123456&lt;html&gt;&lt;?php&#x2F;&#x2F; 结果出错&#x2F;&#x2F; 在调用 header() 之前已存在输出header(&amp;#x27;Location: http:&#x2F;&#x2F;www.ex">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP header() 函数">
+<meta property="og:url" content="http://example.com/2017/02/22/php/PHP%20header()%20%E5%87%BD%E6%95%B0/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="定义和用法header() 函数向客户端发送原始的 HTTP 报头。认识到一点很重要，即必须在任何实际的输出被发送之前调用 header() 函数（在 PHP 4 以及更高的版本中，您可以使用输出缓存来解决此问题） 123456&lt;html&gt;&lt;?php&#x2F;&#x2F; 结果出错&#x2F;&#x2F; 在调用 header() 之前已存在输出header(&amp;#x27;Location: http:&#x2F;&#x2F;www.ex">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-02-22T08:05:11.000Z">
+<meta property="article:modified_time" content="2022-02-10T03:12:41.273Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="PHP">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>PHP header() 函数 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.13","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>LZDF</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="PHP header() 函数">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2017-02-22 16:05" pubdate>
+        2017年2月22日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      5.1k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      43 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">PHP header() 函数</h1>
+            
+            <div class="markdown-body">
+              <h1 id="定义和用法"><a href="#定义和用法" class="headerlink" title="定义和用法"></a>定义和用法</h1><p>header() 函数向客户端发送<code>原始的 HTTP 报头</code>。<br>认识到一点很重要，即必须在任何实际的输出被发送之前调用 header() 函数（在 PHP 4 以及更高的版本中，您可以使用输出缓存来解决此问题）</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs php">&lt;html&gt;<br><span class="hljs-meta">&lt;?php</span><br><span class="hljs-comment">// 结果出错</span><br><span class="hljs-comment">// 在调用 header() 之前已存在输出</span><br>header(<span class="hljs-string">&#x27;Location: http://www.example.com/&#x27;</span>);<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+<h1 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h1><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">header(<span class="hljs-keyword">string</span>,replace,http_response_code)<br></code></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>string</td>
+<td>必需。规定要发送的报头字符串。</td>
+</tr>
+<tr>
+<td>replace</td>
+<td>可选。指示该报头是否替换之前的报头，或添加第二个报头。默认是 true（替换）。false（允许相同类型的多个报头）。</td>
+</tr>
+<tr>
+<td>http_response_code</td>
+<td>可选。把 HTTP 响应代码强制为指定的值。（PHP 4 以及更高版本可用）</td>
+</tr>
+</tbody></table>
+<h1 id="范例"><a href="#范例" class="headerlink" title="范例"></a>范例</h1><h2 id="下载对话框"><a href="#下载对话框" class="headerlink" title="下载对话框"></a>下载对话框</h2><p>如果你想提醒用户去保存你发送的数据，例如保存一个生成的PDF文件。你可以使用» Content-Disposition的报文信息来提供一个推荐的文件名，并且强制浏览器显示一个文件下载的对话框</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-comment">// We&#x27;ll be outputting a PDF</span><br>header(<span class="hljs-string">&#x27;Content-type: application/pdf&#x27;</span>);<br><br><span class="hljs-comment">// It will be called downloaded.pdf</span><br>header(<span class="hljs-string">&#x27;Content-Disposition: attachment; filename=&quot;downloaded.pdf&quot;&#x27;</span>);<br><br><span class="hljs-comment">// The PDF source is in original.pdf</span><br>readfile(<span class="hljs-string">&#x27;original.pdf&#x27;</span>);<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+<h2 id="缓存指令"><a href="#缓存指令" class="headerlink" title="缓存指令"></a>缓存指令</h2><p>PHP脚本总是会生成一些动态内容，而这些内容是不应该被缓存的，不管是客户端浏览器还是在服务器端和客户端浏览器之间的任何代理。我们可以像这样来强制设置浏览器和各个代理层不缓存数据：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br>header(<span class="hljs-string">&quot;Cache-Control: no-cache, must-revalidate&quot;</span>); <span class="hljs-comment">// HTTP/1.1</span><br>header(<span class="hljs-string">&quot;Expires: Sat, 26 Jul 1997 05:00:00 GMT&quot;</span>); <span class="hljs-comment">// Date in the past</span><br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+<p class="note">
+Note:
+也许你会遇到这样的情况，那就是即使你没使用上面这段代码，你的页面也没有被缓存。大多数情况是因为用户可以自己设置他们的浏览器从而改变浏览器默认的缓存行为。一旦发送了上面这段报文信息，那么你就应该重写那些可能用到缓存了的代码。
+此外，在启用session的情况下，`session_cache_limiter()`和session.cache_limiter的配置可以用来自动地生成正确的缓存相关的头信息。
+</p>
+
+<h1 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h1><p class="note">
+Note:
+数据头只会在SAPI支持时得到处理和输出。
+</p>
+
+<p class="note">
+Note:
+你所有需要输出到浏览器的数据将会一直缓存在服务器端，直到你发送他们，这将造成比较大的资源开销。你可以是用输出缓冲来避开这个问题。你可以通过在脚本里使用ob_start()和ob_end_flush()或者直接在你的php.ini文件里设置output_buffering，也可以直接在服务器的配置文件里设置。
+</p>
+
+<p class="note">
+Note:
+HTTP状态信息的报文永远都是最新被发送到客户端的，而不管header()是否是在最先发送的。报文状态码可能会被重写，当调用header()来设定新的状态码，除非HTTP报文已经被发送了
+</p>
+
+<p class="note">
+Note: 如果安全模式（safe mode）被激活，那么脚本的uid将会被添加到WWW-Authenticate的realm部分，前提是你设置了这个头信息的情况下（使用 HTTP 认证）。
+</p>
+
+<p class="note">
+Note:
+HTTP/1.1需要一个绝对的网络资源地址（URI）来作为一个参数供» Location:使用，在其中必须包含了协议，主机地址还有完整的路径，但是一些客户端可以接受相对的网络资源地址。你可以在一个相对的网路资源地址的基础上使用$_SERVER['HTTP_HOST']，$_SERVER['PHP_SELF']和dirname()来组装一个绝对的网路资源地址。
+
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-comment">/* Redirect to a different page in the current directory that was requested */</span><br><span class="hljs-variable">$host</span>  = <span class="hljs-variable">$_SERVER</span>[<span class="hljs-string">&#x27;HTTP_HOST&#x27;</span>];<br><span class="hljs-variable">$uri</span>   = rtrim(dirname(<span class="hljs-variable">$_SERVER</span>[<span class="hljs-string">&#x27;PHP_SELF&#x27;</span>]), <span class="hljs-string">&#x27;/\\&#x27;</span>);<br><span class="hljs-variable">$extra</span> = <span class="hljs-string">&#x27;mypage.php&#x27;</span>;<br>header(<span class="hljs-string">&quot;Location: http://<span class="hljs-subst">$host</span><span class="hljs-subst">$uri</span>/<span class="hljs-subst">$extra</span>&quot;</span>);<br><span class="hljs-keyword">exit</span>;<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+</p>
+
+<p class="note">
+Note:
+在执行Location header跳转的时候，Session ID无法通传递的，即使session.use_trans_sid是激活状态的。只能通过手动传递using SID的值来实现。
+</p>
+
+
+
+<h1 id="PHP-header函数的几大作用"><a href="#PHP-header函数的几大作用" class="headerlink" title="PHP header函数的几大作用"></a>PHP header函数的几大作用</h1><p>1、重定向 </p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">header(<span class="hljs-string">&#x27;Location: http://www.example.com/&#x27;</span>);<br></code></pre></td></tr></table></figure>
+<p>2、指定内容：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">header(<span class="hljs-string">&#x27;Content-type: application/pdf&#x27;</span>);<br></code></pre></td></tr></table></figure>
+<p>3、附件：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs php">header(<span class="hljs-string">&#x27;Content-type: application/pdf&#x27;</span>);   <br><span class="hljs-comment">//指定内容为附件，指定下载显示的名字</span><br>header(<span class="hljs-string">&#x27;Content-Disposition: attachment; filename=&quot;downloaded.pdf&quot;&#x27;</span>);<br><span class="hljs-comment">//打开文件，并输出</span><br>readfile(<span class="hljs-string">&#x27;original.pdf&#x27;</span>);<br></code></pre></td></tr></table></figure>
+<p>以上代码可以在浏览器产生文件对话框的效果</p>
+<p>4、让用户获取最新的资料和数据而不是缓存</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs php">header(<span class="hljs-string">&quot;Cache-Control: no-cache, must-revalidate&quot;</span>); <span class="hljs-comment">// HTTP/1.1</span><br>header(<span class="hljs-string">&quot;Expires: Sat, 26 Jul 1997 05:00:00 GMT&quot;</span>);   <span class="hljs-comment">// 设置临界时间</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="详细例子："><a href="#详细例子：" class="headerlink" title="详细例子："></a>详细例子：</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br>header(<span class="hljs-string">&#x27;HTTP/1.1 200 OK&#x27;</span>); <span class="hljs-comment">// ok 正常访问</span><br>header(<span class="hljs-string">&#x27;HTTP/1.1 404 Not Found&#x27;</span>); <span class="hljs-comment">//通知浏览器 页面不存在</span><br>header(<span class="hljs-string">&#x27;HTTP/1.1 301 Moved Permanently&#x27;</span>); <span class="hljs-comment">//设置地址被永久的重定向 301</span><br>header(<span class="hljs-string">&#x27;Location: http://www.ithhc.cn/&#x27;</span>); <span class="hljs-comment">//跳转到一个新的地址</span><br>header(<span class="hljs-string">&#x27;Refresh: 10; url=http://www.ithhc.cn/&#x27;</span>); <span class="hljs-comment">//延迟转向 也就是隔几秒跳转</span><br>header(<span class="hljs-string">&#x27;X-Powered-By: PHP/6.0.0&#x27;</span>); <span class="hljs-comment">//修改 X-Powered-By信息</span><br>header(<span class="hljs-string">&#x27;Content-language: en&#x27;</span>); <span class="hljs-comment">//文档语言</span><br>header(<span class="hljs-string">&#x27;Content-Length: 1234&#x27;</span>); <span class="hljs-comment">//设置内容长度</span><br>header(<span class="hljs-string">&#x27;Last-Modified: &#x27;</span>.gmdate(<span class="hljs-string">&#x27;D, d M Y H:i:s&#x27;</span>, <span class="hljs-variable">$time</span>).<span class="hljs-string">&#x27; GMT&#x27;</span>); <span class="hljs-comment">//告诉浏览器最后一次修改时间</span><br>header(<span class="hljs-string">&#x27;HTTP/1.1 304 Not Modified&#x27;</span>); <span class="hljs-comment">//告诉浏览器文档内容没有发生改变</span><br> <br><span class="hljs-comment">###内容类型###</span><br>header(<span class="hljs-string">&#x27;Content-Type: text/html; charset=utf-8&#x27;</span>); <span class="hljs-comment">//网页编码</span><br>header(<span class="hljs-string">&#x27;Content-Type: text/plain&#x27;</span>); <span class="hljs-comment">//纯文本格式</span><br>header(<span class="hljs-string">&#x27;Content-Type: image/jpeg&#x27;</span>); <span class="hljs-comment">//JPG、JPEG </span><br>header(<span class="hljs-string">&#x27;Content-Type: application/zip&#x27;</span>); <span class="hljs-comment">// ZIP文件</span><br>header(<span class="hljs-string">&#x27;Content-Type: application/pdf&#x27;</span>); <span class="hljs-comment">// PDF文件</span><br>header(<span class="hljs-string">&#x27;Content-Type: audio/mpeg&#x27;</span>); <span class="hljs-comment">// 音频文件 </span><br>header(<span class="hljs-string">&#x27;Content-type: text/css&#x27;</span>); <span class="hljs-comment">//css文件</span><br>header(<span class="hljs-string">&#x27;Content-type: text/javascript&#x27;</span>); <span class="hljs-comment">//js文件</span><br>header(<span class="hljs-string">&#x27;Content-type: application/json&#x27;</span>); <span class="hljs-comment">//json</span><br>header(<span class="hljs-string">&#x27;Content-type: application/pdf&#x27;</span>); <span class="hljs-comment">//pdf</span><br>header(<span class="hljs-string">&#x27;Content-type: text/xml&#x27;</span>); <span class="hljs-comment">//xml</span><br>header(<span class="hljs-string">&#x27;Content-Type: application/x-shockw**e-flash&#x27;</span>); <span class="hljs-comment">//Flash动画</span><br> <br><span class="hljs-comment">######</span><br> <br><span class="hljs-comment">###声明一个下载的文件###</span><br>header(<span class="hljs-string">&#x27;Content-Type: application/octet-stream&#x27;</span>);<br>header(<span class="hljs-string">&#x27;Content-Disposition: attachment; filename=&quot;ITblog.zip&quot;&#x27;</span>);<br>header(<span class="hljs-string">&#x27;Content-Transfer-Encoding: binary&#x27;</span>);<br>readfile(<span class="hljs-string">&#x27;test.zip&#x27;</span>);<br><span class="hljs-comment">######</span><br> <br><span class="hljs-comment">###对当前文档禁用缓存###</span><br>header(<span class="hljs-string">&#x27;Cache-Control: no-cache, no-store, max-age=0, must-revalidate&#x27;</span>);<br>header(<span class="hljs-string">&#x27;Expires: Mon, 26 Jul 1997 05:00:00 GMT&#x27;</span>);<br><span class="hljs-comment">######</span><br> <br><span class="hljs-comment">###显示一个需要验证的登陆对话框### </span><br>header(<span class="hljs-string">&#x27;HTTP/1.1 401 Unauthorized&#x27;</span>); <br>header(<span class="hljs-string">&#x27;WWW-Authenticate: Basic realm=&quot;Top Secret&quot;&#x27;</span>); <br><span class="hljs-comment">######</span><br> <br> <br><span class="hljs-comment">###声明一个需要下载的xls文件###</span><br>header(<span class="hljs-string">&#x27;Content-Disposition: attachment; filename=ithhc.xlsx&#x27;</span>);<br>header(<span class="hljs-string">&#x27;Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet&#x27;</span>);<br>header(<span class="hljs-string">&#x27;Content-Length: &#x27;</span>.filesize(<span class="hljs-string">&#x27;./test.xls&#x27;</span>)); <br>header(<span class="hljs-string">&#x27;Content-Transfer-Encoding: binary&#x27;</span>); <br>header(<span class="hljs-string">&#x27;Cache-Control: must-revalidate&#x27;</span>); <br>header(<span class="hljs-string">&#x27;Pragma: public&#x27;</span>); <br>readfile(<span class="hljs-string">&#x27;./test.xls&#x27;</span>); <br><span class="hljs-comment">######</span><br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/PHP/">PHP</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/PHP/">PHP</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2017/03/14/php/PHP%E9%81%8D%E5%8E%86%E6%9F%90%E4%B8%AA%E6%96%87%E4%BB%B6%E5%A4%B9%E4%B8%8B%E5%AD%90%E7%9B%AE%E5%BD%95%E5%92%8C%E6%96%87%E4%BB%B6/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">PHP遍历文件夹下子目录和文件</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

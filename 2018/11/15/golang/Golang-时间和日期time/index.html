@@ -1,0 +1,882 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="time包提供了时间的显示和测量用的函数。日历的计算采用的是公历。 type ParseError12345678&#96;ParseError&#96; 描述解析时间字符串时出现的错误。type ParseError struct &amp;#123;    Layout     string    Value      string    LayoutElem string    ValueElem  string">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Golang-时间和日期time">
+<meta property="og:url" content="http://example.com/2018/11/15/golang/Golang-%E6%97%B6%E9%97%B4%E5%92%8C%E6%97%A5%E6%9C%9Ftime/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="time包提供了时间的显示和测量用的函数。日历的计算采用的是公历。 type ParseError12345678&#96;ParseError&#96; 描述解析时间字符串时出现的错误。type ParseError struct &amp;#123;    Layout     string    Value      string    LayoutElem string    ValueElem  string">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-11-15T02:33:06.000Z">
+<meta property="article:modified_time" content="2022-02-10T03:13:44.871Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Golang">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>Golang-时间和日期time - Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.13","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>LZDF</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Golang-时间和日期time">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2018-11-15 10:33" pubdate>
+        2018年11月15日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      20k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      170 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Golang-时间和日期time</h1>
+            
+            <div class="markdown-body">
+              <p>time包提供了时间的显示和测量用的函数。日历的计算采用的是公历。</p>
+<h1 id="type-ParseError"><a href="#type-ParseError" class="headerlink" title="type ParseError"></a>type <strong>ParseError</strong></h1><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-string">`ParseError`</span> 描述解析时间字符串时出现的错误。<br><span class="hljs-keyword">type</span> ParseError <span class="hljs-keyword">struct</span> &#123;<br>    Layout     <span class="hljs-keyword">string</span><br>    Value      <span class="hljs-keyword">string</span><br>    LayoutElem <span class="hljs-keyword">string</span><br>    ValueElem  <span class="hljs-keyword">string</span><br>    Message    <span class="hljs-keyword">string</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="func-ParseError-Error"><a href="#func-ParseError-Error" class="headerlink" title="func (*ParseError) Error"></a>func <strong>(*ParseError) Error</strong></h2><p><code>Error</code> 返回 <code>ParseError</code> 的字符串表示。</p>
+<h1 id="type-Weekday"><a href="#type-Weekday" class="headerlink" title="type Weekday"></a>type <strong>Weekday</strong></h1><p><code>Weekday</code> 代表一周的某一天。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Weekday <span class="hljs-keyword">int</span><br><br><span class="hljs-keyword">const</span> (<br>    Sunday Weekday = <span class="hljs-literal">iota</span><br>    Monday<br>    Tuesday<br>    Wednesday<br>    Thursday<br>    Friday<br>    Saturday<br>)<br></code></pre></td></tr></table></figure>
+
+<h2 id="func-Weekday-String"><a href="#func-Weekday-String" class="headerlink" title="func (Weekday) String"></a>func <strong>(Weekday) String</strong></h2><p><code>String</code> 返回该日（周几）的英文名（”Sunday”、”Monday”，……）</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(d Weekday)</span> <span class="hljs-title">String</span><span class="hljs-params">()</span> <span class="hljs-title">string</span></span><br></code></pre></td></tr></table></figure>
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>  &#123;<br>	fmt.Println(time.Weekday(<span class="hljs-number">2</span>).String())<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<pre><code>Tuesday
+</code></pre>
+<h1 id="type-Month"><a href="#type-Month" class="headerlink" title="type Month"></a>type <strong>Month</strong></h1><p><code>Month</code> 代表一年的某个月。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Month <span class="hljs-keyword">int</span><br><br><span class="hljs-keyword">const</span> (<br>    January Month = <span class="hljs-number">1</span> + <span class="hljs-literal">iota</span><br>    February<br>    March<br>    April<br>    May<br>    June<br>    July<br>    August<br>    September<br>    October<br>    November<br>    December<br>)<br></code></pre></td></tr></table></figure>
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go">_, month, day := time.Now().Date()<br><span class="hljs-keyword">if</span> month == time.November &amp;&amp; day == <span class="hljs-number">10</span> &#123;<br>    fmt.Println(<span class="hljs-string">&quot;Happy Go day!&quot;</span>)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="func-Month-String"><a href="#func-Month-String" class="headerlink" title="func (Month) String"></a>func <strong>(Month) String</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(m Month)</span> <span class="hljs-title">String</span><span class="hljs-params">()</span> <span class="hljs-title">string</span></span><br></code></pre></td></tr></table></figure>
+<p><code>String</code> 返回月份的英文名（”January”，”February”，……）</p>
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>  &#123;<br>	fmt.Println(time.Month(<span class="hljs-number">10</span>).String())<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<pre><code>October
+</code></pre>
+<h1 id="type-Location"><a href="#type-Location" class="headerlink" title="type Location"></a>type Location</h1><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Location <span class="hljs-keyword">struct</span> &#123;<br>    name <span class="hljs-keyword">string</span><br>	zone []zone<br>	tx   []zoneTrans<br>	cacheStart <span class="hljs-keyword">int64</span><br>	cacheEnd   <span class="hljs-keyword">int64</span><br>	cacheZone  *zone<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><code>Location</code> 代表一个（关联到某个时间点的）地点，以及该地点所在的时区。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> Local *Location = &amp;localLoc<br></code></pre></td></tr></table></figure>
+<p><code>Local</code> 代表系统本地，对应本地时区。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> UTC *Location = &amp;utcLoc<br></code></pre></td></tr></table></figure>
+<p><code>UTC</code> 代表通用协调时间，对应零时区。</p>
+<h2 id="func-LoadLocation"><a href="#func-LoadLocation" class="headerlink" title="func LoadLocation"></a>func <strong>LoadLocation</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">LoadLocation</span><span class="hljs-params">(name <span class="hljs-keyword">string</span>)</span> <span class="hljs-params">(*Location, error)</span></span><br></code></pre></td></tr></table></figure>
+<p><code>LoadLocation</code> 返回使用给定的名字创建的 <code>Location</code>。</p>
+<p>如果 <code>name</code> 是””或”UTC”，返回 <code>UTC</code>；如果 <code>name</code> 是”Local”，返回 <code>Local</code>；否则 <code>name</code> 应该是IANA时区数据库里有记录的地点名（该数据库记录了地点和对应的时区），如”America/New_York”。</p>
+<p><code>LoadLocation</code> 函数需要的时区数据库可能不是所有系统都提供，特别是非Unix系统。此时 <code>LoadLocation</code> 会查找环境变量 <code>ZONEINFO</code> 指定目录或解压该变量指定的zip文件（如果有该环境变量）；然后查找Unix系统的惯例时区数据安装位置，最后查找<code>$GOROOT/lib/time/zoneinfo.zip</code>。</p>
+<h2 id="func-FixedZone"><a href="#func-FixedZone" class="headerlink" title="func FixedZone"></a>func <strong>FixedZone</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">FixedZone</span><span class="hljs-params">(name <span class="hljs-keyword">string</span>, offset <span class="hljs-keyword">int</span>)</span> *<span class="hljs-title">Location</span></span><br></code></pre></td></tr></table></figure>
+<p><code>FixedZone</code> 使用给定的地点名 <code>name</code> 和时间偏移量 <code>offset</code>（单位秒）创建并返回一个<code>Location</code></p>
+<h2 id="func-Location-String"><a href="#func-Location-String" class="headerlink" title="func (*Location) String"></a>func <strong>(*Location) String</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(l *Location)</span> <span class="hljs-title">String</span><span class="hljs-params">()</span> <span class="hljs-title">string</span></span><br></code></pre></td></tr></table></figure>
+<p><code>String</code> 返回对时区信息的描述，返回值绑定为 <code>LoadLocation</code> 或 <code>FixedZone</code> 函数创建 <code>l</code> 时的 <code>name</code> 参数。</p>
+<h2 id="示例："><a href="#示例：" class="headerlink" title="示例："></a>示例：</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>  &#123;<br>	location, err := time.LoadLocation(<span class="hljs-string">&quot;Local&quot;</span>)<br>	fmt.Println(location.String(), err)<br><br>	fixed := time.FixedZone(<span class="hljs-string">&quot;ZH&quot;</span>, <span class="hljs-number">3600</span> * <span class="hljs-number">8</span>)<br>	fmt.Println(fixed.String())<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<pre><code>Local &lt;nil&gt;
+ZH
+</code></pre>
+<h1 id="type-Time"><a href="#type-Time" class="headerlink" title="type Time"></a>type Time</h1><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Time <span class="hljs-keyword">struct</span> &#123;<br>    wall <span class="hljs-keyword">uint64</span><br>    ext  <span class="hljs-keyword">int64</span><br>	loc *Location<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><code>Time</code> 代表一个纳秒精度的时间点。</p>
+<p>程序中应使用 <code>Time</code> 类型值来保存和传递时间，而不能用指针。就是说，表示时间的变量和字段，应为 <code>time.Time</code> 类型，而不是 <code>*time.Time.</code>类型。一个Time类型值可以被多个 go 程同时使用。时间点可以使用Before、After和Equal方法进行比较。<code>Sub</code> 方法让两个时间点相减，生成一个 <code>Duration</code> 类型值（代表时间段）。<code>Add</code> 方法给一个时间点加上一个时间段，生成一个新的 <code>Time</code> 类型时间点。</p>
+<p><code>Time</code> 零值代表时间点January 1, year 1, 00:00:00.000000000 UTC。因为本时间点一般不会出现在使用中，<code>IsZero</code> 方法提供了检验时间是否显式初始化的一个简单途径。</p>
+<p>每一个时间都具有一个地点信息（及对应地点的时区信息），当计算时间的表示格式时，如 <code>Format</code>、<code>Hour</code> 和 <code>Year</code> 等方法，都会考虑该信息。<code>Local</code>、<code>UTC</code> 和 <code>In</code> 方法返回一个指定时区（但指向同一时间点）的 <code>Time</code>。修改地点/时区信息只是会改变其表示；不会修改被表示的时间点，因此也不会影响其计算。</p>
+<h2 id="func-Date"><a href="#func-Date" class="headerlink" title="func Date"></a>func <strong>Date</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Date</span><span class="hljs-params">(year <span class="hljs-keyword">int</span>, month Month, day, hour, min, sec, nsec <span class="hljs-keyword">int</span>, loc *Location)</span> <span class="hljs-title">Time</span></span><br></code></pre></td></tr></table></figure>
+<p><code>Date</code> 返回一个时区为loc、当地时间为：</p>
+<pre><code>year-month-day hour:min:sec + nsec nanoseconds
+</code></pre>
+<p>的时间点。</p>
+<p>month、day、hour、min、sec和nsec的值可能会超出它们的正常范围，在转换前函数会自动将之规范化。如October 32被修正为November 1。</p>
+<p>夏时制的时区切换会跳过或重复时间。如，在美国，March 13, 2011 2:15am从来不会出现，而November 6, 2011 1:15am 会出现两次。此时，时区的选择和时间是没有良好定义的。Date会返回在时区切换的两个时区其中一个时区正确的时间，但本函数不会保证在哪一个时区正确。</p>
+<p>如果loc为nil会panic。</p>
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>  &#123;<br>	t := time.Date(<span class="hljs-number">2018</span>, time.November, <span class="hljs-number">15</span>, <span class="hljs-number">15</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, time.Local)<br>	fmt.Printf(<span class="hljs-string">&quot;Go launched at %s\n&quot;</span>, t.Local())<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<pre><code>Go launched at 2018-11-15 15:00:00 +0800 CST
+</code></pre>
+<h2 id="func-Now"><a href="#func-Now" class="headerlink" title="func Now"></a>func <strong>Now</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Now</span><span class="hljs-params">()</span> <span class="hljs-title">Time</span></span><br></code></pre></td></tr></table></figure>
+<p><code>Now</code> 返回当前本地时间。</p>
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>  &#123;<br>    fmt.Println(time.Now())<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<pre><code>2018-11-15 15:11:48.29489808 +0800 CST m=+0.000180466
+</code></pre>
+<h2 id="func-Parse"><a href="#func-Parse" class="headerlink" title="func Parse"></a>func <strong>Parse</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Parse</span><span class="hljs-params">(layout, value <span class="hljs-keyword">string</span>)</span> <span class="hljs-params">(Time, error)</span></span><br></code></pre></td></tr></table></figure>
+<p><code>Parse</code> 解析一个格式化的时间字符串并返回它代表的时间。layout定义了参考时间：</p>
+<pre><code>Mon Jan 2 15:04:05 -0700 MST 2006
+</code></pre>
+<p>在输入格式下的字符串表示，作为输入的格式的示例。同样的格式规则会被用于输入字符串。</p>
+<p>预定义的ANSIC、UnixDate、RFC3339和其他版式描述了参考时间的标准或便捷表示。要获得更多参考时间的定义和格式，参见本包的ANSIC和其他版式常量。</p>
+<p><code>value</code> 中漏掉的元素会被视为0；如果不能是0，会被视为1。因此，解析”3:04pm”会返回对应时间点：Jan 1, year 0, 15:04:00 UTC的Time（注意因为year为0，该时间在Time零值之前）。年份必须在0000..9999范围内。周几会被检查其语法，但是会被忽略。</p>
+<p>如果缺少表示时区的信息，<code>Parse</code> 会将时区设置为 <code>UTC</code>。</p>
+<p>当解析具有时区偏移量的时间字符串时，如果该时区偏移量和本地时区相同，<code>Parse</code>会在返回值中将 <code>Location</code> 设置为本地和本地时区。否则，它会将 <code>Location</code> 设置为一个虚构的具有该时区偏移量的值。</p>
+<p>当解析具有时区缩写的时间字符串时，如果该时区缩写具有已定义的时间偏移量，会使用该偏移量。如果时区缩写是”UTC”，会将该时间视为 <code>UTC</code> 时间，不考虑 <code>Location</code>。如果时区缩写是未知的，<code>Parse</code> 会将 <code>Location</code> 设置为一个虚构的地点为时区缩写，时间偏移量为0的值。这种做法是为了让一个时间可以在同一版式下不丢失信息的被解析和重新格式化；但字符串表示和具体表示的时间点会因为实际时区偏移量而不同。为了避免这些问题，请使用数字表示的时区偏移量，或者使用 <code>ParseInLocation</code> 函数。</p>
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>  &#123;<br>	<span class="hljs-comment">// longForm 通过示例展示了引用时间如何在期望的布局中表示。</span><br>	<span class="hljs-keyword">const</span> longForm = <span class="hljs-string">&quot;Jan 2, 2006 at 3:04pm (MST)&quot;</span><br>	t, _ := time.Parse(longForm, <span class="hljs-string">&quot;Feb 3, 2013 at 7:54pm (PST)&quot;</span>)<br>    fmt.Println(t)<br>    <br>	<span class="hljs-comment">// 短格式是另一种将参考时间表示在所需布局中的方式;它没有时区。</span><br>    <span class="hljs-comment">// 注意:没有显式区域，返回UTC时间。</span><br>	<span class="hljs-keyword">const</span> shortForm = <span class="hljs-string">&quot;2006-Jan-02&quot;</span><br>	t, _ = time.Parse(shortForm, <span class="hljs-string">&quot;2013-Feb-03&quot;</span>)<br>	fmt.Println(t)<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<pre><code>2013-02-03 19:54:00 +0000 PST
+2013-02-03 00:00:00 +0000 UTC
+</code></pre>
+<h2 id="func-ParseInLocation"><a href="#func-ParseInLocation" class="headerlink" title="func ParseInLocation"></a>func <strong>ParseInLocation</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">ParseInLocation</span><span class="hljs-params">(layout, value <span class="hljs-keyword">string</span>, loc *Location)</span> <span class="hljs-params">(Time, error)</span></span><br></code></pre></td></tr></table></figure>
+<p><code>ParseInLocation</code> 类似 <code>Parse</code> 但有两个重要的不同之处。第一，当缺少时区信息时，<code>Parse</code> 将时间解释为 <code>UTC</code> 时间，而 <code>ParseInLocation</code> 将返回值的 <code>Location</code> 设置为 <code>loc</code> ；第二，当时间字符串提供了时区偏移量信息时，<code>Parse</code> 会尝试去匹配本地时区，而 <code>ParseInLocation</code> 会去匹配 <code>loc</code>。<br>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>  &#123;<br>	loc, _ := time.LoadLocation(<span class="hljs-string">&quot;Europe/Berlin&quot;</span>)<br>	<span class="hljs-keyword">const</span> longForm = <span class="hljs-string">&quot;Jan 2, 2006 at 3:04pm (MST)&quot;</span><br>	t, _ := time.ParseInLocation(longForm, <span class="hljs-string">&quot;Jul 9, 2012 at 5:02am (CEST)&quot;</span>, loc)<br>	fmt.Println(t)<br>	<span class="hljs-comment">// 注意:没有显式区域，返回给定位置的时间。</span><br>	<span class="hljs-keyword">const</span> shortForm = <span class="hljs-string">&quot;2006-Jan-02&quot;</span><br>	t, _ = time.ParseInLocation(shortForm, <span class="hljs-string">&quot;2012-Jul-09&quot;</span>, loc)<br>	fmt.Println(t)<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<pre><code>2012-07-09 05:02:00 +0200 CEST
+2012-07-09 00:00:00 +0200 CEST
+</code></pre>
+<h2 id="func-Unix"><a href="#func-Unix" class="headerlink" title="func Unix"></a>func <strong>Unix</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Unix</span><span class="hljs-params">(sec <span class="hljs-keyword">int64</span>, nsec <span class="hljs-keyword">int64</span>)</span> <span class="hljs-title">Time</span></span><br></code></pre></td></tr></table></figure>
+<p><code>Unix</code> 创建一个本地时间，对应 <code>sec</code> 和 <code>nsec</code> 表示的Unix时间（从January 1, 1970 UTC至该时间的 <em>秒数</em> 和 <em>纳秒数</em>）。</p>
+<p>nsec的值在[0, 999999999]范围外是合法的。</p>
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>  &#123;<br>    now := time.Now()<br><br>	fmt.Println(now)<br>	fmt.Println(now.Unix())<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<pre><code>2018-11-15 15:43:14.481928482 +0800 CST m=+0.000165517
+1542267794
+</code></pre>
+<h2 id="func-Time-Zone"><a href="#func-Time-Zone" class="headerlink" title="func (Time) Zone"></a>func <strong>(Time) Zone</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(t Time)</span> <span class="hljs-title">Zone</span><span class="hljs-params">()</span> <span class="hljs-params">(name <span class="hljs-keyword">string</span>, offset <span class="hljs-keyword">int</span>)</span></span><br></code></pre></td></tr></table></figure>
+<p><code>Zone</code> 计算 <code>t</code> 所在的时区，返回该时区的规范名（如”CET”）和该时区相对于 <code>UTC</code> 的时间偏移量（单位秒）。</p>
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>  &#123;<br>    now := time.Now()<br><br>    fmt.Println(now)<br>	fmt.Println(now.Zone())<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<pre><code>2018-11-15 15:45:55.254153367 +0800 CST m=+0.000163920
+CST 28800
+</code></pre>
+<h2 id="func-Time-IsZero"><a href="#func-Time-IsZero" class="headerlink" title="func (Time) IsZero"></a>func <strong>(Time) IsZero</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(t Time)</span> <span class="hljs-title">IsZero</span><span class="hljs-params">()</span> <span class="hljs-title">bool</span></span><br></code></pre></td></tr></table></figure>
+<p><code>IsZero</code> 报告 <code>t</code> 是否代表 <code>Time</code> 零值的时间点，January 1, year 1, 00:00:00 UTC。</p>
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>  &#123;<br>    now := time.Now()<br><br>    fmt.Println(now)<br>	fmt.Println(now.IsZero())<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<pre><code>2018-11-15 15:55:24.159958577 +0800 CST m=+0.000204054
+false
+</code></pre>
+<h2 id="func-Time-Local"><a href="#func-Time-Local" class="headerlink" title="func (Time) Local"></a>func <strong>(Time) Local</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(t Time)</span> <span class="hljs-title">Local</span><span class="hljs-params">()</span> <span class="hljs-title">Time</span></span><br></code></pre></td></tr></table></figure>
+<p><code>Local</code> 返回采用本地和本地时区，但指向同一时间点的 <code>Time</code>。</p>
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>  &#123;<br>    now := time.Now()<br><br>	fmt.Println(now)<br>	fmt.Println(now.Local())<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<pre><code>2018-11-15 15:57:15.790800933 +0800 CST m=+0.000254212
+2018-11-15 15:57:15.790928159 +0800 CST
+</code></pre>
+<h2 id="func-Location"><a href="#func-Location" class="headerlink" title="func Location"></a>func <strong>Location</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(t Time)</span> <span class="hljs-title">Location</span><span class="hljs-params">()</span> *<span class="hljs-title">Location</span></span><br></code></pre></td></tr></table></figure>
+<p><code>Location</code> 返回 <code>t</code> 的地点和时区信息。</p>
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>  &#123;<br>    now := time.Now()<br><br>    fmt.Println(now)<br>	fmt.Println(now.Location())<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<pre><code>2018-11-15 15:45:55.254153367 +0800 CST m=+0.000163920
+Local
+</code></pre>
+<h2 id="func-Time-UTC"><a href="#func-Time-UTC" class="headerlink" title="func (Time) UTC"></a>func <strong>(Time) UTC</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(t Time)</span> <span class="hljs-title">UTC</span><span class="hljs-params">()</span> <span class="hljs-title">Time</span></span><br></code></pre></td></tr></table></figure>
+<p><code>UTC</code> 返回采用UTC和零时区，但指向同一时间点的Time。</p>
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>  &#123;<br>    now := time.Now()<br><br>    fmt.Println(now)<br>	fmt.Println(now.UTC())<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<pre><code>2018-11-15 16:08:18.626081249 +0800 CST m=+0.000231182
+2018-11-15 08:08:18.626081249 +0000 UTC
+</code></pre>
+<h2 id="unc-Time-In"><a href="#unc-Time-In" class="headerlink" title="unc (Time) In"></a>unc <strong>(Time) In</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(t Time)</span> <span class="hljs-title">In</span><span class="hljs-params">(loc *Location)</span> <span class="hljs-title">Time</span></span><br></code></pre></td></tr></table></figure>
+<p><code>In</code> 返回采用 <code>loc</code> 指定的地点和时区，但指向同一时间点的 <code>Time</code>。如果 <code>loc</code> 为 <code>nil</code> 会 <code>panic</code>。</p>
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>  &#123;<br>    now := time.Now()<br><br>    fmt.Println(now)<br>	fmt.Println(now.In(now.Location()))<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<pre><code>2018-11-15 16:14:25.710321361 +0800 CST m=+0.000169674
+2018-11-15 16:14:25.710321361 +0800 CST
+</code></pre>
+<h2 id="func-Time-Unix"><a href="#func-Time-Unix" class="headerlink" title="func (Time) Unix"></a>func <strong>(Time) Unix</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(t Time)</span> <span class="hljs-title">Unix</span><span class="hljs-params">()</span> <span class="hljs-title">int64</span></span><br></code></pre></td></tr></table></figure>
+<p><code>Unix</code> 将 <code>t</code> 表示为Unix时间，即从时间点January 1, 1970 UTC到时间点t所经过的时间（单位秒）。</p>
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>  &#123;<br>    now := time.Now()<br><br>    fmt.Println(now)<br>	fmt.Println(now.Unix())<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<pre><code>2018-11-15 16:28:08.284601879 +0800 CST m=+0.000149523
+1542270488
+</code></pre>
+<h2 id="func-Time-UnixNano"><a href="#func-Time-UnixNano" class="headerlink" title="func (Time) UnixNano"></a>func <strong>(Time) UnixNano</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(t Time)</span> <span class="hljs-title">UnixNano</span><span class="hljs-params">()</span> <span class="hljs-title">int64</span></span><br></code></pre></td></tr></table></figure>
+<p><code>UnixNano</code> 将 <code>t</code> 表示为Unix时间，即从时间点January 1, 1970 UTC到时间点 <code>t</code> 所经过的时间（单位 <em>纳秒</em>）。如果纳秒为单位的 <code>unix</code> 时间超出了 <code>int64</code> 能表示的范围，结果是未定义的。注意这就意味着 <code>Time</code> 零值调用 <code>UnixNano</code> 方法的话，结果是未定义的。</p>
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>  &#123;<br>    now := time.Now()<br><br>    fmt.Println(now)<br>	fmt.Println(now.UnixNano())<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<pre><code>2018-11-15 16:47:12.069698257 +0800 CST m=+0.000168169
+1542271632069698257
+</code></pre>
+<h2 id="func-Time-Equal"><a href="#func-Time-Equal" class="headerlink" title="func (Time) Equal"></a>func <strong>(Time) Equal</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(t Time)</span> <span class="hljs-title">Equal</span><span class="hljs-params">(u Time)</span> <span class="hljs-title">bool</span></span><br></code></pre></td></tr></table></figure>
+<p>判断两个时间是否相同，会考虑时区的影响，因此不同时区标准的时间也可以正确比较。本方法和用t==u不同，这种方法还会比较地点和时区信息。</p>
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>  &#123;<br>    now := time.Now()<br><br>    fmt.Println(now)<br>	fmt.Println(now.Equal(time.Now()))<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<pre><code>2018-11-15 16:50:00.212637423 +0800 CST m=+0.000195819
+false
+</code></pre>
+<h2 id="func-Time-Before"><a href="#func-Time-Before" class="headerlink" title="func (Time) Before"></a>func <strong>(Time) Before</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(t Time)</span> <span class="hljs-title">Before</span><span class="hljs-params">(u Time)</span> <span class="hljs-title">bool</span></span><br></code></pre></td></tr></table></figure>
+<p>如果 <code>t</code> 代表的时间点在 <code>u</code> 之前，返回真；否则返回假。</p>
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>  &#123;<br>    now := time.Now()<br><br>    fmt.Println(now)<br>	fmt.Println(now.Before(time.Now()))<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<pre><code>2018-11-16 13:33:34.139887944 +0800 CST m=+0.000173372
+true
+</code></pre>
+<h2 id="func-Time-After"><a href="#func-Time-After" class="headerlink" title="func (Time) After"></a>func <strong>(Time) After</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(t Time)</span> <span class="hljs-title">After</span><span class="hljs-params">(u Time)</span> <span class="hljs-title">bool</span></span><br></code></pre></td></tr></table></figure>
+<p>如果 <code>t</code> 代表的时间点在 <code>u</code> 之后，返回真；否则返回假。</p>
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>  &#123;<br>    now := time.Now()<br><br>    fmt.Println(now)<br>	fmt.Println(now.After(time.Now()))<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<pre><code>2018-11-16 13:34:33.919810923 +0800 CST m=+0.000241874
+false
+</code></pre>
+<h2 id="func-Time-Date"><a href="#func-Time-Date" class="headerlink" title="func (Time) Date"></a>func <strong>(Time) Date</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(t Time)</span> <span class="hljs-title">Date</span><span class="hljs-params">()</span> <span class="hljs-params">(year <span class="hljs-keyword">int</span>, month Month, day <span class="hljs-keyword">int</span>)</span></span><br></code></pre></td></tr></table></figure>
+<p>返回时间点 <code>t</code> 对应的年、月、日。</p>
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>  &#123;<br>    now := time.Now()<br><br>    fmt.Println(now)<br>	fmt.Println(now.Date())<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<pre><code>2018-11-16 13:37:03.060141712 +0800 CST m=+0.002025614
+2018 November 16
+</code></pre>
+<h2 id="func-Time-Clock"><a href="#func-Time-Clock" class="headerlink" title="func (Time) Clock"></a>func <strong>(Time) Clock</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(t Time)</span> <span class="hljs-title">Clock</span><span class="hljs-params">()</span> <span class="hljs-params">(hour, min, sec <span class="hljs-keyword">int</span>)</span></span><br></code></pre></td></tr></table></figure>
+<p>返回 <code>t</code> 对应的那一天的时、分、秒。</p>
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>  &#123;<br>    now := time.Now()<br><br>    fmt.Println(now)<br>	fmt.Println(now.Date())<br>	fmt.Println(now.Clock())<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<pre><code>2018-11-16 13:39:08.904053286 +0800 CST m=+0.000157283
+2018 November 16
+13 39 8
+</code></pre>
+<h2 id="func-Time-Year"><a href="#func-Time-Year" class="headerlink" title="func (Time) Year"></a>func <strong>(Time) Year</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(t Time)</span> <span class="hljs-title">Year</span><span class="hljs-params">()</span> <span class="hljs-title">int</span></span><br></code></pre></td></tr></table></figure>
+<p>返回时间点 <code>t</code> 对应的年份。</p>
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>  &#123;<br>    now := time.Now()<br><br>    fmt.Println(now)<br>	fmt.Println(now.Year())<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<pre><code>2018-11-16 13:39:08.904053286 +0800 CST m=+0.000157283
+2018
+</code></pre>
+<h2 id="func-Time-Month"><a href="#func-Time-Month" class="headerlink" title="func (Time) Month"></a>func <strong>(Time) Month</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(t Time)</span> <span class="hljs-title">Month</span><span class="hljs-params">()</span> <span class="hljs-title">Month</span></span><br></code></pre></td></tr></table></figure>
+<p>返回时间点 <code>t</code> 对应那一年的第几月。</p>
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>  &#123;<br>    now := time.Now()<br><br>    fmt.Println(now)<br>	fmt.Println(now.Month())<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<p>2018-11-16 13:43:04.629329432 +0800 CST m=+0.000132658<br>November</p>
+<h2 id="func-Time-ISOWeek"><a href="#func-Time-ISOWeek" class="headerlink" title="func (Time) ISOWeek"></a>func <strong>(Time) ISOWeek</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(t Time)</span> <span class="hljs-title">ISOWeek</span><span class="hljs-params">()</span> <span class="hljs-params">(year, week <span class="hljs-keyword">int</span>)</span></span><br></code></pre></td></tr></table></figure>
+<p>返回时间点 <code>t</code> 对应的 <code>ISO 9601</code> 标准下的年份和星期编号。星期编号范围[1,53]，1月1号到1月3号可能属于上一年的最后一周，12月29号到12月31号可能属于下一年的第一周。</p>
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>  &#123;<br>    now := time.Now()<br><br>    fmt.Println(now)<br>	fmt.Println(now.ISOWeek())<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<pre><code>2018-11-16 13:45:21.793130986 +0800 CST m=+0.000151798
+2018 46     // 2018年第46个星期
+</code></pre>
+<h2 id="func-Time-YearDay"><a href="#func-Time-YearDay" class="headerlink" title="func (Time) YearDay"></a>func <strong>(Time) YearDay</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(t Time)</span> <span class="hljs-title">YearDay</span><span class="hljs-params">()</span> <span class="hljs-title">int</span></span><br></code></pre></td></tr></table></figure>
+<p>返回时间点 <code>t</code> 对应的那一年的<em>第几天</em>，平年的返回值范围[1,365]，闰年[1,366]。</p>
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>  &#123;<br>    now := time.Now()<br><br>    fmt.Println(now)<br>	fmt.Println(now.YearDay())<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<pre><code>2018-11-16 13:49:50.793130986 +0800 CST m=+0.000151798
+320
+</code></pre>
+<h2 id="func-Time-Day"><a href="#func-Time-Day" class="headerlink" title="func (Time) Day"></a>func <strong>(Time) Day</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(t Time)</span> <span class="hljs-title">Day</span><span class="hljs-params">()</span> <span class="hljs-title">int</span></span><br></code></pre></td></tr></table></figure>
+<p>返回时间点 <code>t</code> 对应那一月的第几日。</p>
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>  &#123;<br>    now := time.Now()<br><br>    fmt.Println(now)<br>	fmt.Println(now.Day())<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<pre><code>2018-11-16 13:50:11.793130986 +0800 CST m=+0.000151798
+16
+</code></pre>
+<h2 id="func-Time-Weekday"><a href="#func-Time-Weekday" class="headerlink" title="func (Time) Weekday"></a>func <strong>(Time) Weekday</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(t Time)</span> <span class="hljs-title">Weekday</span><span class="hljs-params">()</span> <span class="hljs-title">Weekday</span></span><br></code></pre></td></tr></table></figure>
+<p>返回时间点 <code>t</code> 对应的那一周的周几。</p>
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>  &#123;<br>    now := time.Now()<br><br>    fmt.Println(now)<br>	fmt.Println(now.Weekday())<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<pre><code>2018-11-16 13:51:23.793130986 +0800 CST m=+0.000151798
+Friday
+</code></pre>
+<h2 id="func-Time-Hour"><a href="#func-Time-Hour" class="headerlink" title="func (Time) Hour"></a>func <strong>(Time) Hour</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(t Time)</span> <span class="hljs-title">Hour</span><span class="hljs-params">()</span> <span class="hljs-title">int</span></span><br></code></pre></td></tr></table></figure>
+<p>返回 <code>t</code> 对应的那一天的第几小时，范围[0, 23]。</p>
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>  &#123;<br>    now := time.Now()<br><br>    fmt.Println(now)<br>	fmt.Println(now.Hour())<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<pre><code>2018-11-16 13:52:00.793130986 +0800 CST m=+0.000151798
+13
+</code></pre>
+<h2 id="func-Time-Minute"><a href="#func-Time-Minute" class="headerlink" title="func (Time) Minute"></a>func <strong>(Time) Minute</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(t Time)</span> <span class="hljs-title">Minute</span><span class="hljs-params">()</span> <span class="hljs-title">int</span></span><br></code></pre></td></tr></table></figure>
+<p>返回 <code>t</code> 对应的那一小时的第几分种，范围[0, 59]。</p>
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>  &#123;<br>    now := time.Now()<br><br>    fmt.Println(now)<br>	fmt.Println(now.Minute())<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<pre><code>2018-11-16 13:53:25.793130986 +0800 CST m=+0.000151798
+53
+</code></pre>
+<h2 id="func-Time-Second"><a href="#func-Time-Second" class="headerlink" title="func (Time) Second"></a>func <strong>(Time) Second</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(t Time)</span> <span class="hljs-title">Second</span><span class="hljs-params">()</span> <span class="hljs-title">int</span></span><br></code></pre></td></tr></table></figure>
+<p>返回 <code>t</code> 对应的那一分钟的第几秒，范围[0, 59]。</p>
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>  &#123;<br>    now := time.Now()<br><br>    fmt.Println(now)<br>	fmt.Println(now.Second())<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<pre><code>2018-11-16 13:54:50.793130986 +0800 CST m=+0.000151798
+50
+</code></pre>
+<h2 id="func-Time-Nanosecond"><a href="#func-Time-Nanosecond" class="headerlink" title="func (Time) Nanosecond"></a>func <strong>(Time) Nanosecond</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(t Time)</span> <span class="hljs-title">Nanosecond</span><span class="hljs-params">()</span> <span class="hljs-title">int</span></span><br></code></pre></td></tr></table></figure>
+<p>返回 <code>t</code> 对应的那一秒内的<em>纳秒偏移量</em>，范围[0, 999999999]。</p>
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>  &#123;<br>    now := time.Now()<br><br>    fmt.Println(now)<br>	fmt.Println(now.Nanosecond())<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<pre><code>2018-11-16 13:57:35.502361392 +0800 CST m=+0.001316926
+502361392
+</code></pre>
+<h2 id="func-Time-Add"><a href="#func-Time-Add" class="headerlink" title="func (Time) Add"></a>func <strong>(Time) Add</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(t Time)</span> <span class="hljs-title">Add</span><span class="hljs-params">(d Duration)</span> <span class="hljs-title">Time</span></span><br></code></pre></td></tr></table></figure>
+<p><code>Add</code> 返回时间点 <code>t+d</code>。</p>
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>  &#123;<br>    now := time.Now()<br><br>    fmt.Println(now)<br>	fmt.Println(now.Add(<span class="hljs-number">1e9</span>))   <span class="hljs-comment">// 纳秒</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<pre><code>2018-11-16 14:03:22.029219211 +0800 CST m=+0.000157850
+2018-11-16 14:03:23.029219211 +0800 CST m=+1.000157850
+</code></pre>
+<h2 id="func-Time-AddDate"><a href="#func-Time-AddDate" class="headerlink" title="func (Time) AddDate"></a>func <strong>(Time) AddDate</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(t Time)</span> <span class="hljs-title">AddDate</span><span class="hljs-params">(years <span class="hljs-keyword">int</span>, months <span class="hljs-keyword">int</span>, days <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">Time</span></span><br></code></pre></td></tr></table></figure>
+<p><code>AddDate</code> 返回增加了给出的年份、月份和天数的时间点 <code>Time</code>。例如，时间点January 1, 2011调用 <code>AddDate(-1, 2, 3)</code> 会返回March 4, 2010。</p>
+<p><code>AddDate</code> 会将结果规范化，类似 <code>Date</code> 函数的做法。因此，举个例子，给时间点October 31添加一个月，会生成时间点December 1。（从时间点November 31规范化而来）</p>
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>  &#123;<br>    now := time.Now()<br><br>    fmt.Println(now)<br>	fmt.Println(now.AddDate(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>))<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<pre><code>2018-11-16 14:07:25.009463355 +0800 CST m=+0.000165232
+2019-12-17 14:07:25.009463355 +0800 CST
+</code></pre>
+<h2 id="func-Time-Sub"><a href="#func-Time-Sub" class="headerlink" title="func (Time) Sub"></a>func <strong>(Time) Sub</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(t Time)</span> <span class="hljs-title">Sub</span><span class="hljs-params">(u Time)</span> <span class="hljs-title">Duration</span></span><br></code></pre></td></tr></table></figure>
+<p>返回一个时间段 <code>t-u</code>。如果结果超出了 <code>Duration</code> 可以表示的最大值/最小值，将返回最大值/最小值。要获取时间点 <code>t-d</code>（d为Duration），可以使用t.Add(-d)。</p>
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>  &#123;<br>    now := time.Now()<br><br>	fmt.Println(now)<br>	fmt.Println(time.Now().Sub(now))<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<pre><code>2018-11-16 14:22:55.865289 +0800 CST m=+0.000171211
+65.876µs    // 微秒
+</code></pre>
+<h2 id="func-Time-Round"><a href="#func-Time-Round" class="headerlink" title="func (Time) Round"></a>func <strong>(Time) Round</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(t Time)</span> <span class="hljs-title">Round</span><span class="hljs-params">(d Duration)</span> <span class="hljs-title">Time</span></span><br></code></pre></td></tr></table></figure>
+<p>返回距离 <code>t</code> 最近的时间点，该时间点应该满足从 <code>Time</code> 零值到该时间点的时间段能整除 <code>d</code>；如果有两个满足要求的时间点，距离 <code>t</code> 相同，会向上舍入；如果 <code>d &lt;= 0</code>，会返回 <code>t</code> 的拷贝。</p>
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>  &#123;<br>	t := time.Date(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">12</span>, <span class="hljs-number">15</span>, <span class="hljs-number">30</span>, <span class="hljs-number">918273645</span>, time.UTC)<br>	round := []time.Duration&#123;<br>		time.Nanosecond,<br>		time.Microsecond,<br>		time.Millisecond,<br>		time.Second,<br>		<span class="hljs-number">2</span> * time.Second,<br>		time.Minute,<br>		<span class="hljs-number">10</span> * time.Minute,<br>		time.Hour,<br>	&#125;<br>	<span class="hljs-keyword">for</span> _, d := <span class="hljs-keyword">range</span> round &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;t.Round(%6s) = %s\n&quot;</span>, d, t.Round(d).Format(<span class="hljs-string">&quot;15:04:05.999999999&quot;</span>))<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<pre><code>t.Round(   1ns) = 12:15:30.918273645
+t.Round(   1µs) = 12:15:30.918274
+t.Round(   1ms) = 12:15:30.918
+t.Round(    1s) = 12:15:31
+t.Round(    2s) = 12:15:30
+t.Round(  1m0s) = 12:16:00
+t.Round( 10m0s) = 12:20:00
+t.Round(1h0m0s) = 12:00:00
+</code></pre>
+<h2 id="func-Time-Truncate"><a href="#func-Time-Truncate" class="headerlink" title="func (Time) Truncate"></a>func <strong>(Time) Truncate</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(t Time)</span> <span class="hljs-title">Truncate</span><span class="hljs-params">(d Duration)</span> <span class="hljs-title">Time</span></span><br></code></pre></td></tr></table></figure>
+<p>类似 <code>Round</code>，但是返回的是最接近但早于 <code>t</code> 的时间点；如果 <code>d &lt;= 0</code>，会返回t的拷贝。</p>
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>  &#123;<br>   t, _ := time.Parse(<span class="hljs-string">&quot;2006 Jan 02 15:04:05&quot;</span>, <span class="hljs-string">&quot;2012 Dec 07 12:15:30.918273645&quot;</span>)<br>    trunc := []time.Duration&#123;<br>        time.Nanosecond,<br>        time.Microsecond,<br>        time.Millisecond,<br>        time.Second,<br>        <span class="hljs-number">2</span> * time.Second,<br>        time.Minute,<br>        <span class="hljs-number">10</span> * time.Minute,<br>        time.Hour,<br>    &#125;<br>    <span class="hljs-keyword">for</span> _, d := <span class="hljs-keyword">range</span> trunc &#123;<br>        fmt.Printf(<span class="hljs-string">&quot;t.Truncate(%6s) = %s\n&quot;</span>, d, t.Truncate(d).Format(<span class="hljs-string">&quot;15:04:05.999999999&quot;</span>))<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<pre><code>t.Truncate(   1ns) = 12:15:30.918273645
+t.Truncate(   1us) = 12:15:30.918273
+t.Truncate(   1ms) = 12:15:30.918
+t.Truncate(    1s) = 12:15:30
+t.Truncate(    2s) = 12:15:30
+t.Truncate(  1m0s) = 12:15:00
+t.Truncate( 10m0s) = 12:10:00
+t.Truncate(1h0m0s) = 12:00:00
+</code></pre>
+<h2 id="func-Time-Format"><a href="#func-Time-Format" class="headerlink" title="func (Time) Format"></a>func <strong>(Time) Format</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(t Time)</span> <span class="hljs-title">Format</span><span class="hljs-params">(layout <span class="hljs-keyword">string</span>)</span> <span class="hljs-title">string</span></span><br></code></pre></td></tr></table></figure>
+<p><code>Format</code> 根据 <code>layout</code> 指定的格式返回 <code>t</code> 代表的时间点的格式化文本表示。<code>layout</code> 定义了参考时间：</p>
+<pre><code>Mon Jan 2 15:04:05 -0700 MST 2006
+</code></pre>
+<p>格式化后的字符串表示，它作为期望输出的例子。同样的格式规则会被用于格式化时间。</p>
+<p>预定义的ANSIC、UnixDate、RFC3339和其他版式描述了参考时间的标准或便捷表示。要获得更多参考时间的定义和格式，参见本包的ANSIC和其他版式常量。</p>
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>  &#123;<br>    <span class="hljs-comment">// layout shows by example how the reference time should be represented.</span><br>	<span class="hljs-keyword">const</span> layout = <span class="hljs-string">&quot;Jan 2, 2006 at 3:04pm (MST)&quot;</span><br>	t := time.Date(<span class="hljs-number">2009</span>, time.November, <span class="hljs-number">10</span>, <span class="hljs-number">15</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, time.Local)<br>	fmt.Println(t.Format(layout))<br>    fmt.Println(t.UTC().Format(layout))<br>    <br>    fmt.Println(time.Now().Format(<span class="hljs-string">&quot;2006-01-02 15:04:05&quot;</span>)) <span class="hljs-comment">// 2006-01-02 15:04:05</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<pre><code>Nov 10, 2009 at 3:00pm (CST)
+Nov 10, 2009 at 7:00am (UTC)
+2018-11-16 14:40:17
+</code></pre>
+<h2 id="func-Time-String"><a href="#func-Time-String" class="headerlink" title="func (Time) String"></a>func <strong>(Time) String</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(t Time)</span> <span class="hljs-title">String</span><span class="hljs-params">()</span> <span class="hljs-title">string</span></span><br></code></pre></td></tr></table></figure>
+<p><code>String</code> 返回采用如下格式字符串的格式化时间。</p>
+<pre><code>&quot;2006-01-02 15:04:05.999999999 -0700 MST&quot;
+</code></pre>
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>  &#123;<br>    now := time.Now()<br><br>    fmt.Println(now)<br>	fmt.Println(now.String())<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<pre><code>2018-11-16 14:50:11.257346871 +0800 CST m=+0.000177186
+2018-11-16 14:50:11.257346871 +0800 CST m=+0.000247204
+</code></pre>
+<h2 id="func-Time-GobEncode"><a href="#func-Time-GobEncode" class="headerlink" title="func (Time) GobEncode"></a>func <strong>(Time) GobEncode</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(t Time)</span> <span class="hljs-title">GobEncode</span><span class="hljs-params">()</span> <span class="hljs-params">([]<span class="hljs-keyword">byte</span>, error)</span></span><br></code></pre></td></tr></table></figure>
+<p><code>GobEncode</code> 实现了 <code>gob.GobEncoder</code> 接口。</p>
+<h2 id="func-Time-GobDecode"><a href="#func-Time-GobDecode" class="headerlink" title="func (Time) GobDecode"></a>func <strong>(Time) GobDecode</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(t *Time)</span> <span class="hljs-title">GobDecode</span><span class="hljs-params">(data []<span class="hljs-keyword">byte</span>)</span> <span class="hljs-title">error</span></span><br></code></pre></td></tr></table></figure>
+<p><code>GobDecode</code> 实现了 <code>gob.GobDecoder</code> 接口。</p>
+<h2 id="func-Time-MarshalBinary"><a href="#func-Time-MarshalBinary" class="headerlink" title="func (Time) MarshalBinary"></a>func <strong>(Time) MarshalBinary</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(t Time)</span> <span class="hljs-title">MarshalBinary</span><span class="hljs-params">()</span> <span class="hljs-params">([]<span class="hljs-keyword">byte</span>, error)</span></span><br></code></pre></td></tr></table></figure>
+<p><code>MarshalBinary</code> 实现了 <code>encoding.BinaryMarshaler</code> 接口。</p>
+<h2 id="func-Time-UnmarshalBinary"><a href="#func-Time-UnmarshalBinary" class="headerlink" title="func (Time) UnmarshalBinary"></a>func <strong>(Time) UnmarshalBinary</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(t *Time)</span> <span class="hljs-title">UnmarshalBinary</span><span class="hljs-params">(data []<span class="hljs-keyword">byte</span>)</span> <span class="hljs-title">error</span></span><br></code></pre></td></tr></table></figure>
+<p><code>UnmarshalBinary</code> 实现了 <code>encoding.BinaryUnmarshaler</code> 接口。</p>
+<h2 id="func-Time-MarshalJSON"><a href="#func-Time-MarshalJSON" class="headerlink" title="func (Time) MarshalJSON"></a>func <strong>(Time) MarshalJSON</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(t Time)</span> <span class="hljs-title">MarshalJSON</span><span class="hljs-params">()</span> <span class="hljs-params">([]<span class="hljs-keyword">byte</span>, error)</span></span><br></code></pre></td></tr></table></figure>
+<p><code>MarshalJSON</code> 实现了 <code>json.Marshaler</code> 接口。返回值是用双引号括起来的采用RFC 3339格式进行格式化的时间表示，如果需要会提供小于秒的精度。</p>
+<h2 id="func-Time-UnmarshalJSON"><a href="#func-Time-UnmarshalJSON" class="headerlink" title="func (Time) UnmarshalJSON"></a>func <strong>(Time) UnmarshalJSON</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(t *Time)</span> <span class="hljs-title">UnmarshalJSON</span><span class="hljs-params">(data []<span class="hljs-keyword">byte</span>)</span> <span class="hljs-params">(err error)</span></span><br></code></pre></td></tr></table></figure>
+<p><code>UnmarshalJSON</code> 实现了 <code>json.Unmarshaler</code> 接口。时间被期望是双引号括起来的RFC 3339格式。</p>
+<h2 id="func-Time-MarshalText"><a href="#func-Time-MarshalText" class="headerlink" title="func (Time) MarshalText"></a>func <strong>(Time) MarshalText</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(t Time)</span> <span class="hljs-title">MarshalText</span><span class="hljs-params">()</span> <span class="hljs-params">([]<span class="hljs-keyword">byte</span>, error)</span></span><br></code></pre></td></tr></table></figure>
+<p><code>MarshalText</code> 实现了 <code>encoding.TextMarshaler</code> 接口。返回值是采用RFC 3339格式进行格式化的时间表示，如果需要会提供小于秒的精度。</p>
+<h2 id="func-Time-UnmarshalText"><a href="#func-Time-UnmarshalText" class="headerlink" title="func (Time) UnmarshalText"></a>func <strong>(Time) UnmarshalText</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(t *Time)</span> <span class="hljs-title">UnmarshalText</span><span class="hljs-params">(data []<span class="hljs-keyword">byte</span>)</span> <span class="hljs-params">(err error)</span></span><br></code></pre></td></tr></table></figure>
+<p><code>UnmarshalText</code> 实现了 <code>encoding.TextUnmarshaler</code> 接口。时间被期望采用RFC 3339格式。</p>
+<h1 id="type-Duration"><a href="#type-Duration" class="headerlink" title="type Duration"></a>type <strong>Duration</strong></h1><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Duration <span class="hljs-keyword">int64</span><br></code></pre></td></tr></table></figure>
+<p><code>Duration</code> 类型代表两个时间点之间经过的时间，以纳秒为单位。可表示的最长时间段大约290年。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">const</span> (<br>    Nanosecond  Duration = <span class="hljs-number">1</span><br>    Microsecond          = <span class="hljs-number">1000</span> * Nanosecond<br>    Millisecond          = <span class="hljs-number">1000</span> * Microsecond<br>    Second               = <span class="hljs-number">1000</span> * Millisecond<br>    Minute               = <span class="hljs-number">60</span> * Second<br>    Hour                 = <span class="hljs-number">60</span> * Minute<br>)<br></code></pre></td></tr></table></figure>
+<p>常用的时间段。没有定义一天或超过一天的单元，以避免夏时制的时区切换的混乱。</p>
+<p>要将 <code>Duration</code> 类型值表示为某时间单元的个数，用除法：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go">second := time.Second<br>fmt.Print(<span class="hljs-keyword">int64</span>(second/time.Millisecond)) <span class="hljs-comment">// prints 1000</span><br></code></pre></td></tr></table></figure>
+<p>要将整数个某时间单元表示为 <code>Duration</code> 类型值，用乘法：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go">seconds := <span class="hljs-number">10</span><br>fmt.Print(time.Duration(seconds)*time.Second) <span class="hljs-comment">// prints 10s</span><br></code></pre></td></tr></table></figure>
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go">t0 := time.Now()<br>expensiveCall()<br>t1 := time.Now()<br>fmt.Printf(<span class="hljs-string">&quot;The call took %v to run.\n&quot;</span>, t1.Sub(t0))<br></code></pre></td></tr></table></figure>
+
+<h2 id="func-ParseDuration"><a href="#func-ParseDuration" class="headerlink" title="func ParseDuration"></a>func <strong>ParseDuration</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">ParseDuration</span><span class="hljs-params">(s <span class="hljs-keyword">string</span>)</span> <span class="hljs-params">(Duration, error)</span></span><br></code></pre></td></tr></table></figure>
+<p><code>ParseDuration</code> 解析一个时间段字符串。一个时间段字符串是一个序列，每个片段包含可选的正负号、十进制数、可选的小数部分和单位后缀，如”300ms”、”-1.5h”、”2h45m”。合法的单位有”ns”、”us” /“µs”、”ms”、”s”、”m”、”h”。</p>
+<h2 id="func-Since"><a href="#func-Since" class="headerlink" title="func Since"></a>func <strong>Since</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Since</span><span class="hljs-params">(t Time)</span> <span class="hljs-title">Duration</span></span><br></code></pre></td></tr></table></figure>
+<p><code>Since</code> 返回从 <code>t</code> 到现在经过的时间，等价于time.Now().Sub(t)。</p>
+<h2 id="func-Duration-Hours"><a href="#func-Duration-Hours" class="headerlink" title="func (Duration) Hours"></a>func <strong>(Duration) Hours</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(d Duration)</span> <span class="hljs-title">Hours</span><span class="hljs-params">()</span> <span class="hljs-title">float64</span></span><br></code></pre></td></tr></table></figure>
+<p><code>Hours</code> 将时间段表示为 <code>float64</code> 类型的小时数。</p>
+<h2 id="func-Duration-Minutes"><a href="#func-Duration-Minutes" class="headerlink" title="func (Duration) Minutes"></a>func <strong>(Duration) Minutes</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(d Duration)</span> <span class="hljs-title">Minutes</span><span class="hljs-params">()</span> <span class="hljs-title">float64</span></span><br></code></pre></td></tr></table></figure>
+<p><code>Minutes</code> 将时间段表示为 <code>float64</code> 类型的分钟数。</p>
+<h2 id="func-Duration-Seconds"><a href="#func-Duration-Seconds" class="headerlink" title="func (Duration) Seconds"></a>func <strong>(Duration) Seconds</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(d Duration)</span> <span class="hljs-title">Seconds</span><span class="hljs-params">()</span> <span class="hljs-title">float64</span></span><br></code></pre></td></tr></table></figure>
+<p><code>Seconds</code> 将时间段表示为 <code>float64</code> 类型的秒数。</p>
+<h2 id="func-Duration-Nanoseconds"><a href="#func-Duration-Nanoseconds" class="headerlink" title="func (Duration) Nanoseconds"></a>func <strong>(Duration) Nanoseconds</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(d Duration)</span> <span class="hljs-title">Nanoseconds</span><span class="hljs-params">()</span> <span class="hljs-title">int64</span></span><br></code></pre></td></tr></table></figure>
+<p><code>Nanoseconds</code> 将时间段表示为 <code>int64</code> 类型的纳秒数，等价于int64(d)。</p>
+<h2 id="func-Duration-String"><a href="#func-Duration-String" class="headerlink" title="func (Duration) String"></a>func <strong>(Duration) String</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(d Duration)</span> <span class="hljs-title">String</span><span class="hljs-params">()</span> <span class="hljs-title">string</span></span><br></code></pre></td></tr></table></figure>
+<p>返回时间段采用”72h3m0.5s”格式的字符串表示。最前面可以有符号，数字+单位为一个单元，开始部分的0值单元会被省略；如果时间段&lt;1s，会使用”ms”、”us”、”ns”来保证第一个单元的数字不是0；如果时间段为0，会返回”0”。</p>
+<h1 id="type-Timer"><a href="#type-Timer" class="headerlink" title="type Timer"></a>type <strong>Timer</strong></h1><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Timer <span class="hljs-keyword">struct</span> &#123;<br>    C &lt;-<span class="hljs-keyword">chan</span> Time<br>    <span class="hljs-comment">// 内含隐藏或非导出字段</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p><code>Timer</code> 类型代表单次时间事件。当 <code>Timer</code> 到期时，当时的时间会被发送给 <code>C</code>，除非 <code>Timer</code> 是被 <code>AfterFunc</code> 函数创建的。</p>
+<h2 id="func-NewTimer"><a href="#func-NewTimer" class="headerlink" title="func NewTimer"></a>func <strong>NewTimer</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">NewTimer</span><span class="hljs-params">(d Duration)</span> *<span class="hljs-title">Timer</span></span><br></code></pre></td></tr></table></figure>
+<p><code>NewTimer</code> 创建一个 <code>Timer</code>，它会在最少过去时间段 <code>d</code> 后到期，向其自身的 <code>C</code>字段发送当时的时间。</p>
+<h2 id="func-AfterFunc"><a href="#func-AfterFunc" class="headerlink" title="func AfterFunc"></a>func <strong>AfterFunc</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">AfterFunc</span><span class="hljs-params">(d Duration, f <span class="hljs-keyword">func</span>()</span>) *<span class="hljs-title">Timer</span></span><br></code></pre></td></tr></table></figure>
+<p><code>AfterFunc</code> 另起一个 <code>go</code> 进程等待时间段 <code>d</code> 过去，然后调用 <code>f</code>。它返回一个 <code>Timer</code>，可以通过调用其 <code>Stop</code> 方法来取消等待和对f的调用。</p>
+<h2 id="func-Timer-Reset"><a href="#func-Timer-Reset" class="headerlink" title="func (*Timer) Reset"></a>func <strong>(*Timer) Reset</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(t *Timer)</span> <span class="hljs-title">Reset</span><span class="hljs-params">(d Duration)</span> <span class="hljs-title">bool</span></span><br></code></pre></td></tr></table></figure>
+<p><code>Reset</code> 使 <code>t</code> 重新开始计时，（本方法返回后再）等待时间段d过去后到期。如果调用时 <code>t</code> 还在等待中会返回真；如果 <code>t</code> 已经到期或者被停止了会返回假。</p>
+<h2 id="func-Timer-Stop"><a href="#func-Timer-Stop" class="headerlink" title="func (*Timer) Stop"></a>func <strong>(*Timer) Stop</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(t *Timer)</span> <span class="hljs-title">Stop</span><span class="hljs-params">()</span> <span class="hljs-title">bool</span></span><br></code></pre></td></tr></table></figure>
+<p><code>Stop</code> 停止 <code>Timer</code> 的执行。如果停止了 <code>t</code> 会返回真；如果 <code>t</code> 已经被停止或者过期了会返回假。<code>Stop</code> 不会关闭通道 <code>t.C</code>，以避免从该通道的读取不正确的成功。</p>
+<h1 id="type-Ticker"><a href="#type-Ticker" class="headerlink" title="type Ticker"></a>type <strong>Ticker</strong></h1><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Ticker <span class="hljs-keyword">struct</span> &#123;<br>    C &lt;-<span class="hljs-keyword">chan</span> Time <span class="hljs-comment">// 周期性传递时间信息的通道</span><br>    <span class="hljs-comment">// 内含隐藏或非导出字段</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p><code>Ticker</code> 保管一个通道，并每隔一段时间向其传递”tick”。</p>
+<h2 id="func-NewTicker"><a href="#func-NewTicker" class="headerlink" title="func NewTicker"></a>func <strong>NewTicker</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">NewTicker</span><span class="hljs-params">(d Duration)</span> *<span class="hljs-title">Ticker</span></span><br></code></pre></td></tr></table></figure>
+<p><code>NewTicker</code> 返回一个新的 <code>Ticker</code>，该 <code>Ticker</code> 包含一个通道字段，并会每隔时间段 <code>d</code> 就向该通道发送当时的时间。它会调整时间间隔或者丢弃 <code>tick</code> 信息以适应反应慢的接收者。如果d&lt;=0会panic。关闭该 <code>Ticker</code> 可以释放相关资源。</p>
+<h2 id="func-Ticker-Stop"><a href="#func-Ticker-Stop" class="headerlink" title="func (*Ticker) Stop"></a>func <strong>(*Ticker) Stop</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(t *Ticker)</span> <span class="hljs-title">Stop</span><span class="hljs-params">()</span></span><br></code></pre></td></tr></table></figure>
+<p><code>Stop</code> 关闭一个 <code>Ticker</code>。在关闭后，将不会发送更多的tick信息。<code>Stop</code> 不会关闭通道 <code>t.C</code>，以避免从该通道的读取不正确的成功。</p>
+<h2 id="func-Sleep"><a href="#func-Sleep" class="headerlink" title="func Sleep"></a>func <strong>Sleep</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Sleep</span><span class="hljs-params">(d Duration)</span></span><br></code></pre></td></tr></table></figure>
+<p><code>Sleep</code> 阻塞当前 <code>go</code> 进程至少 <code>d</code> 代表的时间段。d&lt;=0时，<code>Sleep</code> 会立刻返回。</p>
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>  &#123;<br>	<span class="hljs-comment">//t0 := time.Now()</span><br><br>	t1 := time.Now()<br>	fmt.Println(t1)<br><br>	time.Sleep(<span class="hljs-number">5</span> * <span class="hljs-number">1000</span> * time.Millisecond)<br><br>	fmt.Println(time.Now())<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<pre><code>2018-11-16 15:48:29.089446905 +0800 CST m=+0.000154708
+2018-11-16 15:48:34.089593643 +0800 CST m=+5.000301421  // 两次输出间隔 5 秒
+</code></pre>
+<h2 id="func-After"><a href="#func-After" class="headerlink" title="func After"></a>func <strong>After</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">After</span><span class="hljs-params">(d Duration)</span> &lt;-<span class="hljs-title">chan</span> <span class="hljs-title">Time</span></span><br></code></pre></td></tr></table></figure>
+<p><code>After</code> 会在另一线程经过时间段 <code>d</code> 后向返回值发送当时的时间。等价于NewTimer(d).C。</p>
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">select</span> &#123;<br><span class="hljs-keyword">case</span> m := &lt;-c:<br>    handle(m)<br><span class="hljs-keyword">case</span> &lt;-time.After(<span class="hljs-number">5</span> * time.Minute):<br>    fmt.Println(<span class="hljs-string">&quot;timed out&quot;</span>)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="func-Tick"><a href="#func-Tick" class="headerlink" title="func Tick"></a>func <strong>Tick</strong></h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Tick</span><span class="hljs-params">(d Duration)</span> &lt;-<span class="hljs-title">chan</span> <span class="hljs-title">Time</span></span><br></code></pre></td></tr></table></figure>
+<p><code>Tick</code> 是 <code>NewTicker</code> 的封装，只提供对 <code>Ticker</code> 的通道的访问。如果不需要关闭 <code>Ticker</code>，本函数就很方便。</p>
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go">c := time.Tick(<span class="hljs-number">1</span> * time.Minute)<br><span class="hljs-keyword">for</span> now := <span class="hljs-keyword">range</span> c &#123;<br>    fmt.Printf(<span class="hljs-string">&quot;%v %s\n&quot;</span>, now, statusUpdate())<br>&#125;<br></code></pre></td></tr></table></figure>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Golang/">Golang</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Golang/">Golang</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2018/11/21/golang/Golang-%E9%80%9A%E8%BF%87%E5%86%85%E5%AD%98%E7%BC%93%E5%AD%98%E6%9D%A5%E6%8F%90%E5%8D%87%E6%80%A7%E8%83%BD/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【转】Golang-通过内存缓存来提升性能</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2018/11/12/golang/Golang%E7%9A%84%E5%8D%95%E5%BC%95%E5%8F%B7%E3%80%81%E5%8F%8C%E5%BC%95%E5%8F%B7%E4%B8%8E%E5%8F%8D%E5%BC%95%E5%8F%B7/">
+                        <span class="hidden-mobile">【转】Golang的单引号、双引号与反引号</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

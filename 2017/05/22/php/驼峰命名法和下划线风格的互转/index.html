@@ -1,0 +1,503 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="php方法实现1、驼峰命名法转下划线风格  123456789101112131415161718&#x2F;&#x2F;驼峰命名法转下划线风格  function camelToUnderLine($str)&amp;#123;        $array &#x3D; array();    for($i&#x3D;0;$i&lt;strlen($str);$i++)&amp;#123;        if($str[$i] &#x3D;&#x3D; strtolow">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【转】驼峰命名法和下划线风格的互转">
+<meta property="og:url" content="http://example.com/2017/05/22/php/%E9%A9%BC%E5%B3%B0%E5%91%BD%E5%90%8D%E6%B3%95%E5%92%8C%E4%B8%8B%E5%88%92%E7%BA%BF%E9%A3%8E%E6%A0%BC%E7%9A%84%E4%BA%92%E8%BD%AC/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="php方法实现1、驼峰命名法转下划线风格  123456789101112131415161718&#x2F;&#x2F;驼峰命名法转下划线风格  function camelToUnderLine($str)&amp;#123;        $array &#x3D; array();    for($i&#x3D;0;$i&lt;strlen($str);$i++)&amp;#123;        if($str[$i] &#x3D;&#x3D; strtolow">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/regular/single_character.jpg">
+<meta property="og:image" content="http://example.com/images/regular/character_array.jpg">
+<meta property="og:image" content="http://example.com/images/regular/quantifier.jpg">
+<meta property="og:image" content="http://example.com/images/regular/grouping.jpg">
+<meta property="og:image" content="http://example.com/images/regular/boundary_ring.jpg">
+<meta property="article:published_time" content="2017-05-22T08:05:11.000Z">
+<meta property="article:modified_time" content="2022-02-10T03:12:53.758Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="面试">
+<meta property="article:tag" content="PHP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/images/regular/single_character.jpg">
+  
+  
+  <title>【转】驼峰命名法和下划线风格的互转 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.13","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>LZDF</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="【转】驼峰命名法和下划线风格的互转">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2017-05-22 16:05" pubdate>
+        2017年5月22日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.2k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      27 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">【转】驼峰命名法和下划线风格的互转</h1>
+            
+            <div class="markdown-body">
+              <h1 id="php方法实现"><a href="#php方法实现" class="headerlink" title="php方法实现"></a>php方法实现</h1><p>1、驼峰命名法转下划线风格 </p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-comment">//驼峰命名法转下划线风格  </span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">camelToUnderLine</span>(<span class="hljs-params"><span class="hljs-variable">$str</span></span>)</span>&#123;  <br>    <br>  <span class="hljs-variable">$array</span> = <span class="hljs-keyword">array</span>();  <br>  <span class="hljs-keyword">for</span>(<span class="hljs-variable">$i</span>=<span class="hljs-number">0</span>;<span class="hljs-variable">$i</span>&lt;strlen(<span class="hljs-variable">$str</span>);<span class="hljs-variable">$i</span>++)&#123;  <br>      <span class="hljs-keyword">if</span>(<span class="hljs-variable">$str</span>[<span class="hljs-variable">$i</span>] == strtolower(<span class="hljs-variable">$str</span>[<span class="hljs-variable">$i</span>]))&#123;  <br>          <span class="hljs-variable">$array</span>[] = <span class="hljs-variable">$str</span>[<span class="hljs-variable">$i</span>];  <br>      &#125;<span class="hljs-keyword">else</span>&#123;  <br>          <span class="hljs-keyword">if</span>(<span class="hljs-variable">$i</span>&gt;<span class="hljs-number">0</span>)&#123;  <br>              <span class="hljs-variable">$array</span>[] = <span class="hljs-string">&#x27;_&#x27;</span>;  <br>          &#125;  <br>          <span class="hljs-variable">$array</span>[] = strtolower(<span class="hljs-variable">$str</span>[<span class="hljs-variable">$i</span>]);  <br>      &#125;  <br>  &#125;  <br>    <br>  <span class="hljs-variable">$result</span> = implode(<span class="hljs-string">&#x27;&#x27;</span>,<span class="hljs-variable">$array</span>);  <br>  <span class="hljs-keyword">return</span> <span class="hljs-variable">$result</span>;  <br>&#125;<br></code></pre></td></tr></table></figure>
+<p>测试：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">echo</span> camelToUnderLine(<span class="hljs-string">&#x27;camelToUnderLine&#x27;</span>);<br></code></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">string(19) <span class="hljs-string">&quot;camel_to_under_line&quot;</span> <br></code></pre></td></tr></table></figure>
+
+<p>2、下划线风格转驼峰命名法</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-comment">//下划线风格转驼峰命名法    </span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">underLineToCamel</span>(<span class="hljs-params"><span class="hljs-variable">$str</span></span>)</span>&#123;  <br>    <br>  <span class="hljs-variable">$array</span> = explode(<span class="hljs-string">&#x27;_&#x27;</span>, <span class="hljs-variable">$str</span>);  <br>  <span class="hljs-variable">$result</span> = <span class="hljs-string">&#x27;&#x27;</span>;  <br>  <span class="hljs-keyword">foreach</span>(<span class="hljs-variable">$array</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$value</span>)&#123;  <br>      <span class="hljs-variable">$result</span>.= ucfirst(<span class="hljs-variable">$value</span>);  <br>  &#125;  <br>    <br>  <span class="hljs-keyword">return</span> <span class="hljs-variable">$result</span>;  <br>&#125; <br></code></pre></td></tr></table></figure>
+<p>测试：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">echo</span> underLineToCamel(<span class="hljs-string">&#x27;under_line_to_camel&#x27;</span>);<br></code></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">string(16) <span class="hljs-string">&quot;UnderLineToCamel&quot;</span> <br></code></pre></td></tr></table></figure>
+
+<h1 id="正则方法实现"><a href="#正则方法实现" class="headerlink" title="正则方法实现"></a>正则方法实现</h1><p>1、如何在php中把驼峰样式的字符串转换成下划线样式的字符串。例：输入是FooBar的话，输出则是foo_bar。<br>以下是用正则的方式去完成，既然用到正则，方法肯定就不只一种，我们看下下面的方式</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">echo</span> strtolower(preg_replace(<span class="hljs-string">&#x27;/(?&lt;=[a-z])([A-Z])/&#x27;</span>, <span class="hljs-string">&#x27;_$1&#x27;</span>, <span class="hljs-string">&#x27;fooBar&#x27;</span>));<br><span class="hljs-comment">//output：foo_bar</span><br><span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;br&gt;&quot;</span>;<br><span class="hljs-keyword">echo</span> strtolower(preg_replace(<span class="hljs-string">&#x27;/(?&lt;=[a-z])([A-Z])/&#x27;</span>, <span class="hljs-string">&#x27;_$1&#x27;</span>, <span class="hljs-string">&#x27;foo&#x27;</span>));<br><span class="hljs-comment">//output：foo</span><br><span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;br&gt;&quot;</span>;<br><span class="hljs-keyword">echo</span> strtolower(preg_replace(<span class="hljs-string">&#x27;/(?&lt;=[a-z])([A-Z])/&#x27;</span>, <span class="hljs-string">&#x27;_$1&#x27;</span>, <span class="hljs-string">&#x27;fooBarB&#x27;</span>));<br><span class="hljs-comment">//output：foo_bar_b</span><br><span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;br&gt;&quot;</span>;<br></code></pre></td></tr></table></figure>
+
+<p>下面我们来解释下，上面正则的意思。具体正则的基本知识，这里篇幅有限就不具体介绍了，文章末尾会放出几篇写的比较好的正则表达式的文章。</p>
+<p>上面的正则里面主要用到了正则表达式中的<code>环视边界匹配</code>的语法。具体定义如下(摘抄)：</p>
+<p><code>环视的字面意思就是左右看看，需要左右符合一些条件，本质上，它也是匹配边界，对边界有一些要求，这个要求是针对左边或右边的字符串的，根据要求不同，分为四种环视：</code></p>
+<div class="bs-callout bs-callout-info">
+- 肯定顺序环视，语法是`(?=...)`，要求右边的字符串匹配指定的表达式，比如表达式abc(?=def)，(?=def)在字符c右面，即匹配c右面的边界，对这个边界的要求是，它的右边有def，比如abcdef，如果没有，比如abcd，则不匹配；
+
+<ul>
+<li><p>否定顺序环视，语法是<code>(?!...)</code>，要求右边的字符串不能匹配指定的表达式，比如表达式s(?!ing)，匹配一般的s，但不匹配后面有ing的s；</p>
+</li>
+<li><p>肯定逆序环视，语法是<code>(?&lt;=...)</code>，要求左边的字符串匹配指定的表达式，比如表达式(?&lt;=\s)abc，(?&lt;=\s)在字符a左边，即匹配a左边的边界，对这个边界的要求是，它的左边必须是空白字符；</p>
+</li>
+<li><p>否定逆序环视，语法是<code>(?&lt;!...)</code>，要求左边的字符串不能匹配指定的表达式，比如表达式(?&lt;!\w)cat，(?&lt;!\w)在字符c左边，即匹配c左边的边界，对这个边界的要求是，它的左边不能是单词字符。</p>
+</div></li>
+</ul>
+<p><code>可以看出，环视也使用括号()，不过，它不是分组，不占用分组编号。</code></p>
+<p>继续回到我们上面的正则表达式，第一个小括号<code>(?&lt;=[a-z])</code>，这是肯定逆序环视的语法，要求匹配的字符串的左边必须有小写的字母。第二个小括号则是一个分组，匹配大写的字母，注意正则中的分组编号是从1开始的，这和我们传统编程下标一般是从0开始不同。而第一个小括号本身就是语法，其不占用分组编号，所以后面的$1，则是匹配的第二个小括号中的内容，并将其前面添加一个_符号，最后再整体将整个字符串转换成小写。</p>
+<p>既然我们已经能把驼峰法转为下划线的样式了，如果反过来又该怎办呢？</p>
+<p>2、如何在php中把下划线样式的字符串转换成驼峰样式的字符串。例：输入是foo_bar的话，输出则是FooBar</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-variable">$str</span> = preg_replace_callback(<span class="hljs-string">&#x27;/_+([a-z])/&#x27;</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"><span class="hljs-variable">$matches</span></span>)</span>&#123;<br>    print_r(<span class="hljs-variable">$matches</span>);  <span class="hljs-comment">//Array ( [0] =&gt; _b [1] =&gt; b )</span><br>    <span class="hljs-keyword">return</span> strtoupper(<span class="hljs-variable">$matches</span>[<span class="hljs-number">1</span>]);<br>&#125;,<span class="hljs-string">&#x27;foo_bar&#x27;</span>);<br><span class="hljs-keyword">echo</span> <span class="hljs-variable">$str</span>;  <span class="hljs-comment">//fooBar</span><br><span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;br&gt;&quot;</span>;<br><span class="hljs-variable">$str</span> = preg_replace_callback(<span class="hljs-string">&#x27;/_+([a-z])/&#x27;</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"><span class="hljs-variable">$matches</span></span>)</span>&#123;<br>    <span class="hljs-keyword">return</span> strtoupper(<span class="hljs-variable">$matches</span>[<span class="hljs-number">1</span>]);<br>&#125;,<span class="hljs-string">&#x27;foo&#x27;</span>);<br><span class="hljs-keyword">echo</span> <span class="hljs-variable">$str</span>;  <span class="hljs-comment">//foo</span><br><span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;br&gt;&quot;</span>;<br><span class="hljs-variable">$str</span> = preg_replace_callback(<span class="hljs-string">&#x27;/_+([a-z])/&#x27;</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"><span class="hljs-variable">$matches</span></span>)</span>&#123;<br>    <span class="hljs-keyword">return</span> strtoupper(<span class="hljs-variable">$matches</span>[<span class="hljs-number">1</span>]);<br>&#125;,<span class="hljs-string">&#x27;foo_bar_b&#x27;</span>);<br><span class="hljs-keyword">echo</span> <span class="hljs-variable">$str</span>;  <span class="hljs-comment">//fooBarB</span><br><span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;br&gt;&quot;</span>;<br></code></pre></td></tr></table></figure>
+
+<p>这里我们用到了<code>preg_replace_callback</code>函数，该函数执行一个正则表达式搜索并且使用一个回调进行替换。换言之，就是第一个参数是正则表达式，第二个参数是一个匹配到结果的回调函数，第三个参数是需要匹配的字符串。</p>
+<p class="note">
+注意，回调函数具体什么时候调用，是每次匹配到结果则调用，调用次数不只为一次，匹配不到则不调用。并且该回调函数的参数是匹配的结果，$matches[0]是完整的匹配，$matches[1]是第一个捕获子组的匹配，以此类推。且回调函数需要把更改的结果return出去，不然则忽略捕获的字符串。
+</p>
+
+
+<h1 id="正则速查表"><a href="#正则速查表" class="headerlink" title="正则速查表"></a>正则速查表</h1><p>下面，我们用表格的形式简要汇总下正则表达式的语法。<br><img width="611" height="270" src="/images/regular/single_character.jpg" srcset="/img/loading.gif" lazyload /><br><img width="607" height="672" src="/images/regular/character_array.jpg" srcset="/img/loading.gif" lazyload /><br><img width="604" height="316" src="/images/regular/quantifier.jpg" srcset="/img/loading.gif" lazyload /><br><img width="609" height="408" src="/images/regular/grouping.jpg" srcset="/img/loading.gif" lazyload /><br><img width="606" height="627" src="/images/regular/boundary_ring.jpg" srcset="/img/loading.gif" lazyload /></p>
+<p>下面是几篇比较值得学习的正则表达式的文章，本文部分参考也来源于此。</p>
+<p><a target="_blank" rel="noopener" href="https://deerchao.net/tutorials/regex/regex-1.htm">正则表达式30分钟入门教程</a><br><a target="_blank" rel="noopener" href="http://www.cnblogs.com/swiftma/p/6947316.html">计算机程序的思维逻辑 (88) - 正则表达式 (上)</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.cnblogs.com/kangjianrong/p/7065079.html">本文转载：php 把驼峰样式的字符串转换成下划线样式的字符串</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/PHP/">PHP</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E9%9D%A2%E8%AF%95/">面试</a>
+                    
+                      <a class="hover-with-bg" href="/tags/PHP/">PHP</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2017/09/23/%E7%BA%BF%E4%B8%8A%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BAGIT%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%8C%E5%AE%9E%E7%8E%B0%E6%9C%AC%E5%9C%B0%E4%BB%A3%E7%A0%81%E4%B8%8A%E4%BC%A0%E5%B9%B6%E5%90%8C%E6%AD%A5%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">线上服务器搭建GIT服务器，实现本地代码上传并同步到服务器</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2017/05/08/php/webuploder+PHP%E5%AE%9E%E7%8E%B0%E5%A4%A7%E6%96%87%E4%BB%B6%E6%96%AD%E7%82%B9%EF%BC%88%E5%88%87%E7%89%87%EF%BC%89%E7%BB%AD%E4%BC%A0/">
+                        <span class="hidden-mobile">webuploder+PHP实现大文件断点（切片）续传</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
